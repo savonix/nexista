@@ -1,0 +1,2 @@
+These handlers are used to handle each tag in the sitemap.
+They are called by the gate files which are build by sitemap.xsl and sitemap.xml
