@@ -1,0 +1,171 @@
+<?xml version="1.0" ?>
+<package version="2.0" xmlns="http://pear.php.net/dtd/package-2.0"
+    xmlns:tasks="http://pear.php.net/dtd/tasks-1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+  <name>nexista</name>
+  <uri>http://pear.nexista.org/</uri>
+  <summary>PHP / XML / XSL Development Toolkit</summary>
+  <description>Nexista is an Open Source php/xml/xslt based development framework for building robust and scalable web applications.</description>
+  <lead>
+      <name>Albert Lash</name>
+      <user>albertlash</user>
+      <email>albert.lash@gmail.com</email>
+      <active>yes</active>
+  </lead>
+  <developer>
+    <name>Joshua Savage</name>
+    <user>js</user>
+    <email></email>
+    <active>no</active>
+  </developer>
+ <date>2007-08-05</date>
+ <version>
+  <release>0.1.1</release>
+  <api>0.1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+  <license>LGPL</license>
+    <notes>Second package
+     </notes>
+     <contents>
+     <dir name="nexista/">
+        <file name="nexista/README" role="php"/>
+        <file name="nexista/LICENSE" role="php"/>
+         <dir name="nexista/kernel/">
+            <file name="action.php" role="php"/>
+            <file name="auth.php" role="php"/>
+            <file name="builder.php" role="php"/>
+            <file name="config.php" role="php"/>
+            <file name="debug.php" role="php"/>
+            <file name="error.php" role="php"/>
+            <file name="flow.php" role="php"/>
+            <file name="foundry.php" role="php"/>
+            <file name="init.php" role="php"/>
+            <file name="path.php" role="php"/>
+            <file name="pathbuilder.php" role="php"/>
+            <file name="validator.php" role="php"/>
+            <dir name="datasources/">
+                <file name="README" role="php"/>
+                <file name="metabasesqldatasource.php" role="php"/>
+                <file name="pdosqldatasource.php" role="php"/>
+            </dir>
+            <dir name="xsl/">
+                <file name="dev_prepend.xsl" role="php"/>
+                <file name="flow.xsl" role="php"/>
+                <file name="exception.xsl" role="php"/>
+            </dir>
+        </dir>
+        <dir name="nexista/lib/">
+            <dir name="gd">
+                <file name="gdimage.php" role="php"/>
+            </dir>
+        </dir>
+        <dir name="nexista/modules/">            
+	    <dir name="actions/">
+                <file name="add1.action.php" role="php"/>
+                <file name="compress.action.php" role="php"/>
+                <file name="concat.action.php" role="php"/>
+                <file name="crypt.action.php" role="php"/>
+                <file name="crypt_md5.action.php" role="php"/>
+                <file name="curl.action.php" role="php"/>
+                <file name="dateconnect.action.php" role="php"/>
+                <file name="decompress.action.php" role="php"/>
+                <file name="decrypt_key.action.php" role="php"/>
+                <file name="encrypt_key.action.php" role="php"/>
+                <file name="escape.action.php" role="php"/>
+                <file name="gate.action.php" role="php"/>
+                <file name="image.action.php" role="php"/>
+                <file name="key.action.php" role="php"/>
+                <file name="like.action.php" role="php"/>
+                <file name="log.action.php" role="php"/>
+                <file name="md5.action.php" role="php"/>
+                <file name="md5_new.action.php" role="php"/>
+                <file name="newline.action.php" role="php"/>
+                <file name="rawxml.action.php" role="php"/>
+                <file name="redirect.action.php" role="php"/>
+                <file name="thumbnail.action.php" role="php"/>
+                <file name="timeconvert.action.php" role="php"/>
+                <file name="translate.action.php" role="php"/>
+                <file name="upload.action.php" role="php"/>
+                <file name="xsl.action.php" role="php"/>
+            </dir>
+            <dir name="builders/">
+                <file name="action.builder.php" role="php"/>
+                <file name="block.builder.php" role="php"/>
+                <file name="case.builder.php" role="php"/>
+                <file name="debug.builder.php" role="php"/>
+                <file name="default.builder.php" role="php"/>
+                <file name="false.builder.php" role="php"/>
+                <file name="if.builder.php" role="php"/>
+                <file name="insert.builder.php" role="php"/>
+                <file name="invalid.builder.php" role="php"/>
+                <file name="output.builder.php" role="php"/>
+                <file name="query.builder.php" role="php"/>
+                <file name="raw.builder.php" role="php"/>
+                <file name="script.builder.php" role="php"/>
+                <file name="set.builder.php" role="php"/>
+                <file name="switch.builder.php" role="php"/>
+                <file name="true.builder.php" role="php"/>
+                <file name="valid.builder.php" role="php"/>
+                <file name="validate.builder.php" role="php"/>
+                <file name="xml.builder.php" role="php"/>
+                <file name="xsl.builder.php" role="php"/>                
+            </dir>
+            <dir name="handlers/">
+                <file name="README" role="php"/>
+                <file name="action.handler.php" role="php"/>
+                <file name="parameter.handler.php" role="php"/>
+                <file name="query.handler.php" role="php"/>
+                <file name="raw.handler.php" role="php"/>
+                <file name="script.handler.php" role="php"/>
+                <file name="validator.handler.php" role="php"/>
+                <file name="validatorhandlerdata.php" role="php"/>
+                <file name="xml.handler.php" role="php"/>
+                <file name="xsl.handler.php" role="php"/>
+            </dir>
+            <dir name="validators/">
+                <file name="alpha.validator.php" role="php"/>
+                <file name="alphanum.validator.php" role="php"/>
+                <file name="custom.validator.php" role="php"/>
+                <file name="dummy.validator.php" role="php"/>
+                <file name="email.validator.php" role="php"/>
+                <file name="gd.validator.php" role="php"/>
+                <file name="length.validator.php" role="php"/>
+                <file name="match.validator.php" role="php"/>
+                <file name="numeric.validator.php" role="php"/>
+                <file name="phone.validator.php" role="php"/>
+                <file name="regex.validator.php" role="php"/>
+                <file name="required.validator.php" role="php"/>
+                <file name="value.validator.php" role="php"/>
+                <file name="xml.validator.php" role="php"/>
+            </dir>
+        </dir>
+     </dir>
+     </contents>
+<dependencies>
+  <required>
+   <php>
+    <min>5.0</min>
+    <max>6.0.0</max>
+   </php>
+   <pearinstaller>
+    <min>1.4.0</min>
+   </pearinstaller>
+   <package>
+    <name>Archive_Tar</name>
+    <channel>pear.php.net</channel>
+    <min>1.1</min>
+   </package>
+   </required>
+ </dependencies>
+<usesrole>false</usesrole>
+<usestask>false</usestask>
+<phprelease/>
+</package>

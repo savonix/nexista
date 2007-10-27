@@ -1,0 +1,2 @@
+These are "connector" files for datasources.
+Right now it's just a metabase sql wrapper but eventually we'll have others.
