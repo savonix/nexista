@@ -1,16 +1,16 @@
 <?php
 /*
- * -File        validatorhandler.php,v 1.1.1.1 2002/08/22 06:06:29 amadeus Exp $
+ * -File        validatorhandler.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2002, Nexista
- * -Author      joshua savage, 
+ * -Author      joshua savage
  */
 
 
 /**
  * @package     Nexista
  * @subpackage  Handlers
- * @author      Joshua Savage <>
+ * @author      Joshua Savage
  */
  
 

@@ -3,13 +3,13 @@
  * -File        parameterhandler.php - Wed Aug  7 14:03:21 MST 2002
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2002, Undream Development Group
- * -Author      joshua savage <>
+ * -Author      joshua savage 
  */
 
 /**
  * @package     Nexista
  * @subpackage  Handlers
- * @author      Joshua Savage <>
+ * @author      Joshua Savage
  */
  
 /**
