@@ -1,16 +1,20 @@
 <?php
-/*
- * -File        xslhandler.php,v 1.2 2002/08/17 00:44:57 author Exp $
- * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2002, Nexista
- * -Author      joshua savage <>
- */
+
+/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
+/**
+* File          xslhandler.php
+* License       LGPL (http://www.gnu.org/copyleft/lesser.html)
+* Copyright     2002-2007, Nexista
+* Author        joshua savage
+* Author        Albert Lash
+*/
 
 
 /**
  * @package     Nexista
  * @subpackage  Handlers
- * @author      Joshua Savage <>
+ * @author      Joshua Savage
  */
  
 /**
@@ -35,20 +39,33 @@ class XslHandler
         
         $flow = Flow::Singleton();
         
-        $xslHandler = new XsltProcessor();
+         // The following can be used with the NYT xslt cache.
+        $tmpfile="/tmp/xsl/_tmp_".basename($xslfile);
+        if(!is_file(tmpfile)) {        
+        
         $xsl = new DomDocument;
 		$xsl->substituteEntities = true;
-        $xslfilecontents = '<!DOCTYPE xslt [
+        $xslfilecontents = 
+        
+'<!DOCTYPE xslt [
 <!ENTITY nx_project_xsl "'.PROJECT_ROOT.DIRECTORY_SEPARATOR.'templates'.DIRECTORY_SEPARATOR.'xsl'.DIRECTORY_SEPARATOR.'">
 <!ENTITY nx_app_xsl "'.NX_PATH_APPS.'templates'.DIRECTORY_SEPARATOR.'xsl'.DIRECTORY_SEPARATOR.'"> ]>';
+
         if(!is_file($xslfile)) { 
             Error::init('XSL Handler - Error processing XSL file - it is unavailable: '.$xslfile, NX_ERROR_FATAL);
         }
         $xslfilecontents .= file_get_contents($xslfile);
         
-        $xsl->loadXML($xslfilecontents);    
-
+        $xsl->loadXML($xslfilecontents); 
+        
+        $xslHandler = new XsltProcessor;
         $xslHandler->importStyleSheet($xsl); 
+        
+
+        $xsl->save($tmpfile);
+        }
+        $xslHandler = new xsltCache;
+        $xslHandler->importStyleSheet($tmpfile); 
       
         $output = $xslHandler->transformToXML($flow->flowDocument); 
       
