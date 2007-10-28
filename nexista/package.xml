@@ -52,7 +52,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
             <file name="pathbuilder.php" role="php"/>
             <file name="validator.php" role="php"/>
             <dir name="datasources/">
-                <file name="README" role="php"/>
                 <file name="metabasesqldatasource.php" role="php"/>
                 <file name="pdosqldatasource.php" role="php"/>
             </dir>
@@ -119,7 +118,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
                 <file name="xsl.builder.php" role="php"/>                
             </dir>
             <dir name="handlers/">
-                <file name="README" role="php"/>
                 <file name="action.handler.php" role="php"/>
                 <file name="parameter.handler.php" role="php"/>
                 <file name="query.handler.php" role="php"/>
