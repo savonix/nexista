@@ -18,7 +18,6 @@
  * @tutorial    action.pkg
  * @package     Nexista
  */
- 
 
 class Action
 {

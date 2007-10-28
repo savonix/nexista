@@ -24,7 +24,6 @@
 class InvalidBuilder extends Builder
 {
 
-
     /**
      * Returns start code for this tag.
      *

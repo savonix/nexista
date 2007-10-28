@@ -24,7 +24,6 @@
 
 class ValidatorHandlerData
 {
-
     
     /**
      * array to hold validator data such as which fields failed and how

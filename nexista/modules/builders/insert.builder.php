@@ -7,7 +7,6 @@
  * -Author      albert lash
  */
 
-
 /**
  * @package     Nexista
  * @subpackage  Builders
@@ -23,7 +22,6 @@
 
 class InsertBuilder extends Builder
 {
-
 
     /**
      * Returns code for this tag.
@@ -70,15 +68,10 @@ class InsertBuilder extends Builder
             //TODO need better exit?
             return null;
         }
-       
          
         return null;
 
-
     }
-
-
-
 }
 
 ?>

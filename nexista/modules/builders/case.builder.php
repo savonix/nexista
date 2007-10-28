@@ -7,7 +7,6 @@
  * -Author      Albert Lash
  */
 
-
 /**
  * @package     Nexista
  * @subpackage  Builders
@@ -36,7 +35,6 @@ class CaseBuilder extends Builder
         $path = new PathBuilder();
         $code[] = 'case '.$path->get($this->action->getAttribute('value'), 'string', JOIN_DOUBLE_QUOTE).':';
         return implode(NX_BUILDER_LINEBREAK, $code);
-
     }
 
     /**
@@ -48,12 +46,8 @@ class CaseBuilder extends Builder
 
     public function getCodeEnd()
     {
-
         $code[] = 'break;';
         return implode(NX_BUILDER_LINEBREAK, $code);
-
     }
-
 }
-
 ?>

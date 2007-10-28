@@ -333,7 +333,6 @@ class Auth
         
         //add roles
         $this->sessionData['roles'] = $roles;
-        
 
         return true;
     }
@@ -522,12 +521,10 @@ class Auth
             Error::init('Auth Expiry Handler is not callable!', NX_ERROR_FATAL);
     }
     
-    
     /**
      * Registers a function to be called on auth session timeout
-     * 
-     * This function will be called when the user's session times out from inactivity.
-     * It might be used to reshow a login screen.
+     * This function will be called when the user's session times out from
+     * inactivity. It might be used to reshow a login screen.
      *
      * @param  mixed        function or an array of class=>method
      */
@@ -542,9 +539,6 @@ class Auth
 
     }
 
-   
-
 }
-
 
 ?>

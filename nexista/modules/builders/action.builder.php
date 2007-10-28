@@ -33,7 +33,6 @@ class ActionBuilder extends Builder
     public function getRequired()
     {
         $req[] = Config::get('./path/handlers').'action.handler.php';
-
         return $req;
     }
 
