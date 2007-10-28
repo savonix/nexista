@@ -1,20 +1,20 @@
 <?php
 /*
- * -File        timeconvertfilter.php - Wed Aug 14 14:34:06 MST 2002
+ * -File        dateconnect.action.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2004, Savonix Corporation
- * -Author      Albert Lash <>
+ * -Author      Albert Lash
  */
 
 
 /**
- * This filter conects variables from flow into a single variable in SQL timestamp format.
+ * This action conects variables from flow into a single variable in 
+ * SQL timestamp format.
  *
  */
 
 class DateConnectAction extends Action
 {
-
 
     /**
      * Function parameter array
@@ -55,4 +55,3 @@ class DateConnectAction extends Action
 } //end class
 
 ?>
-
