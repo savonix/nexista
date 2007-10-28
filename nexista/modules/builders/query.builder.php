@@ -1,16 +1,15 @@
 <?php
 /*
- * -File        $Id: query.builder.php,v 1.3 2005/02/08 21:50:39 amadeus Exp $
+ * -File        query.builder.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2004, Nexista
- * -Author      joshua savage, 
+ * -Author      joshua savage
  */
-
 
 /**
  * @package     Nexista
  * @subpackage  Builders
- * @author      Joshua Savage <>
+ * @author      Joshua Savage
  */
  
 /**
@@ -22,7 +21,6 @@
 
 class QueryBuilder extends Builder
 {
-
 
     /**
      * Returns array of required files to insert in require_once fields
@@ -38,7 +36,6 @@ class QueryBuilder extends Builder
         return $req;
     }
 
-
     /**
      * Returns start code for this tag.
      *
@@ -53,12 +50,9 @@ class QueryBuilder extends Builder
         $path->get(NX_PATH_APPS.$this->action->getAttribute('src'), 'string', JOIN_SINGLE_QUOTE).");";
         $code[] = $this->addErrorHandler('$query->process()', '', 'FATAL');
 
-
         return implode(NX_BUILDER_LINEBREAK, $code);
 
     }
-
-
 
 }
 

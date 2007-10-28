@@ -24,7 +24,6 @@
 class IfBuilder extends Builder
 {
 
-
     /**
      * Returns start code for this tag.
      *
@@ -40,9 +39,6 @@ class IfBuilder extends Builder
         return implode(NX_BUILDER_LINEBREAK, $code);
 
     }
-
-
-
 
 }
 

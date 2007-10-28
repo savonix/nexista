@@ -1,15 +1,15 @@
 <?php
 /*
- * -File        $Id: alpha.validator.php,v 1.3 2005/04/29 01:49:31 amadeus Exp $
+ * -File        alpha.validator.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2002, Nexista
- * -Author      joshua savage, 
+ * -Author      joshua savage
  */
 
 /**
  * @package     Nexista
  * @subpackage  Validators
- * @author      Joshua Savage <>
+ * @author      Joshua Savage
  */
  
 /**
@@ -23,7 +23,6 @@
 
 class AlphaValidator extends Validator
 {
-
 
     /**
      * Function parameter array

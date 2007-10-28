@@ -1,15 +1,15 @@
 <?php
 /*
- * -File        $Id: xsl.action.php,v 1.2 2005/04/29 18:51:00 amadeus Exp $
+ * -File        xsl.action.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2002, Nexista
- * -Author      joshua savage, 
+ * -Author      joshua savage
  */
 
 /**
  * @package     Nexista
  * @subpackage  Actions
- * @author      Joshua Savage <>
+ * @author      Joshua Savage
  */
  
 /**

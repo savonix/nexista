@@ -7,7 +7,6 @@
  * -Author		Albert Lash
  */
 
-
 /**
  * @package     Nexista
  * @subpackage  Handlers
@@ -24,8 +23,6 @@
  */
 class XmlHandler
 {
-
-
     /**
      * Call this function to activate the xml handler
      *

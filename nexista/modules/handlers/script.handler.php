@@ -1,6 +1,6 @@
 <?php
 /*
- * -File        scripthandler.php
+ * -File        script.handler.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2002-2007, Nexista
  * -Author      joshua savage
@@ -21,7 +21,6 @@
  */
 class ScriptHandler 
 {
-
 
     /**
      * Call this function to activate the processor

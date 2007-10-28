@@ -1,22 +1,19 @@
 <?php
 /*
- * -File        $Id: gdimage.php,v 1.4 2005/02/08 21:50:39 amadeus Exp $
+ * -File        gdimage.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2002, Nexista
- * -Author      joshua savage, js@nexista.com
+ * -Author      joshua savage
  */
 
- 
 /**
  * Some basic image manipulation functions using gd.
  * Mostly thumbnail generation functions at this point.
  *
  */
 
-
 class GdImage
 {
-
 
     /**
      * Thumbnail name (full path)
@@ -345,8 +342,6 @@ class GdImage
 
 		return true;
     }
-    
-    
     
 }   // end class
 ?>

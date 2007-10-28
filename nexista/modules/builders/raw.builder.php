@@ -1,16 +1,15 @@
 <?php
 /*
- * -File        $Id: raw.builder.php,v 1.2 2005/02/08 21:50:39 amadeus Exp $
+ * -File        raw.builder.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2004, Nexista
- * -Author      joshua savage, 
+ * -Author      joshua savage
  */
-
 
 /**
  * @package     Nexista
  * @subpackage  Builders
- * @author      Joshua Savage <>
+ * @author      Joshua Savage
  */
  
 /**
@@ -22,7 +21,6 @@
 
 class RawBuilder extends Builder
 {
-
 
     /**
      * Returns array of required files to insert in require_once fields
@@ -38,7 +36,6 @@ class RawBuilder extends Builder
         return $req;
     }
 
-
     /**
      * Returns start code for this tag.
      *
@@ -53,7 +50,6 @@ class RawBuilder extends Builder
         $code[] = $this->addErrorHandler('RawHandler::process('.
             $path->get(NX_PATH_APPS.$this->action->getAttribute('src'), 'string', JOIN_SINGLE_QUOTE).", \$rawdata)", '', 'FATAL');
         $code[] = '$output .= $rawdata;';
-
 
         return implode(NX_BUILDER_LINEBREAK, $code);
     }

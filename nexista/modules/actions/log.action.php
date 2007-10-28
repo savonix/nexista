@@ -1,6 +1,6 @@
-// <?php
+<?php
 /*
- * -File        $Id: log.action.php,v 1.1 2005/04/29 18:14:58 amadeus Exp $
+ * -File        log.action.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2002, Nexista
  * -Author      joshua savage, 

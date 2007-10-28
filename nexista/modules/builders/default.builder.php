@@ -7,7 +7,6 @@
  * -Author      Albert Lash
  */
 
-
 /**
  * @package     Nexista
  * @subpackage  Builders
@@ -23,7 +22,6 @@
 
 class DefaultBuilder extends Builder
 {
-
 
     /**
      * Returns start code for this tag.

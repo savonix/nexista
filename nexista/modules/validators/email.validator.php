@@ -1,15 +1,15 @@
 <?php
 /*
- * -File        $Id: email.validator.php,v 1.3 2005/04/29 01:49:31 amadeus Exp $
+ * -File        email.validator.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2002, Nexista
- * -Author      joshua savage, 
+ * -Author      joshua savage
  */
 
 /**
  * @package     Nexista
  * @subpackage  Validators
- * @author      Joshua Savage <>
+ * @author      Joshua Savage
  */
  
 /**
@@ -41,7 +41,6 @@ class EmailValidator extends Validator
      */
 
     protected $message = "is not a valid email";
-
 
     /**
      * Applies validator

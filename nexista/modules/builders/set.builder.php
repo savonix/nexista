@@ -7,7 +7,6 @@
  * -Author      Albert Lash
  */
 
-
 /**
  * @package     Nexista
  * @subpackage  Builders

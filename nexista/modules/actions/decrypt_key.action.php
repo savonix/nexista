@@ -1,20 +1,20 @@
 <?php
 /*
- * -File        Action.php - Fir Jul 8 08:00:00 EST 2005
+ * -File        Action.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2005, Savonix
- * -Author      Albert Lash <>
+ * -Copyright   2005-2007, Savonix
+ * -Author      Albert Lash
  */
 
 
 /**
  * @package     Nexista
  * @subpackage  Actions
- * @author      Albert Lash <>
+ * @author      Albert Lash
  */
  
 /**
- * This action applies crc32 hash to data
+ * This action decrypts data with a key
  *
  * @package     Nexista
  * @subpackage  Actions

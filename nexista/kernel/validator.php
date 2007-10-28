@@ -1,5 +1,4 @@
 <?php
-
 /*
  * -File        validator.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
@@ -11,16 +10,13 @@
  * @package     Nexista 
  * @author      Joshua Savage
  */
- 
- 
+
 /**
  * This class is the base class upon which to extend custom validators
  *
  * @tutorial    validator.pkg
  * @package     Nexista
  */
-
-
 
 class Validator
 {

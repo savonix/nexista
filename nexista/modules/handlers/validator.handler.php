@@ -6,7 +6,6 @@
  * -Author      joshua savage
  */
 
-
 /**
  * @package     Nexista
  * @subpackage  Handlers
@@ -121,7 +120,6 @@ class ValidatorHandler
                 $validatorData->itemMessage($result_name, $result_text);
             }
         }
-       
 
         if((string)$xml['debug'] === 'true')
         {        
@@ -143,8 +141,6 @@ class ValidatorHandler
 
         return true;
     }
-
-
 
 } // end class
 

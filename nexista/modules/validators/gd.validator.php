@@ -1,15 +1,15 @@
 <?php
 /*
- * -File        $Id: gd.validator.php,v 1.3 2005/04/29 01:49:31 amadeus Exp $
+ * -File        gd.validator.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2002, Nexista
- * -Author      joshua savage, 
+ * -Author      joshua savage
  */
 
 /**
  * @package     Nexista
  * @subpackage  Validators
- * @author      Joshua Savage <>
+ * @author      Joshua Savage
  */
  
 /**
@@ -23,10 +23,8 @@
  * @subpackage  Validators
  */
 
-
 class GdValidator extends Validator
 {
-
 
     /**
      * Function parameter array
@@ -73,7 +71,6 @@ class GdValidator extends Validator
 
         $this->setEmpty();
         return true;
-
 
     }
 

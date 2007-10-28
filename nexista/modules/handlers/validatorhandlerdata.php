@@ -1,16 +1,16 @@
-    <?php
+<?php
 /*
- * -File        validatorhandlerdata.php,v 1.2 2002/08/17 00:44:57 author Exp $
+ * -File        validatorhandlerdata.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2002, Nexista
- * -Author      joshua savage, 
+ * -Author      joshua savage
  * -Based on    XMLWriterClass by Manuel Lemos
  */
 
 /**
  * @package     Nexista
  * @subpackage  Handlers
- * @author      Joshua Savage <>
+ * @author      Joshua Savage
  */
  
 /**
@@ -21,7 +21,6 @@
  * @package     Nexista
  * @subpackage  Handlers
  */
-
 
 class ValidatorHandlerData
 {

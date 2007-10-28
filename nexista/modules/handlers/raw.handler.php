@@ -1,17 +1,16 @@
 <?php
 /*
- * -File        rawhandler.php - Wed Aug 14 14:34:06 MST 2002   
+ * -File        rawhandler.php  
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2002, Nexista
- * -Author      joshua savage <>
+ * -Author      joshua savage
  */
 
 /**
  * @package     Nexista
  * @subpackage  Handlers
- * @author      Joshua Savage <>
+ * @author      Joshua Savage
  */
- 
 
 /**
  * This class adds a raw files (plain text, html, whatever) 

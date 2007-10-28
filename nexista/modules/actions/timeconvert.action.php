@@ -1,9 +1,9 @@
 <?php
 /*
- * -File        timeconvertfilter.php - Wed Aug 14 14:34:06 MST 2002
+ * -File        timeconvertfilter.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2004, Savonix Corporation
- * -Author      Albert Lash <>
+ * -Author      Albert Lash
  */
 
 
@@ -64,4 +64,3 @@ class TimeConvertAction extends Action
 } //end class
 
 ?>
-

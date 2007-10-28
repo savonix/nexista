@@ -11,7 +11,7 @@
 /**
  * @package     Nexista
  * @subpackage  Builders
- * @author      Joshua Savage <>
+ * @author      Joshua Savage
  */
  
 /**
@@ -23,7 +23,6 @@
 
 class CaseBuilder extends Builder
 {
-
 
     /**
      * Returns start code for this tag.
@@ -40,8 +39,6 @@ class CaseBuilder extends Builder
 
     }
 
-
-
     /**
      * Returns end code for this tag.
      *
@@ -53,13 +50,9 @@ class CaseBuilder extends Builder
     {
 
         $code[] = 'break;';
-
-
         return implode(NX_BUILDER_LINEBREAK, $code);
 
     }
-
-
 
 }
 

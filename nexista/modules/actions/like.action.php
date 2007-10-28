@@ -1,11 +1,10 @@
 <?php
 /*
- * -File        Action.php - Wed Aug 14 14:34:06 MST 2002
+ * -File        like.action.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2002, Nexista
  * -Author      joshua savage
  */
-
 
 /**
  * @package     Nexista
@@ -23,7 +22,6 @@
 class LikeAction extends Action
 {
 
-
     /**
      * Function parameter array
      *
@@ -33,7 +31,6 @@ class LikeAction extends Action
     protected  $params = array(
         'var' => '' //required - name of flow var to edit
         );
-
 
     /**
      * Applies action
@@ -52,7 +49,6 @@ class LikeAction extends Action
         }
          
         return false;
-            
 
     }
 } //end class
