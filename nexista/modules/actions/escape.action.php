@@ -1,15 +1,15 @@
 // <?php
 /*
- * -File        $Id: escape.action.php,v 1.1 2005/04/29 18:14:58 amadeus Exp $
+ * -File        escape.action.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2002, Nexista
- * -Author      joshua savage, 
+ * -Author      joshua savage
  */
 
 /**
  * @package     Nexista
  * @subpackage  Actions
- * @author      Joshua Savage <>
+ * @author      Joshua Savage
  */
  
 /**
@@ -25,7 +25,6 @@
 
 class escapeAction extends Action
 {
-
 
     /**
      * Function parameter array
@@ -72,17 +71,13 @@ class escapeAction extends Action
         //also deal with xsl stuff
         $sterile = strtr($var->textContent, $trans_array);
 
-
         //strip tags with namespaces
         $sterile = preg_replace('~<([^>\"=\']*):(.*)>~mU','', $sterile);
-
 
         //write new data to Flow
         $var->textContent = $sterile;
         return true;
     }
-
-
 
 } //end class
 

@@ -7,7 +7,6 @@
  * -Author		Albert Lash 
  */
 
-
 /**
  * @package     Nexista
  * @subpackage  Actions
@@ -24,7 +23,6 @@
 
 class CompressAction extends Action
 {
-
 
     /**
      * Function parameter array

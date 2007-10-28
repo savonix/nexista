@@ -93,15 +93,11 @@ class ThumbnailAction extends Action
 
         $gd->resizeImageRatio($maxwidth, $maxheight);
 
-
         //TODO standardize flow names
 		$thumbfilename=basename($gd->thumbName);
 		Flow::add('thumbname', $thumbfilename);
         return true;
     }
-
-
-
 
 } //end class
 

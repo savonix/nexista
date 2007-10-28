@@ -6,7 +6,6 @@
  * -Author      joshua savage
  */
 
-
 /**
  * @package     Nexista
  * @subpackage  Actions
@@ -82,9 +81,6 @@ class uploadAction extends Action
         }
         return true;
     }
-
-
-
 
 } //end class
 
