@@ -1,18 +1,17 @@
 <?php
 /*
- * -File        Action.php - Wed Aug 14 14:34:06 MST 2002
+ * -File        crypt_md5.action.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2002, Nexista
- * -Author      joshua savage <>
- * -Author		Albert Lash <>
+ * -Author      joshua savage
+ * -Author		Albert Lash
  */
-
 
 /**
  * @package     Nexista
  * @subpackage  Actions
- * @author      Joshua Savage <>
- * @author      Albert Lash <>
+ * @author      Joshua Savage
+ * @author      Albert Lash
  */
  
 /**
@@ -24,7 +23,6 @@
 
 class Crypt_md5Action extends Action
 {
-
 
     /**
      * Function parameter array

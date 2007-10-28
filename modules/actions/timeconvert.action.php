@@ -1,11 +1,10 @@
 <?php
 /*
- * -File        timeconvertfilter.php
+ * -File        timeconvert.action.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2004, Savonix Corporation
  * -Author      Albert Lash
  */
-
 
 /**
  * This filter converts time formats.
@@ -14,7 +13,6 @@
 
 class TimeConvertAction extends Action
 {
-
 
     /**
      * Function parameter array

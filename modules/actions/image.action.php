@@ -1,16 +1,15 @@
 <?php
 /*
- * -File        fileuploadaction.php - Wed Aug 14 14:34:06 MST 2002
+ * -File        image.action.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2002, Nexista
- * -Author      joshua savage <>
+ * -Author      joshua savage
  */
-
 
 /**
  * @package     Nexista
  * @subpackage  Actions
- * @author      Joshua Savage <>
+ * @author      Joshua Savage
  */
  
 /**
@@ -107,9 +106,6 @@ class imageAction extends Action
         
         return true;
     }
-
-
-
 
 } //end class
 

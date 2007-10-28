@@ -6,7 +6,6 @@
  * -Author      Albert Lash
  */
 
-
 /**
  * @package     Nexista
  * @subpackage  Actions
@@ -22,7 +21,6 @@
 
 class Decrypt_KeyAction extends Action
 {
-
 
     /**
      * Function parameter array
