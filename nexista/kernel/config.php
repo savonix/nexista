@@ -254,7 +254,8 @@ self::$xml = simplexml_load_string($final);
     {
         $canonical_filename = Config::get('./path/compile').$config_filename;
         $config_compile_error = 
-            "Can't open $canonical_filename. Check permissions of parent directories, 
+            "Can't open $canonical_filename. 
+            Check permissions of parent directories, 
             or simply refresh to try and rebuild it.";
         
             if(is_dir(dirname($canonical_filename))) { 
