@@ -11,18 +11,14 @@
  * @package Nexista
  * @author Joshua Savage 
  */
- 
 
 /**
  * This class provides some debugging functions
  * @package     Nexista
  */
 
-
-
 Class Debug
 {
-
 
     /**
      * Pretty prints an array
@@ -136,7 +132,6 @@ Class Debug
     }
 
 
-
     /**
      * Logs a generic debug message
      *
@@ -193,7 +188,6 @@ Class Debug
 
         list($usec, $sec) = explode(" ", $start);
         $start = ((float)$usec + (float)$sec);
-
 
         return number_format($end - $start,3);
 

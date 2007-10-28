@@ -7,12 +7,10 @@
  * -Author      albert lash
  */
 
-
 /**
  * @package Nexista
  * @author Joshua Savage 
  */
- 
 
 /**
  * This class handles I/O between sitemap nodes (files) and will output 
@@ -390,8 +388,6 @@ class Flow
     public function outputXml($node)
     {
         return $this->flowDocument->saveXML($node);
-        
-    
     }
   
     /**
