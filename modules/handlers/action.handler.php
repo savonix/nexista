@@ -1,12 +1,10 @@
 <?php
-
 /*
  * -File        actionhandler.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2002-2007, Nexista
  * -Author      joshua savage
  */
-
 
 /**
  * @package     Nexista
@@ -24,8 +22,6 @@
 
 class ActionHandler
 {
-
-
 
     /**
      * Accepts an xml list of items and actions them according
@@ -49,9 +45,7 @@ class ActionHandler
         //parse through each node and process
         foreach ($xml->children() as $action)
         {
-            self::processItem((string)$action['type'], (string)$action['params']);
-            
-
+        self::processItem((string)$action['type'], (string)$action['params']);
         }
 
         return true;
@@ -86,7 +80,6 @@ class ActionHandler
 
         //build the class name to load
         $classname = trim(ucfirst($type)) . "Action";
-
 
         $action = new $classname();
 
@@ -126,7 +119,6 @@ class ActionHandler
             }
 
         }
-
         return true;
     }
 

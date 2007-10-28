@@ -1,14 +1,14 @@
 <?php
 /*
- * -File        $Id: builder.php,v 1.6 2005/02/08 21:50:39 amadeus Exp $
+ * -File        builder.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2004, Nexista
- * -Author      joshua savage, 
+ * -Author      joshua savage 
  */
 
 /**
  * @package Nexista
- * @author Joshua Savage <>
+ * @author Joshua Savage
  */
  
 /**
@@ -157,8 +157,6 @@ class Builder
         $this->action = null;
 
     }
-    
-    
 
 }
 

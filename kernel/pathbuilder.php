@@ -1,14 +1,14 @@
 <?php
 /*
- * -File        $Id: pathbuilder.php,v 1.1 2005/02/08 21:50:39 amadeus Exp $
+ * -File        pathbuilder.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2005, Nexista
- * -Author      joshua savage, 
+ * -Author      joshua savage
  */
 
 /**
  * @package Nexista
- * @author Joshua Savage <>
+ * @author Joshua Savage
  */
 
  
@@ -157,7 +157,6 @@ Class PathBuilder
               
                 //escape double quotes
                 $path = preg_replace('~"~', '/"', $path);
-                    
                 $code[] = 'eval("return '.$path.';")';
                 break;
               
@@ -166,7 +165,6 @@ Class PathBuilder
             case 'regex':
                 
                 $code[] = 'preg_match("~^('.$path.')$~", $_GET["'.Config::get('./build/query').'"], $GLOBALS["match"])';
-                
                 break;
                     
             //probably a plain var or a file,url protocol (file://, http://, etc...)
@@ -175,10 +173,7 @@ Class PathBuilder
                
                 $code[] = $this->parseInlineFlow($path, $joinStyle);
                 break;
-            
         }
-
-        
         return implode(NX_BUILDER_LINEBREAK, $code);
     }
       
@@ -237,11 +232,8 @@ Class PathBuilder
         }
         elseif(!empty($matches[1]))
         {
-           
             return $this->parseInlineFlow($matches[1]);
         }
-        
-        
     }
     
     

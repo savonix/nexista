@@ -1,8 +1,8 @@
 <?php
 /*
- * -File        parameterhandler.php - Wed Aug  7 14:03:21 MST 2002
+ * -File        parameterhandler.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2002, Undream Development Group
+ * -Copyright   2002, Nexista
  * -Author      joshua savage 
  */
 
@@ -23,7 +23,6 @@
 
 class ParameterHandler
 {
-
 
     /**
      * Call this function to activate the processor

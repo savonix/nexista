@@ -1,16 +1,15 @@
 <?php
 /*
- * -File        $Id: xsl.builder.php,v 1.3 2005/02/08 21:50:39 amadeus Exp $
+ * -File        xsl.builder.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2004, Nexista
- * -Author      joshua savage, 
+ * -Author      joshua savage
  */
-
 
 /**
  * @package     Nexista
  * @subpackage  Builders
- * @author      Joshua Savage <>
+ * @author      Joshua Savage
  */
  
 /**
@@ -39,7 +38,6 @@ class XslBuilder extends Builder
         return $req;
     }
 
-
     /**
      * Returns start code for this tag.
      *
@@ -52,13 +50,12 @@ class XslBuilder extends Builder
         $path = new PathBuilder();
         $code[] = '$xsl =& new XslHandler();';
 $code[] = '$output .= $xsl->process('.$path->get(NX_PATH_APPS.$this->action->getAttribute('src'), 'string', JOIN_SINGLE_QUOTE).');';
+        // Want to delete as of Oct 2007:   
         //$code[] = '$output .= $xsl->process('.$path->get($this->action->getAttribute('src'), 'string', JOIN_SINGLE_QUOTE).');';
      
         return implode(NX_BUILDER_LINEBREAK, $code);
 
     }
-
-
 
 }
 

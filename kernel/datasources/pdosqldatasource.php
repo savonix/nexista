@@ -1,12 +1,11 @@
 <?php
 /*
- * -File    $Id: sqldatasource.php,v 1.10 2005/04/29 01:47:57 amadeus Exp $
- * -License LGPL (http://www.gnu.org/copyleft/lesser.html)
+ * -File        pdosqldatasource.php
+ * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2006, Nexista
- * -Author  joshua savage, 
- * -Author 	albert lash, albert.lash@gmail.com
+ * -Author      joshua savage, 
+ * -Author 	    albert lash
  */
-
 
 /**
  * @package     Nexista

@@ -1,16 +1,15 @@
 <?php
 /*
- * -File        Action.php - Wed Aug 14 14:34:06 MST 2002
+ * -File        Action.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2002, Nexista
- * -Author      joshua savage <>
+ * -Author      joshua savage
  */
-
 
 /**
  * @package     Nexista
  * @subpackage  Actions
- * @author      Joshua Savage <>
+ * @author      Joshua Savage
  */
  
 /**
@@ -23,7 +22,6 @@
 class Md5_newAction extends Action
 {
 
-
     /**
      * Function parameter array
      *
@@ -33,7 +31,6 @@ class Md5_newAction extends Action
     protected  $params = array(
         'var' => '' //required - name of flow var to md5
         );
-
 
     /**
      * Applies action

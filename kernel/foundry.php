@@ -1,14 +1,14 @@
 <?php
 /*
- * -File        $Id: foundry.php,v 1.4 2005/06/01 20:31:56 albertlash4 Exp $
+ * -File        foundry.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2004, Nexista
- * -Author      joshua savage, 
+ * -Author      joshua savage
  */
 
 /**
  * @package     Nexista
- * @author      Joshua Savage <>
+ * @author      Joshua Savage
  */
  
 /**
@@ -775,9 +775,6 @@ class Foundry
 
         return self::$instance;
     }
-
-
- 
     
 } //end class
 ?>

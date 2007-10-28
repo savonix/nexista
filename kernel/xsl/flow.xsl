@@ -216,5 +216,4 @@ window.onload = divExpand('flowDumpContent');
       <xsl:otherwise><xsl:value-of select="$text"/></xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-
 </xsl:stylesheet>

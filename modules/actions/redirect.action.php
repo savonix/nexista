@@ -1,15 +1,15 @@
-// <?php
+<?php
 /*
- * -File        $Id: redirect.action.php,v 1.1 2005/04/29 18:14:58 amadeus Exp $
+ * -File        redirect.action.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2002, Nexista
- * -Author      joshua savage, 
+ * -Author      joshua savage
  */
 
 /**
  * @package     Nexista
  * @subpackage  Actions
- * @author      Joshua Savage <>
+ * @author      Joshua Savage
  */
  
 /**
@@ -59,8 +59,6 @@ class redirectAction extends Action
         exit();
         
     }
-
-
 
 } //end class
 

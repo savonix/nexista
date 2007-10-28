@@ -1,15 +1,14 @@
 <?php
-
 /*
- * -File        $Id: init.php,v 1.15 2005/06/01 20:01:58 albertlash4 Exp $
+ * -File        init.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2004, Nexista
- * -Author      joshua savage, 
+ * -Author      joshua savage
  */
 
 /**
  * @package Nexista
- * @author Joshua Savage <>
+ * @author Joshua Savage
  */
  
 
@@ -427,7 +426,6 @@ class Init
         else
             NexistaException::init("Init Output Handler is not callable!");
     }
-
     
        
     /**
@@ -445,8 +443,6 @@ class Init
 
         return self::$instance;
     }
-
-    
 
 } //end class
 

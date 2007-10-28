@@ -1,15 +1,15 @@
 <?php
 /*
- * -File        $Id: length.validator.php,v 1.1 2005/04/29 01:49:53 amadeus Exp $
+ * -File        length.validator.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2002, Nexista
- * -Author      joshua savage, 
+ * -Author      joshua savage
  */
 
 /**
  * @package     Nexista
  * @subpackage  Validators
- * @author      Joshua Savage <>
+ * @author      Joshua Savage
  */
  
 /**
@@ -19,10 +19,8 @@
  * @subpackage  Validators
  */
 
-
 class LengthValidator extends Validator
 {
-
 
     /**
      * Function parameter array
@@ -42,7 +40,6 @@ class LengthValidator extends Validator
      */
 
     protected $message = "is too long";
-
 
     /**
      * Applies validator

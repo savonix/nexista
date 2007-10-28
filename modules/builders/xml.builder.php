@@ -10,7 +10,7 @@
 /**
  * @package     Nexista
  * @subpackage  Builders
- * @author      Joshua Savage <>
+ * @author      Joshua Savage
  */
  
 /**

@@ -170,7 +170,6 @@ Class Debug
         return ((float)$usec + (float)$sec);
     }
 
-
     /**
      * Calculates elapsed time
      *
@@ -198,12 +197,7 @@ Class Debug
 
         return number_format($end - $start,3);
 
-
     }
-
-
-
-
 
 } // end class
 

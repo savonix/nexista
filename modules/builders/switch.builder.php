@@ -1,12 +1,11 @@
 <?php
 /*
- * -File        switch.builder.php,
+ * -File        switch.builder.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2004-2007, Nexista
  * -Author      joshua savage
  * -Author      Albert Lash
  */
-
 
 /**
  * @package     Nexista
@@ -24,7 +23,6 @@
 class SwitchBuilder extends Builder
 {
 
-
     /**
      * Returns start code for this tag.
      *
@@ -39,9 +37,6 @@ class SwitchBuilder extends Builder
         return implode(NX_BUILDER_LINEBREAK, $code);
 
     }
-
-
-
 
 }
 

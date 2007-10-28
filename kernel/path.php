@@ -1,14 +1,14 @@
 <?php
 /*
- * -File        $Id: path.php,v 1.7 2005/04/29 02:32:26 albertlash4 Exp $
+ * -File        path.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2005, Nexista
- * -Author      joshua savage, 
+ * -Author      joshua savage
  */
 
 /**
  * @package Nexista
- * @author Joshua Savage <>
+ * @author Joshua Savage
  */
 
 /**
@@ -54,8 +54,6 @@
  * @package     Nexista
  */
 
- 
-
 Class Path
 {
 
@@ -64,7 +62,6 @@ Class Path
      */
      
     static private $instance;
-    
      
     /**
      * Returns a string based on given protocol://path 
@@ -254,7 +251,6 @@ Class Path
         return null;
 
     }
-  
     
     /**
      * Returns a class singleton.
@@ -271,7 +267,6 @@ Class Path
 
         return self::$instance;
     }
-
     
 }
 

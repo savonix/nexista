@@ -1,16 +1,15 @@
 <?php
 /*
- * -File    $Id: sqldatasource.php,v 1.10 2005/04/29 01:47:57 amadeus Exp $
- * -License LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2002, Nexista
- * -Author  joshua savage, 
+ * -File        metabasesqldatasource.php
+ * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
+ * -Copyright   2002-2007, Nexista
+ * -Author      joshua savage 
  */
-
 
 /**
  * @package     Nexista
  * @subpackage  Datasources
- * @author      Joshua Savage <>
+ * @author      Joshua Savage
  */
  
 /**

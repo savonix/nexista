@@ -1,9 +1,9 @@
 <?php
 /*
- * -File    mdb2sqldatasource.php
- * -License LGPL (http://www.gnu.org/copyleft/lesser.html)
+ * -File        mdb2sqldatasource.php
+ * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2007, Nexista
- * -Author 	albert lash
+ * -Author 	    albert lash
  *
  */
 
