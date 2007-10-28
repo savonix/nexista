@@ -1,6 +1,6 @@
 <?php
 /*
- * -File        validatorhandler.php
+ * -File        validator.handler.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2002, Nexista
  * -Author      joshua savage

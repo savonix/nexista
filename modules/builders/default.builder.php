@@ -38,8 +38,6 @@ class DefaultBuilder extends Builder
 
     }
 
-
-
     /**
      * Returns end code for this tag.
      *
@@ -53,13 +51,9 @@ class DefaultBuilder extends Builder
         $code[] = 'break;
 		}';
 
-
         return implode(NX_BUILDER_LINEBREAK, $code);
 
     }
-
-
-
 }
 
 ?>

@@ -163,8 +163,6 @@ Class Config
 	$project_root=PROJECT_ROOT;
 	$project_name=PROJECT_NAME;
     $app_name=APP_NAME;
-    
-    
 	
     
 	$directives='<!ENTITY includepath "'.$includepath.'">';

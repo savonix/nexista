@@ -1,6 +1,6 @@
 <?php
 /*
- * -File        parameterhandler.php
+ * -File        parameter.handler.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2002, Nexista
  * -Author      joshua savage 
@@ -26,7 +26,6 @@ class ParameterHandler
 
     /**
      * Call this function to activate the processor
-     *
      *
      * @param   string      variable name
      * @param   string      variable value to assign

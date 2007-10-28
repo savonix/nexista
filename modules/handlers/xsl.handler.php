@@ -1,15 +1,11 @@
 <?php
-
-/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
-
 /**
-* File          xslhandler.php
+* File          xsl.handler.php
 * License       LGPL (http://www.gnu.org/copyleft/lesser.html)
 * Copyright     2002-2007, Nexista
 * Author        joshua savage
 * Author        Albert Lash
 */
-
 
 /**
  * @package     Nexista
@@ -25,7 +21,6 @@
  */
 class XslHandler
 {
-
 
     /**
      * process xsl template with Flow xml
@@ -46,8 +41,10 @@ class XslHandler
         if(!is_file($tmpfile) || $use_xslt_cache!="yes") {   
             $xsl = new DomDocument;
             $xsl->substituteEntities = true;
+            
+            // This is not good, what's the best way to deal with it?
+            // Could put it somewhere else, config.xml?
             $xslfilecontents = 
-        
 '<!DOCTYPE xslt [
 <!ENTITY nx_project_xsl "'.PROJECT_ROOT.DIRECTORY_SEPARATOR.'templates'.DIRECTORY_SEPARATOR.'xsl'.DIRECTORY_SEPARATOR.'">
 <!ENTITY nx_app_xsl "'.NX_PATH_APPS.'templates'.DIRECTORY_SEPARATOR.'xsl'.DIRECTORY_SEPARATOR.'"> ]>';

@@ -1,6 +1,6 @@
 <?php
 /*
- * -File        queryhandler.php
+ * -File        query.handler.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2002, Nexista
  * -Author      joshua savage
@@ -291,7 +291,6 @@ class QueryHandler
 
         //make a nice array from in and out values
         
-        
         $key = 0;
         if(isset($xml->params->param))
         {
@@ -316,8 +315,6 @@ class QueryHandler
         return true;
 
     }
-        
-
 
     /**
      * Retrieves database info from global.xml file based
