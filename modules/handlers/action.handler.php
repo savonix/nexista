@@ -108,7 +108,7 @@ class ActionHandler
         foreach($params as $val)
         {
             //see if we have anything to evaluate
-            if(strstr($val,'://'))
+            if(strstr($val,'://') && !strstr($val,'http://'))
             {
                 $val = Flow::getByPath($val);
                 if(is_null($val) or is_array($val))
