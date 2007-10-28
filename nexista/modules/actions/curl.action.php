@@ -35,8 +35,9 @@ protected  $params = array(
      * @return  boolean     success
      */
      
-    protected  function main()
+    protected function main()
     {
+       
         // For now, limit calls to the same domain and protocol. 
         $mydomain = $_SERVER['SERVER_NAME'];
         if(isset($_SERVER['HTTPS'])) {
@@ -71,6 +72,11 @@ protected  $params = array(
         //echo $query_string;
         $url .= $query_string;
         $url = $protocol.$mydomain.$url;
+        // Quick hack to allow overriding above logic with complete, 
+        // off-domain url
+        if(strstr($this->params['url'],'http://')) { 
+            $url = $this->params['url'];
+        }
         if(function_exists(curl_init)) { 
             session_write_close();
             $mysession=session_name().'='.session_id();
