@@ -14,7 +14,7 @@
  */
  
 /**
- * This action applies MD5 hash to data
+ * This action concatenates params
  *
  * @package     Nexista
  * @subpackage  Actions
