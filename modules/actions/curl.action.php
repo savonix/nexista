@@ -71,7 +71,10 @@ protected  $params = array(
         }
         //echo $query_string;
         $url .= $query_string;
-        $url = $protocol.$mydomain.$url;
+        if(!strpos($url,"www.")) { 
+            $url = $protocol.$mydomain.$url;
+        } else { 
+        }
         // Quick hack to allow overriding above logic with complete, 
         // off-domain url
         if(strstr($this->params['url'],'http://')) { 
