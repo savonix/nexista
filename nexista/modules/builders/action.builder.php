@@ -56,10 +56,7 @@ class ActionBuilder extends Builder
         else
         {
             $code[] = $this->addErrorHandler("ActionHandler::processItem('".
-                $this->action->getAttribute('type')."','".$this->action->getAttribute('params')."')");
-            if($this->action->hasAttribute('parent')) { 
-                $params .= ",".$this->action->getAttribute('parent');
-            }
+                $path->get($this->action->getAttribute('src'), 'string', JOIN_DOUBLE_QUOTE).", true)");
         }
         return implode(NX_BUILDER_LINEBREAK, $code);
 
