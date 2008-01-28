@@ -37,6 +37,8 @@ class XmlHandler
         //load xml file
         $doc = new DOMDocument();
         $doc->load($src);
+        //Added this in Jan 2008, need to watch for any potential problems.
+        $doc->xinclude();
  
         $flow = Flow::singleton();
         
