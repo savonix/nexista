@@ -1,6 +1,6 @@
 <?php
 /*
- * -File        content.action.php
+ * -File        header.action.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2008, Savonix Corporation
  * -Author      Albert Lash
@@ -14,14 +14,13 @@
  */
  
 /**
- * This action sends a content-type header.
- * NOTE: This action is deprecated. Use header.action.php instead.
+ * This action concatenates params
  *
  * @package     Nexista
  * @subpackage  Actions
  */
 
-class ContentAction extends Action
+class HeaderAction extends Action
 {
 
     /**
@@ -31,7 +30,8 @@ class ContentAction extends Action
      */
 
     protected  $params = array(
-        'mime' => '' //required
+        'header' => '', //required
+        'value' => '' //required
         );
 
 
@@ -43,8 +43,9 @@ class ContentAction extends Action
 
     protected  function main()
     {   
-        $contentType = $this->params['mime'];
-		header("Content-Type: ".$contentType);
+        $header = $this->params['header'];
+        $value = $this->params['value'];
+		header($header.": ".$value);
             
 
     }

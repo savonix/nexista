@@ -49,8 +49,13 @@ class XmlBuilder extends Builder
     public function getCodeStart()
     {
         $path = new PathBuilder();
-		$params = $path->get(NX_PATH_APPS.$this->action->getAttribute('src'), 'string', JOIN_SINGLE_QUOTE);
-		if($this->action->hasAttribute('parent')) { 
+        
+        if(strpos($this->action->getAttribute('src'),'http')!==false) {
+            $params = "'".$this->action->getAttribute('src')."'";
+        } else { 
+            $params = $path->get(NX_PATH_APPS.$this->action->getAttribute('src'), 'string', JOIN_SINGLE_QUOTE);
+		}
+        if($this->action->hasAttribute('parent')) { 
 			$params .= ",".$this->action->getAttribute('parent');
 		}
         $code[] = $this->addErrorHandler('XmlHandler::process('.$params.')');
