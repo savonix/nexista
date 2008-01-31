@@ -227,8 +227,9 @@ Class Config
     public function customizeEntities()
     {
             $prefix=$_SERVER['SERVER_NAME'];
-            $prefix="pb_";
-            $directives='<!ENTITY prefix "'.$prefix.'">';
+            //This needs to be from the config file. 
+            //$prefix="pb_";
+            //$directives='<!ENTITY prefix "'.$prefix.'">';
             $entitySkeleton = file_get_contents($this->masterConfig);
             $final = '<!DOCTYPE query [
 '.$directives.'
