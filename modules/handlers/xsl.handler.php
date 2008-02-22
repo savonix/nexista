@@ -36,8 +36,13 @@ class XslHandler
         
         // The following can be used with the NYT xslt cache.
         // Uncomment to use xsltcache: 
-        //$use_xslt_cache = "yes";
-        $tmpfile="/tmp/xsl/_tmp_".basename($xslfile);
+        
+        $use_xslt_cache = "yses";
+        $xslt_cache_dir = PROJECT_ROOT."/cache/".SERVER_NAME."/".APP_NAME."/xsl/";
+        if(!is_dir($xslt_cache_dir)) { 
+            mkdir($xslt_cache_dir);
+        }
+        $tmpfile = $xslt_cache_dir.basename($xslfile);
         if(!is_file($tmpfile) || $use_xslt_cache!="yes") {   
             $xsl = new DomDocument;
             $xsl->substituteEntities = true;
