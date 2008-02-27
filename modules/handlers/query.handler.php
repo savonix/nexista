@@ -20,7 +20,7 @@
  * @package     Nexista
  * @subpackage  Handlers
  */
-class QueryHandler
+class Nexista_QueryHandler
 {
 
     /**
@@ -162,7 +162,7 @@ class QueryHandler
             require_once($datasource_file);
         } else { 
         }
-        $class = trim(ucfirst($this->datasourceHandler)) . "Datasource";
+        $class = 'Nexista_' . trim(ucfirst($this->datasourceHandler)) . "Datasource";
         $this->datasource =& new $class($params);
         return true;
 
@@ -178,24 +178,17 @@ class QueryHandler
 
     private function parseDefinition()
     {
-
-        /*
-        $xml_string = 
-'<?xml version="1.0" encoding="UTF-8"?>
-';*/
-        $my_entities_file = Path::get("//query_db_entities","flow");
-        if(!empty($my_entities_file)) { 
-            $xml_string .= file_get_contents(NX_PATH_COMPILE.$my_entities_file);
-            // This is cheesy I know - see config.php line 237
-            $xml_string = str_replace("<deletethisplaceholderinqueryhandler/>","",$xml_string);
+        // Here we use see whether to use the default table names or if 
+        // a entity set has been specified.
+        $myPrefix = Nexista_Config::get("./datasource[@id='database_prefix']/filename");
+        if(is_file($myPrefix)) { 
+            $xmlString = file_get_contents($this->definition);
+            $xmlString = str_replace("../../config/database_prefix.txt",$myPrefix,$xmlString);
+            // simplexml_load_string cannot find relative external references, 
+            $xml = simplexml_load_string($xmlString,null,LIBXML_DTDLOAD);
         } else { 
-            $xml_string = "";
+            $xml = simplexml_load_file($this->definition,null,LIBXML_DTDLOAD);
         }
-        
-        $xml_string .= file_get_contents($this->definition);
-        
-        //$xml = simplexml_load_file($this->definition);
-        $xml = simplexml_load_string($xml_string);
         $this->queryName = (string)$xml['name'];
         $defaultval = (string)$xml['default'];
         $loopvar = (string)$xml['loop'];
@@ -209,24 +202,12 @@ class QueryHandler
             else
             {
                
-                $array = Path::get($loopvar,"flow");
-               
-                /*
-                //loop for each array val
-                if(is_array($array))
-                     $this->queryLoop = sizeof($array);
-                //oops. no value. no loopie
-                elseif(empty($array) && $array !== '0')
-                    $this->queryLoop = 0;
-                //single value. loop once and make into array
-                else
-                    $array = array($array);
-                */
+                $array = Nexista_Path::get($loopvar,"flow");
 
                 if(is_array($array)) 
-                { 
+                {
                      $this->queryLoop = sizeof($array);
-                } 
+                }
                 elseif(empty($array) && $array !== '0' && empty($defaultval))
                 {
                     // No values at all
@@ -259,7 +240,7 @@ class QueryHandler
                 $this->query['rows']['first'] = $rows_first;
             else
             {
-                $val = Flow::getByPath($rows_first);
+                $val = Nexista_Flow::getByPath($rows_first);
                 if(!is_null($val) or !is_array($val))                
                     $this->query['rows']['first'] = $val;
             }
@@ -270,7 +251,7 @@ class QueryHandler
                 $this->query['rows']['limit'] = $rows_limit;
             else
             {
-                $val = Flow::getByPath($rows_limit);
+                $val = Nexista_Flow::getByPath($rows_limit);
                 if(!is_null($val) or !is_array($val))
                 {
                     $this->query['rows']['limit'] = $val;
@@ -282,11 +263,11 @@ class QueryHandler
         
         if(!$this->query['sql'] = (string)$xml->sql)
         {
-           Error::init('No query specified in '.$this->definition, NX_ERROR_FATAL);
+           Nexista_Error::init('No query specified in '.$this->definition, NX_ERROR_FATAL);
         }
         if(!$this->query['connection'] = (string)$xml->connection)
         {
-            Error::init('No database connection specified!', NX_ERROR_FATAL);
+            Nexista_Error::init('No database connection specified!', NX_ERROR_FATAL);
         }
 
         //make a nice array from in and out values
@@ -327,15 +308,16 @@ class QueryHandler
     private function getDatasource($name, &$datasource)
     {
 
-        $datasource = Config::getSection('datasource',$name);
+        $datasource = Nexista_Config::getSection('datasource',$name);
 
-        //Debug::dump($datasource);
+        //Nexista_Debug::dump($datasource);
 
         //Developer note: This is where you set what Datasource handler you would
         //like to use based on type (<type> in global.xml)
         switch($datasource['type'])
         {
             case 'mysql':
+            case 'mysqli':
             case 'ibase':
             case 'ifx':
             case 'mssql':
@@ -356,7 +338,7 @@ class QueryHandler
                 $this->datasourceHandler = 'pdosql'; //pdo
                 break;
             default:
-                Error::init($type.' datasource type is not supported', NX_ERROR_WARNING);
+                Nexista_Error::init($type.' datasource type is not supported', NX_ERROR_WARNING);
                 return false;
                 break;
         }

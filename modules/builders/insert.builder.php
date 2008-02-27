@@ -20,14 +20,14 @@
  * @subpackage  Builders
  */
 
-class InsertBuilder extends Builder
+class Nexista_InsertBuilder extends Nexista_Builder
 {
 
     /**
      * Returns code for this tag.
      *
      * @return   string Final code to insert in gate
-     * @see      Builder::getCode()
+     * @see      Nexista_Builder::getCode()
      */
 
     public function getCodeStart()
@@ -36,7 +36,7 @@ class InsertBuilder extends Builder
         $blockName = $this->action->getAttribute('name');
 
         //get instance of Application
-        $application = Foundry::singleton();
+        $application = Nexista_Foundry::singleton();
 
         //get all blocks
         $x = new DOMXPath($application->sitemapDocument);
@@ -63,7 +63,7 @@ class InsertBuilder extends Builder
         //nothing found - let's send a warning and return gracefully
         if(!$found)
         {
-            Error::init('A matching map:block of name: '.$blockName.' was not found in sitemap', NX_ERROR_FATAL);
+            Nexista_Error::init('A matching map:block of name: '.$blockName.' was not found in sitemap', NX_ERROR_FATAL);
 
             //TODO need better exit?
             return null;

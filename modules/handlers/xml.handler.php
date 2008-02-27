@@ -21,7 +21,7 @@
  * @package     Nexista
  * @subpackage  Handlers
  */
-class XmlHandler
+class Nexista_XmlHandler
 {
     /**
      * Call this function to activate the xml handler
@@ -40,7 +40,7 @@ class XmlHandler
         //Added this in Jan 2008, need to watch for any potential problems.
         $doc->xinclude();
  
-        $flow = Flow::singleton();
+        $flow = Nexista_Flow::singleton();
         
         //import new doc into flow recursively
         $new = $flow->flowDocument->importNode($doc->documentElement,1);
@@ -48,7 +48,7 @@ class XmlHandler
         //append to parent if called for
         if($parent)
         {
-            $res = Flow::find($parent);
+            $res = Nexista_Flow::find($parent);
             if($res->length > 0)
             {
                 $parent = $res->item(0);

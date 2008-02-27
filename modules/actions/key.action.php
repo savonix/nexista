@@ -19,7 +19,7 @@
  * @subpackage  Actions
  */
 
-class KeyAction extends Action
+class Nexista_KeyAction extends Nexista_Action
 {
 
     /**
@@ -41,7 +41,7 @@ class KeyAction extends Action
     protected  function main()
     {   
         
-		$res = Flow::find($this->params['var']);
+		$res = Nexista_Flow::find($this->params['var']);
         if($res->length === 1)
         {          
 			$key=$_SESSION['NX_AUTH']['key'];

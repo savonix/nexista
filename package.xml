@@ -22,10 +22,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <email></email>
     <active>no</active>
   </developer>
- <date>2007-08-05</date>
+ <date>2008-02-23</date>
  <version>
-  <release>0.1.1</release>
-  <api>0.1</api>
+  <release>0.2.0</release>
+  <api>0.2</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -35,10 +35,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <notes>Second package
      </notes>
      <contents>
-     <dir name="nexista/">
-        <file name="nexista/README" role="php"/>
-        <file name="nexista/LICENSE" role="php"/>
-         <dir name="nexista/kernel/">
+     <dir name="nexista2/">
+        <file name="nexista2/README" role="php"/>
+        <file name="nexista2/LICENSE" role="php"/>
+         <dir name="nexista2/kernel/">
             <file name="action.php" role="php"/>
             <file name="auth.php" role="php"/>
             <file name="builder.php" role="php"/>
@@ -52,7 +52,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
             <file name="pathbuilder.php" role="php"/>
             <file name="validator.php" role="php"/>
             <dir name="datasources/">
-                <file name="metabasesqldatasource.php" role="php"/>
+                <file name="mdb2sqldatasource.php" role="php"/>
                 <file name="pdosqldatasource.php" role="php"/>
             </dir>
             <dir name="xsl/">
@@ -61,35 +61,24 @@ http://pear.php.net/dtd/package-2.0.xsd">
                 <file name="exception.xsl" role="php"/>
             </dir>
         </dir>
-        <dir name="nexista/lib/">
-            <dir name="gd">
-                <file name="gdimage.php" role="php"/>
-            </dir>
-        </dir>
-        <dir name="nexista/modules/">            
+        <dir name="nexista2/modules/">            
 	    <dir name="actions/">
                 <file name="add1.action.php" role="php"/>
                 <file name="compress.action.php" role="php"/>
                 <file name="concat.action.php" role="php"/>
-                <file name="crypt.action.php" role="php"/>
-                <file name="crypt_md5.action.php" role="php"/>
+                <file name="content.action.php" role="php"/>
                 <file name="curl.action.php" role="php"/>
                 <file name="dateconnect.action.php" role="php"/>
                 <file name="decompress.action.php" role="php"/>
-                <file name="decrypt_key.action.php" role="php"/>
-                <file name="encrypt_key.action.php" role="php"/>
                 <file name="escape.action.php" role="php"/>
                 <file name="gate.action.php" role="php"/>
-                <file name="image.action.php" role="php"/>
+                <file name="header.action.php" role="php"/>
                 <file name="key.action.php" role="php"/>
                 <file name="like.action.php" role="php"/>
                 <file name="log.action.php" role="php"/>
-                <file name="md5.action.php" role="php"/>
-                <file name="md5_new.action.php" role="php"/>
                 <file name="newline.action.php" role="php"/>
                 <file name="rawxml.action.php" role="php"/>
                 <file name="redirect.action.php" role="php"/>
-                <file name="thumbnail.action.php" role="php"/>
                 <file name="timeconvert.action.php" role="php"/>
                 <file name="translate.action.php" role="php"/>
                 <file name="upload.action.php" role="php"/>
@@ -106,6 +95,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
                 <file name="insert.builder.php" role="php"/>
                 <file name="invalid.builder.php" role="php"/>
                 <file name="output.builder.php" role="php"/>
+                <file name="plugin.builder.php" role='php"/>
                 <file name="query.builder.php" role="php"/>
                 <file name="raw.builder.php" role="php"/>
                 <file name="script.builder.php" role="php"/>
@@ -120,6 +110,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
             <dir name="handlers/">
                 <file name="action.handler.php" role="php"/>
                 <file name="parameter.handler.php" role="php"/>
+                <file name="plugin.handler.php" role="php"/>
                 <file name="query.handler.php" role="php"/>
                 <file name="raw.handler.php" role="php"/>
                 <file name="script.handler.php" role="php"/>

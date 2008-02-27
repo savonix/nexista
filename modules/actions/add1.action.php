@@ -22,7 +22,7 @@
  * @subpackage  Actions
  */
 
-class Add1Action extends Action
+class Nexista_Add1Action extends Nexista_Action
 {
 
 
@@ -46,7 +46,7 @@ class Add1Action extends Action
     protected  function main()
     {   
         
-		$res = Flow::find($this->params['var']);
+		$res = Nexista_Flow::find($this->params['var']);
         if($res->length === 1)
         {            
             $res->item(0)->nodeValue = $res->item(0)->nodeValue + 1;

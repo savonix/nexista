@@ -20,7 +20,7 @@
  * @subpackage  Actions
  */
 
-class ConcatAction extends Action
+class Nexista_ConcatAction extends Nexista_Action
 {
 
     /**
@@ -44,8 +44,8 @@ class ConcatAction extends Action
     protected  function main()
     {   
         
-		$res1 = Flow::find($this->params['var1']);
-		$res2 = Flow::find($this->params['var2']);
+		$res1 = Nexista_Flow::find($this->params['var1']);
+		$res2 = Nexista_Flow::find($this->params['var2']);
         if($res1->length === 1)
         {            
             $res1->item(0)->nodeValue = $res1->item(0)->nodeValue.$res2->item(0)->nodeValue;

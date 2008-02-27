@@ -1,6 +1,6 @@
 <?php
 /*
- * -File        action.handler.php
+ * -File        plugin.handler.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2002-2007, Nexista
  * -Author      joshua savage
@@ -13,14 +13,13 @@
  */
  
 /**
- * This class handles data filtrattion/ modification such as
- * stripping html tags, removing new lines, etc...
+ * This class is exactly like actions, but for application specific plugins.
  *
  * @package     Nexista
  * @subpackage  Handlers
  */
 
-class Nexista_ActionHandler
+class Nexista_PluginHandler
 {
 
     /**
@@ -68,7 +67,7 @@ class Nexista_ActionHandler
         require_once(NX_PATH_CORE . "action.php");
 
         //load the action module file based on $type
-        require_once(NX_PATH_ACTIONS . trim(strtolower($type)) . ".action.php");
+        require_once(NX_PATH_PLUGINS . trim(strtolower($type)) . ".plugin.php");
 
         //get the action parameters
         $params = explode(',',$params);

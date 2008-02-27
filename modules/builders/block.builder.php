@@ -21,7 +21,7 @@
  */
 
 
-class BlockBuilder extends Builder
+class Nexista_BlockBuilder extends Nexista_Builder
 {
     
 }

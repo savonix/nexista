@@ -22,7 +22,7 @@
  */
 
 
-class XmlValidator extends Validator
+class Nexista_Nexista_XmlValidator extends Nexista_Validator
 {
 
     /**
@@ -53,7 +53,7 @@ class XmlValidator extends Validator
 
     public function main()
     {
-        $data = Path::get($this->params['var'], 'flow');
+        $data = Nexista_Path::get($this->params['var'], 'flow');
         //see if there is a declaration
         if(!strstr($data, '<?xml'))
         {

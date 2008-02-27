@@ -19,7 +19,7 @@
  * @package     Nexista
  * @subpackage  Handlers
  */
-class XslHandler
+class Nexista_XslHandler
 {
 
     /**
@@ -32,38 +32,28 @@ class XslHandler
     public function process($xslfile)
     {
         
-        $flow = Flow::Singleton();
+        $flow = Nexista_Flow::Singleton();
         
         // The following can be used with the NYT xslt cache.
-        // Uncomment to use xsltcache: 
         
         $use_xslt_cache = "yses";
         $xslt_cache_dir = PROJECT_ROOT."/cache/".SERVER_NAME."/".APP_NAME."/xsl/";
         if(!is_dir($xslt_cache_dir)) { 
-            mkdir($xslt_cache_dir);
+            @mkdir($xslt_cache_dir);
         }
         $tmpfile = $xslt_cache_dir.basename($xslfile);
-        if(!is_file($tmpfile) || $use_xslt_cache!="yes") {   
-            $xsl = new DomDocument;
-            $xsl->substituteEntities = true;
-            
-            // This is not good, what's the best way to deal with it?
-            // Could put it somewhere else, config.xml?
-            $xslfilecontents = 
-'<!DOCTYPE xslt [
-<!ENTITY nx_project_xsl "'.PROJECT_ROOT.DIRECTORY_SEPARATOR.'templates'.DIRECTORY_SEPARATOR.'xsl'.DIRECTORY_SEPARATOR.'">
-<!ENTITY nx_app_xsl "'.NX_PATH_APPS.'templates'.DIRECTORY_SEPARATOR.'xsl'.DIRECTORY_SEPARATOR.'"> ]>';
-
+        if(!is_file($tmpfile) || $use_xslt_cache!="yes") {  
             if(!is_file($xslfile)) { 
-                Error::init('XSL Handler - Error processing XSL file - it is unavailable: '.$xslfile, NX_ERROR_FATAL);
-            }
+                Nexista_Error::init('XSL Handler - Error processing XSL file - it is unavailable: '.$xslfile, NX_ERROR_FATAL);
+            } 
+            $xsl = new DomDocument('1.0','UTF-8');
+            $xsl->substituteEntities = false;
+            $xsl->resolveExternals = false;
             $xslfilecontents .= file_get_contents($xslfile);
-            
             $xsl->loadXML($xslfilecontents); 
-            
+            $xsl->documentURI = $xslfile;
             $xslHandler = new XsltProcessor;
             $xslHandler->importStyleSheet($xsl); 
-            
             if($use_xslt_cache=="yes") { 
                 $xsl->save($tmpfile);
             }
@@ -77,7 +67,7 @@ class XslHandler
       
         if($output === false)
         {
-            Error::init('XSL Handler - Error processing XSL file: '.$xslfile, NX_ERROR_FATAL);
+            Nexista_Error::init('XSL Handler - Error processing XSL file: '.$xslfile, NX_ERROR_FATAL);
         }
 
         return $output;

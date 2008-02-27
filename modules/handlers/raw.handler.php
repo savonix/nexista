@@ -20,7 +20,7 @@
  * @subpackage  Handlers
  */
 
-class RawHandler 
+class Nexista_RawHandler 
 {
 
     /**

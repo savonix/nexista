@@ -23,7 +23,7 @@
  * @subpackage  Actions
  */
 
-class escapeAction extends Action
+class Nexista_escapeAction extends Nexista_Action
 {
 
     /**
@@ -48,7 +48,7 @@ class escapeAction extends Action
     {
 
         
-        $var = Flow::getByPath($this->params['var']);
+        $var = Nexista_Flow::getByPath($this->params['var']);
         if(is_null($var) or is_array($var))
             return false;
             

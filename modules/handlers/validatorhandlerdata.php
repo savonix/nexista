@@ -22,7 +22,7 @@
  * @subpackage  Handlers
  */
 
-class ValidatorHandlerData
+class Nexista_ValidatorHandlerData
 {
     
     /**

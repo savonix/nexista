@@ -22,7 +22,7 @@
  * @subpackage  Actions
  */
 
-class RawXmlAction extends Action
+class Nexista_RawXmlAction extends Nexista_Action
 {
 
 
@@ -46,7 +46,7 @@ class RawXmlAction extends Action
     protected  function main()
     {
       
-        $var = Flow::find($this->params['var']);
+        $var = Nexista_Flow::find($this->params['var']);
         if(is_null($var) or is_array($var))
             return false;
         $res = $var->item(0);
@@ -56,7 +56,7 @@ class RawXmlAction extends Action
         $doc = new DOMDocument();
         $doc->loadXML($xmlString);
  
-        $flow = Flow::singleton();
+        $flow = Nexista_Flow::singleton();
         
         //import new doc into flow recursively
         $new = $flow->flowDocument->importNode($doc->documentElement,1);

@@ -2,28 +2,27 @@
 /*
  * -File        pdosqldatasource.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2006, Nexista
- * -Author      joshua savage, 
- * -Author 	    albert lash
+ * -Copyright   Savonix Corporation
+ * -Author 	    Albert Lash
  */
 
 /**
  * @package     Nexista
  * @subpackage  Datasources
- * @author      Joshua Savage 
+ * @author      Albert Lash
  */
  
 /**
  * This class provides functionality to access
  * sql databases through the Metabase abstraction
- * layer.
+ * layer. As of 2008 is is completely unstable.
  *
  * @tutorial    query.pkg
  * @package     Nexista
  * @subpackage  Datasources
  */
 
-class PdoSqlDatasource
+class Nexista_PdoSqlDatasource
 {
 
     /**

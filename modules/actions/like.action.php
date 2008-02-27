@@ -19,7 +19,7 @@
  * @subpackage  Actions
  */
 
-class LikeAction extends Action
+class Nexista_LikeAction extends Nexista_Action
 {
 
     /**
@@ -41,7 +41,7 @@ class LikeAction extends Action
     protected  function main()
     {   
         
-		$res = Flow::find($this->params['var']);
+		$res = Nexista_Flow::find($this->params['var']);
         if($res->length === 1)
         {            
             $res->item(0)->nodeValue = "%" . $res->item(0)->nodeValue . "%";

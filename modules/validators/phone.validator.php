@@ -20,7 +20,7 @@
  * @subpackage  Validators
  */
 
-class PhoneValidator extends Validator
+class Nexista_PhoneValidator extends Nexista_Validator
 {
 
     /**
@@ -50,7 +50,7 @@ class PhoneValidator extends Validator
 
     public function main()
     {
-        $data = Path::get($this->params['var'], 'flow');
+        $data = Nexista_Path::get($this->params['var'], 'flow');
 
         if(!empty($data))
         {

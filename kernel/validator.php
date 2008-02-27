@@ -12,13 +12,13 @@
  */
 
 /**
- * This class is the base class upon which to extend custom validators
+ * This class Nexista_is the base class Nexista_upon which to extend custom validators
  *
  * @tutorial    validator.pkg
  * @package     Nexista
  */
 
-class Validator
+class Nexista_Validator
 {
 
     /**
@@ -69,7 +69,7 @@ class Validator
     /**
      * Applies validator and checks requirements
      *
-     * @param   array       class parameters
+     * @param   array       class Nexista_parameters
      * @param   sring       item requirement parameters
      * @param   boolean     validator success
      * @return  boolean     function success
@@ -167,7 +167,7 @@ class Validator
 
             if(sizeof($req) == 2)
             {
-                $var = Flow::getByPath($req[0]);
+                $var = Nexista_Flow::getByPath($req[0]);
                 
                 if(is_array($var))
                 {              
@@ -184,7 +184,7 @@ class Validator
             }
             else
             {
-                Error::init("Validator 'required' field is not valid", NX_ERROR_WARNING);
+                Nexista_Error::init("Validator 'required' field is not valid", NX_ERROR_WARNING);
                 $this->required = true;
             }
 
@@ -255,13 +255,13 @@ class Validator
 
 
     /**
-     * Load class parameters
+     * Load class Nexista_parameters
      *
      * This function will check if the required parameters
-     * for this class are supplied and will load them into
+     * for this class Nexista_are supplied and will load them into
      * $this->params array
      *
-     * @param   array       class parameters
+     * @param   array       class Nexista_parameters
      * @return  boolean     success
      */
 
@@ -272,7 +272,7 @@ class Validator
         {
             if(empty($params[$cnt]) && $val == 'required')
             {
-                Error::init('Class '. get_class($this).' does not have the required number of parameters', NX_ERROR_FATAL);
+                Nexista_Error::init('Class '. get_class($this).' does not have the required number of parameters', NX_ERROR_FATAL);
             }
             $this->params[$key] = $params[$cnt];
             $cnt++;

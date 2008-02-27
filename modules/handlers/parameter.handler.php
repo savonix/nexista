@@ -21,7 +21,7 @@
  * @subpackage  Handlers
  */
 
-class ParameterHandler
+class Nexista_ParameterHandler
 {
 
     /**
@@ -35,7 +35,7 @@ class ParameterHandler
     public function process($name, $value)
     {
 
-        $res = Flow::find($name);
+        $res = Nexista_Flow::find($name);
         
         //if var exists, set the new value
         if($res->length === 1)
@@ -45,7 +45,7 @@ class ParameterHandler
         //create new var/value
         elseif($res->length === 0)
         {
-            Flow::add($name, $value);
+            Nexista_Flow::add($name, $value);
         }
         //more than one match exists
         else

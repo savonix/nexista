@@ -22,8 +22,8 @@ require_once('pathbuilder.php');
 
 define('NX_BUILDER_LINEBREAK', "\n");
 
-Error::addObserver('display', 'builderError');
-function builderError($e)
+Nexista_Error::addObserver('display', 'Nexista_builderError');
+function Nexista_builderError($e)
 {
    $e->toHtml();  
 }
@@ -68,7 +68,7 @@ function builderError($e)
  * @tutorial    reference.pkg
  * @package     Nexista
  */
-class Foundry
+class Nexista_Foundry
 {
 
      /**
@@ -133,7 +133,7 @@ class Foundry
     public function configure($master, $local = null, $mode = null, $config_filename = 'config.xml')
     {
        
-        $config = Config::singleton();
+        $config = Nexista_Config::singleton();
         $config->setMaster($master);      
         $config->setLocal($local);
         $config->setMode($mode);
@@ -142,12 +142,12 @@ class Foundry
         
         
         //init some paths we may need for build
-        $path = Config::getSection('path');
+        $path = Nexista_Config::getSection('path');
         if(!defined('NX_PATH_APPS')) { 
             define("NX_PATH_APPS", $path['applications']);     
         }
         //init debug
-        $configs = Config::getSection('runtime');
+        $configs = Nexista_Config::getSection('runtime');
 
         if(isset($configs['debug']) && ($configs['debug'] == 'on'))
         {
@@ -155,32 +155,6 @@ class Foundry
         }
 	}
  
-    
-    
-    /**
-     * Customizes entities file with prefix based upon server name, project,
-     * or application. 
-     *
-     * 
-     *
-     * @param   string      app entities skeleton
-     * @param   string      
-     * @param   string      optional environment profile
-     */
-
-    public function defineEntities($master, $mode = NULL,$config_filename = 'entities.xml')
-    {
-        $config = Config::singleton();
-        $config->setMaster($master);
-        $config->setLocal(null);  
-        $config->setMode(null);  
-        $config->customizeEntities();
-        $config->writeConfig($config,$config_filename);
-	}
-    
-    
-    
-    
     
     
     /**
@@ -192,7 +166,7 @@ class Foundry
      
      public function getSitemapPath() { 
          
-         return Config::get('./build/sitemap');
+         return Nexista_Config::get('./build/sitemap');
          
      }    
     
@@ -205,7 +179,7 @@ class Foundry
      
      public function getCompilePath() { 
          
-         return Config::get('./path/compile');
+         return Nexista_Config::get('./path/compile');
          
      }
     
@@ -234,30 +208,30 @@ class Foundry
         // each server name that makes a request.
         /* 
         // this works, but better to leave mode setting up to the webserver
-        $modes = Config::getSection('modes');
+        $modes = Nexista_Config::getSection('modes');
 		foreach($modes as $key => $value) { 
 
 			Config::setMode($key);
-			$path = Config::getSection('path');
-			$mode_domain = Config::get('./domain/server_name');
-		    $mode_vectors = Config::get('./vectors/vector');
+			$path = Nexista_Config::getSection('path');
+			$mode_domain = Nexista_Config::get('./domain/server_name');
+		    $mode_vectors = Nexista_Config::get('./vectors/vector');
 			$code[] = '//echo " vectors '.$mode_vectors.'";';	
-	    //$client_method = Config::get('./client/method');
+	    //$client_method = Nexista_Config::get('./client/method');
 	    if(strpos($mode_vectors,",")) { 
 	    $mode_vectors = explode(",",$mode_vectors);
 	    } else { 
 	    $mode_vectors= array($mode_vectors);
 	    }
 	    foreach($mode_vectors as $nokey => $vector) { 
-	    $vector_value = Config::get("./client/$vector");
+	    $vector_value = Nexista_Config::get("./client/$vector");
 	    $code[] = 'if($_SERVER["'.$vector.'"]=="'.$vector_value.'") { ';  
 	    }
         */
         //$key = $_ENV['NEXISTA_MODE'];
-        $modes = Config::getSection('modes');
+        $modes = Nexista_Config::getSection('modes');
 		foreach($modes as $key => $value) { 
-        Config::setMode($key);
-        $path = Config::getSection('path');
+        Nexista_Config::setMode($key);
+        $path = Nexista_Config::getSection('path');
         $code[] = 'if(!isset($_ENV["NEXISTA_MODE"])) { $_ENV["NEXISTA_MODE"]="'.$key.'"; }';
 	    $code[] = 'if($_ENV["NEXISTA_MODE"]=="'.$key.'") { '; 
             $code[] = 'define("NX_PATH_BASE", "'.$path['base'].'");';  
@@ -271,7 +245,7 @@ class Foundry
 			$code[] = 'define("NX_PATH_VALIDATORS", "'.$path['base'].'modules'.DIRECTORY_SEPARATOR.'validators'.DIRECTORY_SEPARATOR.'");';
             
             
-			$code[] = 'define("NX_PATH_COMPILE", "'.$path['compile'].'");';       
+			$code[] = 'define("NX_PATH_COMPILE", "'.$path['compile'].'");';        
 			$code[] = 'define("NX_PATH_CACHE", "'.$path['cache'].'");';  
             if(isset($path['logs'])) { 
 			$code[] = 'define("NX_PATH_LOGS", "'.$path['logs'].'");';  
@@ -279,16 +253,18 @@ class Foundry
 			$code[] = 'define("NX_PATH_TMP", "'.$path['tmp'].'");';  
             
             
+			$code[] = 'define("NX_PATH_PLUGINS", "'.$path['plugins'].'");';
+            
             if(!defined('NX_PATH_APPS')) { 
 			$code[] = 'define("NX_PATH_APPS", "'.$path['applications'].'");';
             }
 			$code[] = 'require_once(NX_PATH_CORE."init.php");';
-			$code[] = 'Config::setMode("'.$key.'");';
-			$code[] = 'define("NX_ID", "'.Config::get('./build/query').'");';  
+			$code[] = 'Nexista_Config::setMode("'.$key.'");';
+			$code[] = 'define("NX_ID", "'.Nexista_Config::get('./build/query').'");';  
             
             
-			$code[] = '$init = new Init();';
-			$prepend = Config::get('./build/prepend');
+			$code[] = '$init = new Nexista_Init();';
+			$prepend = Nexista_Config::get('./build/prepend');
 			if(!is_null($prepend) AND file_exists($prepend)) 
 				$code[] = '$init->loadPrepend("'.$prepend.'");';
 			$code[] = '$init->start();';
@@ -310,8 +286,8 @@ class Foundry
 		
 		
 		foreach($modes as $key => $value) { 
-			Config::setMode($key);
-			return file_put_contents(Config::get('./build/loader'), implode(NX_BUILDER_LINEBREAK,$code));
+			Nexista_Config::setMode($key);
+			return file_put_contents(Nexista_Config::get('./build/loader'), implode(NX_BUILDER_LINEBREAK,$code));
 		}
         
     
@@ -326,11 +302,11 @@ class Foundry
     private function loadSitemap()
     {
         if(isset($_ENV['NEXISTA_MODE'])) { 
-            Config::setMode($_ENV['NEXISTA_MODE']);
+            Nexista_Config::setMode($_ENV['NEXISTA_MODE']);
         }
         //read sitemap as xml
         $this->sitemapDocument = new DOMDocument("1.0");
-        $my_sitemap = Config::get('./build/sitemap');
+        $my_sitemap = Nexista_Config::get('./build/sitemap');
         $this->sitemapDocument->load($my_sitemap);
         
         
@@ -362,7 +338,7 @@ class Foundry
         $this->loadSitemap();
         
         //load builder classes
-        $builderPath = Config::get('./path/base')."modules".DIRECTORY_SEPARATOR."builders".DIRECTORY_SEPARATOR;
+        $builderPath = Nexista_Config::get('./path/base')."modules".DIRECTORY_SEPARATOR."builders".DIRECTORY_SEPARATOR;
         $files = scandir($builderPath);
         //make instances for each for later gate building
         foreach($files as $file)
@@ -376,7 +352,7 @@ class Foundry
                 
                 //store class
                 $tag = str_replace('.builder.php', '', $file);
-                $class = ucfirst($tag).'Builder';               
+                $class = 'Nexista_'.ucfirst($tag).'Builder';               
                 $obj =& new $class;
                 $this->builderTags[$tag] =& $obj;
             }
@@ -479,7 +455,7 @@ class Foundry
         //build top of file (reqs, etc)
         $code[] = "<?php";
         $code[] = '//Build Time: '.date("D M j G:i:s T Y"); 
-        $code[] = '$_ID_ = !empty($_GET["'.Config::get('./build/query').'"]) ? $_GET["'.Config::get('./build/query').'"] : "'.Config::get('./build/default').'";';
+        $code[] = '$_ID_ = !empty($_GET["'.Nexista_Config::get('./build/query').'"]) ? $_GET["'.Nexista_Config::get('./build/query').'"] : "'.Nexista_Config::get('./build/default').'";';
         $code[] = "\$redirect = isset(\$_GET['redirect']) ? \$_GET['redirect'] : null;";
            
         foreach($this->sitemap as $type => $elements)
@@ -509,7 +485,7 @@ class Foundry
         }
 
         //setup 404 handling       
-        $missing = Config::get('./build/missing');
+        $missing = Nexista_Config::get('./build/missing');
         if(!empty($missing) && isset($this->sitemap['exact'][$missing]))
         {   
             ob_start();
@@ -527,7 +503,7 @@ class Foundry
         $data = implode(NX_BUILDER_LINEBREAK,$code);
         
         //save file
-        $tmp = fopen(Config::get('./path/compile').'sitemap.php', "w+");
+        $tmp = fopen(Nexista_Config::get('./path/compile').'sitemap.php', "w+");
         if(flock($tmp, LOCK_EX))
         {
             fwrite($tmp, $data);
@@ -661,7 +637,7 @@ class Foundry
     {
 
         //write gate file
-        $compile_path = Config::get('./path/compile');
+        $compile_path = Nexista_Config::get('./path/compile');
         // To do: test for folder, if not, try to create, if not, throw error.
         if(!is_dir($compile_path)) {
             `mkdir -p $compile_path`;
@@ -687,7 +663,7 @@ class Foundry
     /*
     private function addPrepend()
     {
-        $code[] = "Debug::register('in','".$mod."');";
+        $code[] = "Nexista_Debug::register('in','".$mod."');";
         return implode(NX_BUILDER_LINEBREAK,$code).NX_BUILDER_LINEBREAK;
     }
     */
@@ -699,7 +675,7 @@ class Foundry
      
     private function addGateDebugStart($mod)
     {
-        $code[] = "Debug::register('in','".$mod."');";
+        $code[] = "Nexista_Debug::register('in','".$mod."');";
         return implode(NX_BUILDER_LINEBREAK,$code).NX_BUILDER_LINEBREAK;
 
     }
@@ -714,7 +690,7 @@ class Foundry
     private function addGateDebugStop($mod)
     {
 
-        $code[] = "Debug::register('out','".$mod."');";
+        $code[] = "Nexista_Debug::register('out','".$mod."');";
         return implode(NX_BUILDER_LINEBREAK,$code).NX_BUILDER_LINEBREAK;
 
     }
@@ -754,7 +730,7 @@ class Foundry
             $code[] = "require_once('".$r."');";
         }
 
-        $code[] = '$flow = Flow::singleton();';
+        $code[] = '$flow = Nexista_Flow::singleton();';
         $code[] = '$output  = null;';
 
         return implode(NX_BUILDER_LINEBREAK,$code).NX_BUILDER_LINEBREAK;

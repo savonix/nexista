@@ -14,13 +14,13 @@
  */
  
 /**
- * This action concatenates params
+ * This action sends an http header.
  *
  * @package     Nexista
  * @subpackage  Actions
  */
 
-class HeaderAction extends Action
+class Nexista_HeaderAction extends Nexista_Action
 {
 
     /**

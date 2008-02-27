@@ -19,7 +19,7 @@
  * @subpackage  Builders
  */
 
-class FalseBuilder extends Builder
+class Nexista_FalseBuilder extends Nexista_Builder
 {
 
 
@@ -27,7 +27,7 @@ class FalseBuilder extends Builder
      * Returns start code for this tag.
      *
      * @return   string Final code to insert in gate
-     * @see      Builder::getCode()
+     * @see      Nexista_Builder::getCode()
      */
 
     public function getCodeStart()
@@ -43,7 +43,7 @@ class FalseBuilder extends Builder
      * Returns end code for this tag.
      *
      * @return   string Final code to insert in gate
-     * @see      Builder::getCode()
+     * @see      Nexista_Builder::getCode()
      */
 
     public function getCodeEnd()

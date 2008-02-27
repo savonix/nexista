@@ -34,18 +34,18 @@ define('JOIN_DOUBLE_QUOTE', 2);
 define('JOIN_NONE', 3);
 
 /**
- * This class provides functionality to create strings that will resolve
+ * This class Nexista_provides functionality to create strings that will resolve
  * into functional paths/value at runtime. This is the same process as the 
  * Path class, however it does not evaluate the expression but rather
  * returns a string that is inserted in the compiled files that will resolved
  * at runtime.
- * See Path class for information on protocols handled.
+ * See Path class Nexista_for information on protocols handled.
  * 
  * @package     Nexista
  */
 
 
-Class PathBuilder
+class Nexista_PathBuilder
 {
 
     /**
@@ -149,7 +149,7 @@ Class PathBuilder
             //flow   
             case 'flow':
                 
-                $code[] = "Flow::getByPath('".$path."')";
+                $code[] = "Nexista_Flow::getByPath('".$path."')";
                 break;
                     
             //eval a php expression
@@ -256,7 +256,7 @@ Class PathBuilder
        
         //replace bracketed flow expressions
         $string = preg_replace('~{(.*)}~U',
-        'Flow::getByPath("${1}")', $string);
+        'Nexista_Flow::getByPath("${1}")', $string);
         
         return $string;
           

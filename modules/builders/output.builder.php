@@ -20,14 +20,14 @@
  * @subpackage  Builders
  */
 
-class OutputBuilder extends Builder
+class Nexista_OutputBuilder extends Nexista_Builder
 {
 
     /**
      * Returns start code for this tag.
      *
      * @return   string Final code to insert in gate
-     * @see      Builder::getCode()
+     * @see      Nexista_Builder::getCode()
      */
 
     public function getCodeStart()
@@ -35,7 +35,7 @@ class OutputBuilder extends Builder
         $code[] = null;
         if($this->action->getAttribute('src') === 'eval')
         {   
-            $code[] = '$flow = Flow::singleton();';
+            $code[] = '$flow = Nexista_Flow::singleton();';
             $code[] = '$flow->writeXmlStream($flow->outputXml());';
             $code[] = 'eval($output);';
         }

@@ -11,7 +11,7 @@
  *
  */
 
-class TimeConvertAction extends Action
+class Nexista_TimeConvertAction extends Nexista_Action
 {
 
     /**

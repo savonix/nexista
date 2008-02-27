@@ -20,7 +20,7 @@
  * @subpackage  Validators
  */
 
-class DummyValidator extends Validator
+class Nexista_DummyValidator extends Nexista_Validator
 {
 
     /**
@@ -49,7 +49,7 @@ class DummyValidator extends Validator
 
     public function main()
     {
-        $data = Path::get($this->params['var'], 'flow');
+        $data = Nexista_Path::get($this->params['var'], 'flow');
 
         if(!empty($data)  || $data === '0')
         {

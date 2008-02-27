@@ -12,7 +12,7 @@
  */
 
 /**
- * This class provides functionality to resolve paths with different protocols
+ * This class Nexista_provides functionality to resolve paths with different protocols
  * such as flow, php, get etc... for use in xml files such as actions, validators
  * queries, etc..
  * In many situations, such as <i>src</i> attributes of sitmap tags, query parameters, 
@@ -54,7 +54,7 @@
  * @package     Nexista
  */
 
-Class Path
+class Nexista_Path
 {
 
     /**
@@ -100,53 +100,53 @@ Class Path
                 //_GET 
                 case 'get':
                      
-                    $result = Path::interpretPath($_GET, $path);
+                    $result = Nexista_Path::interpretPath($_GET, $path);
                     break;
                         
                 //_POST 
                 case 'post':
                     
-                    $result = Path::interpretPath($_POST, $path);
+                    $result = Nexista_Path::interpretPath($_POST, $path);
                     
                     break;
                         
                 //_REQUEST
                 case 'request':
                     
-                    $result = Path::interpretPath($_REQUEST, $path);
+                    $result = Nexista_Path::interpretPath($_REQUEST, $path);
                     
                     break;
                         
                 //_SESSIONS
                 case 'session':
                         
-                    $result = Path::interpretPath($_SESSION, $path);
+                    $result = Nexista_Path::interpretPath($_SESSION, $path);
                     
                     break;
                     
                 //_FILES
                 case 'files':
                     
-                    $result = Path::interpretPath($_FILES, $path);
+                    $result = Nexista_Path::interpretPath($_FILES, $path);
                     break;
                     
                 //GLOBALS
                 case 'globals':
                                    
-                    $result = Path::interpretPath($GLOBALS, $path);
+                    $result = Nexista_Path::interpretPath($GLOBALS, $path);
                    
                     break;
                         
                 //_SERVER
                 case 'server':
                     
-                    $result = Path::interpretPath($_SERVER, $path);
+                    $result = Nexista_Path::interpretPath($_SERVER, $path);
                     break;
                     
                 //_COOKIES
                 case 'cookie':
                     
-                    $result = Path::interpretPath($_COOKIE, $path);
+                    $result = Nexista_Path::interpretPath($_COOKIE, $path);
                     break;
                     
                 //internal registry  
@@ -158,7 +158,7 @@ Class Path
                 //flow   
                 case 'flow':
                
-                    $result = Flow::getByPath($path);
+                    $result = Nexista_Flow::getByPath($path);
                     break;
                         
                 //eval a php expression
@@ -176,7 +176,7 @@ Class Path
                 case 'string':
                 default:
                 
-                    $result = Path::parseInlineFlow($path);
+                    $result = Nexista_Path::parseInlineFlow($path);
                     break;    
                 
                 
@@ -229,7 +229,7 @@ Class Path
     private function interpretPath($data, $request)
     {
          //inline flow expressions   
-        //$string = Path::parseInlineFlow($string);
+        //$string = Nexista_Path::parseInlineFlow($string);
        
         $request = explode('/', trim($request, '/'));
 
@@ -253,9 +253,9 @@ Class Path
     }
     
     /**
-     * Returns a class singleton.
+     * Returns a class Nexista_singleton.
      *
-     * @return  object class singleton instance
+     * @return  object class Nexista_singleton instance
      */
      
     static public function singleton() 

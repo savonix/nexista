@@ -19,7 +19,7 @@
  * @subpackage  Actions
  */
 
-class newlineAction extends Action
+class Nexista_newlineAction extends Nexista_Action
 {
 
     /**

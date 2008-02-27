@@ -21,7 +21,7 @@
  * @subpackage  Actions
  */
 
-class gateAction extends Action
+class Nexista_gateAction extends Nexista_Action
 {
 
 

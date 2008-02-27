@@ -23,7 +23,7 @@
  * @subpackage  Validators
  */
 
-class GdValidator extends Validator
+class Nexista_GdValidator extends Nexista_Validator
 {
 
     /**
@@ -61,7 +61,7 @@ class GdValidator extends Validator
 
         $this->message = 'is an invalid image type. supported types are: .'.implode($gd->getSupportedTypes(),', .');
 
-        $data = Path::get($this->params['var'], 'flow');
+        $data = Nexista_Path::get($this->params['var'], 'flow');
 
         if(!empty($data))
         {

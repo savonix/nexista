@@ -20,7 +20,7 @@
  * @subpackage  Validators
  */
 
-class MatchValidator extends Validator
+class Nexista_MatchValidator extends Nexista_Validator
 {
 
     /**
@@ -52,13 +52,13 @@ class MatchValidator extends Validator
 
     public function main()
     {
-        $var = Path::get($this->params['var'], 'flow');
+        $var = Nexista_Path::get($this->params['var'], 'flow');
 
         if(empty($var))
         {
             $this->setEmpty();
         }
-        $match = Path::get($this->params['match'], 'flow');
+        $match = Nexista_Path::get($this->params['match'], 'flow');
 
         if(!strcmp($match, $var))
         {

@@ -21,7 +21,7 @@
  */
 
 
-class NumericValidator extends Validator
+class Nexista_NumericValidator extends Nexista_Validator
 {
 
     /**
@@ -51,7 +51,7 @@ class NumericValidator extends Validator
 
     public function main()
     {
-        $data = Path::get($this->params['var'], 'flow');
+        $data = Nexista_Path::get($this->params['var'], 'flow');
 
         if(!empty($data))
         {

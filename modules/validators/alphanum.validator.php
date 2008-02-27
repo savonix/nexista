@@ -21,7 +21,7 @@
  */
 
 
-class AlphanumValidator extends Validator
+class Nexista_AlphanumValidator extends Nexista_Validator
 {
 
     /**
@@ -52,7 +52,7 @@ class AlphanumValidator extends Validator
 
     public function main()
     {
-        $data = Path::get($this->params['var'], 'flow');
+        $data = Nexista_Path::get($this->params['var'], 'flow');
 
         if(!empty($data))
         {

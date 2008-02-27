@@ -24,8 +24,8 @@ define('NX_ERROR_NOTICE', 4);
  * The Nexista error system is Exception based and provides a method for calling 
  * custom handler for each error type.
  *
- * The extension class used by Nexista extends from the standard PHP5 Exception 
- * class with added functionality. It aims to be self supporting meaning that try/catch 
+ * The extension class Nexista_used by Nexista extends from the standard PHP5 Exception 
+ * class Nexista_with added functionality. It aims to be self supporting meaning that try/catch 
  * blocks do not need to be called. 
  *
  * Each place where an error might happen has the directive:
@@ -37,8 +37,8 @@ define('NX_ERROR_NOTICE', 4);
  * script), NX_ERROR_WARNING and NX_ERROR_NOTICE. If the error code does is not 
  * listed it will then throw the exception.
  *
- * Each class or functionality group can have it's own error codes and handlers. 
- * For example, a database class might have:
+ * Each class Nexista_or functionality group can have it's own error codes and handlers. 
+ * For example, a database class Nexista_might have:
  * <code>
  * if(!connectToDB())
  * {   
@@ -76,12 +76,12 @@ define('NX_ERROR_NOTICE', 4);
  * security measures such as showing an error message with a link to a role secure 
  * popup page which calls the function.
  * 
- * Credits: This class was inspired by the PEAR_Exception class
+ * Credits: This class Nexista_was inspired by the PEAR_Exception class
  *
  * @package     Nexista
  */
 
-class Error extends Exception
+class Nexista_Error extends Exception
 {
     
     /**
@@ -163,7 +163,7 @@ class Error extends Exception
     static public function init($text, $code = null, $handler= null)
     {
         
-        $e = new Error($text, $code, $handler);
+        $e = new Nexista_Error($text, $code, $handler);
             
     }
 
@@ -283,7 +283,7 @@ class Error extends Exception
     }
 
     /**
-     * Returns class where exception occured
+     * Returns class Nexista_where exception occured
      *
      * @return  string      error class
      */

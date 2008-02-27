@@ -13,7 +13,7 @@
  */
 
 /**
- * This class handles I/O between sitemap nodes (files) and will output 
+ * This class Nexista_handles I/O between sitemap nodes (files) and will output 
  * an xml tree at the end if requested by the XSLT handler.
  *
  * One of the core features of Nexista is the Flow concept. Flow represents the 
@@ -26,7 +26,7 @@
  * to understand is how to call Flow variables and what data can be accessed in 
  * this manner. 
  *
- * The flow class is an extension of the {@link "PHP5 DOM API" href="http://www.php.net/manual/en/ref.dom.php} 
+ * The flow class Nexista_is an extension of the {@link "PHP5 DOM API" href="http://www.php.net/manual/en/ref.dom.php} 
  * and thus provides all the standard XML functionality as well as a few additional 
  * methods. 
  *
@@ -66,7 +66,7 @@
  * @package     Nexista
  */
 
-class Flow 
+class Nexista_Flow 
 {
 
 
@@ -138,7 +138,7 @@ class Flow
     public function init() 
     {   
         //get config data
-        $params = Config::getSection('flow');
+        $params = Nexista_Config::getSection('flow');
         
         //create a new DOM document and init with root
         $this->flowDocument = new DOMDocument("1.0");
@@ -218,7 +218,7 @@ class Flow
 
     static public function find($exp, $parent = null)
     {
-        $flow = Flow::singleton();
+        $flow = Nexista_Flow::singleton();
         $x = new DOMXPath($flow->flowDocument);
        
         if(is_null($parent))
@@ -274,7 +274,7 @@ class Flow
                 }
                 else
                 {
-                    $result[$kid->nodeName] = Flow::get($kid);
+                    $result[$kid->nodeName] = Nexista_Flow::get($kid);
                 }
             }
             return $result;
@@ -291,8 +291,8 @@ class Flow
 
     static public function delete($node)
     {  
-		$flow=Flow::singleton();
-		$listall=$flow->flowDocument->getElementsByTagname($node); 
+		$flow = Nexista_Flow::singleton();
+		$listall = $flow->flowDocument->getElementsByTagname($node); 
 		$count = $listall->length;
 		for ($i = 0; $i < $count; $i++) { 
 			$myparentnode = $listall->item(0)->parentNode; 
@@ -316,8 +316,8 @@ class Flow
     static public function getByPath($path,$array_type = null)
     {
   
-        $flow = Flow::singleton();
-        $res = Flow::find($path);
+        $flow = Nexista_Flow::singleton();
+        $res = Nexista_Flow::find($path);
         if($res->length > 1)
         {
             $array = array();
@@ -363,9 +363,9 @@ class Flow
 
 
     /**
-     * Returns a class singleton.
+     * Returns a class Nexista_singleton.
      *
-     * @return  object      class singleton instance
+     * @return  object      class Nexista_singleton instance
      */
      
     static public function singleton() 
@@ -420,7 +420,7 @@ class Flow
      
     static public function add($node, $value = null, $root = false) 
     {
-        $flow = Flow::singleton(); 
+        $flow = Nexista_Flow::singleton(); 
         
         //where do we place this?
         if(!$root)

@@ -19,7 +19,7 @@
  * @subpackage  Builders
  */
 
-class ScriptBuilder extends Builder
+class Nexista_ScriptBuilder extends Nexista_Builder
 {
 
     /**
@@ -31,7 +31,7 @@ class ScriptBuilder extends Builder
 
     public function getRequired()
     {
-        $req[] = Config::get('./path/handlers').'script.handler.php';
+        $req[] = Nexista_Config::get('./path/handlers').'script.handler.php';
 
         return $req;
     }
@@ -41,13 +41,13 @@ class ScriptBuilder extends Builder
      * Returns start code for this tag.
      *
      * @return   string Final code to insert in gate
-     * @see      Builder::getCode()
+     * @see      Nexista_Builder::getCode()
      */
 
     public function getCodeStart()
     {
-        $path = new PathBuilder();
-        $code[] = $this->addErrorHandler('ScriptHandler::process('.
+        $path = new Nexista_PathBuilder();
+        $code[] = $this->addErrorHandler('Nexista_ScriptHandler::process('.
             $path->get(NX_PATH_APPS.$this->action->getAttribute('src'), 'string', JOIN_SINGLE_QUOTE).')');
         return implode(NX_BUILDER_LINEBREAK, $code);
 
