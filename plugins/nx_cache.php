@@ -10,9 +10,9 @@ License: LGPL
 */
 
 
-$mycache = (bool)Nexista_Config::get('./runtime/cache');
+$cache_config = (bool)Nexista_Config::get('./plugins/plugin/nx-cache/active');
 
-if($mycache===true){
+if($cache_config===true){
     if(count($_POST) > 0 || $_GET['from_date'] || $_GET['nid']=="logout") { 
         $gate_cache_file = NX_PATH_CACHE.'cache_*';
         
@@ -30,15 +30,19 @@ function gzBuffer($init)
 {
 	$init->process();
 	
-	$request_uri = $_SERVER['REQUEST_URI'];
-    if(class_exists("Nexista_Foundry")) { 
-        Nexista_Flow::add("request_uri",$request_uri);
-    } else {
-        Flow::add("request_uri",$request_uri);
-    }
 	ob_start();
-	ob_start('ob_gzhandler');
-
+    if(!(bool)Nexista_Config::get('./plugins/plugin/nx-cache/compress')) { 
+        ob_start();
+    } else { 
+        ob_start('ob_gzhandler');
+    }
+    $cache_config = (bool)Nexista_Config::get('./plugins/plugin/nx-cache/active');
+    if($cache_config===false) { 
+        $init->run();
+    }
+    
+	$request_uri = $_SERVER['REQUEST_URI'];
+    Nexista_Flow::add("request_uri",$request_uri);
 	$expiryTime=$init->getInfo('cacheExpiryTime');
 	$my_request_uri = $request_uri;
 	$clear_gate_file='cache_'.$my_user_id."_".$my_request_uri;
@@ -50,20 +54,12 @@ function gzBuffer($init)
         mkdir(NX_PATH_CACHE);
     }
         
-    if(class_exists("Nexista_Foundry")) { 
-        $cache_config = Nexista_Config::get('./runtime/cache');
-    } else { 
-        $cache_config = Config::get('./runtime/cache');
-    }
-        
+
 	$options = array('cacheDir'=> NX_PATH_CACHE,'caching'  => $cache_config,'lifeTime' => $expiryTime);
 	$cache = new Cache_Lite($options);
 
-    if(class_exists("Nexista_Foundry")) { 
-        $development_console = (bool)Nexista_Config::get('./runtime/development_console');
-    } else { 
-        $development_console = (bool)Config::get('./runtime/development_console');
-    }
+    $development_console = (bool)Nexista_Config::get('./runtime/development_console');
+
     if($_GET['development_console']=="false") { 
         unset($development_console); 
     }
@@ -245,14 +241,7 @@ function authLogin($auth)
     }
 }
 
-if(class_exists("Nexista_Foundry")) { 
 Nexista_Auth::registerTimeoutHandler('authLogin');
 Nexista_Auth::registerLoginHandler('authLogin');
 Nexista_Auth::registerDeniedHandler('authLogin');
 Nexista_Auth::registerExpiredHandler('authLogin');
-} else { 
-    Auth::registerTimeoutHandler('authLogin');
-    Auth::registerLoginHandler('authLogin');
-    Auth::registerDeniedHandler('authLogin');
-    Auth::registerExpiredHandler('authLogin');
-}
