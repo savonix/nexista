@@ -19,32 +19,12 @@ if((bool)Config::get('./runtime/cache')===true){
 }
 
 
-if(COMMAND_LINE===true) {
-} else {
-Init::registerOutputHandler('gzBuffer');
-}
-
-
 function gzBuffer($init)
 {
 	$init->process();
 	
-	$request_uri = $_SERVER['REQUEST_URI'];
-	Flow::add("request_uri",$request_uri);
-    
 	ob_start();
 	ob_start('ob_gzhandler');
-	/*
-    // You could set an environmental variable from the webserver
-    // to identify user or user agent
-	$agent = $_SERVER['HTTP_USER_AGENT'];
-	if(stripos($agent,"google") || stripos($agent,"slurp") || stripos($agent,"msnbot") || stripos($agent,"spider") || stripos($agent,"bot")) { 		
-		$my_user_id = -1000;
-	} else { 
-		//$my_user_id = $_SESSION['NX_AUTH']['user_id'];
-		$my_user_id = 100;
-	}
-    */
 
 	$expiryTime=$init->getInfo('cacheExpiryTime');
 	$my_request_uri = $request_uri;
