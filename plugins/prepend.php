@@ -1,10 +1,12 @@
 <?php
-
-/* 
-
-In development you will never do client side caching, but on every stage you
-will do server side caching. 
-
+/*
+Plugin Name: Compressing, Caching Output
+Plugin URI:
+Description: Uses ob_gzhandler and Cache_Lite to compress and cache output.
+Version: 0.1
+Copyright: Savonix Corporation
+Author: Albert Lash
+License: LGPL
 */
 
 
