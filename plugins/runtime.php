@@ -28,31 +28,14 @@ $right_now = date('Y-m-d H:i:s');
 //$current_user_id = $_SESSION['NX_AUTH']['user_id'];
 $current_user_id = 100;
 
-if(class_exists("Nexista_Config")) { 
-} else { 
-    class Nexista_Config extends Config { 
-    }
-    class Nexista_Config extends Config { 
-    }
-    class Nexista_Flow extends Flow { 
-    }
-    class Nexista_Path extends Path { 
-    }
-}
+
 $debug = Nexista_Config::get('./runtime/debug');
     
 $top_left_logo = "images/pbooks-logo_120x60.png";
 
-if($_SERVER['SERVER_NAME']=="www.livedemo.pbooks.org") { 
-$footer_includes = <<< EOF
-<script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script><script type="text/javascript">
-_uacct = "UA-574944-19";
-urchinTracker();
-</script>
-EOF;
-} else { 
+
 $footer_includes; 
-}
+
 $runtime = array('host_name'=>$_SERVER['SERVER_NAME'],
                 'path_prefix'=>$path_prefix,
                 'link_prefix'=>$link_prefix,
