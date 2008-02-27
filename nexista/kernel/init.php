@@ -4,6 +4,7 @@
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2004, Nexista
  * -Author      joshua savage
+ * -Author      Albert Lash
  */
 
 /**
@@ -41,7 +42,7 @@ require_once(NX_PATH_CORE. "auth.php");
 
 
 
-class Init
+class Nexista_Init
 {
 
     
@@ -114,7 +115,7 @@ class Init
      
     public function start()
     {            
-        Debug::register("in","total");
+        Nexista_Debug::register("in","total");
         $this->initSession();
         $this->initFlow();       
     }
@@ -127,7 +128,7 @@ class Init
 
     public function loadConfig()
     {
-        $this->config = Config::singleton();
+        $this->config = Nexista_Config::singleton();
         $this->config->setMaster(NX_PATH_COMPILE.'config.xml'); 
         $this->config->loadMasterConfig();
     }
@@ -161,7 +162,7 @@ class Init
 
     public function stop()
     {
-        Debug::register("out","total");
+        Nexista_Debug::register("out","total");
         exit();
     }
 
@@ -177,7 +178,7 @@ class Init
 
     private function initFlow()
     { 
-        $flow = Flow::singleton();        
+        $flow = Nexista_Flow::singleton();        
         $flow->init();       
     }
 
@@ -250,7 +251,7 @@ class Init
 			if(isset($gatesExact[$_ID_]['role'])) {
                 $this->info['requireRole'] = $gatesExact[$_ID_]['role'];
 				// I wonder why this wasn't here in the first place?
-				$auth = Auth::singleton();
+				$auth = Nexista_Auth::singleton();
 				$auth->requireRole($this->info['requireRole']);
 			}
             $gateFound=true;
@@ -270,7 +271,7 @@ class Init
                         $this->info['cacheExpiryTime'] = $info['cache'];
 					if(isset($info['role'])) {
                         $this->info['requiredRole'] = $info['role'];
-						$auth = Auth::singleton();
+						$auth = Nexista_Auth::singleton();
 						$auth->requireRole($info['role']);
 					}
                     $gateFound=true;
@@ -288,7 +289,7 @@ class Init
                 
             if(isset($gateMissing['role'])) {
                 $this->info['requireRole'] = $gateMissing['role'];
-                $auth = Auth::singleton();
+                $auth = Nexista_Auth::singleton();
                 $auth->requireRole($this->info['requireRole']);
             }
         }

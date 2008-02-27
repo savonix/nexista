@@ -20,7 +20,7 @@
  * @subpackage  Actions
  */
 
-class uploadAction extends Action
+class Nexista_uploadAction extends Nexista_Action
 {
 
     /**
@@ -67,7 +67,7 @@ class uploadAction extends Action
             }
     
             //assign full destination path to flow as it can be useful
-            $res = Flow::find('//_files/file');
+            $res = Nexista_Flow::find('//_files/file');
             if($res->length === 1)
             {
 				

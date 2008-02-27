@@ -21,7 +21,7 @@
  */
 
 
-class RegexValidator extends Validator
+class Nexista_RegexValidator extends Nexista_Validator
 {
 
     /**
@@ -53,7 +53,7 @@ class RegexValidator extends Validator
 
     public function main()
     {
-        $data = Path::get($this->params['var'], 'flow');
+        $data = Nexista_Path::get($this->params['var'], 'flow');
         if(!empty($data))
         {
             $this->result = preg_match($this->params['regex'], $data);

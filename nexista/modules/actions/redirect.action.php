@@ -20,7 +20,7 @@
  * @subpackage  Actions
  */
 
-class redirectAction extends Action
+class Nexista_redirectAction extends Nexista_Action
 {
 
 
@@ -44,7 +44,7 @@ class redirectAction extends Action
 
     protected  function main()
     {
-        $destination = isset($this->params['url'])? Path::parseInlineFlow($this->params['url']):null;
+        $destination = isset($this->params['url'])? Nexista_Path::parseInlineFlow($this->params['url']):null;
         $appendSession = isset($this->params['session'])?$this->params['session']:null;
         
         if(is_null($destination) and isset($_SERVER['HTTP_REFERER']))

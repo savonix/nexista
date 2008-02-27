@@ -19,14 +19,14 @@
  * @subpackage  Builders
  */
 
-class TrueBuilder extends Builder
+class Nexista_TrueBuilder extends Nexista_Builder
 {
 
     /**
      * Returns start code for this tag.
      *
      * @return   string Final code to insert in gate
-     * @see      Builder::getCode()
+     * @see      Nexista_Builder::getCode()
      */
 
     public function getCodeStart()
@@ -40,7 +40,7 @@ class TrueBuilder extends Builder
     /**
      * Returns end code for this tag.
      * @return   string Final code to insert in gate
-     * @see      Builder::getCode()
+     * @see      Nexista_Builder::getCode()
      */
 
     public function getCodeEnd()

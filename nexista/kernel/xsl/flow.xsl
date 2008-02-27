@@ -16,7 +16,7 @@ instruction below. This is recommended if you are a beginner.
 -->
 
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-
+<xsl:param name="ignore" select="i18n"/>
   <xsl:output method="html"
     encoding="UTF-8"
     indent="yes"
@@ -158,6 +158,7 @@ window.onload = divExpand('flowDumpContent');
 
 
 <xsl:template match="*" mode="render">
+    <xsl:if test="not(local-name()=$ignore)">
     <br/>
     <xsl:call-template name="ascii-art-hierarchy"/>
     <span class="indent">&#160;</span>
@@ -165,6 +166,7 @@ window.onload = divExpand('flowDumpContent');
         <xsl:value-of select="local-name()"/>
     </span>
     <xsl:apply-templates mode="render"/>
+    </xsl:if>
 </xsl:template>
 
 <xsl:template match="text()" mode="render">

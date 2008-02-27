@@ -13,11 +13,11 @@
  */
 
 /**
- * This class provides some debugging functions
+ * This class Nexista_provides some debugging functions
  * @package     Nexista
  */
 
-Class Debug
+class Nexista_Debug
 {
 
     /**

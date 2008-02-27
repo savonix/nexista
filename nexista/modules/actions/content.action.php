@@ -14,14 +14,13 @@
  */
  
 /**
- * This action sends a content-type header.
  * NOTE: This action is deprecated. Use header.action.php instead.
  *
  * @package     Nexista
  * @subpackage  Actions
  */
 
-class ContentAction extends Action
+class Nexista_ContentAction extends Nexista_Action
 {
 
     /**

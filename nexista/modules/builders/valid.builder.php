@@ -20,13 +20,13 @@
  * @subpackage  Builders
  */
 
-class ValidBuilder extends Builder
+class Nexista_ValidBuilder extends Nexista_Builder
 {
    /**
      * Returns start code for this tag.
      *
      * @return   string Final code to insert in gate
-     * @see      Builder::getCode()
+     * @see      Nexista_Builder::getCode()
      */
 
     public function getCodeStart()
@@ -44,7 +44,7 @@ class ValidBuilder extends Builder
      * Returns end code for this tag.
      *
      * @return   string Final code to insert in gate
-     * @see      Builder::getCode()
+     * @see      Nexista_Builder::getCode()
      */
 
     public function getCodeEnd()

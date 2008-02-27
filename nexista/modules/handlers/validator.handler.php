@@ -22,7 +22,7 @@
  * @subpackage  Handlers
  */
 
-class ValidatorHandler
+class Nexista_ValidatorHandler
 {
 
     /**
@@ -45,7 +45,7 @@ class ValidatorHandler
     {
         //create a validator data object to hold procedure result
         require_once(NX_PATH_HANDLERS . 'validatorhandlerdata.php');
-        $validatorData = new ValidatorHandlerData();
+        $validatorData = new Nexista_ValidatorHandlerData();
 
         //load validator file
         $xml = simplexml_load_file($src);
@@ -84,7 +84,7 @@ class ValidatorHandler
                 require_once(NX_PATH_VALIDATORS . trim(strtolower($type)) . ".validator.php");
 
                 //build the class name to load
-                $class = trim(ucfirst($type)) . "Validator";
+                $class = 'Nexista_'.trim(ucfirst($type)) . "Validator";
                 $validator =& new $class();
 
                 if(!$validator->process($args, $required, $result))
@@ -123,7 +123,7 @@ class ValidatorHandler
 
         if((string)$xml['debug'] === 'true')
         {        
-            Debug::dump($validatorData->validatorData, $validator_name .' (validation data) ');
+            Nexista_Debug::dump($validatorData->validatorData, $validator_name .' (validation data) ');
         }
 
         $result = $validatorData->getResult(); //1 = valid data
@@ -132,7 +132,7 @@ class ValidatorHandler
         if(!$result)
         {
             //assign validator data to Flow
-            Flow::add($validator_name,$validatorData->validatorData);
+            Nexista_Flow::add($validator_name,$validatorData->validatorData);
 
         }
 

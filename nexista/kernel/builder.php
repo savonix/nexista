@@ -12,7 +12,7 @@
  */
  
 /**
- * This class provides abstract functionality to build the cached php gate files
+ * This class Nexista_provides abstract functionality to build the cached php gate files
  * for each action based on the sitemap.
  *
  * It should be extended for each possible tags in the sitemap. In your class
@@ -30,7 +30,7 @@
  */
 
 
-class Builder
+class Nexista_Builder
 {
 
     /**
@@ -116,7 +116,7 @@ class Builder
     /**
      * Inserts whatever exception handling is desired at build time
      *
-     * This allows any code in the getCode() class to use error handling
+     * This allows any code in the getCode() class Nexista_to use error handling
      * without worrying about future changes (such as no error handling)
      * The relevant code in the getCode() method would be written as
      *
@@ -138,7 +138,7 @@ class Builder
     {
         return $content.';';
         $code[] = 'if(!'.$content.') {';
-        $code[] = "Error::init('".$message."','".$code."','".$errorHandler."'));";
+        $code[] = "Nexista_Error::init('".$message."','".$code."','".$errorHandler."'));";
         $code[] = '}';
         return implode(NX_BUILDER_LINEBREAK, $code);
 
@@ -146,7 +146,7 @@ class Builder
 
 
     /**
-     * Resets class attributes between tags
+     * Resets class Nexista_attributes between tags
      *
      */
 

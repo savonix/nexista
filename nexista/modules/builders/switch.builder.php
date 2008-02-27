@@ -20,19 +20,19 @@
  * @subpackage  Builders
  */
 
-class SwitchBuilder extends Builder
+class Nexista_SwitchBuilder extends Nexista_Builder
 {
 
     /**
      * Returns start code for this tag.
      *
      * @return   string Final code to insert in gate
-     * @see      Builder::getCode()
+     * @see      Nexista_Builder::getCode()
      */
 
     public function getCodeStart()
     {
-        $path = new PathBuilder();
+        $path = new Nexista_PathBuilder();
         $code[] = 'switch('.$path->get($this->action->getAttribute('name'), 'flow', JOIN_DOUBLE_QUOTE).') {';
         return implode(NX_BUILDER_LINEBREAK, $code);
 

@@ -20,7 +20,7 @@
  * @subpackage  Builders
  */
 
-class XmlBuilder extends Builder
+class Nexista_XmlBuilder extends Nexista_Builder
 {
 
 
@@ -33,7 +33,7 @@ class XmlBuilder extends Builder
 
     public function getRequired()
     {
-        $req[] = Config::get('./path/handlers').'xml.handler.php';
+        $req[] = Nexista_Config::get('./path/handlers').'xml.handler.php';
 
         return $req;
     }
@@ -43,12 +43,12 @@ class XmlBuilder extends Builder
      * Returns start code for this tag.
      *
      * @return   string Final code to insert in gate
-     * @see      Builder::getCode()
+     * @see      Nexista_Builder::getCode()
      */
 
     public function getCodeStart()
     {
-        $path = new PathBuilder();
+        $path = new Nexista_PathBuilder();
         
         if(strpos($this->action->getAttribute('src'),'http')!==false) {
             $params = "'".$this->action->getAttribute('src')."'";
@@ -58,7 +58,7 @@ class XmlBuilder extends Builder
         if($this->action->hasAttribute('parent')) { 
 			$params .= ",".$this->action->getAttribute('parent');
 		}
-        $code[] = $this->addErrorHandler('XmlHandler::process('.$params.')');
+        $code[] = $this->addErrorHandler('Nexista_XmlHandler::process('.$params.')');
         return implode(NX_BUILDER_LINEBREAK, $code);
 
     }

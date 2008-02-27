@@ -20,7 +20,7 @@
  * @subpackage  Builders
  */
 
-class SetBuilder extends Builder
+class Nexista_SetBuilder extends Nexista_Builder
 {
     /**
      * Returns array of required files to insert in require_once fields
@@ -31,7 +31,7 @@ class SetBuilder extends Builder
 
     public function getRequired()
     {
-        $req[] = Config::get('./path/handlers').'parameter.handler.php';
+        $req[] = Nexista_Config::get('./path/handlers').'parameter.handler.php';
 
         return $req;
     }
@@ -41,13 +41,13 @@ class SetBuilder extends Builder
      * Returns start code for this tag.
      *
      * @return   string Final code to insert in gate
-     * @see      Builder::getCode()
+     * @see      Nexista_Builder::getCode()
      */
 
     public function getCodeStart()
     {
-        $path = new PathBuilder();
-        $code[] = $this->addErrorHandler("ParameterHandler::process('".
+        $path = new Nexista_PathBuilder();
+        $code[] = $this->addErrorHandler("Nexista_ParameterHandler::process('".
 			$this->action->getAttribute('name')."',".
 			$path->get($this->action->getAttribute('value'), 'string', JOIN_SINGLE_QUOTE).")");
         return implode(NX_BUILDER_LINEBREAK, $code);

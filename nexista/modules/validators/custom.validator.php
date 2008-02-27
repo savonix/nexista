@@ -37,7 +37,7 @@
  */
 
 
-class CustomValidator extends Validator
+class Nexista_CustomValidator extends Nexista_Validator
 {
 
     /**
@@ -69,7 +69,7 @@ class CustomValidator extends Validator
     public function main()
     {
         
-        $data = Path::get($this->params['var'], 'flow');
+        $data = Nexista_Path::get($this->params['var'], 'flow');
         if(!empty($data))
         {      
             if(is_callable($this->params['function']))

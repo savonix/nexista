@@ -19,7 +19,7 @@
  * @subpackage  Actions
  */
 
-class stripAction extends Action
+class Nexista_stripAction extends Nexista_Action
 {
 
 
@@ -45,9 +45,9 @@ class stripAction extends Action
     protected  function main()
     {
 
-		$res = Flow::find($this->params['var']);
+		$res = Nexista_Flow::find($this->params['var']);
         if(!empty($res)) { 
-            $chars = Flow::getByPath($this->params['chars']);
+            $chars = Nexista_Flow::getByPath($this->params['chars']);
             $res->item(0)->nodeValue = str_replace($chars,"",$res->item(0)->nodeValue);
 
             return true;

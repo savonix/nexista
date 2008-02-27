@@ -22,7 +22,7 @@
  * @subpackage  Actions
  */
 
-class logAction extends Action
+class Nexista_logAction extends Nexista_Action
 {
 
 

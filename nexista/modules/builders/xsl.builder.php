@@ -20,7 +20,7 @@
  */
 
 
-class XslBuilder extends Builder
+class Nexista_XslBuilder extends Nexista_Builder
 {
 
 
@@ -33,7 +33,7 @@ class XslBuilder extends Builder
 
     public function getRequired()
     {
-        $req[] = Config::get('./path/handlers').'xsl.handler.php';
+        $req[] = Nexista_Config::get('./path/handlers').'xsl.handler.php';
 
         return $req;
     }
@@ -42,13 +42,13 @@ class XslBuilder extends Builder
      * Returns start code for this tag.
      *
      * @return   string Final code to insert in gate
-     * @see      Builder::getCode()
+     * @see      Nexista_Builder::getCode()
      */
 
     public function getCodeStart()
     {
-        $path = new PathBuilder();
-        $code[] = '$xsl =& new XslHandler();';
+        $path = new Nexista_PathBuilder();
+        $code[] = '$xsl =& new Nexista_XslHandler();';
 $code[] = '$output .= $xsl->process('.$path->get(NX_PATH_APPS.$this->action->getAttribute('src'), 'string', JOIN_SINGLE_QUOTE).');';
         // Want to delete as of Oct 2007:   
         //$code[] = '$output .= $xsl->process('.$path->get($this->action->getAttribute('src'), 'string', JOIN_SINGLE_QUOTE).');';

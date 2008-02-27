@@ -22,7 +22,7 @@
  * @subpackage  Actions
  */
 
-class translateAction extends Action
+class Nexista_translateAction extends Nexista_Action
 {
 
 

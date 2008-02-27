@@ -42,7 +42,7 @@
  */
 
  
-class Auth
+class Nexista_Auth
 {
 
     /**
@@ -146,7 +146,7 @@ class Auth
 
     public function __construct()
     {
-		$sessions = Config::get('session/active');
+		$sessions = Nexista_Config::get('session/active');
 		if($sessions==0) { 
 			return;
 		} else { 
@@ -178,7 +178,7 @@ class Auth
      
     private function initSession()
     {
-        $params = Config::getSection('auth');
+        $params = Nexista_Config::getSection('auth');
         
         //Time in min till expiry from start of session (0=never expire)
         $this->sessionData['expireTime'] = !empty($params['expire']) ?      $params['expire'] : '0';
@@ -388,9 +388,9 @@ class Auth
     }
       
     /**
-     * Returns a class singleton.
+     * Returns a class Nexista_singleton.
      *
-     * @return  object      class singleton instance
+     * @return  object      class Nexista_singleton instance
      */
      
     static public function singleton() 

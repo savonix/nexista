@@ -21,7 +21,7 @@
  * @subpackage  Actions
  */
 
-class DecompressAction extends Action
+class Nexista_DecompressAction extends Nexista_Action
 {
 
     /**
@@ -44,7 +44,7 @@ class DecompressAction extends Action
     protected  function main()
     {   
         
-		$res = Flow::find($this->params['var']);
+		$res = Nexista_Flow::find($this->params['var']);
         if($res->length === 1)
         {            
 			$text = $res->item(0)->nodeValue;

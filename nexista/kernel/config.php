@@ -19,7 +19,7 @@
  */
 
 
-Class Config
+class Nexista_Config
 {
 
     
@@ -83,7 +83,7 @@ Class Config
     {
         if(!file_exists($file)) 
         {
-            Error::init('Cannot find master config file: '.$file, NX_ERROR_FATAL);            
+            Nexista_Error::init('Cannot find master config file: '.$file, NX_ERROR_FATAL);            
         }
         $this->masterConfig = $file;
     
@@ -106,7 +106,7 @@ Class Config
 		if($file) { 
 			if(!file_exists($file)) 
 			{
-				Error::init('Cannot find local config file: '.$file, NX_ERROR_FATAL);            
+				Nexista_Error::init('Cannot find local config file: '.$file, NX_ERROR_FATAL);            
 			}
 			$this->localConfig = $file;
 		}
@@ -218,31 +218,7 @@ Class Config
       
     }
     
-    /**
-     *
-     * Open entities skeleton and set table prefix.
-     * 
-     */
-     
-    public function customizeEntities()
-    {
-            $prefix=$_SERVER['SERVER_NAME'];
-            //This needs to be from the config file. 
-            //$prefix="pb_";
-            //$directives='<!ENTITY prefix "'.$prefix.'">';
-            $entitySkeleton = file_get_contents($this->masterConfig);
-            $final = '<!DOCTYPE query [
-'.$directives.'
-'.$entitySkeleton.'
-]><deletethisplaceholderinqueryhandler/>';
-//<blank></blank>';
-//          echo "<pre>"; echo $final; echo "</pre>"; exit;
-self::$xml = simplexml_load_string($final);
-            
-    }
-        
-    
-          
+
     /**
      * Writes a combined config file for runtime
      *
@@ -253,7 +229,7 @@ self::$xml = simplexml_load_string($final);
        
     static public function writeConfig(&$config,$config_filename)
     {
-        $canonical_filename = Config::get('./path/compile').$config_filename;
+        $canonical_filename = Nexista_Config::get('./path/compile').$config_filename;
         $config_compile_error = 
             "Can't open $canonical_filename. 
             Check permissions of parent directories, 
@@ -266,28 +242,27 @@ self::$xml = simplexml_load_string($final);
                         fwrite($tmp, self::$xml->asXML());
                         flock($tmp, LOCK_UN);
                     } else {
-                        $compile_path = Config::get('./path/compile');
                         if(!is_dir($compile_path) && is_writable(dirname(dirname($compile_path)))) {
                             `mkdir -p $compile_path`;
                         } else {
-                            Error::Init( $config_compile_error,NX_ERROR_FATAL);  
+                            Nexista_Error::Init( $config_compile_error,NX_ERROR_FATAL);  
                         }
                     }
                     fclose ($tmp);
                 } else { 
-                    $compile_path = Config::get('./path/compile');
+                    $compile_path = Nexista_Config::get('./path/compile');
                     if(!is_dir($compile_path) && is_writable(dirname(dirname($compile_path)))) {
                         `mkdir -p $compile_path`;
                     } else {
-                        Error::Init( $config_compile_error,NX_ERROR_FATAL); 
+                        Nexista_Error::Init( $config_compile_error,NX_ERROR_FATAL); 
                     }
                 }
             } else { 
-                $compile_path = Config::get('./path/compile');
+                $compile_path = Nexista_Config::get('./path/compile');
                 if(!is_dir($compile_path) && is_writable(dirname(dirname($compile_path)))) {
                     `mkdir -p $compile_path`;
                 } else {
-                    Error::Init( $config_compile_error."3",NX_ERROR_FATAL); 
+                    Nexista_Error::Init( $config_compile_error."3",NX_ERROR_FATAL); 
                 }
             }
     }
@@ -391,16 +366,16 @@ self::$xml = simplexml_load_string($final);
         }
         else
         {
-            Error::init('The "'.$name.'" section does not exist in the configuration', NX_ERROR_FATAL);
+            Nexista_Error::init('The "'.$name.'" section does not exist in the configuration', NX_ERROR_FATAL);
         }
         return $result;
     }
     
            
     /**
-     * Returns a class singleton.
+     * Returns a class Nexista_singleton.
      *
-     * @return  object      class singleton instance
+     * @return  object      class Nexista_singleton instance
      */
      
     static public function singleton() 

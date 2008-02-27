@@ -19,7 +19,7 @@
  * @subpackage  Builders
  */
 
-class QueryBuilder extends Builder
+class Nexista_QueryBuilder extends Nexista_Builder
 {
 
     /**
@@ -31,7 +31,7 @@ class QueryBuilder extends Builder
 
     public function getRequired()
     {
-        $req[] = Config::get('./path/handlers').'query.handler.php';
+        $req[] = Nexista_Config::get('./path/handlers').'query.handler.php';
 
         return $req;
     }
@@ -40,13 +40,13 @@ class QueryBuilder extends Builder
      * Returns start code for this tag.
      *
      * @return   string Final code to insert in gate
-     * @see      Builder::getCode()
+     * @see      Nexista_Builder::getCode()
      */
 
     public function getCodeStart()
     {
-        $path = new PathBuilder();
-        $code[] = '$query =& new QueryHandler('.
+        $path = new Nexista_PathBuilder();
+        $code[] = '$query =& new Nexista_QueryHandler('.
         $path->get(NX_PATH_APPS.$this->action->getAttribute('src'), 'string', JOIN_SINGLE_QUOTE).");";
         $code[] = $this->addErrorHandler('$query->process()', '', 'FATAL');
 

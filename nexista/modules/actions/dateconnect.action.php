@@ -13,7 +13,7 @@
  *
  */
 
-class DateConnectAction extends Action
+class Nexista_DateConnectAction extends Nexista_Action
 {
 
     /**

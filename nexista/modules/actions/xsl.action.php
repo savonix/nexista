@@ -27,7 +27,7 @@
  * @subpackage  Actions
  */
 
-class XslAction extends Action
+class Nexista_XslAction extends Nexista_Action
 {
 
     /**

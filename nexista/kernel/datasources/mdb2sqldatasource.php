@@ -24,7 +24,7 @@
  * @subpackage  Datasources
  */
 
-class mdb2SqlDatasource
+class Nexista_mdb2SqlDatasource
 {
 
     /**
@@ -129,7 +129,7 @@ class mdb2SqlDatasource
      * @return  boolean     success
      */
 
-    public function Mdb2SqlDatasource(&$params)
+    public function Nexista_Mdb2SqlDatasource(&$params)
     {
             $this->params =& $params;
     }
@@ -153,6 +153,7 @@ class mdb2SqlDatasource
             "password"=>$this->params['password'],
             "database"=>$this->params['database']);
 
+
         require_once("MDB2.php");
 		$this->db =& MDB2::factory($dsn);
         
@@ -165,7 +166,7 @@ class mdb2SqlDatasource
         
 		if (PEAR::isError($this->db)) {
             $error = $this->db->getMessage();
-            Error::init("$error ; Translation = Error connecting to database, check your 
+            Nexista_Error::init("$error ; Translation = Error connecting to database, check your 
                 configuration file, specifically the datasource sections.",NX_ERROR_FATAL);
 		}
 
@@ -193,44 +194,35 @@ class mdb2SqlDatasource
 
     private function prepareQuery(&$sql, $loop)
     {
-        
-        
+
         //see if it is a select
         if (eregi("^[[:space:]]*select", $this->query['sql']))
         {
             $this->queryType = 'select';
-            
+
         } elseif (eregi("^[[:space:]]*show", $this->query['sql'])) {
             $this->queryType = 'select';
         }
-        else
-        {
-            //parse query for any sequence and set it
-            $this->setKeywords();
-        }
 
-        
         $count = 1;
 
-
-        
         if (isset($this->query['params']))
         {       
             foreach($this->query['params'] as $val)
             {
                 $found = true;
-                $path = new Path();
+                $path = new Nexista_Path();
                 if(!empty($val['name']))
                 {           
                     $value = $path->get($val['name'], 'flow');
                     if(is_null($value) && ($val['type'] == 'integer'))
                     {
                          $found = false;
-                    }                   
+                    }
                 }
                 elseif(!empty($val['array']))
                 {
-                    $array = $path->get($val['array'], 'flow');                    
+                    $array = $path->get($val['array'], 'flow');
                     if(!is_array($array))
                         $array = array($array);
                     $value = $array[$loop];
@@ -258,10 +250,10 @@ class mdb2SqlDatasource
                 }
                 $count++;
             }
-            
+
             if($this->queryType=="select") { 
                 $this->data = $data;
-                $database_cache = Config::get('./runtime/database_cache');
+                $database_cache = Nexista_Config::get('./runtime/database_cache');
                 if(function_exists(xcache_get) && $database_cache=="1") {
                     $cache_name = $this->getQueryId();
                     if(xcache_isset($cache_name)) 
@@ -271,11 +263,11 @@ class mdb2SqlDatasource
                     } 
                 }
             }
-            
+
             $this->db->connect();
 			$prep = $this->db->prepare($this->query['sql'], $types);
             if (PEAR::isError($prep)) {
-                Error::init($result->getMessage().$this->queryName,NX_ERROR_FATAL);
+                Nexista_Error::init($result->getMessage().$this->queryName,NX_ERROR_FATAL);
             }
             $result = $prep->execute($data);
 
@@ -283,12 +275,13 @@ class mdb2SqlDatasource
             $prep = $this->db->prepare($this->query['sql'], $types);  
             $result = $prep->execute(); 
         }
-        
+
         if (PEAR::isError($result)) {
-            Error::init($result->getMessage().$this->queryName,NX_ERROR_FATAL);
-        }  
+            $my_debug_result = serialize($result);
+            Nexista_Error::init($result->getMessage().$this->queryName.$my_debug_result,NX_ERROR_FATAL);
+        }
         $prep->free();
-            
+
         if($this->queryType=="select") { 
             //$this->result = $result;
             return $result->fetchAll(MDB2_FETCHMODE_ASSOC);
@@ -375,7 +368,7 @@ class mdb2SqlDatasource
         if($this->result_set)
         {
             $result_set = $this->result_set;
-            $caching = Config::get('runtime/cache');
+            $caching = Nexista_Config::get('runtime/cache');
             if(strlen(serialize($result_set))>100 && $caching==1 && isset($cache_is_of_for_now)) {
             if(function_exists(xcache_set)) {
                 $cache_name = $this->getQueryId();
@@ -388,7 +381,7 @@ class mdb2SqlDatasource
 			$number_of_rows=count($result_set);
             while($row < $number_of_rows)
             {
-                $flow = Flow::singleton();
+                $flow = Nexista_Flow::singleton();
                 $q = $flow->root->appendChild($flow->flowDocument->createElement($this->queryName));
 
                 foreach($cols as $key => $val)
@@ -410,44 +403,6 @@ class mdb2SqlDatasource
     }
 
 
-    /**
-     * Parses insert queries for any sequence (_AUTO_)
-     * and replaces them with appropriate values
-     *
-     */
-
-    public function setKeywords()
-    {
-           
-        //TODO this needs to be extensively tested with different query phrasings
-        if(preg_match("~INSERT.*\(\s*(\w.*)\s*\).*VALUES\s*\(\s*(\w.*)\s*\)~s", $this->query['sql'], $matches))
-        {
-            //Debug::dump($matches);
-            $qry_val = preg_split ('~[\s]*,[\s]*~', $matches[2]);
-
-            //_AUTO_ (auto increment sequence)
-            $seq = array_search('_AUTO_', $qry_val);
-
-            if($seq !== false)
-            {
-            
-                $qry_name = preg_split ('~[\s]*,[\s]*~', $matches[1]);
-                $seq_name = $qry_name[$seq];
-				$seq_name = "_sequence_".$seq_name.".sequence";
-				
-				$idgen = $this->db->getIdGenerator();
-				print_r($idgen);
-		
-				$id = $idgen->getId();
-				echo "$seq_name, $id";
-                //replace _AUTO_ with new sequence value
-                $this->query['sql'] = str_replace('_AUTO_', $id, $this->query['sql']);
-                
-            }
-        }
-
-        return true;
-    }
 
 
     /**
@@ -529,62 +484,4 @@ class mdb2SqlDatasource
 }
 
 
-
-
-
-        
-/*
-    if(function_exists(xcache_isset)) {
-            if(xcache_isset($my_prepared_query_cache)) {
-                    //echo "DATA CACHE!";
-
-                    // load the string and create a new DOMDocument
-                    $my_xml_string = xcache_get($my_prepared_query_cache);
-                    $my_xml_string = "<cache>".$my_xml_string."</cache>";
-                    //echo htmlentities($my_xml_string);
-                    $doc = new DOMDocument();
-                    $doc->loadXML($my_xml_string);
-
-                    $flow = Flow::singleton();
-
-                    //import new doc into flow recursively
-                    $new = $flow->flowDocument->importNode($doc->documentElement,1);
-                    $flow->root->appendChild($new);
-                    //exit;
-            } else {
-
-            }
-    } else {
-        // get it from the db
-
-        $this->result = $this->db->executeQuery($sql);
-
-        Debug::message($this->db->DebugOutput());
-*/
-        
-        
-/*
-
-    $xml_string .=  $flow->flowDocument->saveXml($q);
-    //cache results //TODO check global caching flag (is there one? :)
-    //$filename = NX_PATH_CACHE.'sql-'.$this->getQueryID().'.xml';
-    //$GLOBALS['__FLOW__']->cacheTag($filename, $path); //change this to new flow system if we need this
-                //$xml_string = htmlentities($xml_string);
-                $cache_name = $this->getQueryId();
-                $caching = Config::get('runtime/cache');
-                if(strlen($xml_string)>100  && $caching==1) {
-                //echo htmlentities($xml_string);
-                        if(function_exists(xcache_set)) {
-                                xcache_set($cache_name, $xml_string, 10000000);
-                        }
-                }
-                //echo "<b>$cache_name = </b><pre>$xml_string</pre>";
-                //Debug::Dump($this->db->prepared_queries);
-
-
-    $this->db->FreeResult($this->result);
-    return true;
-    
-            
-*/
 ?>

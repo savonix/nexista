@@ -19,7 +19,7 @@
  * @subpackage  Validators
  */
 
-class LengthValidator extends Validator
+class Nexista_LengthValidator extends Nexista_Validator
 {
 
     /**
@@ -49,7 +49,7 @@ class LengthValidator extends Validator
 
     public function main()
     {   
-        $data = Path::get($this->params['var'], 'flow');
+        $data = Nexista_Path::get($this->params['var'], 'flow');
         if(!empty($data))
         {        
             $this->result = strlen($data) <= (int)($this->params['length']);

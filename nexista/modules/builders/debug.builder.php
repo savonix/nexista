@@ -20,7 +20,7 @@
  * @subpackage  Builders
  */
 
-class DebugBuilder extends Builder
+class Nexista_DebugBuilder extends Nexista_Builder
 {
 
     /**
@@ -32,7 +32,7 @@ class DebugBuilder extends Builder
 
     public function getRequired()
     {
-        $req[] = Config::get('./path/handlers').'xsl.handler.php';
+        $req[] = Nexista_Config::get('./path/handlers').'xsl.handler.php';
 
         return $req;
     }
@@ -42,7 +42,7 @@ class DebugBuilder extends Builder
      * Returns start code for this tag.
      *
      * @return   string Final code to insert in gate
-     * @see      Builder::getCode()
+     * @see      Nexista_Builder::getCode()
      */
 
     public function getCodeStart()
@@ -57,7 +57,7 @@ class DebugBuilder extends Builder
         
             $code[] = '$debugXsl = new XsltProcessor();';
             $code[] = '$xsl = new DomDocument;';
-            $code[] = '$xsl->load("'.Config::get('./path/base').'kernel/xsl/flow.xsl");';
+            $code[] = '$xsl->load("'.Nexista_Config::get('./path/base').'kernel/xsl/flow.xsl");';
             $code[] = '$debugXsl->importStyleSheet($xsl);';
             $code[] = '$flow = Flow::singleton();';
             $code[] = '$debugOutput = $debugXsl->transformToXML($flow->flowDocument);';

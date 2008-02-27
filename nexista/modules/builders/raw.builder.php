@@ -19,7 +19,7 @@
  * @subpackage  Builders
  */
 
-class RawBuilder extends Builder
+class Nexista_RawBuilder extends Nexista_Builder
 {
 
     /**
@@ -31,7 +31,7 @@ class RawBuilder extends Builder
 
     public function getRequired()
     {
-        $req[] = Config::get('./path/handlers').'raw.handler.php';
+        $req[] = Nexista_Config::get('./path/handlers').'raw.handler.php';
 
         return $req;
     }
@@ -40,14 +40,14 @@ class RawBuilder extends Builder
      * Returns start code for this tag.
      *
      * @return   string Final code to insert in gate
-     * @see      Builder::getCode()
+     * @see      Nexista_Builder::getCode()
      */
 
     public function getCodeStart()
     {
-        $path = new PathBuilder();
+        $path = new Nexista_PathBuilder();
         
-        $code[] = $this->addErrorHandler('RawHandler::process('.
+        $code[] = $this->addErrorHandler('Nexista_RawHandler::process('.
             $path->get(NX_PATH_APPS.$this->action->getAttribute('src'), 'string', JOIN_SINGLE_QUOTE).", \$rawdata)", '', 'FATAL');
         $code[] = '$output .= $rawdata;';
 

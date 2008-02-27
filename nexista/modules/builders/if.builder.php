@@ -21,19 +21,19 @@
  * @subpackage  Builders
  */
 
-class IfBuilder extends Builder
+class Nexista_IfBuilder extends Nexista_Builder
 {
 
     /**
      * Returns start code for this tag.
      *
      * @return   string Final code to insert in gate
-     * @see      Builder::getCode()
+     * @see      Nexista_Builder::getCode()
      */
 
     public function getCodeStart()
     {
-        $path = new PathBuilder();
+        $path = new Nexista_PathBuilder();
         
         $code[] = 'if('.$path->get($this->action->getAttribute('name'), 'flow', JOIN_NONE).')';
         return implode(NX_BUILDER_LINEBREAK, $code);

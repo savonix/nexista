@@ -20,7 +20,7 @@
  * @subpackage  Builders
  */
 
-class ActionBuilder extends Builder
+class Nexista_ActionBuilder extends Nexista_Builder
 {
 
     /**
@@ -32,7 +32,7 @@ class ActionBuilder extends Builder
 
     public function getRequired()
     {
-        $req[] = Config::get('./path/handlers').'action.handler.php';
+        $req[] = Nexista_Config::get('./path/handlers').'action.handler.php';
         return $req;
     }
 
@@ -40,22 +40,22 @@ class ActionBuilder extends Builder
      * Returns start code for this tag.
      *
      * @return   string Final code to insert in gate
-     * @see      Builder::getCode()
+     * @see      Nexista_Builder::getCode()
      */
 
     public function getCodeStart()
     {
 
-        $path = new PathBuilder();
+        $path = new Nexista_PathBuilder();
         if($this->action->hasAttribute('src'))
         {
-            $code[] = $this->addErrorHandler("ActionHandler::process(".
+            $code[] = $this->addErrorHandler("Nexista_ActionHandler::process(".
                 $path->get($this->action->getAttribute('src'), 'string', JOIN_DOUBLE_QUOTE).", true)");
 
         }
         else
         {
-            $code[] = $this->addErrorHandler("ActionHandler::processItem('".
+            $code[] = $this->addErrorHandler("Nexista_ActionHandler::processItem('".
                 $this->action->getAttribute('type')."',".$path->get($this->action->getAttribute('params'), 'string', JOIN_DOUBLE_QUOTE).", true)");
         }
         return implode(NX_BUILDER_LINEBREAK, $code);

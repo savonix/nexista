@@ -21,7 +21,7 @@
  */
 
 
-class ValueValidator extends Validator
+class Nexista_ValueValidator extends Nexista_Validator
 {
 
     /**
@@ -54,7 +54,7 @@ class ValueValidator extends Validator
     public function main()
     {
    
-        $data = Path::get($this->params['var'], 'flow');
+        $data = Nexista_Path::get($this->params['var'], 'flow');
        
         if(!empty($data))
         {

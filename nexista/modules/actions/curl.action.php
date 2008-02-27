@@ -13,7 +13,7 @@
  * @subpackage  Actions
  */
                 
-class curlAction extends Action
+class Nexista_curlAction extends Nexista_Action
 {
                 
     /**
@@ -47,7 +47,7 @@ protected  $params = array(
         }                
         $url = $this->params['url'];
         $the_params = $this->params['params'];
-        $my_params = Flow::getByPath($the_params,"ASSOC");
+        $my_params = Nexista_Flow::getByPath($the_params,"ASSOC");
         $target_node = $this->params['target_node'];
        //print_r($my_params);
         
@@ -106,7 +106,7 @@ protected  $params = array(
           $xml = "<groups>Curl PHP extension is not available.</groups>";
         }
         
-        Flow::add($target_node,$xml);
+        Nexista_Flow::add($target_node,$xml);
     }
               
 } //end class

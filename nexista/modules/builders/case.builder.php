@@ -20,19 +20,19 @@
  * @subpackage  Builders
  */
 
-class CaseBuilder extends Builder
+class Nexista_CaseBuilder extends Nexista_Builder
 {
 
     /**
      * Returns start code for this tag.
      *
      * @return   string Final code to insert in gate
-     * @see      Builder::getCode()
+     * @see      Nexista_Builder::getCode()
      */
 
     public function getCodeStart()
     {
-        $path = new PathBuilder();
+        $path = new Nexista_PathBuilder();
         $code[] = 'case '.$path->get($this->action->getAttribute('value'), 'string', JOIN_DOUBLE_QUOTE).':';
         return implode(NX_BUILDER_LINEBREAK, $code);
     }
@@ -41,7 +41,7 @@ class CaseBuilder extends Builder
      * Returns end code for this tag.
      *
      * @return   string Final code to insert in gate
-     * @see      Builder::getCode()
+     * @see      Nexista_Builder::getCode()
      */
 
     public function getCodeEnd()

@@ -13,13 +13,13 @@
  */
  
 /**
- * This class is the base class upon which to extend custom actions
+ * This class Nexista_is the base class Nexista_upon which to extend custom actions
  * 
  * @tutorial    action.pkg
  * @package     Nexista
  */
 
-class Action
+class Nexista_Action
 {
 
     /**
@@ -34,7 +34,7 @@ class Action
     /**
      * Loads parameters and applies action
      *
-     * @param   array       class parameters
+     * @param   array       class Nexista_parameters
      * @return  boolean     success
      */
 
@@ -65,13 +65,13 @@ class Action
 
 
     /**
-     * Loads class parameters
+     * Loads class Nexista_parameters
      *
      * This function will check if the required parameters
-     * for this class are supplied and will load them into
+     * for this class Nexista_are supplied and will load them into
      * $this->params array
      *
-     * @param   array       class parameters
+     * @param   array       class Nexista_parameters
      * @return  boolean     success
      */
 
@@ -84,7 +84,7 @@ class Action
             {
                 if($val == 'required')
                 {
-                    Error::init('Class '. get_class($this).' does not have the required number of parameters', NX_ERROR_FATAL);
+                    Nexista_Error::init('Class '. get_class($this).' does not have the required number of parameters', NX_ERROR_FATAL);
                 }
                 $this->params[$key] = false;
             }

@@ -19,7 +19,7 @@
  * @package     Nexista
  * @subpackage  Handlers
  */
-class ScriptHandler 
+class Nexista_ScriptHandler 
 {
 
     /**
