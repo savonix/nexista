@@ -7,7 +7,10 @@ will do server side caching.
 
 */
 
-if((bool)Config::get('./runtime/cache')===true){
+
+$mycache = (bool)Nexista_Config::get('./runtime/cache');
+
+if($mycache===true){
     if(count($_POST) > 0 || $_GET['from_date'] || $_GET['nid']=="logout") { 
         $gate_cache_file = NX_PATH_CACHE.'cache_*';
         
@@ -18,11 +21,19 @@ if((bool)Config::get('./runtime/cache')===true){
     }
 }
 
+Nexista_Init::registerOutputHandler('gzBuffer');
+
 
 function gzBuffer($init)
 {
 	$init->process();
 	
+	$request_uri = $_SERVER['REQUEST_URI'];
+    if(class_exists("Nexista_Foundry")) { 
+        Nexista_Flow::add("request_uri",$request_uri);
+    } else {
+        Flow::add("request_uri",$request_uri);
+    }
 	ob_start();
 	ob_start('ob_gzhandler');
 
@@ -37,11 +48,20 @@ function gzBuffer($init)
         mkdir(NX_PATH_CACHE);
     }
         
-    $cache_config = Config::get('./runtime/cache');
+    if(class_exists("Nexista_Foundry")) { 
+        $cache_config = Nexista_Config::get('./runtime/cache');
+    } else { 
+        $cache_config = Config::get('./runtime/cache');
+    }
+        
 	$options = array('cacheDir'=> NX_PATH_CACHE,'caching'  => $cache_config,'lifeTime' => $expiryTime);
 	$cache = new Cache_Lite($options);
 
-    $development_console = (bool)Config::get('./runtime/development_console');
+    if(class_exists("Nexista_Foundry")) { 
+        $development_console = (bool)Nexista_Config::get('./runtime/development_console');
+    } else { 
+        $development_console = (bool)Config::get('./runtime/development_console');
+    }
     if($_GET['development_console']=="false") { 
         unset($development_console); 
     }
@@ -115,7 +135,7 @@ function gzBuffer($init)
 		header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 		$output = $init->run();
 		/* Write the output to cache, only if its not encrypted data. */
-		$encrypt = Path::get("//get_wiki_page/encrypt", "flow"); 
+		$encrypt = Nexista_Path::get("//get_wiki_page/encrypt", "flow"); 
 		if($expiryTime > 2 && $encrypt!="1" && $_GET['view_flow']!=true) { 
 			$cache->save($output, $my_request_uri, $my_user_id);
 		}
@@ -176,7 +196,7 @@ function development_console()  {
 	$blah->importStyleSheet($xsl);
 	$flow = Flow::singleton();
 	$request_uri = $_SERVER['REQUEST_URI'];
-	Flow::add("request_uri",$request_uri);
+	Nexista_Flow::add("request_uri",$request_uri);
 	echo $blah->transformToXML($flow->flowDocument);
 
 }
@@ -186,14 +206,19 @@ function view_flow() {
 	$xsl = new DomDocument;
 	$xsl->load(NX_PATH_CORE."xsl/flow.xsl");
 	$debugXsl->importStyleSheet($xsl);
-	$flow = Flow::singleton();
+    if(isset($_GET['ignore'])) { 
+        $debugXsl->setParameter('','ignore',$_GET['ignore']);
+    } else { 
+        $debugXsl->setParameter('','ignore','i18n');
+	}
+    $flow = Nexista_Flow::singleton();
 	echo $debugXsl->transformToXML($flow->flowDocument);
 }
 
 
 /* This function used on dev and test development stages. */
 function final_notices($cacher=null, $mode) { 
-	$my_total_time = Debug::profile();
+	$my_total_time = Nexista_Debug::profile();
 	$final_notices =  "<div width='100%' 
     style='background: #e3b6ec; padding: 3px; position: absolute; top: 0px; right: 0px;'>
 		Elapsed Server Time: $my_total_time , Elapsed Client Time:  
@@ -218,7 +243,14 @@ function authLogin($auth)
     }
 }
 
-Auth::registerTimeoutHandler('authLogin');
-Auth::registerLoginHandler('authLogin');
-Auth::registerDeniedHandler('authLogin');
-Auth::registerExpiredHandler('authLogin');
+if(class_exists("Nexista_Foundry")) { 
+Nexista_Auth::registerTimeoutHandler('authLogin');
+Nexista_Auth::registerLoginHandler('authLogin');
+Nexista_Auth::registerDeniedHandler('authLogin');
+Nexista_Auth::registerExpiredHandler('authLogin');
+} else { 
+    Auth::registerTimeoutHandler('authLogin');
+    Auth::registerLoginHandler('authLogin');
+    Auth::registerDeniedHandler('authLogin');
+    Auth::registerExpiredHandler('authLogin');
+}
