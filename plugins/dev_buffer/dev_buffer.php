@@ -29,23 +29,28 @@ function devBuffer($init)
     if(in_array($_GET['nid'],$x_array)) {
         unset($development_console);
     }
+	ob_end_flush();
     if($development_console===true) {
         development_console();
     }
 
 	$output = $init->run();
 
-    if($development_console===true) { 
-        final_notices($cache_type,"dev");
-    }
+
 	if(isset($_GET['view_flow'])){
         if($_GET['view_flow']=="true"){
             view_flow();
         }
 	}
-
-	ob_end_flush();
-    echo $output;
+    if($development_console===true) { 
+        $output = str_replace("</body>","",$output);
+        $output = str_replace("</html>","",$output);
+        echo $output;
+        final_notices($cache_type,"dev");
+        echo "</body></html>";
+    } else { 
+        echo $output;
+    }
 	header("Content-Length: ".ob_get_length());
 	ob_end_flush();
 }
@@ -53,22 +58,37 @@ function devBuffer($init)
 
 /* This function only used on development stage. */
 function development_console()  {
+    
+$my_script = <<<EOL
+	<script type="text/javascript">
+	var began_loading = (new Date()).getTime();
+	function done_loading() {
+		var total = (((new Date()).getTime() - began_loading) / 1000);
+		document.write(total);
+	}
+	</script>
+EOL;
 
-	$blah = new XsltProcessor();
-	$xsl = new DomDocument;
-	$xsl->load(NX_PATH_CORE."xsl/dev_prepend.xsl");
-	$blah->importStyleSheet($xsl);
-	$flow = Nexista_Flow::singleton();
-	$request_uri = $_SERVER['REQUEST_URI'];
-	Nexista_Flow::add("request_uri",$request_uri);
-	echo $blah->transformToXML($flow->flowDocument);
+$in_head[] = array('string' => $my_script, 'priority' => 10);
+Nexista_Flow::add("in_head",$in_head,false);
 
+//$_SERVER['REQUEST_URI']
+
+$admin_panel = <<<EOL
+  <table width="100%" cellpadding="2"><tr><td>
+		[ <a href="">Hide Flow</a> ]
+		[ <a href="&amp;view_flow=true">View Flow</a> ]
+	</td>
+	</tr></table>
+EOL;
+$pre_body_content[] = array('string' => $admin_panel, 'priority' => 10);
+Nexista_Flow::add("pre_body_content",$pre_body_content,false);
 }
  
 function view_flow() { 
 	$debugXsl = new XsltProcessor();
 	$xsl = new DomDocument;
-	$xsl->load(NX_PATH_CORE."xsl/flow.xsl");
+	$xsl->load(NX_PATH_BASE."plugins/dev_buffer/flow.xsl");
 	$debugXsl->importStyleSheet($xsl);
     if(isset($_GET['ignore'])) { 
         $debugXsl->setParameter('','ignore',$_GET['ignore']);
@@ -89,7 +109,12 @@ function final_notices($cacher=null, $mode) {
 <script type='text/javascript'>
 
 done_loading();</script> - Server cache: $cacher <!--[ <a href='/acc/cache/purge/'>Purge</a> ]--> </div>";
-	echo $final_notices;
+
+echo $final_notices;
+/*
+$footer[] = array('string' => $final_notices, 'priority' => 1000);
+Nexista_Flow::add("footer",$footer,false);
+*/
 }
 
 
