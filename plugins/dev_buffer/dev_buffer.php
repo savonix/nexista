@@ -67,9 +67,10 @@ function development_console()  {
 $my_script = <<<EOL
 	<script type="text/javascript">
 	var began_loading = (new Date()).getTime();
-	function done_loading() {
-		var total = (((new Date()).getTime() - began_loading) / 1000);
-		document.write(total);
+	function done_loading(server_total) {
+		var total = (((new Date()).getTime() - began_loading)) / 1000;
+		document.getElementById('server_time').firstChild.nodeValue = server_total + ' s';
+		document.getElementById('client_time').firstChild.nodeValue = total + ' s';
 	}
 	</script>
 EOL;
@@ -84,10 +85,12 @@ if(strpos($my_uri,"view_flow=true")) {
     $my_button = '[ <a href="'.$my_uri.'&view_flow=true">View Flow</a> ]';
 }
 $admin_panel = <<<EOL
-  <table width="100%" cellpadding="2"><tr><td>
-		$my_button
-	</td>
-	</tr></table>
+<div style="padding-bottom: 10px;">
+<table width="100%" cellpadding="2" style="background-color: #e3b6ec;"><tr><td style="background-color: #e3b6ec;">
+		$my_button 
+        <span>Server time:</span><span id="server_time">0.000 s </span>
+        <span>Client time:</span><span id="client_time">0.000 s </span>
+	</tr></table></div>
 EOL;
 $pre_body_content[] = array('string' => $admin_panel, 'priority' => 10);
 Nexista_Flow::add("pre_body_content",$pre_body_content,false);
@@ -108,21 +111,12 @@ function view_flow() {
 }
 
 
-/* This function used on dev and test development stages. */
+/* This function outputs a small script used to pass the final processing time, 
+and to stop the client timer.. */
 function final_notices($cacher=null, $mode) { 
-	$my_total_time = Nexista_Debug::profile();
-	$final_notices =  "<div width='100%' 
-    style='background: #e3b6ec; padding: 3px; position: absolute; top: 0px; right: 0px;'>
-		Elapsed Server Time: $my_total_time , Elapsed Client Time:  
-<script type='text/javascript'>
-
-done_loading();</script> - Server cache: $cacher <!--[ <a href='/acc/cache/purge/'>Purge</a> ]--> </div>";
-
-echo $final_notices;
-/*
-$footer[] = array('string' => $final_notices, 'priority' => 1000);
-Nexista_Flow::add("footer",$footer,false);
-*/
+	$server_time = Nexista_Debug::profile();
+	$final_notices =  "<script type='text/javascript'>done_loading($server_time);</script>";
+    echo $final_notices;
 }
 
 
