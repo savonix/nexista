@@ -148,7 +148,7 @@ class Nexista_mdb2SqlDatasource
 
 		$dsn = array(
             "hostspec"=>$this->params['hostname'],
-            "phptype"=>"mysqli",
+            "phptype"=>$this->params['type'],
             "username"=>$this->params['username'],
             "password"=>$this->params['password'],
             "database"=>$this->params['database']);

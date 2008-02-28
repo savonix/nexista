@@ -238,7 +238,7 @@ class Nexista_Auth
                     call_user_func(self::$deniedHandler, $this);
                 else
                 {
-                    Error::init('No auth denied function defined', NX_ERROR_FATAL);
+                    Nexista_Error::init('No auth denied function defined', NX_ERROR_FATAL);
                 }
                 return false;
             
@@ -260,7 +260,7 @@ class Nexista_Auth
                 }
                 else
                 {
-                    Error::init('No auth timeout handler defined', NX_ERROR_FATAL);
+                    Nexista_Error::init('No auth timeout handler defined', NX_ERROR_FATAL);
                     
                 }
                 break;
@@ -280,7 +280,7 @@ class Nexista_Auth
                 }
                 else
                 {
-                    Error::init('No auth expired handler defined', NX_ERROR_FATAL);
+                    Nexista_Error::init('No auth expired handler defined', NX_ERROR_FATAL);
                 }
             
                 break;
@@ -295,7 +295,7 @@ class Nexista_Auth
                     call_user_func(self::$loginHandler, $this);
                 else
                 {
-                    Error::init('No auth login handler defined', NX_ERROR_FATAL);            
+                    Nexista_Error::init('No auth login handler defined', NX_ERROR_FATAL);            
                 }
             
                 break;            
@@ -481,7 +481,7 @@ class Nexista_Auth
         if(is_callable($handler))   
             self::$loginHandler = $handler;
         else
-            Error::init('Auth Login Handler is not callable!', NX_ERROR_FATAL);
+            Nexista_Error::init('Auth Login Handler is not callable!', NX_ERROR_FATAL);
     }    
      
     /**
@@ -500,7 +500,7 @@ class Nexista_Auth
         if(is_callable($handler))   
             self::$deniedHandler = $handler;
         else
-            Error::init('Auth Denied Handler is not callable!', NX_ERROR_FATAL);  
+            Nexista_Error::init('Auth Denied Handler is not callable!', NX_ERROR_FATAL);  
     }
     
     
@@ -518,7 +518,7 @@ class Nexista_Auth
         if(is_callable($handler))   
             self::$expiredHandler = $handler;
         else
-            Error::init('Auth Expiry Handler is not callable!', NX_ERROR_FATAL);
+            Nexista_Error::init('Auth Expiry Handler is not callable!', NX_ERROR_FATAL);
     }
     
     /**
@@ -535,7 +535,7 @@ class Nexista_Auth
         if(is_callable($handler))   
             self::$timeoutHandler = $handler;
         else
-            Error::init('Auth Timeout Handler is not callable!', NX_ERROR_FATAL);
+            Nexista_Error::init('Auth Timeout Handler is not callable!', NX_ERROR_FATAL);
 
     }
 
