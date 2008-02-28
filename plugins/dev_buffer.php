@@ -36,15 +36,20 @@ function devBuffer($init)
     if($development_console === true) {
         final_notices($cache_type,"dev");
     }
+	if(isset($_GET['view_flow'])){
+        if($_GET['view_flow']=="true"){
+            view_flow();
+        }
+	}
 	
 	ob_end_flush();
 	
 	
 	header("Content-Length: ".ob_get_length());
+    echo $output;
 	ob_end_flush();
 	
 	
-	}
 	
 	
 }
