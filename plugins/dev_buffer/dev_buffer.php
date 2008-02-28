@@ -17,7 +17,11 @@ function devBuffer($init)
 	$init->process();
 
 	ob_start();
-	ob_start();
+	//ob_start('ob_gzhandler');
+    ob_start();
+    
+    header( 'Cache-Control: no-cache, must-revalidate, post-check=3600, pre-check=3600');
+    header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
     $development_console = true;
     $excludes = Nexista_Config::get('./plugins/dev_buffer/excludes');
     if(strpos($excludes,',')) { 
@@ -29,7 +33,6 @@ function devBuffer($init)
     if(in_array($_GET['nid'],$x_array)) {
         unset($development_console);
     }
-	ob_end_flush();
     if($development_console===true) {
         development_console();
     }
@@ -51,6 +54,8 @@ function devBuffer($init)
     } else { 
         echo $output;
     }
+    
+	ob_end_flush();
 	header("Content-Length: ".ob_get_length());
 	ob_end_flush();
 }
