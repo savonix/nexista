@@ -88,8 +88,8 @@ $admin_panel = <<<EOL
 <div style="padding-bottom: 10px;">
 <table width="100%" cellpadding="2" style="background-color: #e3b6ec;"><tr><td style="background-color: #e3b6ec;">
 		$my_button 
-        <span>Server time:</span><span id="server_time">0.000 s </span>
-        <span>Client time:</span><span id="client_time">0.000 s </span>
+        Server time:<span id="server_time">0.000 s </span>
+        Client time:<span id="client_time">0.000 s </span>
 	</tr></table></div>
 EOL;
 $pre_body_content[] = array('string' => $admin_panel, 'priority' => 10);
