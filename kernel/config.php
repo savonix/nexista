@@ -299,7 +299,6 @@ class Nexista_Config
         if($result)
         {
             //NOTE: simplexml returns objects so we need to convert or it makes a mess
-                        
             //return as string otherwise
             return (string)$result[0];
         }
@@ -321,20 +320,19 @@ class Nexista_Config
      * @return  array       empty if nothing found   
      */
        
-    static public function getSection($name, $id = false)
+    static public function getSection($name, $id = false, $subsection = '')
     {        
-        
         if($id)
         {
-				
-            $res = self::$xml->xpath("//config/".$name."[@id='".$id."']");
+
+            $res = self::$xml->xpath("//config/".$subsection.$name."[@id='".$id."']");
             $obj=$res[0];
             
         }
         else
         {
         
-            $res = self::$xml->xpath("//config/".$name."[not(@id)]");
+            $res = self::$xml->xpath("//config/".$subsection.$name."[not(@id)]");
              $obj=$res[0];
         }
       
@@ -366,7 +364,7 @@ class Nexista_Config
         }
         else
         {
-            Nexista_Error::init('The "'.$name.'" section does not exist in the configuration', NX_ERROR_FATAL);
+            Nexista_Error::init('The "'.$name.'" section with id '.$id.' does not exist in the configuration', NX_ERROR_FATAL);
         }
         return $result;
     }

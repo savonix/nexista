@@ -252,7 +252,7 @@ class Nexista_Foundry
             }
 			$code[] = 'define("NX_PATH_TMP", "'.$path['tmp'].'");';  
             
-            
+            // These are application plugins
 			$code[] = 'define("NX_PATH_PLUGINS", "'.$path['plugins'].'");';
             
             if(!defined('NX_PATH_APPS')) { 
@@ -262,19 +262,19 @@ class Nexista_Foundry
 			$code[] = 'Nexista_Config::setMode("'.$key.'");';
 			$code[] = 'define("NX_ID", "'.Nexista_Config::get('./build/query').'");';  
             
-            
 			$code[] = '$init = new Nexista_Init();';
 			$prepend = Nexista_Config::get('./build/prepend');
 			if(!is_null($prepend) AND file_exists($prepend)) 
 				$code[] = '$init->loadPrepend("'.$prepend.'");';
-			$code[] = '$init->start();';
+            
+			$plugins = Nexista_Config::getSection('plugins');
+            foreach($plugins as $plugin => $value) { 
+                $thisPlugin = Nexista_Config::getSection($plugin,false,'/plugins/');
+				$code[] = '$init->loadPrepend("'.$thisPlugin['source'].'");';
+            }
+            $code[] = '$init->start();';
 			$code[] = '$init->display();';
 			$code[] = '$init->stop();';
-			/*
-            foreach($mode_vectors as $key => $vector) {
-			$code[] = '}';
-			}
-            */
 			$code[] = '}';
 			$code[] = '';					
 

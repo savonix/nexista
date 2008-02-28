@@ -10,8 +10,7 @@ License: LGPL
 */
 
 
-$cache_config = (bool)Nexista_Config::get('./plugins/plugin/nx-cache/active');
-
+$cache_config = (bool)Nexista_Config::get("./plugins/nx-cache/active");
 if($cache_config===true){
     if(count($_POST) > 0 || $_GET['from_date'] || $_GET['nid']=="logout") { 
         $gate_cache_file = NX_PATH_CACHE.'cache_*';
@@ -31,15 +30,19 @@ function gzBuffer($init)
 	$init->process();
 	
 	ob_start();
-    if(!(bool)Nexista_Config::get('./plugins/plugin/nx-cache/compress')) { 
+    if(!(bool)Nexista_Config::get('./plugins/nx-cache/compress')) { 
         ob_start();
     } else { 
         ob_start('ob_gzhandler');
     }
-    $cache_config = (bool)Nexista_Config::get('./plugins/plugin/nx-cache/active');
+    $cache_config = (bool)Nexista_Config::get('./plugins/nx-cache/active');
     if($cache_config===false) { 
-        $init->run();
-    }
+        echo $init->run();
+        ob_end_flush();
+        header("Content-Length: ".ob_get_length());
+        ob_end_flush();
+        exit;
+    } else {
     
 	$request_uri = $_SERVER['REQUEST_URI'];
     Nexista_Flow::add("request_uri",$request_uri);
@@ -159,7 +162,7 @@ function gzBuffer($init)
 	ob_end_flush();
 	
 	
-	
+	}
 	
 	
 }
