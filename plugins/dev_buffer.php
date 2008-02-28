@@ -18,22 +18,24 @@ function devBuffer($init)
 
 	ob_start();
 	ob_start();
-
-    if($_GET['development_console']=="false") { 
-        unset($development_console); 
+    $development_console = true;
+    $excludes = Nexista_Config::get('./plugins/dev_buffer/excludes');
+    if(strpos($excludes,',')) { 
+        $x_array = explode(',',$excludes);
+    } else { 
+        $x_array[] = $excludes;
     }
-    if($development_console===true) { 
+
+    if(in_array($_GET['nid'],$x_array)) {
+        unset($development_console);
+    }
+    if($development_console===true) {
         development_console();
     }
-	if(isset($_SESSION['NX_AUTH']['real_account_id']) && $file_server_status!="yes") { 
-		cs_console();
-	}
-    
-    
 
 	$output = $init->run();
 
-    if($development_console === true) {
+    if($development_console===true) { 
         final_notices($cache_type,"dev");
     }
 	if(isset($_GET['view_flow'])){
@@ -41,37 +43,11 @@ function devBuffer($init)
             view_flow();
         }
 	}
-	
+
 	ob_end_flush();
-	
-	
-	header("Content-Length: ".ob_get_length());
     echo $output;
+	header("Content-Length: ".ob_get_length());
 	ob_end_flush();
-	
-	
-	
-	
-}
- 
-
-
-
-
-
-
-
-
-/* This function used by all stages. */
-function cs_console()  {
-	$blah = new XsltProcessor();
-	$xsl = new DomDocument;
-	$xsl->load(NX_PATH_APPS."_shared/xsl/impersonate_header.xsl");
-	$blah->importStyleSheet($xsl);
-	$flow = Flow::singleton();
-	$user_name=$_SESSION['NX_AUTH']['user_name'];
-	Nexista_Flow::add("user_name",$user_name);
-	echo $blah->transformToXML($flow->flowDocument);
 }
 
 
@@ -117,21 +93,3 @@ done_loading();</script> - Server cache: $cacher <!--[ <a href='/acc/cache/purge
 }
 
 
-function authLogin($auth)
-{
-    if(COMMAND_LINE===true) {
-    } else {
-        if(empty($_SESSION['authReferer']))
-        {
-            $_SESSION['authReferer'] = $_SERVER['REQUEST_URI'];
-        }
-        $link_prefix = dirname(NX_LINK_PREFIX);
-        header("Location: ".$link_prefix."/auth.php?nid=login");
-        exit;
-    }
-}
-
-Nexista_Auth::registerTimeoutHandler('authLogin');
-Nexista_Auth::registerLoginHandler('authLogin');
-Nexista_Auth::registerDeniedHandler('authLogin');
-Nexista_Auth::registerExpiredHandler('authLogin');
