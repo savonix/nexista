@@ -318,6 +318,7 @@ class Nexista_QueryHandler
         {
             case 'mysql':
             case 'mysqli':
+            case 'sqlite':
             case 'ibase':
             case 'ifx':
             case 'mssql':

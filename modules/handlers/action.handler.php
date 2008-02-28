@@ -113,7 +113,7 @@ class Nexista_ActionHandler
                 $val = Nexista_Flow::getByPath($val);
                 if(is_null($val) or is_array($val))
                 {
-                    Error::init("$val variable called in action params does not exist", NX_ERROR_WARNING);
+                    Nexista_Error::init("$val variable called in action params does not exist", NX_ERROR_WARNING);
                 }
 
             }

@@ -42,12 +42,10 @@ class Nexista_HeaderAction extends Nexista_Action
      */
 
     protected  function main()
-    {   
+    {
         $header = $this->params['header'];
         $value = $this->params['value'];
 		header($header.": ".$value);
-            
-
     }
 } //end class
 
