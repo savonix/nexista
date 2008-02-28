@@ -72,12 +72,15 @@ EOL;
 $in_head[] = array('string' => $my_script, 'priority' => 10);
 Nexista_Flow::add("in_head",$in_head,false);
 
-//$_SERVER['REQUEST_URI']
-
+$my_uri = $_SERVER['REQUEST_URI'];
+if(strpos($my_uri,"view_flow=true")) { 
+    $my_button = '[ <a href="'.str_replace("&view_flow=true","",$my_uri).'">Hide Flow</a> ]';
+} else { 
+    $my_button = '[ <a href="'.$my_uri.'&view_flow=true">View Flow</a> ]';
+}
 $admin_panel = <<<EOL
   <table width="100%" cellpadding="2"><tr><td>
-		[ <a href="">Hide Flow</a> ]
-		[ <a href="&amp;view_flow=true">View Flow</a> ]
+		$my_button
 	</td>
 	</tr></table>
 EOL;
