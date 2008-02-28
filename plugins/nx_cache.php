@@ -22,8 +22,10 @@ if($cache_config===true){
     }
 }
 
+if($cache_config===false) {
+} else { 
 Nexista_Init::registerOutputHandler('gzBuffer');
-
+}
 
 function gzBuffer($init)
 {
