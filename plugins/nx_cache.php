@@ -10,7 +10,7 @@ License: LGPL
 */
 
 
-$cache_config = (bool)Nexista_Config::get("./plugins/nx-cache/active");
+$cache_config = (bool)Nexista_Config::get("./plugins/nx_cache/active");
 if($cache_config===true){
     if(count($_POST) > 0 || $_GET['from_date'] || $_GET['nid']=="logout") { 
         $gate_cache_file = NX_PATH_CACHE.'cache_*';
@@ -30,12 +30,12 @@ function gzBuffer($init)
 	$init->process();
 	
 	ob_start();
-    if(!(bool)Nexista_Config::get('./plugins/nx-cache/compress')) { 
+    if(!(bool)Nexista_Config::get('./plugins/nx_cache/compress')) { 
         ob_start();
     } else { 
         ob_start('ob_gzhandler');
     }
-    $cache_config = (bool)Nexista_Config::get('./plugins/nx-cache/active');
+    $cache_config = (bool)Nexista_Config::get('./plugins/nx_cache/active');
     if($cache_config===false) { 
         echo $init->run();
         ob_end_flush();
@@ -183,7 +183,7 @@ function cs_console()  {
 	$blah->importStyleSheet($xsl);
 	$flow = Flow::singleton();
 	$user_name=$_SESSION['NX_AUTH']['user_name'];
-	Flow::add("user_name",$user_name);
+	Nexista_Flow::add("user_name",$user_name);
 	echo $blah->transformToXML($flow->flowDocument);
 }
 
@@ -195,7 +195,7 @@ function development_console()  {
 	$xsl = new DomDocument;
 	$xsl->load(NX_PATH_CORE."xsl/dev_prepend.xsl");
 	$blah->importStyleSheet($xsl);
-	$flow = Flow::singleton();
+	$flow = Nexista_Flow::singleton();
 	$request_uri = $_SERVER['REQUEST_URI'];
 	Nexista_Flow::add("request_uri",$request_uri);
 	echo $blah->transformToXML($flow->flowDocument);

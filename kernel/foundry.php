@@ -206,27 +206,6 @@ class Nexista_Foundry
 		
 		// The modes actually isn't necessary, because I build a site for
         // each server name that makes a request.
-        /* 
-        // this works, but better to leave mode setting up to the webserver
-        $modes = Nexista_Config::getSection('modes');
-		foreach($modes as $key => $value) { 
-
-			Config::setMode($key);
-			$path = Nexista_Config::getSection('path');
-			$mode_domain = Nexista_Config::get('./domain/server_name');
-		    $mode_vectors = Nexista_Config::get('./vectors/vector');
-			$code[] = '//echo " vectors '.$mode_vectors.'";';	
-	    //$client_method = Nexista_Config::get('./client/method');
-	    if(strpos($mode_vectors,",")) { 
-	    $mode_vectors = explode(",",$mode_vectors);
-	    } else { 
-	    $mode_vectors= array($mode_vectors);
-	    }
-	    foreach($mode_vectors as $nokey => $vector) { 
-	    $vector_value = Nexista_Config::get("./client/$vector");
-	    $code[] = 'if($_SERVER["'.$vector.'"]=="'.$vector_value.'") { ';  
-	    }
-        */
         //$key = $_ENV['NEXISTA_MODE'];
         $modes = Nexista_Config::getSection('modes');
 		foreach($modes as $key => $value) { 
@@ -268,11 +247,20 @@ class Nexista_Foundry
 				$code[] = '$init->loadPrepend("'.$prepend.'");';
             
 			$plugins = Nexista_Config::getSection('plugins');
-            foreach($plugins as $plugin => $value) { 
+            foreach($plugins as $plugin => $value) {
                 $thisPlugin = Nexista_Config::getSection($plugin,false,'/plugins/');
-				$code[] = '$init->loadPrepend("'.$thisPlugin['source'].'");';
+                if($thisPlugin['placement'] == "prepend") {
+                    $code[] = '$init->loadPrepend("'.$thisPlugin['source'].'");';
+                }
             }
             $code[] = '$init->start();';
+			$plugins = Nexista_Config::getSection('plugins');
+            foreach($plugins as $plugin => $value) { 
+                $thisPlugin = Nexista_Config::getSection($plugin,false,'/plugins/');
+                if($thisPlugin['placement'] == "predisplay") {
+                    $code[] = '$init->loadPrepend("'.$thisPlugin['source'].'");';
+                }
+            }
 			$code[] = '$init->display();';
 			$code[] = '$init->stop();';
 			$code[] = '}';
