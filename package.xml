@@ -35,10 +35,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <notes>Second package
      </notes>
      <contents>
-     <dir name="nexista2/">
-        <file name="nexista2/README" role="php"/>
-        <file name="nexista2/LICENSE" role="php"/>
-         <dir name="nexista2/kernel/">
+     <dir name="nexista/">
+        <file name="nexista/README" role="php"/>
+        <file name="nexista/LICENSE" role="php"/>
+         <dir name="nexista/kernel/">
             <file name="action.php" role="php"/>
             <file name="auth.php" role="php"/>
             <file name="builder.php" role="php"/>
@@ -56,12 +56,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
                 <file name="pdosqldatasource.php" role="php"/>
             </dir>
             <dir name="xsl/">
-                <file name="dev_prepend.xsl" role="php"/>
-                <file name="flow.xsl" role="php"/>
                 <file name="exception.xsl" role="php"/>
             </dir>
         </dir>
-        <dir name="nexista2/modules/">            
+        <dir name="nexista/modules/">            
 	    <dir name="actions/">
                 <file name="add1.action.php" role="php"/>
                 <file name="compress.action.php" role="php"/>
@@ -136,6 +134,15 @@ http://pear.php.net/dtd/package-2.0.xsd">
                 <file name="xml.validator.php" role="php"/>
             </dir>
         </dir>
+    <dir name="plugins/">
+        <file name="builder.php" role="php"/>
+        <file name="nx_auth.php" role="php"/>
+        <file name="nx_cache.php" role="php"/>
+        <dir name="dev_buffer/">
+            <file name="dev_buffer.php"/>
+            <file name="flow.xsl"/>
+        </dir>
+    </dir>
      </dir>
      </contents>
 <dependencies>
@@ -148,9 +155,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.4.0</min>
    </pearinstaller>
    <package>
-    <name>Archive_Tar</name>
+    <name>MDB2</name>
     <channel>pear.php.net</channel>
-    <min>1.1</min>
+    <min>2.4.1</min>
    </package>
    </required>
  </dependencies>

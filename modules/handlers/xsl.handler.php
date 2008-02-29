@@ -36,7 +36,7 @@ class Nexista_XslHandler
         
         // The following can be used with the NYT xslt cache.
         
-        $use_xslt_cache = "yses";
+        $use_xslt_cache = "no";
         $xslt_cache_dir = PROJECT_ROOT."/cache/".SERVER_NAME."/".APP_NAME."/xsl/";
         if(!is_dir($xslt_cache_dir)) { 
             @mkdir($xslt_cache_dir);
