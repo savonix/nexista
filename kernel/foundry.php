@@ -65,7 +65,6 @@ function Nexista_builderError($e)
  * $foundry->buildSitemap();
  * ?></code>
  *
- * @tutorial    reference.pkg
  * @package     Nexista
  */
 class Nexista_Foundry
