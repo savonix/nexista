@@ -2,21 +2,19 @@
 /*
  * -File        log.action.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2002, Nexista
- * -Author      joshua savage, 
+ * -Copyright   Savonix Corporation
+ * -Author      Albert Lash
  */
 
 /**
  * @package     Nexista
  * @subpackage  Actions
- * @author      Joshua Savage
+ * @author      Albert Lash
  */
  
 /**
- * CUSTOM USER ACTION
- * 
- * This action needs to be written so that the log utility can write to 
- * a user definable log facility, like syslog or syslog-ng. 
+ *
+ * This action uses PEAR Log to enable logging.
  *
  * @package     Nexista
  * @subpackage  Actions
@@ -46,9 +44,7 @@ class Nexista_logAction extends Nexista_Action
 
     protected  function main()
     {
-    
-        
-        
+        // Use PEAR Log
         return true;
     }
 
