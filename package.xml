@@ -68,6 +68,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
                 <file name="curl.action.php" role="php"/>
                 <file name="dateconnect.action.php" role="php"/>
                 <file name="decompress.action.php" role="php"/>
+                <file name="email.action.php" role="php"/>
                 <file name="escape.action.php" role="php"/>
                 <file name="gate.action.php" role="php"/>
                 <file name="header.action.php" role="php"/>
