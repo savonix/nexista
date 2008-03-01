@@ -15,7 +15,6 @@
 /**
  * This class Nexista_is the base class Nexista_upon which to extend custom actions
  * 
- * @tutorial    action.pkg
  * @package     Nexista
  */
 
