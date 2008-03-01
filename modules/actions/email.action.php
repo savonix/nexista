@@ -13,7 +13,7 @@
  */
  
 /**
- * This action sends an email and uses the PEAR Net_SMTP package.
+ * This action sends an email and preferrably uses the PEAR Net_SMTP package.
  *
  * @package     Nexista Auth
  * @subpackage  Plugins
@@ -32,8 +32,8 @@ class Nexista_EmailAction extends Nexista_Action
         'recipient' => '', //required - 
         'sender' => '', //required - 
         'subject' => '', //optional - 
-        'message' => '', //optional - 
-        'server' => '',
+        'body' => '', //required - 
+        'host' => '',
         'port' => '',
         'authentication' => ''
         
@@ -48,7 +48,33 @@ class Nexista_EmailAction extends Nexista_Action
 
     protected  function main()
     {
-        //$smtp = new Net_SMTP('ssl://mail.example.com', 465);
+        $recipient = Nexista_Path::parseInlineFlow($this->params['recipient']);
+        $sender = $this->params['sender'];
+        $subject = "Subject: ".$this->params['subject']."\n";
+        $body = $this->params['body'];
+        $host = $this->params['host'];
+
+        if(require 'Net/SMTP.php') { 
+
+            $smtp = new Net_SMTP($host);
+            $e = $smtp->connect();
+            $smtp->mailFrom($sender);
+            
+            if(is_array($recipient)) { 
+                foreach ($recipient as $to) {
+                    $smtp->rcptTo($to);
+                }
+            } else {
+                $res = $smtp->rcptTo($recipient);
+            }
+            $smtp->data($subject . "\r\n" . $body);
+            $smtp->disconnect();
+            
+        } else { 
+            // try using mail()
+
+        }
+
     }
 } //end class
 

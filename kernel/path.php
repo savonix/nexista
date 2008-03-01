@@ -79,9 +79,9 @@ class Nexista_Path
         $result = null;
         for($i = 0; $i < count($request); $i++)
         {
-       
+
             $array = explode( ':', $request[$i], 2 );
-        
+
             if(count($array) > 1)
             {
                 $protocol = $array[0];
@@ -92,103 +92,74 @@ class Nexista_Path
                 $protocol = $defaultProtocol;
                 $path = $request[$i];
             }
-       
+
             //match protocol
             switch($protocol)
             {
-            
+
                 //_GET 
                 case 'get':
-                     
                     $result = Nexista_Path::interpretPath($_GET, $path);
                     break;
-                        
+
                 //_POST 
                 case 'post':
-                    
                     $result = Nexista_Path::interpretPath($_POST, $path);
-                    
                     break;
-                        
+
                 //_REQUEST
                 case 'request':
-                    
                     $result = Nexista_Path::interpretPath($_REQUEST, $path);
-                    
                     break;
                         
                 //_SESSIONS
                 case 'session':
-                        
                     $result = Nexista_Path::interpretPath($_SESSION, $path);
-                    
+
                     break;
                     
                 //_FILES
                 case 'files':
-                    
                     $result = Nexista_Path::interpretPath($_FILES, $path);
                     break;
                     
                 //GLOBALS
                 case 'globals':
-                                   
                     $result = Nexista_Path::interpretPath($GLOBALS, $path);
-                   
                     break;
-                        
+
                 //_SERVER
                 case 'server':
-                    
                     $result = Nexista_Path::interpretPath($_SERVER, $path);
                     break;
-                    
+
                 //_COOKIES
                 case 'cookie':
-                    
                     $result = Nexista_Path::interpretPath($_COOKIE, $path);
                     break;
-                    
-                //internal registry  
-                case 'registry':
-                    
-                    die('registry resolver not done');
-                    break;
-                    
+
                 //flow   
                 case 'flow':
-               
                     $result = Nexista_Flow::getByPath($path);
                     break;
-                        
+
                 //eval a php expression
                 case 'php':
-              
-                    //escape double quotes
-                    //$path = preg_replace('~"~', '/"', $path); //what was this for?
-
 				   $expression = "return ".$path.";";
                    $result = @eval($expression);
                     break;
-                
-                        
-                //probably a plain var or a file,url protocol (file://, http://, etc...)
+
                 case 'string':
                 default:
-                
                     $result = Nexista_Path::parseInlineFlow($path);
-                    break;    
-                
-                
+                    break;
             }
-            
-           
+
             //if we have a value, break out and return that
-            if(!is_null($result))  
-            {         
-                return $result;       
-            } else { 
-				
+            if(!is_null($result))
+            {
+                return $result;
+            } else {
 				return false;
 			}
         }

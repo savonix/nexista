@@ -41,7 +41,7 @@ class Nexista_newlineAction extends Nexista_Action
 
     protected  function main()
     {
-        $var = Path::parseInlineFlow($this->params['var']);
+        $var = Nexista_Path::parseInlineFlow($this->params['var']);
         if(is_null($var) or is_array($var))
             return false;
 
