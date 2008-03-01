@@ -7,7 +7,17 @@
  */
 
 /**
+ * @package     Nexista
+ * @subpackage  Actions
+ * @author      Joshua Savage 
+ * @author      Albert Lash
+ */
+ 
+/**
  * This filter converts time formats.
+ *
+ * @package     Nexista
+ * @subpackage  Actions
  *
  */
 

@@ -25,7 +25,6 @@
  * You should also add any required files into the $required array
  * by extending it and setting new values in your class.
  *
- * @tutorial    reference.pkg
  * @package     Nexista 
  */
 
@@ -124,7 +123,7 @@ class Nexista_Builder
      *
      * This will result in something like:
      * <code>if(!someaction()) {
-     *     Error::init('Ooops', NX_ERROR_FATAL);
+     *     Nexista_Error::init('Ooops', NX_ERROR_FATAL);
      * }</code>
      *
      * @param   string      function to insert in error handler

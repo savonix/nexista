@@ -8,9 +8,18 @@
 
 
 /**
+ * @package     Nexista
+ * @subpackage  Actions
+ * @author      Joshua Savage 
+ * @author      Albert Lash
+ */
+ 
+/**
  * This action conects variables from flow into a single variable in 
  * SQL timestamp format.
  *
+ * @package     Nexista
+ * @subpackage  Actions
  */
 
 class Nexista_DateConnectAction extends Nexista_Action

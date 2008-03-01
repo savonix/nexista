@@ -4,7 +4,13 @@
  * -Copyright   2007, Savonix
  * -Author      Albert Lash
  */
-        
+    
+/**
+ * @package     Nexista
+ * @subpackage  Actions
+ * @author      Albert Lash
+ */
+     
 /**
  * This action calls a URL with the same session as the current client,
  * including some variables and the flow variable to return the result.
