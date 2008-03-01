@@ -14,7 +14,6 @@
 /**
  * This class Nexista_is the base class Nexista_upon which to extend custom validators
  *
- * @tutorial    validator.pkg
  * @package     Nexista
  */
 

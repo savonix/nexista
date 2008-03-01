@@ -19,7 +19,6 @@
  * sql databases through the MDB2 abstraction
  * layer.
  *
- * @tutorial    query.pkg
  * @package     Nexista
  * @subpackage  Datasources
  */

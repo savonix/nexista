@@ -17,7 +17,6 @@
  * sql databases through the Metabase abstraction
  * layer.
  *
- * @tutorial    query.pkg
  * @package     Nexista
  * @subpackage  Datasources
  */

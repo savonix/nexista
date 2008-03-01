@@ -17,7 +17,6 @@
  * sql databases through the Metabase abstraction
  * layer. As of 2008 is is completely unstable.
  *
- * @tutorial    query.pkg
  * @package     Nexista
  * @subpackage  Datasources
  */
