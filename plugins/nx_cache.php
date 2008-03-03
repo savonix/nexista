@@ -22,45 +22,43 @@ Nexista_Init::registerOutputHandler('nx_cache');
 
 function nx_cache($init)
 {
+    $init->process();
 
     if(!is_dir(NX_PATH_CACHE)) { 
         mkdir(NX_PATH_CACHE);
     }
-
-	$init->process();
+    require_once 'Cache/Lite.php';
 
 	ob_start();
+    ob_start();
 	$my_request_uri = $_SERVER['REQUEST_URI'];
-	$expiryTime=$init->getInfo('cacheExpiryTime');
+    // Server cache
+	$expiryTime = $init->getInfo('cacheExpiryTime');
+    // Client cache!
+    $client_cache = $init->getInfo('clientCacheExpiryTime');
+        
 	$clear_gate_file='cache_'.$my_user_id."_".$my_request_uri;
-
-	$options = array('cacheDir'=> NX_PATH_CACHE,'caching'  => $cache_config,'lifeTime' => $expiryTime);
+    $active = Nexista_Config::get("./plugins/nx_cache/active");
+    if($expiryTime == '0') { 
+        $active = 0;
+    }
+	$options = array('cacheDir'=> NX_PATH_CACHE,'caching'  => $active,'lifeTime' => $expiryTime);
 	$cache = new Cache_Lite($options);
 
-	// Server cache! Always on, controlled by sitemap.
+	// Server cache
 	if($output = $cache->get($my_request_uri, $my_user_id, TRUE)) { 
-		ob_start();
-        $mynid = NX_PATH_CACHE.'cache_'.md5($my_user_id).'_'.md5($my_request_uri); 		
-		$last_modified_str = filemtime($mynid);
-		$etag = md5($last_modified_str);
+        $mynid = NX_PATH_CACHE.'cache_'.md5($my_user_id).'_'.md5($my_request_uri);
+        $last_modified_str = filemtime($mynid);		
 		$last_modified = gmdate('D, d M Y H:i:s', $last_modified_str);
-		
-        // Where is the modified since header set? In the browser, nowhere else
-        // Apache sets an expires header, which allows the browser 
-        // to use the cache without checking the server to ask if anything 
-        // has been modified
-        // Should we set it here?
+
         if(isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) { 
-           $modifiedSince = $_SERVER['HTTP_IF_MODIFIED_SINCE']; 
-           $modifiedSince = strtotime($modifiedSince); 
+           $lms = $_SERVER['HTTP_IF_MODIFIED_SINCE']; 
+           $lms = strtotime($lms); 
         } else { 
-            $modifiedSince = 0;
+            $lms = 0;
         }
-        
-		// Client cache!
-        $client_cache = $init->getInfo('clientCacheExpiryTime');
-        $lms = $modifiedSince;
-        $client_cache_work = 
+
+        $client_cache_work =
             mktime(date('H',$lms), date('i',$lms), date('s',$lms)+$client_cache, 
                     date('m',$lms), date('d',$lms), date('Y',$lms));
         $client_cache_good_stamp = strtotime($client_cache_work);
@@ -71,27 +69,26 @@ function nx_cache($init)
             exit();
         }
         
-        // When using client cache a session cache limiter, you've got to use this cache-control
+        // When using client cache and a session cache limiter, you've got to use this cache-control
         // header.
         header("Cache-Control: no-cache, must-revalidate, post-check=3600, pre-check=3600");
 		header("Last-Modified: " . $last_modified . " GMT");
 	
 	} else { 
-        if(!(bool)Nexista_Config::get('./plugins/nx_cache/compress')) { 
-            ob_start();
-        } else { 
-            ob_start('ob_gzhandler');
-        }
 
-        header("Cache-Control: no-cache, must-revalidate, post-check=3600, pre-check=3600");
-		header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+        if($client_cache > 0) { 
+            $client_cache_work =
+                gmdate('D, d M Y H:i:s', mktime(date('H'), date('i'), date('s')+$client_cache, 
+                        date('m'), date('d'), date('Y')));
+            header("Expires: " . $client_cache_work. " GMT");
+        } else {
+            header("Cache-Control: no-cache, must-revalidate, post-check=3600, pre-check=3600");
+		}
+        header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 		$output = $init->run();
         $cache->save($output, $my_request_uri, $my_user_id);
-		$cache_type = "None";
 	}
-	if(isset($etag)) { 
-        header("ETag: ".$etag);
-    }
+
 	echo $output;
 	ob_end_flush();
 	header("Content-Length: ".ob_get_length());
