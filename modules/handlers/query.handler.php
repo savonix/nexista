@@ -183,8 +183,7 @@ class Nexista_QueryHandler
         $myPrefix = Nexista_Config::get("./datasource[@id='database_prefix']/filename");
         if(is_file($myPrefix)) { 
             $xmlString = file_get_contents($this->definition);
-            // This should be user configurable
-            $xmlString = str_replace("__default_table_names__.txt",$myPrefix,$xmlString);
+            $xmlString = str_replace("../../config/database_prefix.txt",$myPrefix,$xmlString);
             // simplexml_load_string cannot find relative external references, 
             $xml = simplexml_load_string($xmlString,null,LIBXML_DTDLOAD);
         } else { 
@@ -228,9 +227,13 @@ class Nexista_QueryHandler
 
 
         //get array of query info (query itself, args, etc)
-        if(!$this->query['sql'] = (string)$xml->sql && !$this->query['search'] = (string)$xml->search )
+        if(!$this->query['sql'] = (string)$xml->sql)
         {
-           Nexista_Error::init('No query specified in '.$this->definition, NX_ERROR_FATAL);
+            // no sql node, maybe an ldap search?
+            if(!$this->query['search'] = (string)$xml->search)
+            {
+                Nexista_Error::init('No query specified in '.$this->definition, NX_ERROR_FATAL);
+            }
         }
         if(!$this->query['connection'] = (string)$xml->connection)
         {
