@@ -183,7 +183,8 @@ class Nexista_QueryHandler
         $myPrefix = Nexista_Config::get("./datasource[@id='database_prefix']/filename");
         if(is_file($myPrefix)) { 
             $xmlString = file_get_contents($this->definition);
-            $xmlString = str_replace("../../config/database_prefix.txt",$myPrefix,$xmlString);
+            // This should be user configurable
+            $xmlString = str_replace("__default_table_names__.txt",$myPrefix,$xmlString);
             // simplexml_load_string cannot find relative external references, 
             $xml = simplexml_load_string($xmlString,null,LIBXML_DTDLOAD);
         } else { 
@@ -194,16 +195,13 @@ class Nexista_QueryHandler
         $loopvar = (string)$xml['loop'];
         if(!empty($loopvar))
         {
-
             if(is_numeric($loopvar))
             {
                 $this->queryLoop = $loopvar;
             }
             else
             {
-               
                 $array = Nexista_Path::get($loopvar,"flow");
-
                 if(is_array($array)) 
                 {
                      $this->queryLoop = sizeof($array);
@@ -227,41 +225,10 @@ class Nexista_QueryHandler
 
         }
 
-        //get paging info (retrieve a set of rows)
-        $this->query['rows'] = array();
-        
-        $rows_limit = (string)$xml->rows[0]['limit'];
-        $rows_first = (string)$xml->rows[0]['first'];
 
-        //see if we are given a number or a flow var for 'first' and 'limit'
-        if(!empty($rows_first))
-        {
-            if(is_numeric($rows_first))
-                $this->query['rows']['first'] = $rows_first;
-            else
-            {
-                $val = Nexista_Flow::getByPath($rows_first);
-                if(!is_null($val) or !is_array($val))                
-                    $this->query['rows']['first'] = $val;
-            }
-        }
-        if(!empty($rows_limit))
-        {
-            if(is_numeric($rows_limit))
-                $this->query['rows']['limit'] = $rows_limit;
-            else
-            {
-                $val = Nexista_Flow::getByPath($rows_limit);
-                if(!is_null($val) or !is_array($val))
-                {
-                    $this->query['rows']['limit'] = $val;
-                }
-            }
-        }
 
         //get array of query info (query itself, args, etc)
-        
-        if(!$this->query['sql'] = (string)$xml->sql)
+        if(!$this->query['sql'] = (string)$xml->sql && !$this->query['search'] = (string)$xml->search )
         {
            Nexista_Error::init('No query specified in '.$this->definition, NX_ERROR_FATAL);
         }
@@ -271,7 +238,6 @@ class Nexista_QueryHandler
         }
 
         //make a nice array from in and out values
-        
         $key = 0;
         if(isset($xml->params->param))
         {
@@ -330,8 +296,6 @@ class Nexista_QueryHandler
                 $this->datasourceHandler = 'mdb2sql'; //metabase
                 break;
             case 'pdomysql':
-                $this->datasourceHandler = 'pdosql'; //pdo
-                break;
             case 'pdosqlite':
                 $this->datasourceHandler = 'pdosql'; //pdo
                 break;
