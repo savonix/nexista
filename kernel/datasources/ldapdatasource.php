@@ -165,6 +165,22 @@ class Nexista_ldapDatasource
         
         
     }
+    
+    public function moveEntry()
+    {
+        
+    }
+    
+    public function deleteEntry()
+    {
+        
+    }
+    
+    public function addEntry()
+    {
+        
+    }
+    
 
 }
 

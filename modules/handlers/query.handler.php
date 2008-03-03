@@ -230,7 +230,7 @@ class Nexista_QueryHandler
         if(!$this->query['sql'] = (string)$xml->sql)
         {
             // no sql node, maybe an ldap search?
-            if(!$this->query['searchbase'] = (string)$xml->search->searchbase)
+            if(!$this->query['ldap'] = (string)$xml->ldap)
             {
                 Nexista_Error::init('No query specified in '.$this->definition, NX_ERROR_FATAL);
             }

@@ -174,17 +174,13 @@ class Nexista_mdb2SqlDatasource
 
 
     /**
-     * Parses a prepared query for special var types, action codes (_AUTO_, _DATE_, etc)
-     * and for general query type (select,insert,etc...) and
+     * Parses a prepared query for general query type (select,insert,etc...) and
      *
-     * This method calls metabase prepareQuery(), sets the variable types
-     * (see metabase docs) and parses a query to determine its type (select,insert.etc...)
+     * This method calls MDB2 prepareQuery(), sets the variable types
+     * (see MDB2 docs) and parses a query to determine its type (select,insert.etc...)
      * and updates $this->queryType with this info. It also looks for
      * special keyword and replaces them with values accordingly.
-     * _AUTO_ : retrieves sequnce info (auto-increment) for the table,
-     * increments it and returns the new value.
-     * _DATE_ : inserts current timestamp
-     * This functiomn returns a prepared query handler resource by reference
+     * This function returns a prepared query handler resource by reference
      *
      * @param   integer     returning prepared query handler
      * @param   integer     current loop count
@@ -250,19 +246,6 @@ class Nexista_mdb2SqlDatasource
                 $count++;
             }
 
-            if($this->queryType=="select") { 
-                $this->data = $data;
-                $database_cache = Nexista_Config::get('./runtime/database_cache');
-                if(function_exists(xcache_get) && $database_cache=="1") {
-                    $cache_name = $this->getQueryId();
-                    if(xcache_isset($cache_name)) 
-                    { 
-                        $result_set = unserialize(xcache_get($cache_name));
-                        return $result_set;
-                    } 
-                }
-            }
-
             $this->db->connect();
 			$prep = $this->db->prepare($this->query['sql'], $types);
             if (PEAR::isError($prep)) {
@@ -282,7 +265,6 @@ class Nexista_mdb2SqlDatasource
         $prep->free();
 
         if($this->queryType=="select") { 
-            //$this->result = $result;
             return $result->fetchAll(MDB2_FETCHMODE_ASSOC);
         } else {
             return true;
