@@ -349,13 +349,7 @@ class Nexista_mdb2SqlDatasource
         if($this->result_set)
         {
             $result_set = $this->result_set;
-            $caching = Nexista_Config::get('runtime/cache');
-            if(strlen(serialize($result_set))>100 && $caching==1 && isset($cache_is_of_for_now)) {
-            if(function_exists(xcache_set)) {
-                $cache_name = $this->getQueryId();
-                xcache_set($cache_name, serialize($result_set), 10000000);
-            }
-            }
+
             $cols = array_flip(array_keys($result_set[0]));
             //print_r($cols);
 			$row = 0;
@@ -377,7 +371,6 @@ class Nexista_mdb2SqlDatasource
 				$row++;
                 $xml_string .=  $flow->flowDocument->saveXml($q);
             }
-            $cache_name = $this->getQueryId($data);
             return true;
         }
         return false;

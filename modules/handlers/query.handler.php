@@ -190,6 +190,9 @@ class Nexista_QueryHandler
             $xml = simplexml_load_file($this->definition,null,LIBXML_DTDLOAD);
         }
         $this->queryName = (string)$xml['name'];
+        if(!empty($xml['name'])) {
+            $this->queryType = (string)$xml['type'];
+        }
         $defaultval = (string)$xml['default'];
         $loopvar = (string)$xml['loop'];
         if(!empty($loopvar))

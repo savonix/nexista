@@ -2,8 +2,8 @@
 /*
  * -File        ldapdatasource.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2007, Nexista
- * -Author 	    albert lash
+ * -Copyright   Savonix Corporation
+ * -Author 	    Albert Lash
  *
  */
 
@@ -16,8 +16,7 @@
  
 /**
  * This class provides functionality to access
- * sql databases through the MDB2 abstraction
- * layer.
+ * ldap directories via PEAR's Net_LDAP package.
  *
  * @package     Nexista
  * @subpackage  Datasources
@@ -103,8 +102,8 @@ class Nexista_ldapDatasource
     /**
      * Type of query
      *
-     * The type of query (select, insert, etc) This is a
-     * marker used to speed process internally
+     * The type of query (search, add, delete, modify, etc.)
+     * Should be set in <query name="..." type="...">
      *
      * @var     string
      */
@@ -146,7 +145,7 @@ class Nexista_ldapDatasource
         );
         
         // Connecting using the configuration:
-        $ldap = Net_LDAP::connect($config);
+        $this->ldap = Net_LDAP::connect($config);
         
         // Testing for connection error
         if (PEAR::isError($ldap)) {
@@ -154,15 +153,40 @@ class Nexista_ldapDatasource
         }
     }
 
+    public function prepareQuery() 
+    {
+        // What type of transaction?
+        switch($this->queryType)
+        {
+            case "search":
+                break;
+            case "add":
+                break;
+            default:
+                break;
+        }
+        
+        // Depending on transaction type, what are the parameters?
+        
+        // Execute the parameters
+        
+    }
+    
     public function getEntry()
     {
         
         
     }
     
-    public function search()
+    public function search($searchbase,$filter,$options)
     {
         
+        // Perform the search!
+        $search = $this->ldap->search($searchbase);
+        // Test for search errors:
+        if (PEAR::isError($search)) {
+            die($search->getMessage() . "\n");
+        }
         
     }
     
