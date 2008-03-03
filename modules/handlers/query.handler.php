@@ -329,14 +329,14 @@ class Nexista_QueryHandler
             case 'pgsql':
                 $this->datasourceHandler = 'mdb2sql'; //metabase
                 break;
-            case 'creolemysql':
-                $this->datasourceHandler = 'creolesql'; //creole
-                break;
             case 'pdomysql':
                 $this->datasourceHandler = 'pdosql'; //pdo
                 break;
             case 'pdosqlite':
                 $this->datasourceHandler = 'pdosql'; //pdo
+                break;
+            case 'ldap':
+                $this->datasourceHandler = 'ldap'; //ldap
                 break;
             default:
                 Nexista_Error::init($type.' datasource type is not supported', NX_ERROR_WARNING);
