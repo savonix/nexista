@@ -103,15 +103,6 @@ class Nexista_PdoSqlDatasource
 
 
     /**
-     * Array of active lob references
-     *
-     *
-     * @var     array
-     */
-
-    private $lob;
-
-    /**
      * Constructor
      *
      * @param   array       connection parameters
@@ -133,31 +124,18 @@ class Nexista_PdoSqlDatasource
     public function setConnection()
     {
 		
-//$this->dbh = new PDO('mysql:host=127.0.0.1;dbname=database', 'username', 'password', array(PDO::ATTR_PERSISTENT => true));
-try {
-    $this->db = new PDO('sqlite:/usr/share/phrequalite/cache/mydb.db');
-
-} catch (PDOException $e) { 
-    print "Error!: " . $e->getMessage() . "<br/>";
-    die();
-}
-//$this->dbh = new PDO('sqlite::memory:');
+        try {
+            $this->db = new PDO('sqlite:/usr/share/phrequalite/cache/mydb.db');
+        
+        } catch (PDOException $e) { 
+            print "Error!: " . $e->getMessage() . "<br/>";
+            die();
+        }
         return true;
     }
 
 
     /**
-     * Parses a prepared query for special var types, action codes (_AUTO_, _DATE_, etc)
-     * and for general query type (select,insert,etc...) and
-     *
-     * This method calls metabase prepareQuery(), sets the variable types
-     * (see metabase docs) and parses a query to determine its type (select,insert.etc...)
-     * and updates $this->queryType with this info. It also looks for
-     * special keyword and replaces them with values accordingly.
-     * _AUTO_ : retrieves sequnce info (auto-increment) for the table,
-     * increments it and returns the new value.
-     * _DATE_ : inserts current timestamp
-     * This functiomn returns a prepared query handler resource by reference
      *
      * @param   integer     returning prepared query handler
      * @param   integer     current loop count
@@ -217,7 +195,6 @@ try {
 
                 }
 
-                 
 				try { 
 					$this->myvalue[$count]=$value;
 				} catch (SQLException $sqle) {
@@ -230,15 +207,6 @@ try {
         return true;
     }
 
-
-    /**
-     * Shutdown and resource clear
-     *
-     */
-
-    public function __destruct()
-    {
-    }
 
 
     /**
@@ -284,20 +252,6 @@ try {
     }
 
 
-    /**
-     * Parses headers with query result
-     *
-     * This is a callback function used to parse lob headers with db data.
-     *
-     * @param   array       match result from parsing lob headers
-     * @return  string      array element
-     */
-
-    private function resultParserCallback($match)
-    {
-        return $this->rowResult[$match[1]];
-    }
-
 
     /**
      * Assigns query result to flow
@@ -334,80 +288,5 @@ try {
 
 
 
-    /**
-     * Retrieves db field/column name from a query
-     *
-     * @param   integer     count of desired column in query
-     * @return  string      name of column in db
-     */
-
-     private function getFieldName($count)
-     {
-        //TODO this needs to be extensively tested with different query phrasings
-        $field = false;
-        //see if INSERT
-        if(stristr($this->query['sql'], 'INSERT'))
-        {
-            //get query row names and values
-            preg_match("~INSERT.*\(\s*(\w.*)\s*\).*VALUES\s*\(\s*(\w.*)\s*\)~m", $this->query['sql'], $fields);
-
-            $qry_val = preg_split ('~[\s]*,[\s]*~', $fields[2]);
-            $qry_name = preg_split ('~[\s]*,[\s]*~', $fields[1]);
-
-            for($i = 0; $i < sizeof($qry_name); $i++)
-            {
-                if($qry_val[$i] != '?')
-                {
-                    //offset count for this value
-                    $count ++;
-                }
-                elseif($i == $count)
-                {
-                    $field = trim($qry_name[$i]);
-                    break;
-                }
-            }
-        }
-        //assume UPDATE
-        else
-        {
-
-            preg_match("~SET\s*(\w.*(.[^,]))\s+([^\W,])~Um", $this->query['sql'], $fields);
-            $fields = preg_split ('~[\s]*,[\s]*~', $fields[1]);
-
-            for($i = 0; $i < sizeof($fields); $i++)
-            {
-                if(!stristr($fields[$i], '?'))
-                {
-                    //offset count for this value
-                    $count ++;
-                }
-                elseif($i == $count)
-                {
-
-                    $field = split('=', $fields[$count]);
-                    $field = trim($field[0]);
-                    break;
-                }
-            }
-        }
-
-        return $field;
-
-     }
-
-
-    /**
-     * Creates a unique query name for naming cache files
-     *
-     * @return      integer     crc32 of prepared query array
-     */
-
-    public function getQueryID()
-    {
-
-        return md5(serialize($this->db->prepared_queries));
-
-    }
 }
 ?>

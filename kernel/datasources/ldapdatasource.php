@@ -204,7 +204,46 @@ class Nexista_ldapDatasource
     {
         
     }
+
+    /**
+     * Assigns query result to flow
+     *
+     * @return  boolean success
+     */
+
+    public function storeResult()
+    {
     
+		$debug = false;
+        
+        if($this->result_set)
+        {
+            $result_set = $this->result_set;
+
+            $cols = array_flip(array_keys($result_set[0]));
+			$row = 0;
+			$number_of_rows=count($result_set);
+            while($row < $number_of_rows)
+            {
+                $flow = Nexista_Flow::singleton();
+                $q = $flow->root->appendChild($flow->flowDocument->createElement($this->queryName));
+
+                foreach($cols as $key => $val)
+                {
+                    $myval = $result_set[$row][$key];
+                    if($debug===true) {
+                    echo "Stuff: $key, $myval<br/>";
+                    }
+                    $myval = htmlspecialchars($myval);
+                    $q->appendChild($flow->flowDocument->createElement($key,$myval));
+                }
+				$row++;
+                $xml_string .=  $flow->flowDocument->saveXml($q);
+            }
+            return true;
+        }
+        return false;
+    }
 
 }
 
