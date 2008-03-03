@@ -27,11 +27,15 @@ function devBuffer($init)
     if(strpos($excludes,',')) { 
         $x_array = explode(',',$excludes);
     } else { 
-        $x_array[] = $excludes;
+        if(!empty($excludes)) { 
+            $x_array[] = $excludes;
+        }
     }
 
-    if(in_array($_GET['nid'],$x_array)) {
-        unset($development_console);
+    if(!empty($x_array)) {
+        if(in_array($_GET['nid'],$x_array)) {
+            unset($development_console);
+        }
     }
     if($development_console===true) {
         development_console();

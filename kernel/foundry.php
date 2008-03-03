@@ -438,13 +438,12 @@ class Nexista_Foundry
 
     public function buildSitemap()
     {
-   
+
         //build top of file (reqs, etc)
         $code[] = "<?php";
         $code[] = '//Build Time: '.date("D M j G:i:s T Y"); 
         $code[] = '$_ID_ = !empty($_GET["'.Nexista_Config::get('./build/query').'"]) ? $_GET["'.Nexista_Config::get('./build/query').'"] : "'.Nexista_Config::get('./build/default').'";';
-        $code[] = "\$redirect = isset(\$_GET['redirect']) ? \$_GET['redirect'] : null;";
-           
+
         foreach($this->sitemap as $type => $elements)
         {
             $code[] = '$gates'.ucfirst($type).' = array(';
@@ -475,11 +474,29 @@ class Nexista_Foundry
         $missing = Nexista_Config::get('./build/missing');
         if(!empty($missing) && isset($this->sitemap['exact'][$missing]))
         {   
-            ob_start();
-            $missing_gate = var_export($this->sitemap['exact'][$missing]);
-            $missing_gate = ob_get_contents();
-            ob_end_clean();
-            $code[] = '$gateMissing = '.$missing_gate.';';
+            $code[] = '$gateMissing = array(';
+            foreach($elements as $name => $info)
+            {
+                if($name==$missing) { 
+                $this_gate = "'uri'=>'".$info['uri']."'";
+                // Server cache's need to include auth if there is a role specified.
+                if($info['cache'] !== -1 && $info['role'] !== -1){
+                    $this_gate .= ",'cache'=>".$info['cache'].",'role'=>'".$info['role']."'";   
+                    
+                } elseif($info['cache'] !== -1 && $info['role'] === -1){
+                    $this_gate .= ",'cache'=>".$info['cache'];      
+                
+                } elseif($info['role'] !== -1 && $info['cache'] === -1 ){
+                    $this_gate .= ",'role'=>'".$info['role']."'";     
+                } 
+                // Client cache's do not need check for auth.
+                if($info['client_cache'] !== -1){
+                    $this_gate .= ",'client_cache'=>'".$info['client_cache']."'";     
+                } 
+                $code[] = $this_gate;
+                }
+            }
+            $code[] = ');';
         }
         else
             $code[] = '$gateMissing = null;';

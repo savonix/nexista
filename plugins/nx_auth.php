@@ -19,7 +19,8 @@ function authLogin($auth)
         $_SESSION['authReferer'] = $_SERVER['REQUEST_URI'];
     }
     $link_prefix = dirname(NX_LINK_PREFIX);
-    header("Location: ".$link_prefix."/auth.php?nid=login");
+    $login_page = Nexista_Config::get("//nx_auth/login");
+    header("Location: ".$link_prefix."/".$login_page);
     exit;
 
 }
