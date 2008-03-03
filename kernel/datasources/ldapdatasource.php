@@ -125,6 +125,47 @@ class Nexista_ldapDatasource
     }
 
 
+    /**
+     * Establishes datasource connections settings
+     *
+     * @return  boolean     success
+     */
+
+    public function setConnection()
+    {
+    
+        // Inclusion of the Net_LDAP package:
+        require_once 'Net/LDAP.php';
+    
+        // The configuration array:
+        $config = array (
+            'binddn'        => $this->params['binddn'],
+            'bindpw'        => $this->params['bindpw'],
+            'basedn'        => $this->params['basedn'],
+            'host'          => $this->params['host']
+        );
+        
+        // Connecting using the configuration:
+        $ldap = Net_LDAP::connect($config);
+        
+        // Testing for connection error
+        if (PEAR::isError($ldap)) {
+            die('Could not connect to LDAP-server: '.$ldap->getMessage());
+        }
+    }
+
+    public function getEntry()
+    {
+        
+        
+    }
+    
+    public function search()
+    {
+        
+        
+    }
+
 }
 
 
