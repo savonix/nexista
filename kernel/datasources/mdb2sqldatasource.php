@@ -112,21 +112,6 @@ class Nexista_mdb2SqlDatasource
     private $queryType;
 
 
-    /**
-     * Array of active lob references
-     *
-     *
-     * @var     array
-     */
-
-    private $lob;
-
-    /**
-     * Constructor
-     *
-     * @param   array       connection parameters
-     * @return  boolean     success
-     */
 
     public function Nexista_Mdb2SqlDatasource(&$params)
     {
@@ -142,8 +127,6 @@ class Nexista_mdb2SqlDatasource
 
     public function setConnection()
     {
-		
-        
 
 		$dsn = array(
             "hostspec"=>$this->params['hostname'],
@@ -159,9 +142,6 @@ class Nexista_mdb2SqlDatasource
         $this->db->setOption('persistent', true);
         $this->db->opened_persistent = true;
         $this->db->connection = $link;
-        
-        // connect
-        
         
 		if (PEAR::isError($this->db)) {
             $error = $this->db->getMessage();
@@ -191,12 +171,14 @@ class Nexista_mdb2SqlDatasource
     {
 
         //see if it is a select
-        if (eregi("^[[:space:]]*select", $this->query['sql']))
-        {
-            $this->queryType = 'select';
-
-        } elseif (eregi("^[[:space:]]*show", $this->query['sql'])) {
-            $this->queryType = 'select';
+        if(!isset($this->queryType)) {
+            if (eregi("^[[:space:]]*select", $this->query['sql']))
+            {
+                $this->queryType = 'select';
+            }
+            elseif (eregi("^[[:space:]]*show", $this->query['sql'])) {
+                $this->queryType = 'select';
+            }
         }
 
         $count = 1;
@@ -246,7 +228,7 @@ class Nexista_mdb2SqlDatasource
                 $count++;
             }
 
-            $this->db->connect();
+            //$this->db->connect();
 			$prep = $this->db->prepare($this->query['sql'], $types);
             if (PEAR::isError($prep)) {
                 Nexista_Error::init($result->getMessage().$this->queryName,NX_ERROR_FATAL);
@@ -272,17 +254,6 @@ class Nexista_mdb2SqlDatasource
     }
 
 
-    /**
-     * Shutdown and resource clear
-     *
-     */
-
-    public function __destruct()
-    {
-    
-
-    }
-
 
 
     /**
@@ -297,7 +268,6 @@ class Nexista_mdb2SqlDatasource
     public function execQuery($query, $queryName, $queryloop)
     {
 
-         // What is this?
         $this->query =& $query;
         $this->queryName =& $queryName;
 		
@@ -306,7 +276,7 @@ class Nexista_mdb2SqlDatasource
         {
             if(!$this->result_set=$this->prepareQuery($sql, $loop))
             {
-                // Error
+                return false;
             }
             if ($this->queryType == 'select')
             {
@@ -316,22 +286,6 @@ class Nexista_mdb2SqlDatasource
 
         return true;
 
-
-    }
-
-
-    /**
-     * Parses headers with query result
-     *
-     * This is a callback function used to parse lob headers with db data.
-     *
-     * @param   array       match result from parsing lob headers
-     * @return  string      array element
-     */
-
-    private function resultParserCallback($match)
-    {
-        return $this->rowResult[$match[1]];
     }
 
 
@@ -351,7 +305,6 @@ class Nexista_mdb2SqlDatasource
             $result_set = $this->result_set;
 
             $cols = array_flip(array_keys($result_set[0]));
-            //print_r($cols);
 			$row = 0;
 			$number_of_rows=count($result_set);
             while($row < $number_of_rows)
@@ -376,85 +329,6 @@ class Nexista_mdb2SqlDatasource
         return false;
     }
 
-
-
-
-    /**
-     * Retrieves db field/column name from a query
-     *
-     * @param   integer     count of desired column in query
-     * @return  string      name of column in db
-     */
-
-     private function getFieldName($count)
-     {
-        //TODO this needs to be extensively tested with different query phrasings
-        $field = false;
-        //see if INSERT
-        if(stristr($this->query['sql'], 'INSERT'))
-        {
-             
-            //get query row names and values
-            preg_match("~INSERT.*\(\s*(\w.*)\s*\).*VALUES\s*\(\s*(\w.*)\s*\)~m", $this->query['sql'], $fields);
-
-            $qry_val = preg_split ('~[\s]*,[\s]*~', $fields[2]);
-            $qry_name = preg_split ('~[\s]*,[\s]*~', $fields[1]);
-
-            for($i = 0; $i < sizeof($qry_name); $i++)
-            {
-                if($qry_val[$i] != '?')
-                {
-                    //offset count for this value
-                    $count ++;
-                }
-                elseif($i == $count)
-                {
-                    $field = trim($qry_name[$i]);
-                    break;
-                }
-            }
-        }
-        //assume UPDATE
-        else
-        {
-
-            preg_match("~SET\s*(\w.*(.[^,]))\s+([^\W,])~Um", $this->query['sql'], $fields);
-            $fields = preg_split ('~[\s]*,[\s]*~', $fields[1]);
-
-            for($i = 0; $i < sizeof($fields); $i++)
-            {
-                if(!stristr($fields[$i], '?'))
-                {
-                    //offset count for this value
-                    $count ++;
-                }
-                elseif($i == $count)
-                {
-
-                    $field = split('=', $fields[$count]);
-                    $field = trim($field[0]);
-                    break;
-                }
-            }
-        }
-
-        return $field;
-
-     }
-
-
-    /**
-     * Creates a unique query name for naming cache files
-     *
-     * @return      integer     crc32 of prepared query array
-     */
-
-    public function getQueryID()
-    {
-
-        return $this->queryName.md5(serialize($this->data));
-        //return $this->queryName;
-    }
 }
 
 
