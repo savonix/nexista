@@ -180,7 +180,7 @@ class Nexista_Path
     static public function parseInlineFlow($string)
     { 
         //replace bracketed flow expressions
-        $string = preg_replace_callback('~{(.*)}~U',create_function('$matches', 'return Flow::getByPath($matches[1]);'),$string);
+        $string = preg_replace_callback('~{(.*)}~U',create_function('$matches', 'return Nexista_Flow::getByPath($matches[1]);'),$string);
         return $string;
     }
     

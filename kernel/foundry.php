@@ -263,24 +263,19 @@ class Nexista_Foundry
 			$code[] = '$init->display();';
 			$code[] = '$init->stop();';
 			$code[] = '}';
-			$code[] = '';					
+			$code[] = '';
 
 		}
-
-		
-
         $code[] = '?>';
-		
-		
+
 		foreach($modes as $key => $value) { 
 			Nexista_Config::setMode($key);
 			return file_put_contents(Nexista_Config::get('./build/loader'), implode(NX_BUILDER_LINEBREAK,$code));
 		}
-        
+
     
     }
-   
-  
+
     /**
      * Loads the sitemap
      *
@@ -295,41 +290,46 @@ class Nexista_Foundry
         $this->sitemapDocument = new DOMDocument("1.0");
         $my_sitemap = Nexista_Config::get('./build/sitemap');
         $this->sitemapDocument->load($my_sitemap);
-        
-        
+
         //process includes
         $x = new DOMXPath($this->sitemapDocument);
         $res = $x->query('//map:include');
-    
+
         if($res->length)
         {
             foreach($res as $include)
             {                
                 $doc = new DOMDocument();
                 $doc->load($include->getAttribute('src'));
-                $new = $this->sitemapDocument->importNode($doc->documentElement,1);
-                $include->parentNode->replaceChild($new,$include);
+                // Only import gates
+                $y = new DOMXPath($doc);
+                $imported_gates = $y->query('//map:gate');
+                foreach($imported_gates as $import_gate) { 
+                    $new = $this->sitemapDocument->importNode($import_gate,1);
+                    $this->sitemapDocument->documentElement->appendChild($new);
+                }
+                // TODO - merge prepends?
             }
         }
     }
-  
-    
+
+
     /**
      * Parses the sitemap, calling build process for each gate 
      *
      */
-         
+
     public function buildGates()
     {
         //load sitemap
         $this->loadSitemap();
-        
+
         //load builder classes
         $builderPath = Nexista_Config::get('./path/base')."modules".DIRECTORY_SEPARATOR."builders".DIRECTORY_SEPARATOR;
         $files = scandir($builderPath);
         //make instances for each for later gate building
         foreach($files as $file)
-        {      
+        {
             //the # is for CVS backups which get in the way
             if(strpos($file, '.builder.php') AND !strpos($file, '#') AND !strpos($file, '_'))
             {
