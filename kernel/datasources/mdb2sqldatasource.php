@@ -184,14 +184,14 @@ class Nexista_mdb2SqlDatasource
         $count = 1;
 
         if (isset($this->query['params']))
-        {       
+        {
             foreach($this->query['params'] as $val)
             {
                 $found = true;
-                $path = new Nexista_Path();
+                $path = new Nexista_Flow();
                 if(!empty($val['name']))
-                {           
-                    $value = $path->get($val['name'], 'flow');
+                {
+                    $value = $path->getByPath($val['name']);
                     if(is_null($value) && ($val['type'] == 'integer'))
                     {
                          $found = false;
@@ -199,10 +199,18 @@ class Nexista_mdb2SqlDatasource
                 }
                 elseif(!empty($val['array']))
                 {
-                    $array = $path->get($val['array'], 'flow');
+                    $array = $path->getByPath($val['array']);
                     if(!is_array($array))
                         $array = array($array);
                     $value = $array[$loop];
+                }
+                elseif(!empty($val['node-name-array']))
+                {
+                    $array = $path->getByPath($val['node-name-array'],'ASSOC');
+                    if(!is_array($array))
+                        $array = array($array);
+                    $key = array_keys($array[$loop]);
+                    $value = $key[0];
                 } else { 
                     $found = false;
                 }
