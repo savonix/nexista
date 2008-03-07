@@ -93,10 +93,10 @@ function divExpand(layer, set) {
     font-weight:normal;
     font-size:x-small;
     line-height:20px;
-    padding:0px;
-    margin:5px;
-    z-index:20;
-    position:relative;
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+    z-index: 20;
 }
 #flowDump h1 {
     font-size:14px;
@@ -104,7 +104,8 @@ function divExpand(layer, set) {
     color:white;
     background-color:#766789;
     text-indent:5px;
-    margin-bottom:2px;
+    margin-bottom:0px;
+    margin-top: 0;
 }
 #flowDump .content {
     background-color:#E6EEFF;
