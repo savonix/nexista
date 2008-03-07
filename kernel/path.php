@@ -36,7 +36,6 @@
  * -<b>files</b> - $_FILES variables
  * -<b>server</b> - $_SERVER variables
  * -<b>cookie</b> - $_COOKIE variables
- * -<b>registry</b> - Registry data - a special subest of the session handling.
  * -<b>flow</b> - Flow variables
  * -<b>php</b> - PHP evaluation - Note that a <i>return</i> statement is automatically 
   appended as well as a final semicolon.
@@ -46,9 +45,7 @@
  * is simply specified as a standard URI such as:
  * <code><!-- sample sitemap tag -->
  * <map:xsl src="flow://my/xsl"/>
- *
- * <!-- sample query parameter -->
- * <param name="currentTime" default="php:time()"/></code>
+ * </code>
  *
  *
  * @package     Nexista
