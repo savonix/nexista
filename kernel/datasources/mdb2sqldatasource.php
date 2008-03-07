@@ -204,6 +204,11 @@ class Nexista_mdb2SqlDatasource
                         $array = array($array);
                     $value = $array[$loop];
                 }
+                /*
+                // Unfortunately plain XPath 1.0 cannot access the node-name 
+                // itself, this will do so for an array, where you'd likely
+                // want that information 
+                */
                 elseif(!empty($val['node-name-array']))
                 {
                     $array = $path->getByPath($val['node-name-array'],'ASSOC');
