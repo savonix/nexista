@@ -260,7 +260,7 @@ class Nexista_QueryHandler
                 $this->query['params'][$key]['node-name-array'] = !empty($array) ?  $array : false;
                                             
                 $default = (string)$val['default'];           
-                $this->query['params'][$key]['default'] = (!empty($default) OR $default === '0')?  $default : 'NULL';           
+                $this->query['params'][$key]['default'] = (!empty($default) OR $default === '0')?  $default : false;           
                         
                 $type = (string)$val['type'];
                 $this->query['params'][$key]['type'] = !empty($type) ?  $type : false;
