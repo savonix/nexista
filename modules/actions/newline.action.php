@@ -41,12 +41,23 @@ class Nexista_newlineAction extends Nexista_Action
 
     protected  function main()
     {
-        $var = Nexista_Path::parseInlineFlow($this->params['var']);
+        /*
+                $var = Nexista_Flow::getByPath($this->params['var']);
+        if(is_null($var) or is_array($var))
+            return false;
+
+        $name = $this->params['name'];
+        //write new data to Flow
+        $new_text = nl2br($var);
+        Nexista_Flow::add($name,$new_text);
+        return true;
+        */
+        $var = Nexista_Flow::find($this->params['var']);
         if(is_null($var) or is_array($var))
             return false;
 
         //write new data to Flow
-        $var->textContent = nl2br($var->textContent);
+        $var->item(0)->nodeValue = nl2br($var->item(0)->nodeValue);
         return true;
     }
 
