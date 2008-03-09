@@ -15,7 +15,7 @@
  */
  
 /**
- * This action conects variables from flow into a single variable in 
+ * This action connects variables from flow into a single variable in 
  * SQL timestamp format.
  *
  * @package     Nexista
