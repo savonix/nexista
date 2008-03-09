@@ -77,7 +77,7 @@ class Nexista_Path
         for($i = 0; $i < count($request); $i++)
         {
 
-            $array = explode( ':', $request[$i], 2 );
+            $array = explode( '://', $request[$i], 2 );
 
             if(count($array) > 1)
             {
