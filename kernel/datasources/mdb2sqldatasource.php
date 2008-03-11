@@ -139,15 +139,15 @@ class Nexista_mdb2SqlDatasource
         require_once("MDB2.php");
 		$this->db =& MDB2::factory($dsn);
         
-        $this->db->setOption('persistent', true);
-        $this->db->opened_persistent = true;
-        $this->db->connection = $link;
-        
 		if (PEAR::isError($this->db)) {
             $error = $this->db->getMessage();
             Nexista_Error::init("$error ; Translation = Error connecting to database, check your 
                 configuration file, specifically the datasource sections.",NX_ERROR_FATAL);
 		}
+        $this->db->setOption('persistent', true);
+        $this->db->opened_persistent = true;
+        $this->db->connection = $link;
+        
 
         return true;
     }

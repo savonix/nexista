@@ -89,7 +89,7 @@ function nx_cache($init)
             header("Last-Modified: " . $last_modified . " GMT");
         }
 	} else { 
-
+        /*
         if($client_cache > 0) { 
             $client_cache_work =
                 gmdate('D, d M Y H:i:s', mktime(date('H'), date('i'), date('s')+$client_cache, 
@@ -98,6 +98,7 @@ function nx_cache($init)
         } else {
             header("Cache-Control: no-cache, must-revalidate, post-check=3600, pre-check=3600");
 		}
+        */
         header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 		$output = $init->run();
         $cache->save($output, $my_request_uri, $my_user_id);
