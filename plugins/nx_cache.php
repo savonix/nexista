@@ -61,28 +61,40 @@ function nx_cache($init)
         }
 
         $client_cache_work =
-            mktime(date('H',$lms), date('i',$lms), date('s',$lms)+$client_cache, 
-                    date('m',$lms), date('d',$lms), date('Y',$lms));
+            gmmktime(gmdate('H',$lms), gmdate('i',$lms), gmdate('s',$lms)+$client_cache, 
+                    gmdate('m',$lms), gmdate('d',$lms), gmdate('Y',$lms));
         $client_cache_good_stamp = strtotime($client_cache_work);
-        if($client_cache > 0 && $client_cache_work > time()) {
+        if($client_cache > 0 && $client_cache_work > time('UTC')) {
             while (@ob_end_clean());
             header( 'Cache-Control: no-cache, must-revalidate, post-check='.$client_cache.', pre-check='.$client_cache);
             header("HTTP/1.1 304 Not Modified");
-            exit();
+            exit;
+        } elseif($client_cache > 0 && $client_cache_work < time('UTC')) {
+            unlink($mynid);
+            if($client_cache > 0) { 
+            $client_cache_work =
+                gmdate('D, d M Y H:i:s', mktime(date('H'), date('i'), date('s')+$client_cache, 
+                        date('m'), date('d'), date('Y')));
+            //header("Expires: " . $client_cache_work. " GMT");
+            } else {
+                header("Cache-Control: no-cache, must-revalidate, post-check=3600, pre-check=3600");
+            }
+            header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+            $output = $init->run();
+            $cache->save($output, $my_request_uri, $my_user_id);
+        } else { 
+            // When using client cache and a session cache limiter, you've got to use this cache-control
+            // header.
+            header("Cache-Control: no-cache, must-revalidate, post-check=3600, pre-check=3600");
+            header("Last-Modified: " . $last_modified . " GMT");
         }
-        
-        // When using client cache and a session cache limiter, you've got to use this cache-control
-        // header.
-        header("Cache-Control: no-cache, must-revalidate, post-check=3600, pre-check=3600");
-		header("Last-Modified: " . $last_modified . " GMT");
-	
 	} else { 
 
         if($client_cache > 0) { 
             $client_cache_work =
                 gmdate('D, d M Y H:i:s', mktime(date('H'), date('i'), date('s')+$client_cache, 
                         date('m'), date('d'), date('Y')));
-            header("Expires: " . $client_cache_work. " GMT");
+            //header("Expires: " . $client_cache_work. " GMT");
         } else {
             header("Cache-Control: no-cache, must-revalidate, post-check=3600, pre-check=3600");
 		}
