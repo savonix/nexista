@@ -22,6 +22,8 @@ Nexista_Init::registerOutputHandler('nx_cache');
 
 function nx_cache($init)
 {
+    // Should probably have a check against apache and config.xml to 
+    // see if this will work.
     $init->process();
 
     if(!is_dir(NX_PATH_CACHE)) { 
