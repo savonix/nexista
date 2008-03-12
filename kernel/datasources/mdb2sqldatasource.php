@@ -127,14 +127,19 @@ class Nexista_mdb2SqlDatasource
 
     public function setConnection()
     {
-
+        if($this->params['type']=="sqlite") { 
+		$dsn = array(
+            "phptype"=>$this->params['type'],
+            "database"=>$this->params['database']);
+        } else { 
 		$dsn = array(
             "hostspec"=>$this->params['hostname'],
             "phptype"=>$this->params['type'],
             "username"=>$this->params['username'],
             "password"=>$this->params['password'],
             "database"=>$this->params['database']);
-
+            
+        }
 
         require_once("MDB2.php");
 		$this->db =& MDB2::factory($dsn);
@@ -144,9 +149,9 @@ class Nexista_mdb2SqlDatasource
             Nexista_Error::init("$error ; Translation = Error connecting to database, check your 
                 configuration file, specifically the datasource sections.",NX_ERROR_FATAL);
 		}
-        $this->db->setOption('persistent', true);
-        $this->db->opened_persistent = true;
-        $this->db->connection = $link;
+        //$this->db->setOption('persistent', true);
+        //$this->db->opened_persistent = true;
+        //$this->db->connection = $link;
         
 
         return true;
