@@ -59,7 +59,7 @@ class Nexista_DebugBuilder extends Nexista_Builder
             $code[] = '$xsl = new DomDocument;';
             $code[] = '$xsl->load("'.Nexista_Config::get('./path/base').'kernel/xsl/flow.xsl");';
             $code[] = '$debugXsl->importStyleSheet($xsl);';
-            $code[] = '$flow = Flow::singleton();';
+            $code[] = '$flow = Nexista_Flow::singleton();';
             $code[] = '$debugOutput = $debugXsl->transformToXML($flow->flowDocument);';
           }
 
