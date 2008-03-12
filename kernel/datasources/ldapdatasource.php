@@ -141,7 +141,7 @@ class Nexista_ldapDatasource
             'binddn'        => $this->params['binddn'],
             'bindpw'        => $this->params['bindpw'],
             'basedn'        => $this->params['basedn'],
-            'host'          => $this->params['host']
+            'host'          => $this->params['hostname']
         );
         
         // Connecting using the configuration:
@@ -178,15 +178,25 @@ class Nexista_ldapDatasource
         
     }
     
-    public function search($searchbase,$filter,$options)
+    public function execQuery($search,$queryName,$filter,$options='')
     {
         
-        // Perform the search!
-        $search = $this->ldap->search($searchbase);
+        $this->queryName =& $queryName;
         // Test for search errors:
+        if (PEAR::isError($this->ldap)) {
+            die($this->ldap->getMessage() . "\n");
+        }
+        // Perform the search!
+        $options = array(
+            'scope' => 'one',
+            'attributes' => array('*')
+        );
+        $search = $this->ldap->search($search['ldap'],NULL,$options);
+        $this->result_set = $search->entries();
         if (PEAR::isError($search)) {
             die($search->getMessage() . "\n");
         }
+        $this->storeResult();
         
     }
     
@@ -214,6 +224,19 @@ class Nexista_ldapDatasource
     public function storeResult()
     {
     
+        foreach ($this->result_set as $dn => $entry) {
+            $flow = Nexista_Flow::singleton();
+            $q = $flow->root->appendChild($flow->flowDocument->createElement($this->queryName));
+            $cn = $entry->getValue('cn', 'single');
+            $key = 'ipHostNumber';
+            $ip = $entry->getValue($key, 'single');
+            $myval = htmlspecialchars($ip);
+            $q->appendChild($flow->flowDocument->createElement($key,$myval));
+            //echo "$ip    $cn\n";
+        }
+
+        /* 
+        // from mdb2datasource
 		$debug = false;
         
         if($this->result_set)
@@ -242,6 +265,7 @@ class Nexista_ldapDatasource
             }
             return true;
         }
+        */
         return false;
     }
 
