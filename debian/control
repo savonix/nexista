@@ -1,0 +1,14 @@
+Source: php-nexista
+Section: web
+Priority: optional
+Maintainer: Albert Lash <albert.lash@savonix.com>
+Build-Depends: dh-make-php (>= 0.1.1), debhelper (>= 5), cdbs
+Depends: phpapi-20041030 | phpapi-20050606 | phpapi-20020918
+Standards-Version: 3.7.2
+
+Package: php-nexista
+Architecture: all
+Description: PHP Development Toolkit
+ Nexista is an Open Source PHP5/XML/XSLT development toolkit based on the Fusebox concept and designed to build large XML/ XSL based web applications.
+ .
+  Homepage: http://www.nexista.org/
