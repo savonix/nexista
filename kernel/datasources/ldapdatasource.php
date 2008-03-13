@@ -191,7 +191,7 @@ class Nexista_ldapDatasource
             'scope' => 'one',
             'attributes' => array('*')
         );
-        $search = $this->ldap->search($search['ldap'],NULL,$options);
+        $search = $this->ldap->search($search['searchbase'],NULL,$options);
         $this->result_set = $search->entries();
         if (PEAR::isError($search)) {
             die($search->getMessage() . "\n");
