@@ -1,5 +1,13 @@
 <?php
-
+/*
+Plugin Name:
+Plugin URI:
+Description:
+Version:
+Copyright: Savonix Corporation
+Author: Albert Lash
+License: LGPL
+*/
 
 
 /* TODO - Get this from the database. */
@@ -22,7 +30,6 @@ pageTracker._trackPageview();
 </script>
 EOS;
 
-//Nexista_Flow::add("google_analytics_code",$google_analytics_code,false);
 
 $footer[] = array('string' => $google_analytics_code, 'priority' => $priority);
 

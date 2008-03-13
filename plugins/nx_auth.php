@@ -11,7 +11,7 @@ License: LGPL
 
 
 
-function authLogin($auth)
+function nexista_authLogin($auth)
 {
 
     if(empty($_SESSION['authReferer']))
@@ -25,7 +25,7 @@ function authLogin($auth)
 
 }
 
-Nexista_Auth::registerTimeoutHandler('authLogin');
-Nexista_Auth::registerLoginHandler('authLogin');
-Nexista_Auth::registerDeniedHandler('authLogin');
-Nexista_Auth::registerExpiredHandler('authLogin');
+Nexista_Auth::registerTimeoutHandler('nexista_authLogin');
+Nexista_Auth::registerLoginHandler('nexista_authLogin');
+Nexista_Auth::registerDeniedHandler('nexista_authLogin');
+Nexista_Auth::registerExpiredHandler('nexista_authLogin');

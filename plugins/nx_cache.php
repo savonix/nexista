@@ -18,9 +18,9 @@ if(count($_POST) > 0 || $_GET['from_date'] || $_GET['nid']=="logout") {
     }
 }
 
-Nexista_Init::registerOutputHandler('nx_cache');
+Nexista_Init::registerOutputHandler('nexista_cache');
 
-function nx_cache($init)
+function nexista_cache($init)
 {
     // Should probably have a check against apache and config.xml to 
     // see if this will work.

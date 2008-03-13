@@ -10,9 +10,9 @@ License: GPL v3 or later
 */
 
 
-Nexista_Init::registerOutputHandler('devBuffer');
+Nexista_Init::registerOutputHandler('nexista_devBuffer');
 
-function devBuffer($init)
+function nexista_devBuffer($init)
 {
 	$init->process();
 
