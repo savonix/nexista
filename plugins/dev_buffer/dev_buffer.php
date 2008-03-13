@@ -6,7 +6,7 @@ Description:
 Version: 0.1
 Copyright: Savonix Corporation
 Author: Albert Lash
-License: GPL v3 or later
+License: LGPL
 */
 
 
@@ -38,7 +38,7 @@ function nexista_devBuffer($init)
         }
     }
     if($development_console===true) {
-        development_console();
+        nexista_development_console();
     }
 
 	$output = $init->run();
@@ -46,14 +46,14 @@ function nexista_devBuffer($init)
 
 	if(isset($_GET['view_flow'])){
         if($_GET['view_flow']=="true"){
-            view_flow();
+            nexista_view_flow();
         }
 	}
     if($development_console===true) { 
         $output = str_replace("</body>","",$output);
         $output = str_replace("</html>","",$output);
         echo $output;
-        final_notices($cache_type,"dev");
+        nexista_final_notices($cache_type,"dev");
         echo "</body></html>";
     } else { 
         echo $output;
@@ -66,7 +66,7 @@ function nexista_devBuffer($init)
 
 
 /* This function only used on development stage. */
-function development_console()  {
+function nexista_development_console()  {
     
 $my_script = <<<EOL
 	<script type="text/javascript">
@@ -90,7 +90,8 @@ if(strpos($my_uri,"view_flow=true")) {
 }
 $admin_panel = <<<EOL
 <div style="padding-bottom: 10px;">
-<table width="100%" cellpadding="2" style="background-color: #e3b6ec;"><tr><td style="background-color: #e3b6ec;">
+<table width="100%" cellpadding="2" style="background-color: #e3b6ec;">
+<tr><td style="background-color: #e3b6ec;">
 		$my_button 
         Server time:<span id="server_time"> 0.000 s </span>
         Client time:<span id="client_time"> 0.000 s </span>
@@ -100,7 +101,7 @@ $pre_body_content[] = array('string' => $admin_panel, 'priority' => 10);
 Nexista_Flow::add("pre_body_content",$pre_body_content,false);
 }
  
-function view_flow() { 
+function nexista_view_flow() { 
 	$debugXsl = new XsltProcessor();
 	$xsl = new DomDocument;
 	$xsl->load(NX_PATH_BASE."plugins/dev_buffer/flow.xsl");
@@ -117,7 +118,7 @@ function view_flow() {
 
 /* This function outputs a small script used to pass the final processing time, 
 and to stop the client timer.. */
-function final_notices($cacher=null, $mode) { 
+function nexista_final_notices($cacher=null, $mode) { 
 	$server_time = Nexista_Debug::profile();
 	$final_notices =  "<script type='text/javascript'>done_loading($server_time);</script>";
     echo $final_notices;
