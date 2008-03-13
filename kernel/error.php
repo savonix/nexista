@@ -370,7 +370,7 @@ class Nexista_Error extends Exception
     
         $exceptionXsl = new XsltProcessor();
         $xsl = new DomDocument;
-		$my_xsl_file = NX_PATH_CORE.'xsl/exsception.xsl';
+		$my_xsl_file = NX_PATH_CORE.'xsl/exception.xsl';
 		if(file_exists($my_xsl_file)) { 
 			$xsl->load($my_xsl_file);
 			$exceptionXsl->importStyleSheet($xsl);
