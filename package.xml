@@ -7,7 +7,7 @@ http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
     <name>nexista</name>
-    <uri>http://pear.nexista.org/</uri>
+    <channel>pear.nexista.org</channel>
     <summary>PHP / XML / XSL Development Toolkit</summary>
     <description>Nexista is an Open Source php/xml/xslt based development framework for building robust and scalable web applications.</description>
     <lead>
