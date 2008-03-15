@@ -180,11 +180,15 @@ class Nexista_QueryHandler
     {
         // Here we use see whether to use the default table names or if 
         // a entity set has been specified.
-        $myPrefix = Nexista_Config::get("./datasource[@id='database_prefix']/filename");
-        if(is_file($myPrefix)) { 
-            $xmlString = file_get_contents($this->definition);
-            $xmlString = str_replace("../../config/database_prefix.txt",$myPrefix,$xmlString);
-            // simplexml_load_string cannot find relative external references, 
+        $server_name = $_SERVER['SERVER_NAME'];
+        $myPrefix = Nexista_Config::get('./datasource[@id="'.$server_name.'"]/prefix');
+        $mydtd = Nexista_Config::get('./datasource[@id="'.$server_name.'"]/dtd');
+        if(!empty($myPrefix)) { 
+            $xmlString = "<!DOCTYPE query [".file_get_contents(dirname($this->definition)."/".$mydtd);
+            $xmlString .= '<!ENTITY prefix "'.$myPrefix.'">]>';
+            $xmlString .= file_get_contents($this->definition);
+            $rmme = '/(\<\!DOCTYPE query SYSTEM "'.$mydtd.'"\>)/';
+            $xmlString = preg_replace($rmme,'',$xmlString);
             $xml = simplexml_load_string($xmlString,null,LIBXML_DTDLOAD);
         } else { 
             $xml = simplexml_load_file($this->definition,null,LIBXML_DTDLOAD);
