@@ -214,13 +214,13 @@ class Nexista_Foundry
 	    $code[] = 'if($_ENV["NEXISTA_MODE"]=="'.$key.'") { '; 
             $code[] = 'define("NX_PATH_BASE", "'.$path['base'].'");';  
             if(!defined('NX_PATH_CORE')) {
-			$code[] = 'define("NX_PATH_CORE", "'.$path['base'].'kernel'.DIRECTORY_SEPARATOR.'");';   
+			$code[] = 'define("NX_PATH_CORE", "'.$path['base'].'kernel/");';   
             }
-			$code[] = 'define("NX_PATH_LIB", "'.$path['base'].'lib'.DIRECTORY_SEPARATOR.'");';  
+			$code[] = 'define("NX_PATH_LIB", "'.$path['base'].'lib/");';  
 			
-			$code[] = 'define("NX_PATH_HANDLERS", "'.$path['base'].'modules'.DIRECTORY_SEPARATOR.'handlers'.DIRECTORY_SEPARATOR.'");';  
-			$code[] = 'define("NX_PATH_ACTIONS", "'.$path['base'].'modules'.DIRECTORY_SEPARATOR.'actions'.DIRECTORY_SEPARATOR.'");';
-			$code[] = 'define("NX_PATH_VALIDATORS", "'.$path['base'].'modules'.DIRECTORY_SEPARATOR.'validators'.DIRECTORY_SEPARATOR.'");';
+			$code[] = 'define("NX_PATH_HANDLERS", "'.$path['base'].'modules/handlers/");';  
+			$code[] = 'define("NX_PATH_ACTIONS", "'.$path['base'].'modules/actions/");';
+			$code[] = 'define("NX_PATH_VALIDATORS", "'.$path['base'].'modules/validators/");';
             
             
 			$code[] = 'define("NX_PATH_COMPILE", "'.$path['compile'].'");';        
