@@ -270,7 +270,9 @@ class Nexista_Foundry
 
 		foreach($modes as $key => $value) { 
 			Nexista_Config::setMode($key);
-			return file_put_contents(Nexista_Config::get('./build/loader'), implode(NX_BUILDER_LINEBREAK,$code));
+			$mydir = Nexista_Config::get('./build/loader');
+            mkdir(dirname($mydir));
+            return file_put_contents($mydir, implode(NX_BUILDER_LINEBREAK,$code));
 		}
 
     
