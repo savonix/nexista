@@ -271,7 +271,6 @@ class Nexista_Foundry
 		foreach($modes as $key => $value) { 
 			Nexista_Config::setMode($key);
 			$mydir = Nexista_Config::get('./build/loader');
-            mkdir(dirname($mydir));
             return file_put_contents($mydir, implode(NX_BUILDER_LINEBREAK,$code));
 		}
 
@@ -646,7 +645,7 @@ class Nexista_Foundry
         $compile_path = Nexista_Config::get('./path/compile');
         // To do: test for folder, if not, try to create, if not, throw error.
         if(!is_dir($compile_path)) {
-            `mkdir -p $compile_path`;
+            mkdir($compile_path,0777,TRUE);
         }
         $gatefile = fopen($compile_path. 'gate-'.$gatenum.".php","w+");
 
