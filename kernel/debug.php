@@ -127,7 +127,7 @@ class Nexista_Debug
 
         }
         // This is for debugging the debug class. Probably don't want to ever use this now. 
-        //Debug::dump($GLOBALS['debugTrackModule']);
+        //Nexista_Debug::dump($GLOBALS['debugTrackModule']);
 
     }
 

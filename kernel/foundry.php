@@ -326,7 +326,7 @@ class Nexista_Foundry
         $this->loadSitemap();
 
         //load builder classes
-        $builderPath = Nexista_Config::get('./path/base')."modules".DIRECTORY_SEPARATOR."builders".DIRECTORY_SEPARATOR;
+        $builderPath = Nexista_Config::get('./path/base')."modules/builders/";
         $files = scandir($builderPath);
         //make instances for each for later gate building
         foreach($files as $file)
@@ -380,13 +380,7 @@ class Nexista_Foundry
             //TODO better check and error handling here
             Error::init('No name for gate', NX_ERROR_FATAL);
         }
-       // "name" should be changed to "pattern" for compatibility with popoon / cocoon
-        if(!$gate->hasAttribute('pattern'))
-        {
-            //TODO better check and error handling here
-            //Error::init('No name for gate', NX_ERROR_FATAL);
-        }
-        
+
         //cache time?
         $cache = -1;
         if($gate->hasAttribute('cache'))
@@ -556,9 +550,6 @@ class Nexista_Foundry
         //slap footer in
         $content .= $this->addGateFooter($gate);
 
-        //add append code
-        //ya...doesn't exist yet :)
-
         return $content;
 
     }
@@ -661,18 +652,6 @@ class Nexista_Foundry
 
 
     /**
-     * Returns gate prepend code
-     *
-     * @return  string      prepend code
-     */
-    /*
-    private function addPrepend()
-    {
-        $code[] = "Nexista_Debug::register('in','".$mod."');";
-        return implode(NX_BUILDER_LINEBREAK,$code).NX_BUILDER_LINEBREAK;
-    }
-    */
-    /**
      * Adds gate debug registration
      *
      * @return  string      prepend code
@@ -728,7 +707,6 @@ class Nexista_Foundry
         $code[] = ' * Match Type:    '.$matchType;
         $code[] = ' * Build Time:    '.date("D M j G:i:s T Y"); 
         $code[] = ' */';
-        //$code[] = 'define("NX_DEBUG_INFO_GATE", "'.$obj->getAttribute('name').'");';
         $req = array_unique($req);
         foreach($req as $r)
         {

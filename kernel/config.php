@@ -213,7 +213,6 @@ class Nexista_Config
     public function returnMasterConfig()
     {
 		
-		// Would it be possible to check cache for masterConfig? YEAH!
 		$this->xml = simplexml_load_file($this->masterConfig);
       
     }
@@ -231,43 +230,43 @@ class Nexista_Config
     {
         $canonical_filename = Nexista_Config::get('./path/compile').$config_filename;
         $config_compile_error = 
-            "Can't open $canonical_filename. 
-            Check permissions of parent directories, 
-            or simply refresh to try and rebuild it.";
-        
-            if(is_dir(dirname($canonical_filename))) { 
-                if($tmp = fopen($canonical_filename, "w+")) { 
-                    if(flock($tmp, LOCK_EX))
-                    {
-                        fwrite($tmp, self::$xml->asXML());
-                        flock($tmp, LOCK_UN);
-                    } else {
-                        if(!is_dir($compile_path) && is_writable(dirname(dirname($compile_path)))) {
-                            `mkdir -p $compile_path`;
-                        } else {
-                            Nexista_Error::Init( $config_compile_error,NX_ERROR_FATAL);  
-                        }
-                    }
-                    fclose ($tmp);
-                } else { 
-                    $compile_path = Nexista_Config::get('./path/compile');
+        "Can't open $canonical_filename. 
+        Check permissions of parent directories, 
+        or simply refresh to try and rebuild it.";
+
+        if(is_dir(dirname($canonical_filename))) { 
+            if($tmp = fopen($canonical_filename, "w+")) { 
+                if(flock($tmp, LOCK_EX))
+                {
+                    fwrite($tmp, self::$xml->asXML());
+                    flock($tmp, LOCK_UN);
+                } else {
                     if(!is_dir($compile_path) && is_writable(dirname(dirname($compile_path)))) {
-                        `mkdir -p $compile_path`;
+                        mkdir($compile_path,0777,TRUE);
                     } else {
-                        Nexista_Error::Init( $config_compile_error,NX_ERROR_FATAL); 
+                        Nexista_Error::Init( $config_compile_error,NX_ERROR_FATAL);  
                     }
                 }
+                fclose ($tmp);
             } else { 
                 $compile_path = Nexista_Config::get('./path/compile');
                 if(!is_dir($compile_path) && is_writable(dirname(dirname($compile_path)))) {
-                    `mkdir -p $compile_path`;
+                    mkdir($compile_path,0777,TRUE);
                 } else {
-                    Nexista_Error::Init( $config_compile_error."3",NX_ERROR_FATAL); 
+                    Nexista_Error::Init( $config_compile_error,NX_ERROR_FATAL); 
                 }
             }
-    }
-    
-    
+        } else { 
+            $compile_path = Nexista_Config::get('./path/compile');
+            if(!is_dir($compile_path) && is_writable(dirname(dirname($compile_path)))) {
+                mkdir($compile_path,0777,TRUE);
+            } else {
+                Nexista_Error::Init( $config_compile_error."3",NX_ERROR_FATAL); 
+            }
+        }
+}
+
+
     /**
      * Retrieves a config value
      *
@@ -278,7 +277,7 @@ class Nexista_Config
      * Note that this method makes use of xpath and adds on the mode criteria
      * 
      * @param   string      variable path
-     * @return  mixed       value or null if not found   
+     * @return  mixed       value or null if not found
      */
        
     static public function get($name)

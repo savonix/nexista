@@ -69,7 +69,7 @@ class Nexista_Path
      */
     static public function get($path, $defaultProtocol = 'string')
     {
-   
+
         //TODO - we can probably have multiple URIs in a row. make loop for that.
         $request = explode('|', $path);
         
@@ -196,9 +196,9 @@ class Nexista_Path
 
     private function interpretPath($data, $request)
     {
-         //inline flow expressions   
+        //inline flow expressions
         //$string = Nexista_Path::parseInlineFlow($string);
-       
+
         $request = explode('/', trim($request, '/'));
 
         for($i = 0; $i < count($request); $i++)
@@ -219,7 +219,8 @@ class Nexista_Path
         return null;
 
     }
-    
+
+
     /**
      * Returns a class Nexista_singleton.
      *
@@ -232,10 +233,8 @@ class Nexista_Path
             $c = __CLASS__;
             self::$instance = new $c;
         }
-
         return self::$instance;
     }
-    
 }
 
 ?>

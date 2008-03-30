@@ -413,7 +413,7 @@ class Nexista_Error extends Exception
         if(is_callable($handler))   
             self::$defaultHandler = $handler;
         else
-            Error::init("Error Default Handler is not callable!");
+            Nexista_Error::init("Error Default Handler is not callable!");
     }
 }
 

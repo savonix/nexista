@@ -249,7 +249,7 @@ class Nexista_mdb2SqlDatasource
             //$this->db->connect();
 			$prep = $this->db->prepare($this->query['sql'], $types);
             if (PEAR::isError($prep)) {
-                Nexista_Error::init($result->getMessage().$this->queryName,NX_ERROR_FATAL);
+                Nexista_Error::init($result->getMessage()." ".$this->queryName,NX_ERROR_FATAL);
             }
             $result = $prep->execute($data);
 
@@ -259,8 +259,8 @@ class Nexista_mdb2SqlDatasource
         }
 
         if (PEAR::isError($result)) {
-            $my_debug_result = serialize($result);
-            Nexista_Error::init($result->getMessage().$this->queryName.$my_debug_result,NX_ERROR_FATAL);
+            $my_debug_result = ''; //serialize($result);
+            Nexista_Error::init($result->getMessage()." in query named ".$this->queryName.$my_debug_result,NX_ERROR_FATAL);
         }
         $prep->free();
 

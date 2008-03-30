@@ -49,7 +49,7 @@ class Nexista_Init
     /**
      * Hold an instance of the class
      *
-     * @var     object   
+     * @var     object
      */
      
     static private $instance;
@@ -58,7 +58,7 @@ class Nexista_Init
     /**
      * Output handler
      *
-     * @var     mixed   
+     * @var     mixed
      */
      
     static private $outputHandler;
@@ -67,7 +67,7 @@ class Nexista_Init
     /**
      * Config object
      *
-     * @var     object   
+     * @var     object
      */
 
     private $config;
@@ -103,8 +103,8 @@ class Nexista_Init
         $this->loadConfig(); 
         $this->setDebug();
     }
-    
-    
+
+
     /**
      * Startup functions, init...
      *
@@ -112,14 +112,14 @@ class Nexista_Init
      * startup functions such as timers, flow init, etc..
      *
      */
-     
+
     public function start()
     {            
         Nexista_Debug::register("in","total");
         $this->initSession();
-        $this->initFlow();       
+        $this->initFlow();
     }
-    
+
 
     /**
      * Loads site configuration info
@@ -192,8 +192,8 @@ class Nexista_Init
      */
 
     function initSession()
-    {    
-		
+    {
+
 
 		$params = $this->config->getSection('session');
 		// Also check for cache_limiter - if its public, no session!
@@ -210,7 +210,7 @@ class Nexista_Init
 
 			@session_start();
 			define('NX_SESSION_ID', session_name().'='.session_id());
-			
+
 			return true;
 		}
     }
@@ -224,7 +224,6 @@ class Nexista_Init
     {
         $GLOBALS['debugStartTime'] = microtime();
     }
-
 
 
     
@@ -278,10 +277,10 @@ class Nexista_Init
                     break;
                 }
             }
-          
-        }  
-        
-        if(isset($gateMissing) && !isset($gateFound)) 
+        }
+
+
+        if(isset($gateMissing) && !isset($gateFound))
         {
             $this->info['uri'] = $gateMissing['uri'];
             if(isset($gateMissing['cache']))
@@ -293,9 +292,8 @@ class Nexista_Init
                 $auth->requireRole($this->info['requireRole']);
             }
         }
-            
     }
-           
+
     /**
      * Pocesses final output
      *   
@@ -305,7 +303,7 @@ class Nexista_Init
      * under build/missing in config. Failure to do so
      * will result in a 404 redirect to be handled by the web server.
      */
-     
+
     public function run()
     {
         if(!empty($this->info['uri'])) 
@@ -324,12 +322,8 @@ class Nexista_Init
             echo $this->info['uri'];
             echo $_SERVER['SCRIPT_FILENAME'];
 			return $output;
-            
             exit;
-            echo "<pre>";
-            print_r($_GET);
-            exit;
-        }        
+        }
     }
     
     /**
@@ -365,8 +359,9 @@ class Nexista_Init
             echo $this->run();
             ob_end_flush();
         }
-     }    
-	 
+     }
+
+
 	/**
 	 * Returns the gate info in an array consisting only of the params
 	 * that are specified by the sitemap. Possible items include: 
