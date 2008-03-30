@@ -115,13 +115,10 @@ class Nexista_ActionHandler
                 {
                     Nexista_Error::init("$val variable called in action params does not exist", NX_ERROR_WARNING);
                 }
-
             }
-
         }
         return true;
     }
-
 }
 
 ?>

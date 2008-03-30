@@ -3,14 +3,14 @@
  * -File        compress.action.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2002-2007, Nexista
- * -Author      joshua savage  
- * -Author		Albert Lash 
+ * -Author      joshua savage
+ * -Author		Albert Lash
  */
 
 /**
  * @package     Nexista
  * @subpackage  Actions
- * @author      Joshua Savage 
+ * @author      Joshua Savage
  * @author      Albert Lash
  */
  
@@ -34,7 +34,6 @@ class Nexista_CompressAction extends Nexista_Action
         'var' => '' //required - name of flow var to gzip
         );
 
-
     /**
      * Applies action
      *
@@ -46,14 +45,13 @@ class Nexista_CompressAction extends Nexista_Action
         
 		$res = Nexista_Flow::find($this->params['var']);
         if($res->length === 1)
-        {            
+        {
 			$text = $res->item(0)->nodeValue;
 			$res->item(0)->nodeValue = base64_encode(gzcompress($text,6));
             return true;
         }
-         
+
         return false;
-            
 
     }
 } //end class

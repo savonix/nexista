@@ -1,5 +1,12 @@
 <?php
 
+
+/*
+
+    THIS PLUGIN IS DEPRECATED. USE nx_builder.php INSTEAD.
+    
+*/
+
 if(isset($nexista_path)) { 
     define('INCLUDE_PATH', $nexista_path);
 } else { 

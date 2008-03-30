@@ -131,12 +131,9 @@ class Nexista_QueryHandler
         $this->getDatasource($this->query['connection'], $params);
 
         $this->datasource->setConnection();
-        
 
         $this->datasource->execQuery($this->query, $this->queryName, $this->queryLoop);
-        
-        
-        
+
         unset($this->datasource);
 
         return true;

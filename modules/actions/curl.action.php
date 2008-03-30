@@ -1,6 +1,7 @@
 <?php
 /*
  * -File        curl.action.php
+ * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2007, Savonix
  * -Author      Albert Lash
  */
@@ -114,7 +115,7 @@ protected  $params = array(
         
         Nexista_Flow::add($target_node,$xml);
     }
-              
+
 } //end class
-                        
+
 ?>

@@ -2,8 +2,8 @@
 /*
  * -File        concat.action.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2002, Nexista
- * -Author      joshua savage
+ * -Copyright   2008, Savonix Corporation
+ * -Author      Albert Lash
  */
 
 
@@ -34,7 +34,6 @@ class Nexista_ConcatAction extends Nexista_Action
         'var2' => '' //required
         );
 
-
     /**
      * Applies action
      *
@@ -53,7 +52,6 @@ class Nexista_ConcatAction extends Nexista_Action
         }
          
         return false;
-            
 
     }
 } //end class

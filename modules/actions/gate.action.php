@@ -45,9 +45,8 @@ class Nexista_gateAction extends Nexista_Action
 
     protected  function main()
     {
-        $destination = $_SERVER['PHP_SELF'].'?'.NX_ID.'='.Path::parseInlineFlow($this->params['url']);
+        $destination = $_SERVER['PHP_SELF'].'?'.NX_ID.'='.Nexista_Path::parseInlineFlow($this->params['url']);
         $appendSession = isset($this->params['session'])?$this->params['session']:null;
-        
 
         if($appendSession)
             $destination .=  '&'.SESSID;

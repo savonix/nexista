@@ -49,7 +49,7 @@ class Nexista_translateAction extends Nexista_Action
     protected  function main()
     {
 
-        $var = Path::get($this->params['var']);
+        $var = Nexista_Path::get($this->params['var']);
         if(is_null($var) or is_array($var))
             return false;
         switch(strtoupper($this->params['transtbl']))

@@ -51,28 +51,23 @@ class Nexista_XslAction extends Nexista_Action
     protected function main()
     {
 
-        
         $res = Path::get($this->params['xml'], 'string');
         if($res->length === 1)
         {
             $xml = $res->item(0)->nodeValue;
-        
             $xslHandler = new XsltProcessor();
             $xsl = new DomDocument;
             $xsl->load($this->params['xsl']);
             $xml = new DomDocument;
             $xml->loadXML($this->params['xml']);
             $xslHandler->importStyleSheet($xsl); 
-      
             $res->item(0)->nodeValue = $xslHandler->transformToXML($xml); 
-       
+
             return true;
         }
         else
             return false;
     }
-
-
 } //end class
 
 ?>

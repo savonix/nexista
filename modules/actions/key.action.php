@@ -40,7 +40,7 @@ class Nexista_KeyAction extends Nexista_Action
 
     protected  function main()
     {   
-        
+
 		$res = Nexista_Flow::find($this->params['var']);
         if($res->length === 1)
         {          
@@ -48,7 +48,7 @@ class Nexista_KeyAction extends Nexista_Action
 			Flow::add("key", $key);
             return true;
         }
-         
+
         return false;
 
     }

@@ -60,7 +60,7 @@ class Nexista_XmlHandler
         //goes in root
         else
             $flow->root->appendChild($new);
-        
+
         return true;
 
     }

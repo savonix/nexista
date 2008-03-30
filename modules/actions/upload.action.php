@@ -71,9 +71,9 @@ class Nexista_uploadAction extends Nexista_Action
             if($res->length === 1)
             {
 				
-                Flow::add('new_dir', $dest,$res->item(0));
+                Nexista_Flow::add('new_dir', $dest,$res->item(0));
                 //Flow::add('new_name', $name,$res->item(0));
-		Flow::add('new_name', $dest.$name,$res->item(0));
+                Nexista_Flow::add('new_name', $dest.$name,$res->item(0));
             
     
             }

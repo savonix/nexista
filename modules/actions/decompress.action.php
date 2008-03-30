@@ -42,18 +42,17 @@ class Nexista_DecompressAction extends Nexista_Action
      */
 
     protected  function main()
-    {   
-        
+    {
+
 		$res = Nexista_Flow::find($this->params['var']);
         if($res->length === 1)
-        {            
+        {
 			$text = $res->item(0)->nodeValue;
 			$res->item(0)->nodeValue = htmlspecialchars(gzuncompress(base64_decode($text)));
             return true;
         }
-         
+
         return false;
-            
 
     }
 } //end class

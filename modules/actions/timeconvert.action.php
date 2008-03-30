@@ -37,7 +37,7 @@ class Nexista_TimeConvertAction extends Nexista_Action
 		'am_pm' => '', // required am/pm specifier
 		'when' => '' // required - open or close....
         );
-            
+
     
     /**
      * Applies filter
@@ -67,7 +67,7 @@ class Nexista_TimeConvertAction extends Nexista_Action
 		Flow::add($when, $iso);
 
         return true;
-    
+
     }
 } //end class
 
