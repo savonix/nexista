@@ -1,26 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.6.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-    http://pear.php.net/dtd/tasks-1.0.xsd
-    http://pear.php.net/dtd/package-2.0
-    http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.6.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
  <name>nexista</name>
- <channel>pear.nexista.org</channel>
- <summary>Nexista PEAR Package</summary>
- <description>Open Source PHP XML XSL Framework for Web Apps</description>
+ <uri>http://pear.nexista.org/</uri>
+ <summary>Nexista PHP XML XSL Toolkit</summary>
+ <description>Nexista is an Open Source PHP5/XML/XSLT development toolkit based on the Fusebox concept and designed to build large XML/ XSL based web applications.</description>
  <lead>
-  <name>Albert Lash</name>
+  <name>albertlash</name>
   <user>albertlash</user>
-  <email>albert.lash@docunext.com</email>
+  <email>albert.lash@savonix.com</email>
   <active>yes</active>
  </lead>
- <developer>
-  <name>Joshua Savage</name>
-  <user>js</user>
-  <email>js@none.com</email>
-  <active>yes</active>
- </developer>
  <date>2008-04-15</date>
- <time>16:35:50</time>
+ <time>17:50:08</time>
  <version>
   <release>0.2.2</release>
   <api>0.2.0</api>
@@ -48,7 +39,7 @@
    <file baseinstalldir="Nexista" md5sum="fa1c05992655d11fde1262400b86b79d" name="kernel/datasources/ldapdatasource.php" role="php" />
    <file baseinstalldir="Nexista" md5sum="a7df9abdbad30da025e10e9617a4d77c" name="kernel/datasources/mdb2sqldatasource.php" role="php" />
    <file baseinstalldir="Nexista" md5sum="71d9962ff08572633eea4691bd1aef64" name="kernel/datasources/pdosqldatasource.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="286b7f9d74d10d9ebf31a5e64559cd59" name="kernel/xsl/exception.xsl" role="data" />
+   <file baseinstalldir="Nexista" md5sum="286b7f9d74d10d9ebf31a5e64559cd59" name="kernel/xsl/exception.xsl" role="php" />
    <file baseinstalldir="Nexista" md5sum="e4fc14a1f435cb2d6a27bb6873f75a49" name="modules/actions/add1.action.php" role="php" />
    <file baseinstalldir="Nexista" md5sum="cf245f53e8404a12bde2551d77afef98" name="modules/actions/compress.action.php" role="php" />
    <file baseinstalldir="Nexista" md5sum="b0bd53d734074778cb42aefb43db3844" name="modules/actions/concat.action.php" role="php" />
@@ -123,7 +114,7 @@
    <file baseinstalldir="Nexista" md5sum="230c974d23c6401f83e48402807ee9d9" name="plugins/nx_builder.php" role="php" />
    <file baseinstalldir="Nexista" md5sum="855aec8f59f1609d06c65aadebf60069" name="plugins/nx_cache.php" role="php" />
    <file baseinstalldir="Nexista" md5sum="73627083aea755045f3045fbfa8b704d" name="plugins/dev_buffer/dev_buffer.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="ce062c60b0c7febd8da6c393a6cec95f" name="plugins/dev_buffer/flow.xsl" role="data" />
+   <file baseinstalldir="Nexista" md5sum="ce062c60b0c7febd8da6c393a6cec95f" name="plugins/dev_buffer/flow.xsl" role="php" />
    <file baseinstalldir="Nexista" md5sum="db3c420dfd95bc8b69819fa34a1af235" name="LICENSE" role="data" />
    <file baseinstalldir="Nexista" md5sum="970363e4b2d235338cd60a6880ab42e4" name="README" role="data" />
   </dir>
@@ -140,6 +131,19 @@
  </dependencies>
  <phprelease />
  <changelog>
+  <release>
+   <version>
+    <release>0.2.1</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2008-04-15</date>
+   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+   <notes>none</notes>
+  </release>
   <release>
    <version>
     <release>0.2.2</release>
