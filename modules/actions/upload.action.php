@@ -32,7 +32,7 @@ class Nexista_uploadAction extends Nexista_Action
     protected  $params = array(
         'file' => '',       //required - name of $FILES array index for file in question
         'dest' => '',		//optional - destination path/filename from NX_PATH_APP to move file to
-	'prefix' => ''        //optional - unique id for prefix so that files are not overwritten
+        'prefix' => ''        //optional - unique id for prefix so that files are not overwritten
         );
 
 
@@ -46,7 +46,7 @@ class Nexista_uploadAction extends Nexista_Action
     {
     
         //see if a path is given. we default to Nexista temp dir
-        if(!$dest=Path::get($this->params['dest'], 'flow')) {
+        if(!$dest = Nexista_Path::get($this->params['dest'], 'flow')) {
 			$dest = empty($this->params['dest']) ? NX_PATH_TMP : trim($this->params['dest'],'/').'/';
 		}
 
@@ -55,7 +55,7 @@ class Nexista_uploadAction extends Nexista_Action
         {
 		
 		$name = $_FILES[$this->params['file']]['name'];
-	    $prefix = Path::get($this->params['prefix'],"flow");
+	    $prefix = Nexista_Path::get($this->params['prefix'],"flow");
 	    if($prefix!='') {	 	
 		    $unique_id = $prefix;
 		    $name=$unique_id."_".$name;    
