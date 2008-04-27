@@ -42,7 +42,7 @@ class Nexista_XslHandler
             @mkdir($xslt_cache_dir);
         }
         $tmpfile = $xslt_cache_dir.basename($xslfile);
-        if(!is_file($tmpfile) || $use_xslt_cache!="yes") {  
+        if(!is_file($tmpfile) || $use_xslt_cache!="yes") {
             if(!is_file($xslfile)) { 
                 Nexista_Error::init('XSL Handler - Error processing XSL file - it is unavailable: '.$xslfile, NX_ERROR_FATAL);
             } 
@@ -50,21 +50,21 @@ class Nexista_XslHandler
             $xsl->substituteEntities = false;
             $xsl->resolveExternals = false;
             $xslfilecontents .= file_get_contents($xslfile);
-            $xsl->loadXML($xslfilecontents); 
+            $xsl->loadXML($xslfilecontents);
             $xsl->documentURI = $xslfile;
             $xslHandler = new XsltProcessor;
-            $xslHandler->importStyleSheet($xsl); 
+            $xslHandler->importStyleSheet($xsl);
             if($use_xslt_cache=="yes") { 
                 $xsl->save($tmpfile);
             }
         }
-        if($use_xslt_cache=="yes") { 
+        if($use_xslt_cache=="yes") {
             $xslHandler = new xsltCache;
-            $xslHandler->importStyleSheet($tmpfile); 
+            $xslHandler->importStyleSheet($tmpfile);
         }
-        
-        $output = $xslHandler->transformToXML($flow->flowDocument); 
-      
+
+        $output = $xslHandler->transformToXML($flow->flowDocument);
+
         if($output === false)
         {
             Nexista_Error::init('XSL Handler - Error processing XSL file: '.$xslfile, NX_ERROR_FATAL);

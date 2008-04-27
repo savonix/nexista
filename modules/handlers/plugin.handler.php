@@ -39,7 +39,6 @@ class Nexista_PluginHandler
     {
         //load descriptor file and parse
         $xml = simplexml_load_file($src);
-       
 
         //parse through each node and process
         foreach ($xml->children() as $action)
