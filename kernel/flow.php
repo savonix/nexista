@@ -112,8 +112,8 @@ class Nexista_Flow
      */
      
     static private $importHandler;
-    
-  
+
+
     /**
      * Main xml output data container.
      *
@@ -168,7 +168,7 @@ class Nexista_Flow
 
                 //add $_POST vars
                 case 'P':
-              
+
                     if(!is_null(self::$importHandler)) 
                         $ref = $this->add('_post',call_user_func(self::$importHandler, $_POST));
                     else
@@ -205,9 +205,9 @@ class Nexista_Flow
                         $ref = $this->add('_globals', $GLOBALS);
                     break;
             }
-        }        
-    }    
-    
+        }
+    }
+
     /**
      * Finds a flow var using an xpath query
      *
@@ -241,20 +241,20 @@ class Nexista_Flow
 
     static public function get($node,$array_type = null)
     {
-        
+
         //see if a text node with no children
-        if($node->childNodes->length == 1  AND 
+        if($node->childNodes->length == 1  AND
             get_class($node->childNodes->item(0)) == 'DOMText' AND
             !is_null($node->nodeValue))
-        {   
-            if($array_type=="ASSOC") { 
+        {
+            if($array_type=="ASSOC") {
                 $nodeName = $node->nodeName;
-                $nodeValue = $node->nodeValue; 
+                $nodeValue = $node->nodeValue;
                 //$result = array($nodeName => $nodeValue);
                 //echo $nodeName;
                 $result[$nodeName] = $nodeValue;
                 return $result;
-            } else { 
+            } else {
                 return $node->nodeValue;
             }
         }
@@ -264,13 +264,13 @@ class Nexista_Flow
             $result = array();
             foreach($node->childNodes as $kid)
             {
-          
+
                 if($kid->childNodes->length == 1  AND 
                     get_class($kid->childNodes->item(0)) == 'DOMText' AND
                     !is_null($kid->nodeValue))
                 {
-                    
-                    $result[$kid->nodeName] = $kid->nodeValue;       
+
+                    $result[$kid->nodeName] = $kid->nodeValue;
                 }
                 else
                 {
@@ -290,18 +290,17 @@ class Nexista_Flow
      */
 
     static public function delete($node)
-    {  
+    {
 		$flow = Nexista_Flow::singleton();
-		$listall = $flow->flowDocument->getElementsByTagname($node); 
+		$listall = $flow->flowDocument->getElementsByTagname($node);
 		$count = $listall->length;
-		for ($i = 0; $i < $count; $i++) { 
-			$myparentnode = $listall->item(0)->parentNode; 
+		for ($i = 0; $i < $count; $i++) {
+			$myparentnode = $listall->item(0)->parentNode;
 			$myparentnode->removeChild($listall->item(0));
-		} 
-
+        }
 	}
-    
-		
+
+
     /**
      * Returns the value of a flow variable(s) given an xpath query
      *
@@ -315,7 +314,7 @@ class Nexista_Flow
 
     static public function getByPath($path,$array_type = null)
     {
-  
+
         $flow = Nexista_Flow::singleton();
         $res = Nexista_Flow::find($path);
         if($res->length > 1)
@@ -337,13 +336,13 @@ class Nexista_Flow
         else
             return null;
     }
-    
+
     /**
      * Writes string to stream
      *
      * @param   string      data to write to XmlStream
      */
-   
+
     public function writeXmlStream($data)
     {
         $this->xmlStream = $data;

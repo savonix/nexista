@@ -27,7 +27,7 @@ class Nexista_TimeConvertAction extends Nexista_Action
     /**
      * Function parameter array
      *
-     * @var array   
+     * @var array
      * @access  private
      */
     
@@ -48,23 +48,23 @@ class Nexista_TimeConvertAction extends Nexista_Action
     
     function main()
     {
-        
+
 		// Right now this filter only converts from 12 to 24 hour time formats.
         $hours = Path::get($this->params['hours'], "flow");
         $minutes = Path::get($this->params['minutes'], "flow");
         $am_pm = Path::get($this->params['am_pm'], "flow");
 		$when=$this->params['when'];
-		
+
         if($am_pm=="PM" && $hours!="12") { 
 			$hours=$hours + 12;
 		}
 		if($am_pm=="AM" && $hours=="12") { 
 			$hours="00";
 		}
-		
+
         $iso = "$hours:$minutes:00";
 		$when = $when."_iso_time";
-		Flow::add($when, $iso);
+		Nexista_Flow::add($when, $iso);
 
         return true;
 
