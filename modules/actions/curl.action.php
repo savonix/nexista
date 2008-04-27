@@ -11,7 +11,7 @@
  * @subpackage  Actions
  * @author      Albert Lash
  */
-     
+
 /**
  * This action calls a URL with the same session as the current client,
  * including some variables and the flow variable to return the result.
@@ -19,10 +19,10 @@
  * @package     Nexista
  * @subpackage  Actions
  */
-                
+
 class Nexista_curlAction extends Nexista_Action
 {
-                
+
     /**
      * Function parameter array
      *
@@ -35,7 +35,7 @@ protected  $params = array(
         'target_node' => '' //where to store the response data
         );
 
-                
+
     /**
      * Applies action
      *

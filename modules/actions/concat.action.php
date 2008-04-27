@@ -41,16 +41,16 @@ class Nexista_ConcatAction extends Nexista_Action
      */
 
     protected  function main()
-    {   
-        
+    {
+
 		$res1 = Nexista_Flow::find($this->params['var1']);
 		$res2 = Nexista_Flow::find($this->params['var2']);
         if($res1->length === 1)
-        {            
+        {
             $res1->item(0)->nodeValue = $res1->item(0)->nodeValue.$res2->item(0)->nodeValue;
             return true;
         }
-         
+
         return false;
 
     }

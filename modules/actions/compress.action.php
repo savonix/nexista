@@ -42,7 +42,7 @@ class Nexista_CompressAction extends Nexista_Action
 
     protected  function main()
     {   
-        
+
 		$res = Nexista_Flow::find($this->params['var']);
         if($res->length === 1)
         {

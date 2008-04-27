@@ -1,6 +1,6 @@
 <?php
 /*
- * -File        fileuploadaction.php
+ * -File        upload.action.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2002, Nexista
  * -Author      joshua savage

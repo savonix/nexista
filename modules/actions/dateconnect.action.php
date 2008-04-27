@@ -50,13 +50,13 @@ class Nexista_DateConnectAction extends Nexista_Action
     function main()
     {
 		// Right now this filter only converts from 12 to 24 hour time formats.
-        $year = Path::get($this->params['year'],"flow");
-        $month = Path::get($this->params['month'],"flow");
-		$day = Path::get($this->params['day'],"flow");
+        $year = Nexista_Path::get($this->params['year'],"flow");
+        $month = Nexista_Path::get($this->params['month'],"flow");
+		$day = Nexista_Path::get($this->params['day'],"flow");
 		$name = $this->params['name'];
 		
 		$mydate = "$year-$month-$day 01:01:01";
-		Flow::add($name, $mydate);
+		Nexista_Flow::add($name, $mydate);
 
         return true;
     

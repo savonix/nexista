@@ -55,16 +55,16 @@ class Nexista_RawXmlAction extends Nexista_Action
          //load xml string
         $doc = new DOMDocument();
         $doc->loadXML($xmlString);
- 
+
         $flow = Nexista_Flow::singleton();
-        
+
         //import new doc into flow recursively
         $new = $flow->flowDocument->importNode($doc->documentElement,1);
-        
+
         //append back to node as parsed xml now
         $res->appendChild($new);
-       
-        
+
+
         return true;
     }
 

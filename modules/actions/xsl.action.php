@@ -37,10 +37,9 @@ class Nexista_XslAction extends Nexista_Action
      */
 
     protected  $params = array(
-        'xml' => '',    //required - flow var
-        'xsl' => ''    //required - xsl file        
+        'xsl' => '',    //required - xsl file
+        'new_node' => '' // required - new node to create for the output
         );
-
 
     /**
      * Applies action
@@ -51,22 +50,31 @@ class Nexista_XslAction extends Nexista_Action
     protected function main()
     {
 
-        $res = Path::get($this->params['xml'], 'string');
-        if($res->length === 1)
+        $flow = Nexista_Flow::Singleton();
+        
+        $xslfile = NX_PATH_APPS.$this->params['xsl'];
+        if(!is_file($xslfile)) { 
+            Nexista_Error::init('XSL Handler - Error processing XSL file - it is unavailable: '.$xslfile, NX_ERROR_FATAL);
+        } 
+        $xsl = new DomDocument('1.0','UTF-8');
+        $xsl->substituteEntities = false;
+        $xsl->resolveExternals = false;
+        $xslfilecontents .= file_get_contents($xslfile);
+        $xsl->loadXML($xslfilecontents);
+        $xsl->documentURI = $xslfile;
+        $xslHandler = new XsltProcessor;
+        $xslHandler->importStyleSheet($xsl);
+        
+        $my_output = $xslHandler->transformToXML($flow->flowDocument);
+        if($my_output === false)
         {
-            $xml = $res->item(0)->nodeValue;
-            $xslHandler = new XsltProcessor();
-            $xsl = new DomDocument;
-            $xsl->load($this->params['xsl']);
-            $xml = new DomDocument;
-            $xml->loadXML($this->params['xml']);
-            $xslHandler->importStyleSheet($xsl); 
-            $res->item(0)->nodeValue = $xslHandler->transformToXML($xml); 
-
-            return true;
-        }
-        else
+            Nexista_Error::init('XSL Handler - Error processing XSL file: '.$xslfile, NX_ERROR_FATAL);
             return false;
+        }
+
+        $new_node = $this->params['new_node'];
+        Nexista_Flow::add($new_node, $my_output);
+        return true;
     }
 } //end class
 
