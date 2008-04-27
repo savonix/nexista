@@ -114,7 +114,7 @@ class Nexista_Init
      */
 
     public function start()
-    {            
+    {
         Nexista_Debug::register("in","total");
         $this->initSession();
         $this->initFlow();
@@ -129,11 +129,11 @@ class Nexista_Init
     public function loadConfig()
     {
         $this->config = Nexista_Config::singleton();
-        $this->config->setMaster(NX_PATH_COMPILE.'config.xml'); 
+        $this->config->setMaster(NX_PATH_COMPILE.'config.xml');
         $this->config->loadMasterConfig();
     }
-    
-    
+
+
     /**
      * Loads prepend file
      *
@@ -178,8 +178,8 @@ class Nexista_Init
 
     private function initFlow()
     { 
-        $flow = Nexista_Flow::singleton();        
-        $flow->init();       
+        $flow = Nexista_Flow::singleton();
+        $flow->init();
     }
 
     
@@ -297,8 +297,8 @@ class Nexista_Init
     /**
      * Pocesses final output
      *   
-     * This function processes the correct  gate based 
-     * on request. In the event of not finding the 
+     * This function processes the correct  gate based
+     * on request. In the event of not finding the
      * correct gate, it will attempt to load the gate defined
      * under build/missing in config. Failure to do so
      * will result in a 404 redirect to be handled by the web server.
