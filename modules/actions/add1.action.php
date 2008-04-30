@@ -22,9 +22,10 @@
  * @subpackage  Actions
  */
 
-class Nexista_Add1Action extends Nexista_Action
+class Nexista_Add1Action_ extends Nexista_Action
 {
 
+    // NOTE: This action is deprecated.
 
     /**
      * Function parameter array
