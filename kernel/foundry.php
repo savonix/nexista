@@ -25,7 +25,7 @@ define('NX_BUILDER_LINEBREAK', "\n");
 Nexista_Error::addObserver('display', 'Nexista_builderError');
 function Nexista_builderError($e)
 {
-   $e->toHtml();  
+   $e->toHtml();
 }
 
 
@@ -75,19 +75,19 @@ class Nexista_Foundry
       *
       * @var    object
       */
-     
+
     static private $instance;
-    
-    
+
+
     /**
      * Sitemap root node object
      *
      * @var      object
      */
-   
+
      public $sitemapDocument;
 
-    
+
     /**
      * Array to keep track of what tags are handled by what builder
      *
@@ -131,19 +131,19 @@ class Nexista_Foundry
 
     public function configure($master, $local = null, $mode = null, $config_filename = 'config.xml')
     {
-       
+
         $config = Nexista_Config::singleton();
-        $config->setMaster($master);      
+        $config->setMaster($master);
         $config->setLocal($local);
         $config->setMode($mode);
         $config->load();
         $config->writeConfig($config,$config_filename);
-        
-        
+
+
         //init some paths we may need for build
         $path = Nexista_Config::getSection('path');
         if(!defined('NX_PATH_APPS')) { 
-            define("NX_PATH_APPS", $path['applications']);     
+            define("NX_PATH_APPS", $path['applications']);
         }
         //init debug
         $configs = Nexista_Config::getSection('runtime');
@@ -153,21 +153,20 @@ class Nexista_Foundry
             $GLOBALS['debugTrack'] = true;
         }
 	}
- 
-    
-    
+
+
     /**
      * Returns the path to the sitemap
      * Useful for checking the mod time for required rebuilds
      * 
      * @return string   path to sitemap
      */
-     
-     public function getSitemapPath() { 
-         
+
+     public function getSitemapPath() {
+
          return Nexista_Config::get('./build/sitemap');
-         
-     }    
+
+     }
     
     
     /**
@@ -177,9 +176,9 @@ class Nexista_Foundry
      */
      
      public function getCompilePath() { 
-         
+
          return Nexista_Config::get('./path/compile');
-         
+
      }
     
     /**
@@ -194,8 +193,8 @@ class Nexista_Foundry
 
     public function buildLoader()
     {
-       
-        
+
+
         $code[] = '<?php';
         $code[] = '/*';
         $code[] = ' * Domain Name:   '.$_SERVER['SERVER_NAME'];      
@@ -405,19 +404,18 @@ class Nexista_Foundry
         {
             $match = 'regex';
             $name =  $m[1];
-            
         }
         else
         {
             $match = 'exact';
             $name = $gate->getAttribute('name');
         }
-        
-        if($this->debug) { 
+
+        if($this->debug) {
             echo "<a href='?nid=".$name."'>".$name."</a>...<br>\n";
-		} 
+		}
         @$this->sitemap[$match][$name] = array('uri'=>$filename, 'role'=>$role, 'cache'=>$cache, 'client_cache'=>$client_cache);
-       
+
     }
 
 
@@ -465,10 +463,10 @@ class Nexista_Foundry
             $code[] = ');';
         }
 
-        //setup 404 handling       
+        //setup 404 handling
         $missing = Nexista_Config::get('./build/missing');
         if(!empty($missing) && isset($this->sitemap['exact'][$missing]))
-        {   
+        {
             $code[] = '$gateMissing = array(';
             foreach($elements as $name => $info)
             {
@@ -495,12 +493,12 @@ class Nexista_Foundry
         }
         else
             $code[] = '$gateMissing = null;';
-        
+
         //slap footer
         $code[] = '?>';
 
         $data = implode(NX_BUILDER_LINEBREAK,$code);
-        
+
         //save file
         $tmp = fopen(Nexista_Config::get('./path/compile').'sitemap.php', "w+");
         if(flock($tmp, LOCK_EX))
@@ -510,12 +508,12 @@ class Nexista_Foundry
         }
         fclose ($tmp);
     }
-    
-    
+
+
     /**
      * Build an individual gate file
      *
-     * @param   object      reference to gate object     
+     * @param   object      reference to gate object
      * @return  string      content of gate to write
      */
      
@@ -576,21 +574,21 @@ class Nexista_Foundry
             if(in_array($module, array_keys($this->builderTags)))
             {
                 $obj =& $this->builderTags[$module];
-      
+
                 //add required files
                 $required = array_merge($required, $obj->getRequired());
-  
-                //pass current object node if needed                 
+
+                //pass current object node if needed
                 $obj->action =& $action;
 
                 //add debug code?
                 $non_debug_modules = array('if','true','false','case','switch');
                 if(isset($GLOBALS['debugTrack']) && $GLOBALS['debugTrack'] === true && !in_array($module,$non_debug_modules))
                     $code .= $this->addGateDebugStart($module);
-                   
+
                 //get start of code
                 $text = $obj->getCodeStart();
-    
+
                 if(!empty($text))
                     $code .= $text.NX_BUILDER_LINEBREAK;
 

@@ -10,7 +10,7 @@
  * @package Nexista
  * @author Joshua Savage
  */
- 
+
 /**
  * This class Nexista_provides abstract functionality to build the cached php gate files
  * for each action based on the sitemap.
@@ -25,7 +25,7 @@
  * You should also add any required files into the $required array
  * by extending it and setting new values in your class.
  *
- * @package     Nexista 
+ * @package     Nexista
  */
 
 
@@ -40,7 +40,7 @@ class Nexista_Builder
 
     public $params = array();
 
-  
+
     /**
      * Reference to current DOMElement action tag object in current gate
      *

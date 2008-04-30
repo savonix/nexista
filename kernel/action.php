@@ -1,15 +1,15 @@
 <?php
 /*
- * -File        action.php 
+ * -File        action.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2004-2007, Nexista
  * -Author      joshua savage
- * -Author      albert lash 
+ * -Author      albert lash
  */
 
 /**
  * @package Nexista
- * @author Joshua Savage 
+ * @author Joshua Savage
  */
  
 /**

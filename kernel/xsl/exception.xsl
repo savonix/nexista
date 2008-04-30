@@ -80,17 +80,17 @@ function divExpand(layer, set) {
 ]]>
 </script>
 <style>
-#exception {   
+#exception {
     font-family:arial;
     font-weight:normal;
     font-size:x-small;
     line-height:20px;
     padding:0px;
-    margin:5px;  
+    margin:5px;
     z-index:20;
-    position:relative;  
+    position:relative;
 }
-#exception h1 { 
+#exception h1 {
     font-size:14px;
     font-weight:bold;
     color:white;
@@ -110,26 +110,26 @@ function divExpand(layer, set) {
 #exception .name {
 
     font-weight:bold;
- 
+
     padding-left: 3px; 
      padding-right: 3px;
     margin-right: 5px;
-  } 
+}
 </style>
-     
-      
-<div id="exception">  
+
+
+<div id="exception">
 <h1 onclick="divExpand('exceptionContent', true)" title="Click to expand/contract">Exception Trace</h1>
     <div id="exceptionContent" class="content"> 
     <xsl:if test="//gate">
     <div ><span class="name">Gate:</span> <xsl:value-of select="//gate/name"/></div>
     </xsl:if>
-    
+
     <xsl:if test="//message">
     <div ><span class="name">Message:</span> <xsl:value-of select="//message"/></div>
     </xsl:if>
     <div><span class="name">Traceback:</span>
-     <xsl:apply-templates select="//traces/trace" />  
+     <xsl:apply-templates select="//traces/trace" />
      </div>
     </div>
 </div>
@@ -140,7 +140,7 @@ window.onload = divExpand('exceptionContent');
 </script>
 </xsl:template>
 
-  
+
 <xsl:template match="trace" >
 <div class="trace">
 <xsl:value-of select="class"/><xsl:value-of select="function"/> in 

@@ -60,12 +60,12 @@ class Nexista_PathBuilder
      *
      * @var     array
      */
-     
+
     public $joins = array(
         JOIN_SINGLE_QUOTE => "'",
         JOIN_DOUBLE_QUOTE => '"',
         JOIN_NONE         => '');
-        
+
 
     /**
      * Returns a string based on given protocol://path 
@@ -221,7 +221,7 @@ class Nexista_PathBuilder
     private function transformPathCallback($matches)
     {
        //print_r($matches);
-   
+
         if(!empty($matches[3]))
         {
              return "'".$matches[3]."'";
@@ -253,14 +253,14 @@ class Nexista_PathBuilder
     
         //first quote/join brackets, ending quotes, etc...
         $string = preg_replace(array('~(?<!^|}){~','~}(?!$|{)~', '~}{~', '~^[^{]~', '~[^}]$~'), array("'.{", "}.'", '}.{', "'$0", "$0'"), $string);
-       
+
         //replace bracketed flow expressions
         $string = preg_replace('~{(.*)}~U',
         'Nexista_Flow::getByPath("${1}")', $string);
-        
+
         return $string;
-          
-    }   
+
+    }
 }
 
 ?>

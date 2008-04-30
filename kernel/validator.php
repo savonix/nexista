@@ -3,7 +3,7 @@
  * -File        validator.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2004, Nexista
- * -Author      joshua savage 
+ * -Author      joshua savage
  */
 
 /**
@@ -186,7 +186,6 @@ class Nexista_Validator
                 Nexista_Error::init("Validator 'required' field is not valid", NX_ERROR_WARNING);
                 $this->required = true;
             }
-
         }
     }
 

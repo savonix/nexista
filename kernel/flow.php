@@ -61,12 +61,12 @@
  * </article> 
  *      ...and so on for each row found </code>
  * use &lt;map:debug xml_dump="true"/&gt; after a validator or query to analyze 
- * this data. 
+ * this data.
  *
  * @package     Nexista
  */
 
-class Nexista_Flow 
+class Nexista_Flow
 {
 
 
@@ -75,27 +75,27 @@ class Nexista_Flow
      *
      * @var     object
      */
-     
+
     static private $instance;
-    
-    
+
+
     /**
      * Flow DOM document object
      *
      * @var     DOMDocument
      */
-     
+
     public $flowDocument;
-    
-    
+
+
     /**
      * Flow DOM document root node
      *
      * @var     DOMElement
      */
      
-    public $root;    
-    
+    public $root;
+
     /**
      * Array type
      *
@@ -158,10 +158,6 @@ class Nexista_Flow
                     if(!is_null(self::$importHandler)) {
                         $ref = $this->add('_get',call_user_func(self::$importHandler, $_GET));
                     } else { 
-                        // WHoa this is bad - causes variables with duplicate values to die!!
-						//$_GET = array_flip($_GET);
-						//$_GET = str_replace("amp;","",$_GET);
-						//$_GET = array_flip($_GET);
                         $ref = $this->add('_get', $_GET);
                     }
                     break;
@@ -250,8 +246,6 @@ class Nexista_Flow
             if($array_type=="ASSOC") {
                 $nodeName = $node->nodeName;
                 $nodeValue = $node->nodeValue;
-                //$result = array($nodeName => $nodeValue);
-                //echo $nodeName;
                 $result[$nodeName] = $nodeValue;
                 return $result;
             } else {
@@ -486,7 +480,7 @@ class Nexista_Flow
         if(is_callable($handler))   
             self::$importHandler = $handler;
         else
-            Error::init("Flow Import Handler is not callable!");
+            Nexista_Error::init("Flow Import Handler is not callable!");
     }
 
 }

@@ -57,9 +57,9 @@ class Nexista_Path
     /**
      * Hold an instance of the class
      */
-     
+
     static private $instance;
-     
+
     /**
      * Returns a string based on given protocol://path 
      *
@@ -72,7 +72,7 @@ class Nexista_Path
 
         //TODO - we can probably have multiple URIs in a row. make loop for that.
         $request = explode('|', $path);
-        
+
         $result = null;
         for($i = 0; $i < count($request); $i++)
         {
@@ -112,7 +112,6 @@ class Nexista_Path
                 //_SESSIONS
                 case 'session':
                     $result = Nexista_Path::interpretPath($_SESSION, $path);
-
                     break;
                     
                 //_FILES
@@ -142,8 +141,8 @@ class Nexista_Path
 
                 //eval a php expression
                 case 'php':
-				   $expression = "return ".$path.";";
-                   $result = @eval($expression);
+                    $expression = "return ".$path.";";
+                    $result = @eval($expression);
                     break;
 
                 case 'string':
@@ -160,10 +159,9 @@ class Nexista_Path
 				return false;
 			}
         }
-       
         return;
     }
- 
+
     /**
      * Resolves inline flow vars.
      *
@@ -196,8 +194,6 @@ class Nexista_Path
 
     private function interpretPath($data, $request)
     {
-        //inline flow expressions
-        //$string = Nexista_Path::parseInlineFlow($string);
 
         $request = explode('/', trim($request, '/'));
 
@@ -206,7 +202,6 @@ class Nexista_Path
             if(isset($data[$request[$i]]))
             {
                 $data = $data[$request[$i]];
-
             }
             else
             {
