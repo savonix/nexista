@@ -40,14 +40,12 @@ class Nexista_ActionHandler
     {
         //load descriptor file and parse
         $xml = simplexml_load_file($src);
-       
 
         //parse through each node and process
         foreach ($xml->children() as $action)
         {
-        self::processItem((string)$action['type'], (string)$action['params']);
+            self::processItem((string)$action['type'], (string)$action['params']);
         }
-
         return true;
 
     }
@@ -73,11 +71,15 @@ class Nexista_ActionHandler
         //get the action parameters
         $params = explode(',',$params);
 
+        /* 
+        // Testing whether this and the evaluateVars function can be removed. May 2008
+        
         if(!self::evaluateVars($params))
         {
             return false;
         }
-
+        */
+        
         //build the class name to load
         $classname = 'Nexista_' . trim(ucfirst($type)) . "Action";
 
