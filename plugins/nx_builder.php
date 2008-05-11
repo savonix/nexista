@@ -1,6 +1,6 @@
 <?php
 /*
- * -File        nx_builder.php 
+ * -File        nx_builder.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   Savonix Corporation
  * -Author      Albert Lash
@@ -15,13 +15,13 @@ Copyright: Savonix Corporation
 Author: Albert Lash
 License: LGPL
 */
-if(isset($nexista_path)) { 
+if(isset($nexista_path)) {
     define('INCLUDE_PATH', $nexista_path);
-} else { 
+} else {
     define('INCLUDE_PATH', "/usr/share/php/");
 }
 
-if(!defined('SERVER_NAME')) { 
+if(!defined('SERVER_NAME')) {
     define('SERVER_NAME', $server_name);
 }
 if(!file_exists(INCLUDE_PATH.'kernel/foundry.php')) { 
@@ -29,13 +29,12 @@ if(!file_exists(INCLUDE_PATH.'kernel/foundry.php')) {
     echo "<a href='http://www.nexista.org'>http://www.nexista.org</a>, and so you know, I looking here: <br/>";
     echo INCLUDE_PATH."kernel/foundry.php";;
     exit;
-} else { 
+} else {
     require(INCLUDE_PATH.'kernel/foundry.php');
 }
 
 $foundry = Nexista_Foundry::singleton();
 
-    
 $config = PROJECT_ROOT.'/config/config.xml';
 $app_config = PROJECT_ROOT.'/apps/'.APP_NAME.'/config/config.xml';
 $app_entities = PROJECT_ROOT.'/apps/'.APP_NAME.'/config/entities.xml';
@@ -45,11 +44,9 @@ if(!file_exists($config)) {
     exit;
 }
 
-
 $config_file = file_get_contents($config);
 
-
-if(!isset($mode)) { 
+if(!isset($mode)) {
     $mode="dev";
 }
 if(isset($_ENV['NEXISTA_MODE'])) { 
@@ -81,28 +78,24 @@ function nexista_check_freshness() {
     $last_build_time = filemtime($server_init); 
     if(file_exists($app_config)) { 
         if($last_build_time < filemtime($app_config)) { 
-                $app_config_stat = false;
-        } else { 
-                $app_config_stat = true;
+            $app_config_stat = false;
+        } else {
+            $app_config_stat = true;
         }
     }
-           
-    
+
+
     if($last_build_time < filemtime($my_sitemap) || $last_build_time < filemtime($config) || $app_config_stat === false) { 
-    
-  
-        build_it_now();      
-        if($foundry->debug==1) { 
+        build_it_now();
+        if($foundry->debug==1) {
             echo "Nexista is rebuilding the loader because either the sitemap or one of the configs has been edited.<br/>";
             echo "<a href='javascript:history.go(-1)'>OK, all done, go back.</a><br/>";
             echo "Building index file....OK<br/>";
-
         }
-
     }
 } 
 
-function nexista_build_it_now() { 
+function nexista_build_it_now() {
     global $config;
     global $foundry;
     global $server_init;
@@ -126,9 +119,6 @@ echo "Looks like you are installing to $server_init. Cool! <br/><br/>";
 <script type="text/javascript">
 setTimeout('top.location.reload()',1000);
 </script>
-<?php       
+<?php
 ob_flush();
-
-        //echo "<pre>"; print_r($GLOBALS);
-
 }

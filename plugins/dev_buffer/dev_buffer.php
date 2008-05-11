@@ -1,8 +1,8 @@
 <?php
 /*
 Plugin Name: Development Output Buffer
-Plugin URI: 
-Description: 
+Plugin URI:
+Description:
 Version: 0.1
 Copyright: Savonix Corporation
 Author: Albert Lash
@@ -17,17 +17,16 @@ function nexista_devBuffer($init)
 	$init->process();
 
 	ob_start();
-	//ob_start('ob_gzhandler');
     ob_start();
-    
+
     header( 'Cache-Control: no-cache, must-revalidate, post-check=3600, pre-check=3600');
     header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
     $development_console = true;
     $excludes = Nexista_Config::get('./plugins/dev_buffer/excludes');
-    if(strpos($excludes,',')) { 
+    if(strpos($excludes,',')) {
         $x_array = explode(',',$excludes);
-    } else { 
-        if(!empty($excludes)) { 
+    } else {
+        if(!empty($excludes)) {
             $x_array[] = $excludes;
         }
     }
@@ -49,25 +48,24 @@ function nexista_devBuffer($init)
             nexista_view_flow();
         }
 	}
-    if($development_console===true) { 
+    if($development_console===true) {
         $output = str_replace("</body>","",$output);
         $output = str_replace("</html>","",$output);
         echo $output;
         nexista_final_notices($cache_type,"dev");
         echo "</body></html>";
-    } else { 
+    } else {
         echo $output;
     }
-    
+
 	ob_end_flush();
 	header("Content-Length: ".ob_get_length());
 	ob_end_flush();
 }
 
 
-/* This function only used on development stage. */
 function nexista_development_console()  {
-    
+
 $my_script = <<<EOL
 	<script type="text/javascript">
 	var began_loading = (new Date()).getTime();
@@ -83,16 +81,16 @@ $in_head[] = array('string' => $my_script, 'priority' => 10);
 Nexista_Flow::add("in_head",$in_head,false);
 
 $my_uri = $_SERVER['REQUEST_URI'];
-if(strpos($my_uri,"view_flow=true")) { 
+if(strpos($my_uri,"view_flow=true")) {
     $my_button = '[ <a href="'.str_replace("&view_flow=true","",$my_uri).'">Hide Flow</a> ]';
-} else { 
+} else {
     $my_button = '[ <a href="'.$my_uri.'&view_flow=true">View Flow</a> ]';
 }
 $admin_panel = <<<EOL
 <div style="padding-bottom: 10px;">
 <table width="100%" cellpadding="2" style="background-color: #e3b6ec;">
 <tr><td style="background-color: #e3b6ec;">
-		$my_button 
+		$my_button
         Server time:<span id="server_time"> 0.000 s </span>
         Client time:<span id="client_time"> 0.000 s </span>
 	</tr></table></div>
@@ -100,15 +98,15 @@ EOL;
 $pre_body_content[] = array('string' => $admin_panel, 'priority' => 10);
 Nexista_Flow::add("pre_body_content",$pre_body_content,false);
 }
- 
-function nexista_view_flow() { 
+
+function nexista_view_flow() {
 	$debugXsl = new XsltProcessor();
 	$xsl = new DomDocument;
 	$xsl->load(NX_PATH_BASE."plugins/dev_buffer/flow.xsl");
 	$debugXsl->importStyleSheet($xsl);
-    if(isset($_GET['ignore'])) { 
+    if(isset($_GET['ignore'])) {
         $debugXsl->setParameter('','ignore',$_GET['ignore']);
-    } else { 
+    } else {
         $debugXsl->setParameter('','ignore','i18n');
 	}
     $flow = Nexista_Flow::singleton();
@@ -116,12 +114,10 @@ function nexista_view_flow() {
 }
 
 
-/* This function outputs a small script used to pass the final processing time, 
+/* This function outputs a small script used to pass the final processing time,
 and to stop the client timer.. */
-function nexista_final_notices($cacher=null, $mode) { 
+function nexista_final_notices($cacher=null, $mode) {
 	$server_time = Nexista_Debug::profile();
 	$final_notices =  "<script type='text/javascript'>done_loading($server_time);</script>";
     echo $final_notices;
 }
-
-
