@@ -3,7 +3,7 @@
  * -File        builder.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   2004, Nexista
- * -Author      joshua savage 
+ * -Author      joshua savage
  */
 
 /**

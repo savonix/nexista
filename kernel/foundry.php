@@ -330,8 +330,13 @@ class Nexista_Foundry
         //make instances for each for later gate building
         foreach($files as $file)
         {
-            //the # is for CVS backups which get in the way
-            if(strpos($file, '.builder.php') AND !strpos($file, '#') AND !strpos($file, '_'))
+            //the # is for CVS backups which get in the way, as well as backups
+            if(
+                strpos($file, '.builder.php') AND 
+                !strpos($file, '#') AND
+                !strpos($file, '_') AND
+                !strpos($file, '~')
+                )
             {
                 //echo $file;
                 //load class
@@ -339,7 +344,7 @@ class Nexista_Foundry
                 
                 //store class
                 $tag = str_replace('.builder.php', '', $file);
-                $class = 'Nexista_'.ucfirst($tag).'Builder';               
+                $class = 'Nexista_'.ucfirst($tag).'Builder';
                 $obj =& new $class;
                 $this->builderTags[$tag] =& $obj;
             }
@@ -347,13 +352,13 @@ class Nexista_Foundry
 
         //go through each gate
         $x = new DOMXPath($this->sitemapDocument);
-        
+
         // "gate" should be changed to "match" to be compatible with cocoon / popoon
         $gates = $x->query('//map:gate');
         $count = 0;
-        
+
         foreach($gates as $gate)
-        {   
+        {
             //build gate
             $this->writeGate($this->parseGate($gate), $count);
 
@@ -361,10 +366,10 @@ class Nexista_Foundry
             $this->buildConditions($gate, 'gate-'.$count.'.php');
             $count++;
         }
-        
+
     }
-    
-    
+
+
     /**
      * Compiles the final sitemap file
      *
@@ -399,7 +404,7 @@ class Nexista_Foundry
             $role = $gate->getAttribute('role');
         }
 
-        
+
         if(preg_match('~^regex:(.*)$~', $gate->getAttribute('name'), $m))
         {
             $match = 'regex';
@@ -445,17 +450,17 @@ class Nexista_Foundry
                 $this_gate = "'".$name."'=>array('uri'=>'".$info['uri']."'";
                 // Server cache's need to include auth if there is a role specified.
                 if($info['cache'] !== -1 && $info['role'] !== -1){
-                    $this_gate .= ",'cache'=>".$info['cache'].",'role'=>'".$info['role']."'";   
-                    
+                    $this_gate .= ",'cache'=>".$info['cache'].",'role'=>'".$info['role']."'";
+
                 } elseif($info['cache'] !== -1 && $info['role'] === -1){
-                    $this_gate .= ",'cache'=>".$info['cache'];      
-                
+                    $this_gate .= ",'cache'=>".$info['cache'];
+
                 } elseif($info['role'] !== -1 && $info['cache'] === -1 ){
-                    $this_gate .= ",'role'=>'".$info['role']."'";     
-                } 
+                    $this_gate .= ",'role'=>'".$info['role']."'";
+                }
                 // Client cache's do not need check for auth.
                 if($info['client_cache'] !== -1){
-                    $this_gate .= ",'client_cache'=>'".$info['client_cache']."'";     
+                    $this_gate .= ",'client_cache'=>'".$info['client_cache']."'";
                 } 
                 $this_gate .= "),";
                 $code[] = $this_gate;
@@ -474,17 +479,17 @@ class Nexista_Foundry
                 $this_gate = "'uri'=>'".$info['uri']."'";
                 // Server cache's need to include auth if there is a role specified.
                 if($info['cache'] !== -1 && $info['role'] !== -1){
-                    $this_gate .= ",'cache'=>".$info['cache'].",'role'=>'".$info['role']."'";   
+                    $this_gate .= ",'cache'=>".$info['cache'].",'role'=>'".$info['role']."'";
                     
                 } elseif($info['cache'] !== -1 && $info['role'] === -1){
-                    $this_gate .= ",'cache'=>".$info['cache'];      
+                    $this_gate .= ",'cache'=>".$info['cache'];
                 
                 } elseif($info['role'] !== -1 && $info['cache'] === -1 ){
-                    $this_gate .= ",'role'=>'".$info['role']."'";     
+                    $this_gate .= ",'role'=>'".$info['role']."'";
                 } 
                 // Client cache's do not need check for auth.
                 if($info['client_cache'] !== -1){
-                    $this_gate .= ",'client_cache'=>'".$info['client_cache']."'";     
+                    $this_gate .= ",'client_cache'=>'".$info['client_cache']."'";
                 } 
                 $code[] = $this_gate;
                 }
@@ -522,13 +527,12 @@ class Nexista_Foundry
 
         //init array for required file
         $required = array();
-        
+
         $code = '';
-    
-        
+
         //foreach action
         $this->parseGateCallback($gate, $code, $required);
-        
+
         //get prepend tags
         $res = $this->sitemapDocument->getElementsByTagName('prepend');
         $prependCode = '';
@@ -536,9 +540,8 @@ class Nexista_Foundry
         {
             $prependGate = $res->item(0);
             $this->parseGateCallback($prependGate, $prependCode, $required);
-        
         }
-       
+
         //add header and required files
         $content = $this->addGateHeader($gate, $required);
 
@@ -558,10 +561,10 @@ class Nexista_Foundry
      *
      * @param   object      reference to current tag being processed
      * @param   string      reference to current code content for gate
-     * @param   array       reference to required include files for this tag     
+     * @param   array       reference to required include files for this tag
      * @return  boolean     success
      */
-     
+
     private function &parseGateCallback(&$tag, &$code, &$required)
     {
         foreach( $tag->childNodes as $action)
@@ -608,16 +611,16 @@ class Nexista_Foundry
                 //add debug code?
                 if(isset($GLOBALS['debugTrack']) && $GLOBALS['debugTrack'] === true && !in_array($module,$non_debug_modules))
                     $code .= $this->addGateDebugStop($module);
-                    
+
             }
             else
             {
                 Nexista_Error::init("No $module builder module found!", NX_ERROR_FATAL);
             }
-        }        
+        }
         return true;
     }
-      
+
 
     /**
      * Compiles individual gate files
@@ -668,7 +671,7 @@ class Nexista_Foundry
      *
      * @return  string      prepend code
      */
-     
+
     private function addGateDebugStop($mod)
     {
 
@@ -684,26 +687,26 @@ class Nexista_Foundry
      */
      
     private function addGateFooter(&$obj)
-    {      
+    {
         $code[] = '?>';
         return implode(NX_BUILDER_LINEBREAK,$code);
     }
 
-    
+
     /**
      * Returns gate prepend code
      *
      * @return  string      prepend code
      */
-     
+
     private function addGateHeader(&$obj, $req = array())
     {
         $code[] = '<?php';
         $code[] = '/*';
-        $code[] = ' * Gate Name:     '.$obj->getAttribute('name');   
-        $matchType = ($obj->getAttribute('match')== 'regex') ? 'regex':'normal';     
+        $code[] = ' * Gate Name:     '.$obj->getAttribute('name');
+        $matchType = ($obj->getAttribute('match')== 'regex') ? 'regex':'normal';
         $code[] = ' * Match Type:    '.$matchType;
-        $code[] = ' * Build Time:    '.date("D M j G:i:s T Y"); 
+        $code[] = ' * Build Time:    '.date("D M j G:i:s T Y");
         $code[] = ' */';
         $req = array_unique($req);
         foreach($req as $r)
@@ -716,14 +719,14 @@ class Nexista_Foundry
 
         return implode(NX_BUILDER_LINEBREAK,$code).NX_BUILDER_LINEBREAK;
     }
- 
+
     /**
      * Returns gate prepend code
      *
      * @return  string      prepend code
      */
-     
-    static public function singleton() 
+
+    static public function singleton()
     {
         if (!isset(self::$instance)) {
             $c = __CLASS__;
