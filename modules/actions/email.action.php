@@ -36,7 +36,7 @@ class Nexista_EmailAction extends Nexista_Action
         'host' => '',
         'port' => '',
         'authentication' => ''
-        
+
         );
 
 
@@ -49,28 +49,39 @@ class Nexista_EmailAction extends Nexista_Action
     protected  function main()
     {
         $recipient = Nexista_Path::parseInlineFlow($this->params['recipient']);
-        $sender = $this->params['sender'];
-        $subject = "Subject: ".$this->params['subject']."\n";
-        $body = $this->params['body'];
-        $host = $this->params['host'];
+        $sender = Nexista_Path::parseInlineFlow($this->params['sender']);
+        $subject = "Subject: ".Nexista_Path::parseInlineFlow($this->params['subject'])."\n";
+        $body = Nexista_Path::parseInlineFlow($this->params['body']);
+        $host = Nexista_Path::parseInlineFlow($this->params['host']);
 
-        if(require 'Net/SMTP.php') { 
+        if(require 'Net/SMTP.php') {
 
             $smtp = new Net_SMTP($host);
             $e = $smtp->connect();
             $smtp->mailFrom($sender);
-            
-            if(is_array($recipient)) { 
+
+            $disclosed_recipients = "To: ";
+            if(is_array($recipient)) {
                 foreach ($recipient as $to) {
-                    $smtp->rcptTo($to);
+                    if (PEAR::isError($res = $smtp->rcptTo($to))) {
+                        die("Unable to add recipient <$to>: " . $res->getMessage() . "\n");
+                    }
+                    $disclosed_recipients .= $to;
                 }
             } else {
-                $res = $smtp->rcptTo($recipient);
+
+                if (PEAR::isError($res = $smtp->rcptTo($recipient))) {
+                    die("Unable to add recipient <$recipient>: " . $res->getMessage() . "\n");
+                }
+                $disclosed_recipients .= $recipient;
             }
-            $smtp->data($subject . "\r\n" . $body);
-            $smtp->disconnect();
+            $disclosed_recipients .= "\n";
             
-        } else { 
+            $headers = $disclosed_recipients . $subject;
+            $smtp->data($headers . "\r\n" . $body);
+            $smtp->disconnect();
+
+        } else {
             // try using mail()
 
         }
