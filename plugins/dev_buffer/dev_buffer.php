@@ -34,6 +34,13 @@ function nexista_devBuffer($init)
     if(!empty($x_array)) {
         if(in_array($_GET['nid'],$x_array)) {
             unset($development_console);
+        } else {
+            // this could be slow, might want to have a setting to turn on / off
+            foreach($x_array as $value) {
+                if(eregi($value,$_GET['nid'])) {
+                    unset($development_console);
+                }
+            }
         }
     }
     if($development_console===true) {
