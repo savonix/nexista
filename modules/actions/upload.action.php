@@ -49,7 +49,11 @@ class Nexista_uploadAction extends Nexista_Action
         if(!$dest = Nexista_Path::get($this->params['dest'], 'flow')) {
 			$dest = empty($this->params['dest']) ? NX_PATH_TMP : trim($this->params['dest'],'/').'/';
 		}
-
+        //websvn: stream wrapper
+        if(strpos($dest,"websvn")) {
+            require('HTTP/WebDAV/Client.php');
+        }
+        
         if(!empty($_FILES[$this->params['file']]['tmp_name']))
         {
 
@@ -73,9 +77,8 @@ class Nexista_uploadAction extends Nexista_Action
                 Nexista_Flow::add('new_dir', $dest,$res->item(0));
                 Nexista_Flow::add('new_name', $dest.$name,$res->item(0));
 
-
             }
-            chmod($dest.$name,0644);
+            //chmod($dest.$name,0644);
         }
         return true;
     }
