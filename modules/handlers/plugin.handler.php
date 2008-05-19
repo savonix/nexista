@@ -71,11 +71,6 @@ class Nexista_PluginHandler
         //get the action parameters
         $params = explode(',',$params);
 
-        if(!self::evaluateVars($params))
-        {
-            return false;
-        }
-
         //build the class name to load
         $classname = 'Nexista_' . trim(ucfirst($type)) . "Action";
 

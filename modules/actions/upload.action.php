@@ -32,7 +32,7 @@ class Nexista_uploadAction extends Nexista_Action
     protected  $params = array(
         'file' => '',       //required - name of $FILES array index for file in question
         'dest' => '',		//optional - destination path/filename from NX_PATH_APP to move file to
-        'prefix' => ''        //optional - unique id for prefix so that files are not overwritten
+        'prefix' => ''      //optional - unique id for prefix so that files are not overwritten
         );
 
 

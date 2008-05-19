@@ -76,7 +76,7 @@ class Nexista_Path
         $result = null;
         for($i = 0; $i < count($request); $i++)
         {
-
+            // May 2008 - this function needs to be reviewed, I don't think it is ever used.
             $array = explode( '://', $request[$i], 2 );
 
             if(count($array) > 1)

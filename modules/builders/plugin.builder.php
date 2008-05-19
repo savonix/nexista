@@ -46,19 +46,17 @@ class Nexista_PluginBuilder extends Nexista_Builder
     public function getCodeStart()
     {
 
-        $path = new Nexista_PathBuilder();
         if($this->action->hasAttribute('src'))
         {
-            $code[] = $this->addErrorHandler("Nexista_PluginHandler::process(".
-                $path->get($this->action->getAttribute('src'), 'string', JOIN_DOUBLE_QUOTE).", true)");
-
+            $code[] = $this->addErrorHandler("Nexista_PluginHandler::process('".
+                $this->action->getAttribute('src')."', true)");
         }
         else
         {
             if($this->action->hasAttribute('params'))
             {
                 $code[] = $this->addErrorHandler("Nexista_PluginHandler::processItem('".
-                    $this->action->getAttribute('type')."',".$path->get($this->action->getAttribute('params'), 'string', JOIN_DOUBLE_QUOTE).", true)");
+                    $this->action->getAttribute('type')."','".$this->action->getAttribute('params')."', true)");
             } else {
                 $code[] = $this->addErrorHandler("Nexista_PluginHandler::processItem('".
                     $this->action->getAttribute('type')."', true)");
