@@ -44,7 +44,7 @@ class Nexista_uploadAction extends Nexista_Action
 
     protected  function main()
     {
-
+        $mode = 0775;
         //see if a path is given. we default to Nexista temp dir
         if(!$dest = Nexista_Path::get($this->params['dest'], 'flow')) {
 			$dest = empty($this->params['dest']) ? NX_PATH_TMP : trim($this->params['dest'],'/').'/';
@@ -57,12 +57,15 @@ class Nexista_uploadAction extends Nexista_Action
         if(!empty($_FILES[$this->params['file']]['tmp_name']))
         {
 
-		$name = $_FILES[$this->params['file']]['name'];
-	    $prefix = Nexista_Path::get($this->params['prefix'],"flow");
-	    if($prefix!='') {
-		    $unique_id = $prefix;
-		    $name=$unique_id."_".$name;
-	    }
+            $name = $_FILES[$this->params['file']]['name'];
+            $prefix = Nexista_Path::get($this->params['prefix'],"flow");
+            if($prefix!='') {
+                $unique_id = $prefix;
+                $name=$unique_id."_".$name;
+            }
+            if(!is_dir($dest)) {
+                mkdir($dest,$mode,TRUE);
+            }
             if(!move_uploaded_file($_FILES[$this->params['file']]['tmp_name'], $dest.$name))
             {
                 Nexista_Error::init('Upload action was unable to move uploaded file: '.$name . '. Check '.$dest.' permissions', NX_ERROR_WARNING);
