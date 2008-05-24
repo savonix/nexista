@@ -81,7 +81,7 @@ function divExpand(layer, set) {
 </script>
 <style>
 #exception {
-    font-family:arial;
+    font-family:sans-serif;
     font-weight:normal;
     font-size:x-small;
     line-height:20px;
@@ -89,6 +89,7 @@ function divExpand(layer, set) {
     margin:5px;
     z-index:20;
     position:relative;
+    text-align: left;
 }
 #exception h1 {
     font-size:14px;

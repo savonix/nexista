@@ -89,7 +89,7 @@ function divExpand(layer, set) {
 </script><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <style>
 #flowDump {
-    font-family:arial;
+    font-family:sans-serif;
     font-weight:normal;
     font-size:x-small;
     line-height:20px;
@@ -97,6 +97,7 @@ function divExpand(layer, set) {
     margin: 0px;
     border: 0px;
     z-index: 20;
+    text-align: left;
 }
 #flowDump h1 {
     font-size:14px;
