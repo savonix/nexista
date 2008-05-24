@@ -394,7 +394,7 @@ class Nexista_Init
         return true;
     }
 
-    
+
     /**
      * Registers a function to be called on output
      * 
@@ -414,16 +414,16 @@ class Nexista_Init
      *
      * @param  mixed        a function or an array of class=>method
      */
-     
+
     static public function registerOutputHandler($handler)
-    {             
-        if(is_callable($handler))   
+    {
+        if(is_callable($handler))
             self::$outputHandler = $handler;
         else
             NexistaException::init("Init Output Handler is not callable!");
     }
-    
-       
+
+
     /**
      * Returns a class singleton.
      *
