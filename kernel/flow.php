@@ -93,7 +93,7 @@ class Nexista_Flow
      *
      * @var     DOMElement
      */
-     
+
     public $root;
 
     /**
@@ -136,10 +136,10 @@ class Nexista_Flow
      */
 
     public function init() 
-    {   
+    {
         //get config data
         $params = Nexista_Config::getSection('flow');
-        
+
         //create a new DOM document and init with root
         $this->flowDocument = new DOMDocument("1.0");
         //$this->flowDocument->preserveWhiteSpace=false;
@@ -154,10 +154,10 @@ class Nexista_Flow
             {
                 //add $_GET vars
                 case 'G':
-    
+
                     if(!is_null(self::$importHandler)) {
                         $ref = $this->add('_get',call_user_func(self::$importHandler, $_GET));
-                    } else { 
+                    } else {
                         $ref = $this->add('_get', $_GET);
                     }
                     break;
@@ -173,7 +173,7 @@ class Nexista_Flow
 
                 //add $_FILES vars
                 case 'F':
-                    if(!is_null(self::$importHandler)) 
+                    if(!is_null(self::$importHandler))
                         $ref = $this->add('_files',call_user_func(self::$importHandler, $_FILES));
                     else
                         $ref = $this->add('_files', $_FILES);
@@ -187,10 +187,20 @@ class Nexista_Flow
                         $ref = $this->add('_session', $_SESSION);
                     break;
 
-                //add registry
-                case 'R':
-                    $this->add('_registry');
+                //add server
+                case 'V':
+                    if(!is_null(self::$importHandler))
+                        $ref = $this->add('_server',call_user_func(self::$importHandler, $_SERVER));
+                    else
+                        $ref = $this->add('_server', $_SERVER);
+                    break;
 
+                //add env
+                case 'E':
+                    if(!is_null(self::$importHandler))
+                        $ref = $this->add('_env',call_user_func(self::$importHandler, $_ENV));
+                    else
+                        $ref = $this->add('_env', $_ENV);
                     break;
 
                 //add globals
@@ -410,30 +420,30 @@ class Nexista_Flow
      *                      if none is passed, root is assumed
      * @return  boolean     success. Usual fail reason is non valid XML names (numeric arrays)
      */
-     
-    static public function add($node, $value = null, $root = false) 
+
+    static public function add($node, $value = null, $root = false)
     {
-        $flow = Nexista_Flow::singleton(); 
-        
+        $flow = Nexista_Flow::singleton();
+
         //where do we place this?
         if(!$root)
             $root = $flow->root;
-                 
+
         if(is_array($node))
-        {       
-        
+        {
+
             foreach($node as $n=>$v)
             {
                 if(is_numeric)
                     return false;
-                  
+
                 $flow->add($n, $v, $root);
-            }        
+            }
         }
         else
         {
             if(is_array($value))
-            {           
+            {
                 //numeric array? we replicate the node
                 if(is_numeric(key($value)))
                 {
@@ -447,22 +457,25 @@ class Nexista_Flow
                 {
                     $e = $root->appendChild($flow->flowDocument->createElement($node)); 
                     foreach($value as $n=>$v)
-                    { 
+                    {
+                        if($n=="GLOBALS") {
+                            continue;
+                        }
                         $flow->add($n, $v, $e);
                     }
-                    
+
                 }
             }
             elseif(!is_null($value))
-            {    
+            {
                 $e = $root->appendChild($flow->flowDocument->createElement($node));
                 $e->appendChild($flow->flowDocument->createTextNode($value));
             }
         }
-    
+
         return true;
     }
-    
+
     /**
      * Registers a function to be called on init 
      * 
@@ -473,11 +486,11 @@ class Nexista_Flow
      *
      * @param  mixed        a function or an array of class=>method
      */
-     
+
     static public function registerImportHandler($handler)
-    {        
-        
-        if(is_callable($handler))   
+    {
+
+        if(is_callable($handler))
             self::$importHandler = $handler;
         else
             Nexista_Error::init("Flow Import Handler is not callable!");

@@ -43,7 +43,18 @@ class Nexista_rewriteAction extends Nexista_Action
 
     protected  function main()
     {
-
+        $query_string = array(
+                'nid' => 'configurations',
+                'package' => 'postfix',
+                'page' => 'package'
+                );
+        $my_node_list = Nexista_Flow::find("//_get");
+        $my_node = $my_node_list->item(0);
+        foreach($query_string as $key => $value) {
+            $my_node_check = Nexista_Flow::find("//_get/nid");
+            Nexista_Flow::delete($my_node_check->item(0));
+            Nexista_Flow::add($key,$value,$my_node);
+        }
     }
 
 } //end class

@@ -440,8 +440,14 @@ class Nexista_Foundry
         //build top of file (reqs, etc)
         $code[] = "<?php";
         $code[] = '//Build Time: '.date("D M j G:i:s T Y"); 
-        $code[] = '$_ID_ = !empty($_GET["'.Nexista_Config::get('./build/query').'"]) ? $_GET["'.Nexista_Config::get('./build/query').'"] : "'.Nexista_Config::get('./build/default').'";';
-
+        /* This first line of sitemap.php has been changed on Sat May 24, 2008 
+        to support Flow ImportHandling, and thus url rewriting */
+        //$code[] = '$_ID_ = !empty($_GET["'.Nexista_Config::get('./build/query').'"]) ? $_GET["'.Nexista_Config::get('./build/query').'"] : "'.Nexista_Config::get('./build/default').'";';
+        $code[] = '$_ID_ = Nexista_Path::get("{//_get/'.Nexista_Config::get('./build/query').'}");';
+        $default_gate = Nexista_Config::get('./build/default_gate');
+        if(!empty($default_gate)) {
+            $code[] = 'if(empty($_ID_)) { $_ID_ = "'.$default_gate.'"; }';
+        }
         foreach($this->sitemap as $type => $elements)
         {
             $code[] = '$gates'.ucfirst($type).' = array(';
