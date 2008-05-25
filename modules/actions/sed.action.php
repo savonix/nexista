@@ -1,6 +1,6 @@
 <?php
 /*
- * -File        strip.action.php
+ * -File        sed.action.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   Nexista
  * -Author      Albert Lash
@@ -13,17 +13,18 @@
  */
  
 /**
- * This action strips unwanted characters from a string.
+ * This action is based on the idea of a stream editor (sed) but uses the php
+ * command preg_replace_callback. It provides a regular expression search and
+ * replace service for strings and arrays, and can also replace matched string
+ * with the output of a function performed on the matched string itself.
  *
  * @package     Nexista
  * @subpackage  Actions
  */
 
-class Nexista_stripAction extends Nexista_Action
+class Nexista_sedAction extends Nexista_Action
 {
 
-    /* NOTE: This action is deprecated, use sed.action.php instead */
-    
     /**
      * Function parameter array
      *
@@ -31,8 +32,9 @@ class Nexista_stripAction extends Nexista_Action
      */
 
     protected  $params = array(
-        'var' => '',        //required - flow var
-        'chars' => ''   //optional - array of chars to strip
+        'search' => '',        //required - string, node, or nodeset
+        'replace' => ''   //required - string, node, or nodeset
+        'callback' => ''   //optional - callback function
         );
 
 
