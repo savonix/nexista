@@ -1,8 +1,9 @@
 <?php
 /*
- * -File        config.php 
+ * -File        config.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2004, Nexista
+ * -Copyright   Nexista
+ * -Author      Albert Lash
  * -Author      joshua savage
  */
 
@@ -190,14 +191,13 @@ class Nexista_Config
     }
     /**
      *
-     * Reads the master 
-     * 
+     * Reads the master
+     *
      */
- 
+
     public function loadMasterConfig()
     {
 
-		// Would it be possible to check cache for masterConfig? YEAH!
 		self::$xml = simplexml_load_file($this->masterConfig);
 
     }
@@ -205,9 +205,9 @@ class Nexista_Config
     /**
      *
      * Return master config simple xml object
-     * 
+     *
      */
-     
+
     public function returnMasterConfig()
     {
 
@@ -273,7 +273,7 @@ class Nexista_Config
      * If nothing is found, it will then attempt to retrieve the default value in the
      * local config file and will finally look for the default master value.
      * Note that this method makes use of xpath and adds on the mode criteria
-     * 
+     *
      * @param   string      variable path
      * @return  mixed       value or null if not found
      */
@@ -281,8 +281,8 @@ class Nexista_Config
     static public function get($name)
     {
          $result = 0;
-        //is this a parent node?
 
+         //is this a parent node?
         if(!is_null(self::$mode))
         {
             $result = self::$xml->xpath($name."[@mode='".self::$mode."'][not(*/node())]");
@@ -311,7 +311,7 @@ class Nexista_Config
      * it will attempt to get the value for these variable in the preferred mode.
      * If nothing is found, it will then attempt to retrieve the default value in the
      * local config file and will finally look for the default master value.
-     * 
+     *
      * @param   string      section path
      * @param   string      section id when using multiple sections with same name
      * @return  array       empty if nothing found
@@ -357,7 +357,8 @@ class Nexista_Config
         }
         else
         {
-            Nexista_Error::init('The "'.$name.'" section with id '.$id.' does not exist in the configuration', NX_ERROR_FATAL);
+            Nexista_Error::init('The "'.$name.'" section with id '.$id.' does not exist in the configuration', NX_ERROR_NOTICE);
+            return false;
         }
         return $result;
     }
@@ -368,8 +369,8 @@ class Nexista_Config
      *
      * @return  object      class Nexista_singleton instance
      */
-     
-    static public function singleton() 
+
+    static public function singleton()
     {
         if (!isset(self::$instance)) {
             $c = __CLASS__;
@@ -377,6 +378,6 @@ class Nexista_Config
         }
         return self::$instance;
     }
-} 
+}
 
 ?>
