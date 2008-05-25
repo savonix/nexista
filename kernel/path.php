@@ -134,15 +134,9 @@ class Nexista_Path
                     $result = Nexista_Path::interpretPath($_COOKIE, $path);
                     break;
 
-                //flow   
+                //flow
                 case 'flow':
                     $result = Nexista_Flow::getByPath($path);
-                    break;
-
-                //eval a php expression
-                case 'php':
-                    $expression = "return ".$path.";";
-                    $result = @eval($expression);
                     break;
 
                 case 'string':
