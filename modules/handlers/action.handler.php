@@ -2,7 +2,7 @@
 /*
  * -File        action.handler.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2002-2007, Nexista
+ * -Copyright   Nexista
  * -Author      joshua savage
  */
 

@@ -2,8 +2,8 @@
 /*
  * -File        parameter.handler.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2002, Nexista
- * -Author      joshua savage 
+ * -Copyright   Nexista
+ * -Author      joshua savage
  */
 
 /**
@@ -11,7 +11,7 @@
  * @subpackage  Handlers
  * @author      Joshua Savage
  */
- 
+
 /**
  * This class is the parameter handler.
  * It allows modification or additon of Flow variables

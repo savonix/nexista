@@ -37,7 +37,6 @@ $foundry = Nexista_Foundry::singleton();
 
 $config = PROJECT_ROOT.'/config/config.xml';
 $app_config = PROJECT_ROOT.'/apps/'.APP_NAME.'/config/config.xml';
-$app_entities = PROJECT_ROOT.'/apps/'.APP_NAME.'/config/entities.xml';
 
 if(!file_exists($config)) { 
     echo "Uh-oh, we already ran into a problem. I can't find a config file! I'm looking for $config";
@@ -93,7 +92,7 @@ function nexista_check_freshness() {
             echo "Building index file....OK<br/>";
         }
     }
-} 
+}
 
 function nexista_build_it_now() {
     global $config;
@@ -105,14 +104,14 @@ function nexista_build_it_now() {
 
 <html>
 <body style="padding: 150px; font-family: verdana;">
-<?php 
+<?php
 echo "Looks like you are installing to $server_init. Cool! <br/><br/>";
 ?>
 
 <?php
 
         $foundry->buildLoader();
-        $foundry->buildGates();  
+        $foundry->buildGates();
         $foundry->buildSitemap();
 ?>
 
