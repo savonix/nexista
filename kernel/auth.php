@@ -48,48 +48,48 @@ class Nexista_Auth
     /**
      * user status - logged in
      */
-     
+
     const NX_AUTH_STATUS_ACTIVE = 0;
-    
-    
+
+
     /**
      * user status - inactive
      */
-     
+
     const NX_AUTH_STATUS_INACTIVE = 1;
-    
-    
+
+
     /**
      * user status - timed out
      */
-     
+
     const NX_AUTH_STATUS_TIMEOUT = 2;
-    
-    
+
+
     /**
      * user status - expired
      */
-     
+
     const NX_AUTH_STATUS_EXPIRED = 3;
-        
-    
+
+
     /**
      * Hold an instance of the class
      */
-     
+
     static private $instance;
-    
-    
+
+
     /**
      * User defined handler to process on login
      *
      * @var mixed function or object=>method 
      */
-     
+
 
     static private $loginHandler;
-    
-    
+
+
     /**
      * User defined handler to process on session timeout
      *
@@ -97,8 +97,8 @@ class Nexista_Auth
      */
 
     static private $timeoutHandler;
-    
-    
+
+
     /**
      * User defined handler to process on session expiry
      *
@@ -106,8 +106,8 @@ class Nexista_Auth
      */
 
     static private $expiredHandler;
-    
-    
+
+
     /**
      * User defined handler to process on denied access
      *
@@ -115,8 +115,8 @@ class Nexista_Auth
      */
 
     static private $deniedHandler;
-       
-    
+
+
     /**
      * Session name
      *
@@ -124,8 +124,8 @@ class Nexista_Auth
      */
 
     private $sessionName = 'NX_AUTH';
-    
-    
+
+
     /**
      * User session data
      *
@@ -135,10 +135,10 @@ class Nexista_Auth
      * 
      * @var     array
      */
-     
+
     public $sessionData = false;
-    
-    
+
+
     /**
      * Constructor - Inits session, config
      *
@@ -149,7 +149,7 @@ class Nexista_Auth
 		$sessions = Nexista_Config::get('session/active');
 		if($sessions==0) { 
 			return;
-		} else { 
+		} else {
 			@session_start();
 
 			//user already identified?
@@ -157,16 +157,14 @@ class Nexista_Auth
 			{
 			   $this->sessionData= & $_SESSION[$this->sessionName];
 			}
-			//newbie
+			//newbie - setup a new session
 			else
 			{
-				//setup a new session
 				$_SESSION[$this->sessionName] = array();
 				$this->sessionData =& $_SESSION[$this->sessionName];
 				$this->sessionData['status'] = self::NX_AUTH_STATUS_INACTIVE;
 			}
 		}
-       
     }
 
     /**
@@ -214,7 +212,6 @@ class Nexista_Auth
         $this->sessionData['requestedRole'] = $role;
         $this->sessionData['requestedUrl'] = $_SERVER['REQUEST_URI'];
 
-
         //check current session
         $this->checkStatus();
 
@@ -239,7 +236,6 @@ class Nexista_Auth
                     Nexista_Error::init('No auth denied function defined', NX_ERROR_FATAL);
                 }
                 return false;
-
                 break;
 
 
@@ -261,10 +257,10 @@ class Nexista_Auth
                     Nexista_Error::init('No auth timeout handler defined', NX_ERROR_FATAL);
                 }
                 break;
-               
+
             //user session expired 
             case self::NX_AUTH_STATUS_EXPIRED:
-            
+
                 //call login handler, or die if none
                 if(!is_null(self::$expiredHandler)) 
                 {
@@ -471,7 +467,7 @@ class Nexista_Auth
 
     static public function registerLoginHandler($handler)
     {
-        if(is_callable($handler))   
+        if(is_callable($handler))
             self::$loginHandler = $handler;
         else
             Nexista_Error::init('Auth Login Handler is not callable!', NX_ERROR_FATAL);
@@ -479,7 +475,7 @@ class Nexista_Auth
 
     /**
      * Registers a function to be called on auth denied access
-     * 
+     *
      * This function will be called when a user, who is already logged in
      * somehow, encounters a role beyond their access level.
      * It might be used to offer the user to upgrade their level or present
@@ -487,7 +483,7 @@ class Nexista_Auth
      *
      * @param  mixed        function or an array of class=>method
      */
-     
+
     static public function registerDeniedHandler($handler)
     {
         if(is_callable($handler))
@@ -499,7 +495,7 @@ class Nexista_Auth
 
     /**
      * Registers a function to be called on auth session expiry
-     * 
+     *
      * This function will be called when the user's session expires.
      * It might be used to reshow a login screen.
      *
@@ -521,7 +517,7 @@ class Nexista_Auth
      *
      * @param  mixed        function or an array of class=>method
      */
-     
+
     static public function registerTimeoutHandler($handler)
     {
 
