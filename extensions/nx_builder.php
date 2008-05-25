@@ -69,7 +69,7 @@ $foundry->debug = 1;
 
 $my_sitemap = $foundry->getSitemapPath('./build/sitemap');
 
-function nexista_check_freshness() { 
+function nexista_check_freshness() {
     global $config;
     global $app_config;
     global $foundry;
@@ -86,7 +86,7 @@ function nexista_check_freshness() {
 
 
     if($last_build_time < filemtime($my_sitemap) || $last_build_time < filemtime($config) || $app_config_stat === false) { 
-        build_it_now();
+        nexista_build_it_now();
         if($foundry->debug==1) {
             echo "Nexista is rebuilding the loader because either the sitemap or one of the configs has been edited.<br/>";
             echo "<a href='javascript:history.go(-1)'>OK, all done, go back.</a><br/>";
