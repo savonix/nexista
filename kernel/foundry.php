@@ -25,7 +25,12 @@ define('NX_BUILDER_LINEBREAK', "\n");
 Nexista_Error::addObserver('display', 'Nexista_builderError');
 function Nexista_builderError($e)
 {
-   $e->toHtml();
+    if(
+        $e->getCode() == NX_ERROR_FATAL ||
+        $e->getCode() == NX_ERROR_WARNING
+        ) {
+            $e->toHtml();
+    }
 }
 
 
@@ -382,7 +387,7 @@ class Nexista_Foundry
         if(!$gate->hasAttribute('name'))
         {
             //TODO better check and error handling here
-            Error::init('No name for gate', NX_ERROR_FATAL);
+            Nexista_Error::init('No name for gate', NX_ERROR_FATAL);
         }
 
         //cache time?

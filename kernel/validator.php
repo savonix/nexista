@@ -2,17 +2,19 @@
 /*
  * -File        validator.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2004, Nexista
+ * -Copyright   Nexista
+ * -Author      Albert Lash
  * -Author      joshua savage
  */
 
 /**
- * @package     Nexista 
+ * @package     Nexista
+ * @author      Albert Lash
  * @author      Joshua Savage
  */
 
 /**
- * This class Nexista_is the base class Nexista_upon which to extend custom validators
+ * This class is the base class upon which to extend custom validators
  *
  * @package     Nexista
  */
@@ -25,7 +27,6 @@ class Nexista_Validator
      *
      * @var     boolean
      */
-
     protected $required = true;
 
 
@@ -34,7 +35,6 @@ class Nexista_Validator
      *
      * @var     boolean
      */
-
     protected $empty = false;
 
 
@@ -43,7 +43,6 @@ class Nexista_Validator
      *
      * @var     boolean
      */
-
     protected $result = false;
 
 
@@ -52,7 +51,6 @@ class Nexista_Validator
      *
      * @var     string
      */
-
     protected $message = '';
 
 
@@ -61,7 +59,6 @@ class Nexista_Validator
      *
      * @var     array
      */
-
     protected $params = array();
 
 
@@ -73,7 +70,6 @@ class Nexista_Validator
      * @param   boolean     validator success
      * @return  boolean     function success
      */
-
     public function process(&$params, $required, &$result)
     {
         $this->setRequired($required);

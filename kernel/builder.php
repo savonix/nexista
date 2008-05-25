@@ -44,7 +44,7 @@ class Nexista_Builder
     /**
      * Reference to current DOMElement action tag object in current gate
      *
-     * @var     DOMElement 
+     * @var     DOMElement
      */
 
     public $action;

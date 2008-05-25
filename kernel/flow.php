@@ -2,14 +2,14 @@
 /*
  * -File        flow.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2004-2007, Nexista
+ * -Copyright   Nexista
  * -Author      joshua savage
- * -Author      albert lash
+ * -Author      Albert Lash
  */
 
 /**
  * @package Nexista
- * @author Joshua Savage 
+ * @author Joshua Savage
  */
 
 /**
