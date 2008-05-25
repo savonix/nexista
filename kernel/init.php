@@ -2,7 +2,7 @@
 /*
  * -File        init.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2004, Nexista
+ * -Copyright   Nexista
  * -Author      joshua savage
  * -Author      Albert Lash
  */
@@ -45,25 +45,25 @@ require_once(NX_PATH_CORE. "auth.php");
 class Nexista_Init
 {
 
-    
+
     /**
      * Hold an instance of the class
      *
      * @var     object
      */
-     
+
     static private $instance;
-    
-    
+
+
     /**
      * Output handler
      *
      * @var     mixed
      */
-     
+
     static private $outputHandler;
-    
-    
+
+
     /**
      * Config object
      *
