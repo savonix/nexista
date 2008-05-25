@@ -2,7 +2,7 @@
 /*
  * -File        access.action.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2002-2007, Nexista
+ * -Copyright   Nexista
  * -Author      Albert Lash
  */
 
@@ -15,7 +15,7 @@
  
 /**
  * This is similar to Apache's mod_access, but not as capable.
- *
+ * http://pear.php.net/manual/en/package.networking.net-ipv4.ipinnetwork.php
  * @package     Nexista
  * @subpackage  Actions
  */

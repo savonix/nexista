@@ -2,7 +2,7 @@
 /*
  * -File        log.action.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   Savonix Corporation
+ * -Copyright   Nexista
  * -Author      Albert Lash
  */
 
