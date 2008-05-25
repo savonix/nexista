@@ -32,11 +32,19 @@ class Nexista_sedAction extends Nexista_Action
      */
 
     protected  $params = array(
-        'search' => '',        //required - string, node, or nodeset
-        'replace' => ''   //required - string, node, or nodeset
-        'callback' => ''   //optional - callback function
+        // subject is required and is the stream to be edited
+        // it can be a node or a nodeset
+        'subject' => '',
+        // search is required and is the regular expression to match with
+        // it can be a node or a nodeset
+        'pattern' => '',
+        // replace is optional, defaults to an empty string
+        // it can be a function name, a node, or a nodeset, functions require
+        // that TRUE is passed as the callback parameter
+        'replacement' => '',
+        // callback is optional and is boolean, defaults to FALSE
+        'callback' => ''
         );
-
 
     /**
      * Applies action
@@ -47,11 +55,21 @@ class Nexista_sedAction extends Nexista_Action
     protected  function main()
     {
 
-		$res = Nexista_Flow::find($this->params['var']);
-        if(!empty($res)) { 
-            $chars = Nexista_Flow::getByPath($this->params['chars']);
-            $res->item(0)->nodeValue = str_replace($chars,"",$res->item(0)->nodeValue);
+		$s = Nexista_Flow::find($this->params['subject']);
+		$p = Nexista_Flow::find($this->params['pattern']);
+		$r = Nexista_Flow::find($this->params['replacement']);
+		$c = Nexista_Flow::get($this->params['callback']);
 
+        if(!empty($s)) {
+            if($c===1) {
+                $result = preg_replace_callback($p,
+                            create_function(
+                                '$matches',
+                                'return '.$c.'($matches[0]);'
+                                ),
+                            $s);
+            } else {
+                $result = preg_replace($p,$r,$s);
             return true;
         } else {
             return false;
