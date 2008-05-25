@@ -86,35 +86,6 @@ class Nexista_PluginHandler
     }
 
 
-    /**
-     * Processes a string for variables to evaluate
-     *
-     * This function processes a string for ...:// substrings
-     * which indicate variables it should evaluate.
-     * Ex: flow://, globals://, etc..
-     *
-     * @param   array       array of parameters unique to the action
-     */
-
-   static private function evaluateVars(&$params)
-    {
-
-        foreach($params as $val)
-        {
-            //see if we have anything to evaluate
-            if(strstr($val,'://') && !strstr($val,'http://'))
-            {
-                $val = Nexista_Flow::getByPath($val);
-                if(is_null($val) or is_array($val))
-                {
-                    Error::init("$val variable called in action params does not exist", NX_ERROR_WARNING);
-                }
-
-            }
-
-        }
-        return true;
-    }
 
 }
 
