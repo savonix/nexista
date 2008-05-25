@@ -29,7 +29,7 @@ function Nexista_builderError($e)
         $e->getCode() == NX_ERROR_FATAL ||
         $e->getCode() == NX_ERROR_WARNING
         ) {
-            $e->toHtml();
+            $e->toText ();
     }
 }
 
@@ -202,53 +202,53 @@ class Nexista_Foundry
 
         $code[] = '<?php';
         $code[] = '/*';
-        $code[] = ' * Domain Name:   '.$_SERVER['SERVER_NAME'];      
-        $code[] = ' * Build Time:    '.date("D M j G:i:s T Y"); 
+        $code[] = ' * Domain Name:   '.$_SERVER['SERVER_NAME'];
+        $code[] = ' * Build Time:    '.date("D M j G:i:s T Y");
 		$code[] = ' * Copyright:     ';
         $code[] = ' */';
-		
+
 		// The modes actually isn't necessary, because I build a site for
         // each server name that makes a request.
         //$key = $_ENV['NEXISTA_MODE'];
         $modes = Nexista_Config::getSection('modes');
-		foreach($modes as $key => $value) { 
+		foreach($modes as $key => $value) {
         Nexista_Config::setMode($key);
         $path = Nexista_Config::getSection('path');
         $code[] = 'if(!isset($_ENV["NEXISTA_MODE"])) { $_ENV["NEXISTA_MODE"]="'.$key.'"; }';
-	    $code[] = 'if($_ENV["NEXISTA_MODE"]=="'.$key.'") { '; 
-            $code[] = 'define("NX_PATH_BASE", "'.$path['base'].'");';  
+	    $code[] = 'if($_ENV["NEXISTA_MODE"]=="'.$key.'") { ';
+            $code[] = 'define("NX_PATH_BASE", "'.$path['base'].'");';
             if(!defined('NX_PATH_CORE')) {
-			$code[] = 'define("NX_PATH_CORE", "'.$path['base'].'kernel/");';   
+			$code[] = 'define("NX_PATH_CORE", "'.$path['base'].'kernel/");';
             }
-			$code[] = 'define("NX_PATH_LIB", "'.$path['base'].'lib/");';  
-			
-			$code[] = 'define("NX_PATH_HANDLERS", "'.$path['base'].'modules/handlers/");';  
+			$code[] = 'define("NX_PATH_LIB", "'.$path['base'].'lib/");';
+
+			$code[] = 'define("NX_PATH_HANDLERS", "'.$path['base'].'modules/handlers/");';
 			$code[] = 'define("NX_PATH_ACTIONS", "'.$path['base'].'modules/actions/");';
 			$code[] = 'define("NX_PATH_VALIDATORS", "'.$path['base'].'modules/validators/");';
-            
-            
-			$code[] = 'define("NX_PATH_COMPILE", "'.$path['compile'].'");';        
-			$code[] = 'define("NX_PATH_CACHE", "'.$path['cache'].'");';  
-            if(isset($path['logs'])) { 
-			$code[] = 'define("NX_PATH_LOGS", "'.$path['logs'].'");';  
+
+
+			$code[] = 'define("NX_PATH_COMPILE", "'.$path['compile'].'");';
+			$code[] = 'define("NX_PATH_CACHE", "'.$path['cache'].'");';
+            if(isset($path['logs'])) {
+			$code[] = 'define("NX_PATH_LOGS", "'.$path['logs'].'");';
             }
-			$code[] = 'define("NX_PATH_TMP", "'.$path['tmp'].'");';  
-            
+			$code[] = 'define("NX_PATH_TMP", "'.$path['tmp'].'");';
+
             // These are application plugins
 			$code[] = 'define("NX_PATH_PLUGINS", "'.$path['plugins'].'");';
-            
+
             if(!defined('NX_PATH_APPS')) { 
 			$code[] = 'define("NX_PATH_APPS", "'.$path['applications'].'");';
             }
 			$code[] = 'require_once(NX_PATH_CORE."init.php");';
 			$code[] = 'Nexista_Config::setMode("'.$key.'");';
 			$code[] = 'define("NX_ID", "'.Nexista_Config::get('./build/query').'");';  
-            
+
 			$code[] = '$init = new Nexista_Init();';
 			$prepend = Nexista_Config::get('./build/prepend');
 			if(!is_null($prepend) AND file_exists($prepend)) 
 				$code[] = '$init->loadPrepend("'.$prepend.'");';
-            
+
 			$plugins = Nexista_Config::getSection('plugins');
             foreach($plugins as $plugin => $value) {
                 $thisPlugin = Nexista_Config::getSection($plugin,false,'/plugins/');
@@ -272,7 +272,7 @@ class Nexista_Foundry
 		}
         $code[] = '?>';
 
-		foreach($modes as $key => $value) { 
+		foreach($modes as $key => $value) {
 			Nexista_Config::setMode($key);
 			$mydir = Nexista_Config::get('./build/loader');
             return file_put_contents($mydir, implode(NX_BUILDER_LINEBREAK,$code));
@@ -303,7 +303,7 @@ class Nexista_Foundry
         if($res->length)
         {
             foreach($res as $include)
-            {                
+            {
                 $doc = new DOMDocument();
                 $doc->load($include->getAttribute('src'));
                 // Only import gates
@@ -346,7 +346,7 @@ class Nexista_Foundry
                 //echo $file;
                 //load class
                 require_once($builderPath.$file);
-                
+    
                 //store class
                 $tag = str_replace('.builder.php', '', $file);
                 $class = 'Nexista_'.ucfirst($tag).'Builder';
@@ -491,10 +491,10 @@ class Nexista_Foundry
                 // Server cache's need to include auth if there is a role specified.
                 if($info['cache'] !== -1 && $info['role'] !== -1){
                     $this_gate .= ",'cache'=>".$info['cache'].",'role'=>'".$info['role']."'";
-                    
+        
                 } elseif($info['cache'] !== -1 && $info['role'] === -1){
                     $this_gate .= ",'cache'=>".$info['cache'];
-                
+    
                 } elseif($info['role'] !== -1 && $info['cache'] === -1 ){
                     $this_gate .= ",'role'=>'".$info['role']."'";
                 } 
