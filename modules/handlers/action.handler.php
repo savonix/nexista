@@ -11,7 +11,7 @@
  * @subpackage  Handlers
  * @author      Joshua Savage
  */
- 
+
 /**
  * This class handles data filtrattion/ modification such as
  * stripping html tags, removing new lines, etc...
