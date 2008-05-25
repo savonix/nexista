@@ -25,6 +25,13 @@ Nexista_Flow::registerImportHandler('nx_rewrite');
 
 function nx_rewrite($superglobals)
 {
+    
+    // RuleID
+    // RuleOrder
+    // RewriteCond
+    // RewriteMap
+    // RewriteRule
+    
     $query_string = array(
         'nid' => 'configurations',
         'package' => 'postfix',
