@@ -154,7 +154,7 @@ class Nexista_QueryHandler
     {
 
         //load the datasource module file based on type
-        $datasource_file = NX_PATH_CORE."datasources".DIRECTORY_SEPARATOR . $this->datasourceHandler . "datasource.php";
+        $datasource_file = NX_PATH_BASE."modules/datasources/" . $this->datasourceHandler . "datasource.php";
         if(is_file($datasource_file)) {
             require_once($datasource_file);
         } else {
@@ -180,7 +180,8 @@ class Nexista_QueryHandler
         $server_name = $_SERVER['SERVER_NAME'];
         $myPrefix = Nexista_Config::get('./datasource[@id="'.$server_name.'"]/prefix');
         $mydtd = Nexista_Config::get('./datasource[@id="'.$server_name.'"]/dtd');
-        if(!empty($myPrefix)) { 
+        // this can customize the table prefix based on vhosts in config
+        if(!empty($myPrefix)) {
             $xmlString = "<!DOCTYPE query [".file_get_contents(dirname($this->definition)."/".$mydtd);
             $xmlString .= '<!ENTITY prefix "'.$myPrefix.'">]>';
             $xmlString .= file_get_contents($this->definition);
@@ -229,7 +230,6 @@ class Nexista_QueryHandler
         }
 
 
-
         //get array of query info (query itself, args, etc)
         if(!$this->query['sql'] = (string)$xml->sql)
         {
@@ -266,7 +266,7 @@ class Nexista_QueryHandler
                 $this->query['params'][$key]['node-name-array'] = !empty($array) ?  $array : false;
 
                 $default = (string)$val['default'];
-                $this->query['params'][$key]['default'] = (!empty($default) OR $default === '0')?  $default : false;           
+                $this->query['params'][$key]['default'] = (!empty($default) OR $default === '0')?  $default : false;
 
                 $type = (string)$val['type'];
                 $this->query['params'][$key]['type'] = !empty($type) ?  $type : false;
