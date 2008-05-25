@@ -83,72 +83,70 @@ define('NX_ERROR_NOTICE', 4);
 
 class Nexista_Error extends Exception
 {
-    
+
     /**
      * Exception callback
      *
      * @var     string      valid php callback
      */
     private $handler;
-    
+
     /**
      * Default error handler
      *
      * @var     mixed
      */
-     
     static private $defaultHandler;
-    
+
     /**
      * Registered observers
      *
      * @var     array       Observer callback functions
      */
     private static $observers = array();
-    
+
     /**
      * Current trace dump
      *
      * @var     array       Excpetion backtrace
      */
     private $_trace;
-     
+
     /**
      * Instantiates a new Nexista Exception
      *
      */
     public function __construct($message, $code = null, $handler = null) 
     {
-  
+
         $this->handler = $handler;
         parent::__construct($message, $code);
-        @header("HTTP/1.1 500 Internal server error related to a PHP process.");
-        
+
         if(!$this->processHandler())
         {
             $this->triggerObservers();
-            
+
             switch($this->getCode())
             {
                 case NX_ERROR_FATAL:
-                
+                    @header("HTTP/1.1 500 Internal server error related to a PHP process.");
                     exit;
                     break;
-                    
+
                 case NX_ERROR_WARNING:
-                
                     break;
-                    
+
+                case NX_ERROR_NOTICE:
+                    break;
+
                 default:
-                    
                     throw($this);
                     break;
-            
-            }            
-        }    
-        
+
+            }
+        }
     }
-  
+
     /**
      * Inits a new Exception with optional handler
      *
@@ -162,9 +160,9 @@ class Nexista_Error extends Exception
      */
     static public function init($text, $code = null, $handler= null)
     {
-        
+
         $e = new Nexista_Error($text, $code, $handler);
-            
+
     }
 
 
@@ -173,13 +171,13 @@ class Nexista_Error extends Exception
      *
      * All registered observers are called when an exception occurs
      * and can be used to display,log, notify.
-     * 
+     *
      * @param string        name of the observer. 
      * @param mixed         a valid php callback handler
      */
     static public function addObserver($name, $callback)
     {
-        
+
         self::$observers[$name] = array(
             'callback' => $callback,
             'active'    => true);
@@ -187,22 +185,22 @@ class Nexista_Error extends Exception
 
     /**
      * Removes an observer
-     * 
+     *
      * @param   string      observer name
      */
     static public function removeObserver($name)
     {
         unset(self::$observers[$name]);
-        
+
     }
-    
+
     /**
      * Runs a user provided function to deal with this exception
      */
     protected function processHandler()
-    {        
+    {
         if(!is_null($this->handler) AND is_callable($this->handler))
-        {        
+        {
             return call_user_func($this->handler, $this);
         }
         elseif(!is_null(self::$defaultHandler))
@@ -210,7 +208,7 @@ class Nexista_Error extends Exception
             return call_user_func(self::$importHandler, $this);
         }
     }
-    
+
     /**
      * Disable all or one observer
      *
@@ -221,14 +219,14 @@ class Nexista_Error extends Exception
      * then all observers will be disabled
      */
     public function disableObservers($name = null)
-    {      
+    {
         if(is_null($name))
             array_walk(self::$observers, create_function('&$v,$k', '$v["active"]=0;'));
         else
-           self::$observers[$name]['active'] = false; 
-      
+           self::$observers[$name]['active'] = false;
+
     }
-    
+
     /**
      * Enable previously disabled observer(s)
      *
@@ -236,15 +234,15 @@ class Nexista_Error extends Exception
      * then all observers will be enabled.
      */
     public function enableObservers($name = null)
-    {   
-   
+    {
+
         if(is_null($name))
             array_walk(self::$observers, create_function('&$v,$k', '$v["active"]=1;'));
         else
            self::$observers[$name]['active'] = true;
     }
-    
- 
+
+
     /**
      * Activate observers
      *
@@ -253,25 +251,24 @@ class Nexista_Error extends Exception
      * handler, if defined, to call this method.
      */
     public function triggerObservers()
-    {    
+    {
         foreach (self::$observers as $func) {
-        
+
             if (is_callable($func['callback']) AND $func['active'] === true) {
-            
                 call_user_func($func['callback'], $this);
                 continue;
-            }            
+            }
         }
     }
 
-    
+
     /**
      * Returns error trace
      *
      * @return  array       error backtrace
      */
     public function getTraceSafe()
-    {   
+    {
         if (!isset($this->_trace)) {
             $this->_trace = $this->getTrace();
             if (empty($this->_trace)) {
@@ -304,14 +301,14 @@ class Nexista_Error extends Exception
         return $trace[0]['function'];
     }
 
- 
+
     /** 
      * Outputs error as XML
      *
      * @return  string      XML error
      */
     public function outputXml()
-    {   
+    {
 
         $xml[] =  '<?xml version="1.0"?>';
         $xml[] = '<exception>';
@@ -323,11 +320,11 @@ class Nexista_Error extends Exception
             $xml[] = '</gate>';
         }
         $trace = $this->getTraceSafe();
-      
+
          $xml[] =  '<traces>';
         foreach ($trace as $k => $v) {
              $xml[] =  '<trace>';
-            
+
             if (!empty($v['class'])) {
                 $xml[] = '<class>'. $v['class'] . $v['type'].'</class>';
             }
@@ -348,14 +345,14 @@ class Nexista_Error extends Exception
                     }
                 }
             }
-            
+
              $xml[] =  '<args>'. implode(', ',$args) . '</args>';
              $xml[] =  '<file>'. $v['file'] . '</file>';
              $xml[] =  '<line>'. $v['line'] . '</line>';
              $xml[] =  '</trace>';
         }
         $xml[] =  '</traces></exception>';
-        
+
         return implode( "\n", $xml);
     }
 
@@ -365,39 +362,39 @@ class Nexista_Error extends Exception
     public function toHtml()
     {
         $this->handler = new XsltProcessor();
-        $this->xml = new DomDocument; 
+        $this->xml = new DomDocument;
         $this->xsl = new DomDocument;
-    
+
         $exceptionXsl = new XsltProcessor();
         $xsl = new DomDocument;
 		$my_xsl_file = NX_PATH_CORE.'xsl/exception.xsl';
-		if(file_exists($my_xsl_file)) { 
+		if(file_exists($my_xsl_file)) {
 			$xsl->load($my_xsl_file);
 			$exceptionXsl->importStyleSheet($xsl);
 			$xml = new DomDocument;
 			$xml->loadXML($this->outputXml());
 			$result =  $exceptionXsl->transformToXML($xml);
 			echo $result;
-		} else { 
+		} else {
             echo "<b>Using raw output as I couldn't find $my_xsl_file</b>";
             echo "<pre>";
             echo $this->outputXml();
         }
     }
-    
+
     /**
      * Outputs error as string
      *
      */
     public function toText()
-    {       
+    {
         echo $this->getTraceAsString();
     }
-    
-    
+
+
     /**
      * Registers a function to be called on error if no custom handlers are defined 
-     * 
+     *
      * This method allows a callable function to be called for standard errors
      * (i.e. NX_ERROR_FATAL, NX_ERROR_WARNING) to override the default actions.
      * Note that if a custome handler for an error is defined in the Error:init()
@@ -406,10 +403,10 @@ class Nexista_Error extends Exception
      *
      * @param  mixed        a function or an array of class=>method
      */
-     
+
     static public function registerDefaultHandler($handler)
-    {        
-        
+    {
+
         if(is_callable($handler))   
             self::$defaultHandler = $handler;
         else
