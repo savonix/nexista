@@ -2,7 +2,7 @@
 /*
  * -File        alpha.validator.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2002, Nexista
+ * -Copyright   Nexista
  * -Author      joshua savage
  */
 
