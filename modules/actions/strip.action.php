@@ -2,8 +2,8 @@
 /*
  * -File        strip.action.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2002-2007, Nexista
- * -Author      albert lash
+ * -Copyright   Nexista
+ * -Author      Albert Lash
  */
 
 /**
@@ -33,7 +33,6 @@ class Nexista_stripAction extends Nexista_Action
         'var' => '',        //required - flow var
         'chars' => ''   //optional - array of chars to strip
         );
-
 
 
     /**

@@ -2,7 +2,8 @@
 /*
  * -File        xsl.action.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2002, Nexista
+ * -Copyright   Nexista
+ * -Author      Albert Lash
  * -Author      joshua savage
  */
 
