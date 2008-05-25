@@ -2,7 +2,7 @@
 /*
  * -File        validatorhandlerdata.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2002, Nexista
+ * -Copyright   Nexista
  * -Author      joshua savage
  * -Based on    XMLWriterClass by Manuel Lemos
  */
@@ -24,26 +24,26 @@
 
 class Nexista_ValidatorHandlerData
 {
-    
+
     /**
      * array to hold validator data such as which fields failed and how
      *
      * @var     array
      */
-     
+
     public $validatorData = array();
-    
-    
+
+
     /**
      * overall pass/fail criteria of the validation process
      *
      * @var     boolean
      */
-     
+
     public $success;
-    
-    
-        
+
+
+
     /**
      * Constructor - Intializes stuff
      *
@@ -54,8 +54,8 @@ class Nexista_ValidatorHandlerData
         //assume validation true until fail
         $this->success = true;
     }
-        
-    
+
+
     /**
      * Sets pretty text for an item
      *
@@ -68,11 +68,11 @@ class Nexista_ValidatorHandlerData
      */
 
     public function itemMessage($name, $text)
-    {       
+    {
         $this->validatorData[$name]['text'] = $text;
     }
-    
-    
+
+
     /**
      * Sets pretty text for a validator
      *
@@ -86,10 +86,10 @@ class Nexista_ValidatorHandlerData
      */
 
     public function validatorMessage($name, $val, $text)
-    {        
-        $this->validatorData[$name][$val]['error'] = $text;      
+    {
+        $this->validatorData[$name][$val]['error'] = $text;
     }
-    
+
     /**
      * Sets individual item Fail
      *
@@ -99,23 +99,23 @@ class Nexista_ValidatorHandlerData
      */
 
     public function itemFail($name, $criteria, $reason)
-    {      
+    {
         $this->validatorData[$name]['failed'][$criteria] = $reason;
         $this->setFail();
     }
-    
-    
+
+
     /**
      * Sets overall fail/pass
      *
      */
 
     public function setFail()
-    {       
+    {
         $this->success = false;
     }
-    
-    
+
+
     /**
      * Gets overall fail/pass
      *
@@ -123,7 +123,7 @@ class Nexista_ValidatorHandlerData
      */
 
     public function getResult()
-    {       
+    {
         return $this->success;
     }
 

@@ -2,7 +2,7 @@
 /*
  * -File        validator.handler.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2002, Nexista
+ * -Copyright   Nexista
  * -Author      joshua savage
  */
 
@@ -11,7 +11,7 @@
  * @subpackage  Handlers
  * @author      Joshua Savage
  */
- 
+
 
 /**
  * This classes provides functionality to validate data fields
@@ -49,34 +49,34 @@ class Nexista_ValidatorHandler
 
         //load validator file
         $xml = simplexml_load_file($src);
-    
+
         //get the validator name as specified in xml file. this is used to name array in flow
         $validator_name = (string)$xml['name'];
         if(empty($validator_name))
             $validator_name = 'validator';
-       
-  
+
+
         //load base validator class
         require_once(NX_PATH_CORE . "validator.php");
-      
+
         foreach ($xml->children() as $param)
         {
             //get the name of variable to set with good/bad result
             $result_name = (string)$param['name'];
-             
+
             //process validators for this item
             foreach($param->children() as $val)
             {
-            
+
                 $result = true;
-                
+
                 //get type of validator
                 $type = (string)$val['type'];
 
                 $required = (string)$val['required'];
                 if(empty($required))
                     $required = 'false';
-                
+
                 //and its parameters
                 $args = preg_split('~(\040)*,(\040)*~',(string)$val['params']);
 
@@ -106,7 +106,7 @@ class Nexista_ValidatorHandler
                 }
 
                 if(!$result)
-                {        
+                {
                     $validatorData->itemFail($result_name, trim(strtolower($type)), $text);
                 }
 
@@ -122,7 +122,7 @@ class Nexista_ValidatorHandler
         }
 
         if((string)$xml['debug'] === 'true')
-        {        
+        {
             Nexista_Debug::dump($validatorData->validatorData, $validator_name .' (validation data) ');
         }
 

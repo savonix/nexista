@@ -2,8 +2,8 @@
 /*
  * -File        default.builder.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2004-2007, Nexista
- * -Author      joshua savage 
+ * -Copyright   Nexista
+ * -Author      joshua savage
  * -Author      Albert Lash
  */
 

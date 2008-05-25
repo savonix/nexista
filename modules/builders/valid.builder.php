@@ -2,7 +2,7 @@
 /*
  * -File        $Id: valid.builder.php,v 1.3 2005/02/08 21:50:39 amadeus Exp $
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2004, Nexista
+ * -Copyright   Nexista
  * -Author      joshua savage, 
  */
 

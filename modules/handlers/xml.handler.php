@@ -2,7 +2,7 @@
 /*
  * -File        xml.handler.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2002-2007, Nexista
+ * -Copyright   Nexista
  * -Author      joshua savage
  * -Author		Albert Lash
  */
@@ -38,13 +38,14 @@ class Nexista_XmlHandler
         $doc = new DOMDocument();
         $doc->load($src);
         //Added this in Jan 2008, need to watch for any potential problems.
+        //As of May 2008, haven't noticed any issues
         $doc->xinclude();
  
         $flow = Nexista_Flow::singleton();
-        
+
         //import new doc into flow recursively
         $new = $flow->flowDocument->importNode($doc->documentElement,1);
-        
+
         //append to parent if called for
         if($parent)
         {

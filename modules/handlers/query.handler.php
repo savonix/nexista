@@ -2,7 +2,7 @@
 /*
  * -File        query.handler.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2002, Nexista
+ * -Copyright   Nexista
  * -Author      joshua savage
  */
 
@@ -11,7 +11,7 @@
  * @subpackage  Handlers
  * @author      Joshua Savage
  */
- 
+
 /**
  * This class is the query handler.
  * It uses an xml query and retrieves from or sends data to
@@ -155,9 +155,9 @@ class Nexista_QueryHandler
 
         //load the datasource module file based on type
         $datasource_file = NX_PATH_CORE."datasources".DIRECTORY_SEPARATOR . $this->datasourceHandler . "datasource.php";
-        if(is_file($datasource_file)) { 
+        if(is_file($datasource_file)) {
             require_once($datasource_file);
-        } else { 
+        } else {
         }
         $class = 'Nexista_' . trim(ucfirst($this->datasourceHandler)) . "Datasource";
         $this->datasource =& new $class($params);
@@ -258,22 +258,22 @@ class Nexista_QueryHandler
 				
                 $name = (string)$val['name'];
                 $this->query['params'][$key]['name'] = !empty($name) ?  $name : false;
-                    
-                $array = (string)$val['array'];            
+
+                $array = (string)$val['array'];
                 $this->query['params'][$key]['array'] = !empty($array) ?  $array : false;
-                    
-                $array = (string)$val['node-name-array'];            
+
+                $array = (string)$val['node-name-array'];
                 $this->query['params'][$key]['node-name-array'] = !empty($array) ?  $array : false;
-                                            
-                $default = (string)$val['default'];           
+
+                $default = (string)$val['default'];
                 $this->query['params'][$key]['default'] = (!empty($default) OR $default === '0')?  $default : false;           
-                        
+
                 $type = (string)$val['type'];
                 $this->query['params'][$key]['type'] = !empty($type) ?  $type : false;
                 $key++;
             }
         }
-    
+
         return true;
 
     }

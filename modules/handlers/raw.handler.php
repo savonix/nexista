@@ -1,8 +1,8 @@
 <?php
 /*
- * -File        raw.handler.php  
+ * -File        raw.handler.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2002, Nexista
+ * -Copyright   Nexista
  * -Author      joshua savage
  */
 
@@ -20,7 +20,7 @@
  * @subpackage  Handlers
  */
 
-class Nexista_RawHandler 
+class Nexista_RawHandler
 {
 
     /**
@@ -39,7 +39,7 @@ class Nexista_RawHandler
         {
             return false;
         }
-        
+
         return true;
     }
 

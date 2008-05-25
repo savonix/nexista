@@ -2,7 +2,7 @@
 /*
  * -File          xsl.handler.php
  * -License       LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright     2002-2007, Nexista
+ * -Copyright     Nexista
  * -Author        joshua savage
  * -Author        Albert Lash
  */
@@ -31,11 +31,11 @@ class Nexista_XslHandler
 
     public function process($xslfile)
     {
-        
+
         $flow = Nexista_Flow::Singleton();
-        
+
         // The following can be used with the NYT xslt cache.
-        
+
         $use_xslt_cache = "no";
         $xslt_cache_dir = PROJECT_ROOT."/cache/".SERVER_NAME."/".APP_NAME."/xsl/";
         if(!is_dir($xslt_cache_dir)) { 

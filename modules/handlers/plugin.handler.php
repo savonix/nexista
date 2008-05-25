@@ -2,14 +2,15 @@
 /*
  * -File        plugin.handler.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2002-2007, Nexista
+ * -Copyright   Nexista
+ * -Author      Albert Lash
  * -Author      joshua savage
  */
 
 /**
  * @package     Nexista
  * @subpackage  Handlers
- * @author      Joshua Savage 
+ * @author      Joshua Savage
  */
  
 /**
