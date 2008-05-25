@@ -151,7 +151,7 @@ class Nexista_Error extends Exception
      * Inits a new Exception with optional handler
      *
      * This static method is called instead of a throw command.
-     * It instanciates a new execption and allows for an optional
+     * It instanciates a new exeception and allows for an optional
      * handler to be defined to handle the exception
      *
      * @param   string      error message
@@ -172,7 +172,7 @@ class Nexista_Error extends Exception
      * All registered observers are called when an exception occurs
      * and can be used to display,log, notify.
      *
-     * @param string        name of the observer. 
+     * @param string        name of the observer.
      * @param mixed         a valid php callback handler
      */
     static public function addObserver($name, $callback)
@@ -388,6 +388,7 @@ class Nexista_Error extends Exception
      */
     public function toText()
     {
+        @header("Content-type: text/plain");
         echo $this->getTraceAsString();
     }
 
@@ -397,7 +398,7 @@ class Nexista_Error extends Exception
      *
      * This method allows a callable function to be called for standard errors
      * (i.e. NX_ERROR_FATAL, NX_ERROR_WARNING) to override the default actions.
-     * Note that if a custome handler for an error is defined in the Error:init()
+     * Note that if a custom handler for an error is defined in the Error:init()
      * arguments, this function will never be called.
      * This function should accept 1 argument: a reference to the current Error object.
      *
@@ -407,7 +408,7 @@ class Nexista_Error extends Exception
     static public function registerDefaultHandler($handler)
     {
 
-        if(is_callable($handler))   
+        if(is_callable($handler))
             self::$defaultHandler = $handler;
         else
             Nexista_Error::init("Error Default Handler is not callable!");
