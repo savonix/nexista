@@ -2,7 +2,7 @@
 /*
  * -File        gate.action.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2002, Nexista
+ * -Copyright   Nexista
  * -Author      joshua savage
  */
 
@@ -50,12 +50,12 @@ class Nexista_gateAction extends Nexista_Action
 
         if($appendSession)
             $destination .=  '&'.SESSID;
-        
+
         session_write_close();
 
         header('Location: '.$destination);
         exit();
-        
+
     }
 
 

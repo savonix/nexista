@@ -2,14 +2,14 @@
 /*
  * -File        timeconvert.action.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2004, Savonix Corporation
+ * -Copyright   Nexista
  * -Author      Albert Lash
  */
 
 /**
  * @package     Nexista
  * @subpackage  Actions
- * @author      Joshua Savage 
+ * @author      Joshua Savage
  * @author      Albert Lash
  */
  

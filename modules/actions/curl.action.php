@@ -2,7 +2,7 @@
 /*
  * -File        curl.action.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2007, Savonix
+ * -Copyright   Nexista
  * -Author      Albert Lash
  */
     
@@ -28,8 +28,8 @@ class Nexista_curlAction extends Nexista_Action
      *
      * @var     array
      */
-                
-protected  $params = array(
+
+     protected  $params = array(
         'url' => '', // where to make the curl request
         'params' => '', // what parameters to make the request with
         'target_node' => '' //where to store the response data
@@ -44,14 +44,14 @@ protected  $params = array(
      
     protected function main()
     {
-       
+
         // For now, limit calls to the same domain and protocol. 
         $mydomain = $_SERVER['SERVER_NAME'];
         if(isset($_SERVER['HTTPS'])) {
             $protocol="https://";
         } else {
             $protocol="http://";
-        }                
+        }
         $url = $this->params['url'];
         $the_params = $this->params['params'];
         $my_params = Nexista_Flow::getByPath($the_params,"ASSOC");
@@ -70,7 +70,7 @@ protected  $params = array(
                                 $query_string.=$query_piece;
                         }
                     }
-                    
+
                 } else {
                     $query_string="&".urlencode($key)."=".urlencode($value);
                 }

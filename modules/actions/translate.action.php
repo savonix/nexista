@@ -2,7 +2,7 @@
 /*
  * -File        translate.action.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2002-2007, Nexista
+ * -Copyright   Nexista
  * -Author      joshua savage
  * -Author      albert lash
  */
@@ -12,7 +12,7 @@
  * @subpackage  Actions
  * @author      Joshua Savage
  */
- 
+
 /**
  * This action escapes all those evil characters based on defined translation table.
  * The default is HTML_ENTITIES. We used strtr here instead of htmlentities to allow
@@ -25,7 +25,6 @@
 class Nexista_translateAction extends Nexista_Action
 {
 
-
     /**
      * Function parameter array
      *
@@ -37,7 +36,6 @@ class Nexista_translateAction extends Nexista_Action
         'transtbl' => '',   //optional - translation table used for encoding
         'reverse' => ''     //optional - whether to apply in reverse manner (decode)
         );
-
 
 
     /**

@@ -2,7 +2,7 @@
 /*
  * -File        compress.action.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2002-2007, Nexista
+ * -Copyright   Nexista
  * -Author      joshua savage
  * -Author		Albert Lash
  */
@@ -41,7 +41,7 @@ class Nexista_CompressAction extends Nexista_Action
      */
 
     protected  function main()
-    {   
+    {
 
 		$res = Nexista_Flow::find($this->params['var']);
         if($res->length === 1)

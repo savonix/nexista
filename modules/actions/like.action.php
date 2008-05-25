@@ -22,6 +22,7 @@
 class Nexista_LikeAction extends Nexista_Action
 {
 
+    /* Note: this file is deprecated, use the concatenation action */
     /**
      * Function parameter array
      *

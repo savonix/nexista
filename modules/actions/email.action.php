@@ -2,7 +2,7 @@
 /*
  * -File        email.plugin.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   Savonix Corporation
+ * -Copyright   Nexista
  * -Author		Albert Lash
  */
 
@@ -29,7 +29,7 @@ class Nexista_EmailAction extends Nexista_Action
      */
 
     protected  $params = array(
-        'recipient' => '', //required - 
+        'recipient' => '', //required -
         'sender' => '', //required - 
         'subject' => '', //optional - 
         'body' => '', //required - 
