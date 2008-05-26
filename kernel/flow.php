@@ -24,7 +24,7 @@
  *
  * Flow data handling is transparent to the developer. The only necessary thing 
  * to understand is how to call Flow variables and what data can be accessed in 
- * this manner. 
+ * this manner.
  *
  * The flow class Nexista_is an extension of the {@link "PHP5 DOM API" href="http://www.php.net/manual/en/ref.dom.php} 
  * and thus provides all the standard XML functionality as well as a few additional 
@@ -50,15 +50,15 @@
  * Flow is user writeable and developers are free to organize their data as they 
  * see fit. Certain actions such as queries and validator will write their data 
  * to flow based on their name. Ex: a select query with the name 'article' will 
- * return its data as: 
- * <code><article> 
- *      <title>Article One</title> 
+ * return its data as:
+ * <code><article>
+ *      <title>Article One</title>
  *      <data>The text goes here</data> 
- * </article> 
- * <article> 
- *      <title>Article Two</title> 
+ * </article>
+ * <article>
+ *      <title>Article Two</title>
  *      <data>some stuff here as well</data> 
- * </article> 
+ * </article>
  *      ...and so on for each row found </code>
  * use &lt;map:debug xml_dump="true"/&gt; after a validator or query to analyze 
  * this data.
