@@ -10,7 +10,7 @@
 /**
  * @package     Nexista
  * @subpackage  Actions
- * @author      Joshua Savage
+ * @author      Albert Lash
  */
  
 /**

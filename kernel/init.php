@@ -10,8 +10,9 @@
 /**
  * @package Nexista
  * @author Joshua Savage
+ * @author Albert Lash
  */
- 
+
 
 /**
  * Load required runtime files
@@ -30,16 +31,15 @@ require_once(NX_PATH_CORE. "auth.php");
  * initializing sessions, flow, etc.... and processing the 
  * correct files based on request and finally outputting the data.
  *
- * The default output functionality, Init::display(), can be overriden 
- * with a custom function as defined by Init::registerOutputHandler. This function 
- * will then call the output command Init::run() itself and perform any desired
+ * The default output functionality, Nexista_Init::display(), can be overriden 
+ * with a custom function as defined by Nexista_Init::registerOutputHandler. This function 
+ * will then call the output command Nexista_Init::run() itself and perform any desired
  * pre-display processing such as cache the output, etc...
  *
  * See example site for an example registerOutputHandler.
  *
  * @package     Nexista
  */
-
 
 
 class Nexista_Init
@@ -89,7 +89,7 @@ class Nexista_Init
      */
 
     private $info = array();
-    
+
 
     /**
      * Constructor - inits config
@@ -98,7 +98,7 @@ class Nexista_Init
  
     public function __construct()
     { 
-		
+
 		$this->startTimer();
         $this->loadConfig(); 
         $this->setDebug();
@@ -149,7 +149,7 @@ class Nexista_Init
     {
         require_once($prepend);
     }
-    
+
 
     /**
      * Shutdown and cleanup
@@ -166,7 +166,7 @@ class Nexista_Init
         exit();
     }
 
-    
+
     /**
      * Init Flow
      *
@@ -226,15 +226,14 @@ class Nexista_Init
     }
 
 
-    
     /**
      * Reads sitemap for current gate data
-     *   
+     *
      * This function retrieves the correct gate based on request.
      */
 
     public function process()
-    {        
+    {
         // For command line, use require, for web, use require_once. - does it make a difference?
         require(NX_PATH_COMPILE.'sitemap.php');
         $this->info['uri'] = false;
@@ -243,10 +242,10 @@ class Nexista_Init
             $this->info['uri'] = $gatesExact[$_ID_]['uri'];
             if(isset($gatesExact[$_ID_]['cache']))
                 $this->info['cacheExpiryTime'] = $gatesExact[$_ID_]['cache'];
-            
+
             if(isset($gatesExact[$_ID_]['client_cache']))
                 $this->info['clientCacheExpiryTime'] = $gatesExact[$_ID_]['client_cache'];
-				
+
 			if(isset($gatesExact[$_ID_]['role'])) {
                 $this->info['requireRole'] = $gatesExact[$_ID_]['role'];
 				// I wonder why this wasn't here in the first place?
@@ -254,12 +253,12 @@ class Nexista_Init
 				$auth->requireRole($this->info['requireRole']);
 			}
             $gateFound=true;
-        } 
+        }
         elseif(isset($gatesRegex)) 
         {
             foreach($gatesRegex as $regex=>$info) 
             {
-				
+
 				//$pattern = "/^(.".$pattern.")$/";
                 if(preg_match("/".$regex."/",$_ID_,$match ))
                 {
@@ -285,7 +284,7 @@ class Nexista_Init
             $this->info['uri'] = $gateMissing['uri'];
             if(isset($gateMissing['cache']))
                 $this->info['cacheExpiryTime'] = $gateMissing['cache'];
-                
+
             if(isset($gateMissing['role'])) {
                 $this->info['requireRole'] = $gateMissing['role'];
                 $auth = Nexista_Auth::singleton();
@@ -296,7 +295,7 @@ class Nexista_Init
 
     /**
      * Pocesses final output
-     *   
+     *
      * This function processes the correct  gate based
      * on request. In the event of not finding the
      * correct gate, it will attempt to load the gate defined
@@ -306,15 +305,15 @@ class Nexista_Init
 
     public function run()
     {
-        if(!empty($this->info['uri'])) 
+        if(!empty($this->info['uri']))
         {
             require(NX_PATH_COMPILE.$this->info['uri']);
-            if(isset($debugOutput)) { 
+            if(isset($debugOutput)) {
 				return $debugOutput.$output;
-			} else { 
+			} else {
 				return $output;
 			}
-        } 
+        }
         else
         {
             header('HTTP/1.x 404 Not Found');
@@ -325,13 +324,13 @@ class Nexista_Init
             exit;
         }
     }
-    
+
     /**
      * Displays final output
-     *   
+     *
      * This method is called from the loader file and is
      * responsible for activating the run process and displaying
-     * the output. 
+     * the output.
      * In the event that caching or an other pre-display processing
      * is needed, this method can be overriden using a callback function
      * registered with Init::registerOutputHandler();
@@ -344,10 +343,10 @@ class Nexista_Init
      */
 
      public function display()
-     { 
+     {
         //output handler defined?
         if(!is_null(self::$outputHandler)) 
-        {            
+        {
             echo call_user_func(self::$outputHandler, $this);
         }
         //no output handler defined - just spit it out
@@ -365,19 +364,19 @@ class Nexista_Init
 	/**
 	 * Returns the gate info in an array consisting only of the params
 	 * that are specified by the sitemap. Possible items include: 
-	 * uri (always present), cache, and role. 
+	 * uri (always present), cache, and role.
 	 *
 	 */
 	public function getInfo($data)
 	{
-		if(isset($this->info[$data])) { 
+		if(isset($this->info[$data])) {
 			return $this->info[$data];
-		} else { 
+		} else {
 			return false;
 		}
 	}
 
-     
+
     /**
      * Defines debug / error levels and reporting - this needs some help. 
      *
@@ -397,7 +396,7 @@ class Nexista_Init
 
     /**
      * Registers a function to be called on output
-     * 
+     *
      * This function can be used to manipulate the final output before it is
      * displayed. It can be used to create a caching system, compress output etc...
      *
@@ -430,7 +429,7 @@ class Nexista_Init
      * @return  object      class singleton instance
      */
      
-    static public function singleton() 
+    static public function singleton()
     {
         if (!isset(self::$instance)) {
             $c = __CLASS__;

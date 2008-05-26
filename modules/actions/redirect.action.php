@@ -47,18 +47,18 @@ class Nexista_redirectAction extends Nexista_Action
     {
         $destination = isset($this->params['url'])? Nexista_Path::parseInlineFlow($this->params['url']):null;
         $appendSession = isset($this->params['session'])?$this->params['session']:null;
-        
+
         if(is_null($destination) and isset($_SERVER['HTTP_REFERER']))
             $destination = $_SERVER['HTTP_REFERER'];
-              
+
         if($appendSession)
             $destination .=  '&'.SESSID;
-        
+
         session_write_close();
 
         header('Location: '.$destination);
         exit();
-        
+
     }
 
 } //end class

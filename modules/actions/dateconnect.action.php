@@ -33,9 +33,9 @@ class Nexista_DateConnectAction extends Nexista_Action
      */
 
     var $params = array(
-		'year' => '', 
-        'month' => '', 
-		'day' => '', 
+		'year' => '',
+        'month' => '',
+		'day' => '',
 		'name' => '' // name of new var
         );
 

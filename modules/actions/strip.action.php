@@ -46,7 +46,7 @@ class Nexista_stripAction extends Nexista_Action
     {
 
 		$res = Nexista_Flow::find($this->params['var']);
-        if(!empty($res)) { 
+        if(!empty($res)) {
             $chars = Nexista_Flow::getByPath($this->params['chars']);
             $res->item(0)->nodeValue = str_replace($chars,"",$res->item(0)->nodeValue);
 

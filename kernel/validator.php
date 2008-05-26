@@ -163,9 +163,9 @@ class Nexista_Validator
             if(sizeof($req) == 2)
             {
                 $var = Nexista_Flow::getByPath($req[0]);
-                
+
                 if(is_array($var))
-                {              
+                {
                     $var = $var[0];
                 }
                 if(preg_match($req[1], $var, $match) == true)

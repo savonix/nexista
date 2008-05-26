@@ -3,14 +3,12 @@
  * -File        decompress.action.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   Nexista
- * -Author      joshua savage
  * -Author		Albert Lash
  */
 
 /**
  * @package     Nexista
  * @subpackage  Actions
- * @author      Joshua Savage
  * @author      Albert Lash
  */
  

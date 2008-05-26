@@ -1,15 +1,16 @@
 <?php
 /*
- * -File        error.php 
+ * -File        error.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2004-2007, Nexista
+ * -Copyright   Nexista
  * -Author      joshua savage
- * -Author      albert lash
+ * -Author      Albert Lash
  */
 
 /**
  * @package Nexista
  * @author Joshua Savage
+ * @author Albert Lash
  */
  
 /**
@@ -212,10 +213,10 @@ class Nexista_Error extends Exception
     /**
      * Disable all or one observer
      *
-     * When an external handler is used, it may be desirable not 
+     * When an external handler is used, it may be desirable not
      * to call the observer(s). This method can be used to do so.
      *
-     * @param   string      (optional) observer name. If no name is given, 
+     * @param   string      (optional) observer name. If no name is given,
      * then all observers will be disabled
      */
     public function disableObservers($name = null)

@@ -2,12 +2,14 @@
 /*
  * -File        builder.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2004, Nexista
+ * -Copyright   Nexista
+ * -Author      Albert Lash
  * -Author      joshua savage
  */
 
 /**
  * @package Nexista
+ * @author Albert Lash
  * @author Joshua Savage
  */
 
@@ -63,7 +65,7 @@ class Nexista_Builder
      * Returns array of required files to insert in require_once fields
      *
      * This method should be extended to return an array of all files necessary 
-     * for this tag to run. 
+     * for this tag to run.
      * Each file will be called in a require_once field on top of gate code.
      *
      * Example:
