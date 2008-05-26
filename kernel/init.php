@@ -388,7 +388,10 @@ class Nexista_Init
         if(isset($configs['debug']) && ((bool)$configs['debug']===true))
         {
             $GLOBALS['debugTrack'] = true;
-
+        }
+        else
+        {
+            $GLOBALS['debugTrack'] = false;
         }
         return true;
     }

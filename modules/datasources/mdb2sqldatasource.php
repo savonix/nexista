@@ -249,7 +249,7 @@ class Nexista_mdb2SqlDatasource
             $result = $prep->execute($data);
 
         } else {
-            $prep = $this->db->prepare($this->query['sql'], $types);  
+            $prep = $this->db->prepare($this->query['sql'], $types);
             $result = $prep->execute(); 
         }
 

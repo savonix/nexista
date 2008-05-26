@@ -291,6 +291,7 @@ class Nexista_QueryHandler
 
         $datasource = Nexista_Config::getSection('datasource',$name);
 
+        // Caution: this will output the password as well.
         //Nexista_Debug::dump($datasource);
 
         //Developer note: This is where you set what Datasource handler you would

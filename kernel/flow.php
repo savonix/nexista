@@ -60,8 +60,6 @@
  *      <data>some stuff here as well</data> 
  * </article>
  *      ...and so on for each row found </code>
- * use &lt;map:debug xml_dump="true"/&gt; after a validator or query to analyze 
- * this data.
  *
  * @package     Nexista
  */
