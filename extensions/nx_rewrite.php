@@ -25,18 +25,18 @@ Nexista_Flow::registerImportHandler('nx_rewrite');
 
 function nx_rewrite($superglobals)
 {
-    
+
     // RuleID
     // RuleOrder
-    
+
     // RewriteMap - its really needed for this to be really useful.
-    
+
     // RewriteCond TestString CondPattern
     // TestString can be a string or an xpath query, CondPattern can be eregi
     // Example: "RewriteCond {//_server/REQUEST_URI} blahblah
     // (the xpath query value would be fetched in the compiled gate
     // if unsuccessful, return false and break
-    
+
     // RewriteRule Pattern Substition [flags]
     // Pattern is a regular preg_match 
     // Only a subset of flags supported
@@ -46,7 +46,7 @@ function nx_rewrite($superglobals)
     // * R - Redirect
     // * E - Env
     // * F - Forbidden
-    
+
     // Example:
     $query_string = array(
         'nid' => 'configurations',
