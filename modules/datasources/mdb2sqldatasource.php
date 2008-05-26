@@ -2,8 +2,8 @@
 /*
  * -File        mdb2sqldatasource.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2007, Nexista
- * -Author 	    albert lash
+ * -Copyright   Nexista
+ * -Author 	    Albert Lash
  *
  */
 
@@ -33,7 +33,7 @@ class Nexista_mdb2SqlDatasource
      */
 
     private $params;
-    
+
     /**
      * Class data
      *
@@ -68,7 +68,7 @@ class Nexista_mdb2SqlDatasource
      */
 
     private $result;
-    
+
     /**
      * Assoc array
      *
@@ -127,32 +127,27 @@ class Nexista_mdb2SqlDatasource
 
     public function setConnection()
     {
-        if($this->params['type']=="sqlite") { 
+        if($this->params['type']=="sqlite") {
 		$dsn = array(
             "phptype"=>$this->params['type'],
             "database"=>$this->params['database']);
-        } else { 
+        } else {
 		$dsn = array(
             "hostspec"=>$this->params['hostname'],
             "phptype"=>$this->params['type'],
             "username"=>$this->params['username'],
             "password"=>$this->params['password'],
             "database"=>$this->params['database']);
-            
         }
 
         require_once("MDB2.php");
 		$this->db =& MDB2::factory($dsn);
-        
+
 		if (PEAR::isError($this->db)) {
             $error = $this->db->getMessage();
             Nexista_Error::init("$error ; Translation = Error connecting to database, check your 
                 configuration file, specifically the datasource sections.",NX_ERROR_FATAL);
 		}
-        //$this->db->setOption('persistent', true);
-        //$this->db->opened_persistent = true;
-        //$this->db->connection = $link;
-        
 
         return true;
     }
@@ -210,7 +205,7 @@ class Nexista_mdb2SqlDatasource
                     $value = $array[$loop];
                 }
                 /*
-                // Unfortunately plain XPath 1.0 cannot access the node-name 
+                // Unfortunately plain XPath 1.0 cannot access the node-name
                 // itself, this will do so for an array, where you'd likely
                 // want that information 
                 */
@@ -221,17 +216,18 @@ class Nexista_mdb2SqlDatasource
                         $array = array($array);
                     $key = array_keys($array[$loop]);
                     $value = $key[0];
-                } else { 
+                } else {
                     $found = false;
                 }
-                
+
                 if(((!$found) || ($value === 'NaN') || ($value === '') || ($value == '')) && $value!=='0')
                 {
                     $value = $val['default'];
                 }
 
                 if($value === 'NULL')
-                { //$type = NULL;
+                {
+
                 }
                 else
                 {
@@ -246,14 +242,13 @@ class Nexista_mdb2SqlDatasource
                 $count++;
             }
 
-            //$this->db->connect();
 			$prep = $this->db->prepare($this->query['sql'], $types);
             if (PEAR::isError($prep)) {
                 Nexista_Error::init($result->getMessage()." ".$this->queryName,NX_ERROR_FATAL);
             }
             $result = $prep->execute($data);
 
-        } else { 
+        } else {
             $prep = $this->db->prepare($this->query['sql'], $types);  
             $result = $prep->execute(); 
         }
@@ -288,7 +283,7 @@ class Nexista_mdb2SqlDatasource
 
         $this->query =& $query;
         $this->queryName =& $queryName;
-		
+
 
         for($loop = 0; $loop < $queryloop; $loop ++)
         {
@@ -315,9 +310,9 @@ class Nexista_mdb2SqlDatasource
 
     public function storeResult()
     {
-    
+
 		$debug = false;
-        
+
         if($this->result_set)
         {
             $result_set = $this->result_set;

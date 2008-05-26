@@ -4,7 +4,6 @@
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   Nexista
  * -Author      Albert Lash
- * -Author      joshua savage
  */
 
 /**

@@ -30,7 +30,7 @@ class Nexista_TimeConvertAction extends Nexista_Action
      * @var array
      * @access  private
      */
-    
+
     var $params = array(
         'hours' => '', //required - hours of flow var to convert
 		'minutes' => '', // defaults to zero

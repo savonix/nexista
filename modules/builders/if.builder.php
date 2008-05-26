@@ -4,7 +4,7 @@
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   Nexista
  * -Author      joshua savage
- * -Author      albert lash 
+ * -Author      Albert Lash
  */
 
 
@@ -13,7 +13,7 @@
  * @subpackage  Builders
  * @author      Joshua Savage
  */
- 
+
 /**
  * This class handles the tag by the same name in the sitemap building process
  *

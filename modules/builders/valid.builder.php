@@ -1,16 +1,17 @@
 <?php
 /*
- * -File        $Id: valid.builder.php,v 1.3 2005/02/08 21:50:39 amadeus Exp $
+ * -File        valid.builder.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   Nexista
- * -Author      joshua savage, 
+ * -Author      Albert Lash
+ * -Author      joshua savage
  */
 
 
 /**
  * @package     Nexista
  * @subpackage  Builders
- * @author      Joshua Savage <>
+ * @author      Joshua Savage
  */
  
 /**
