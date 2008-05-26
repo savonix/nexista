@@ -10,7 +10,7 @@
 /**
  * @package     Nexista
  * @subpackage  Builders
- * @author      Joshua Savage 
+ * @author      Joshua Savage
  */
  
 /**
@@ -47,14 +47,14 @@ class Nexista_DebugBuilder extends Nexista_Builder
 
     public function getCodeStart()
     {
-               
+
         //see if we want to dump xml
         if($this->action->getAttribute('dump') === 'true' )
         {
             $this->handler = new XsltProcessor();
             $this->xml = new DomDocument; // from /ext/dom
             $this->xsl = new DomDocument;
-        
+
             $code[] = '$debugXsl = new XsltProcessor();';
             $code[] = '$xsl = new DomDocument;';
             $code[] = '$xsl->load("'.Nexista_Config::get('./path/base').'kernel/xsl/flow.xsl");';
