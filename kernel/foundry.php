@@ -245,11 +245,13 @@ class Nexista_Foundry
 			$code[] = 'define("NX_ID", "'.Nexista_Config::get('./build/query').'");';  
 
 			$code[] = '$init = new Nexista_Init();';
-            
+
             // build/prepend is deprecated - use extensions instead
 			$prepend = Nexista_Config::get('./build/prepend');
-			if(!is_null($prepend) AND file_exists($prepend)) 
-				$code[] = '$init->loadPrepend("'.$prepend.'");';
+			if(!empty($prepend) AND file_exists($prepend)) {
+                echo "NOTICE: Foundry prepends are deprecated, use extensions instead";
+				$code[] = '$init->loadPrepend("'.$prepend.'"); /* deprecated prepend */';
+            }
             // end deprecation note
 
             // TODO - THIS NEEDS TO BE CHANGED TO EXTENSIONS - May 2008
@@ -257,7 +259,8 @@ class Nexista_Foundry
             foreach($plugins as $plugin => $value) {
                 $thisPlugin = Nexista_Config::getSection($plugin,false,'/plugins/');
                 if($thisPlugin['placement'] == "prepend") {
-                    $code[] = '$init->loadPrepend("'.$thisPlugin['source'].'");';
+                    echo "NOTICE: Foundry plugins are deprecated, use extensions instead <br/>";
+                    $code[] = '$init->loadPrepend("'.$thisPlugin['source'].'"); /*deprecated prepend plugin */';
                 }
             }
             // THIS IS THE EXTENSIONS SECTION - CORRECT
@@ -265,7 +268,7 @@ class Nexista_Foundry
             foreach($extensions as $extension => $value) {
                 $thisExtension = Nexista_Config::getSection($extension,false,'/extensions/');
                 if($thisExtension['placement'] == "prepend") {
-                    $code[] = '$init->loadPrepend("'.$thisExtension['source'].'");';
+                    $code[] = '$init->loadPrepend("'.$thisExtension['source'].'"); /* prepend extension */';
                 }
             }
             $code[] = '$init->start();';
@@ -274,7 +277,8 @@ class Nexista_Foundry
             foreach($plugins as $plugin => $value) {
                 $thisPlugin = Nexista_Config::getSection($plugin,false,'/plugins/');
                 if($thisPlugin['placement'] == "predisplay") {
-                    $code[] = '$init->loadPrepend("'.$thisPlugin['source'].'");';
+                    echo "NOTICE: Foundry plugins are deprecated, use extensions instead";
+                    $code[] = '$init->loadPrepend("'.$thisPlugin['source'].'");  /* deprecated predisplay plugin */';
                 }
             }
             // THIS IS THE EXTENSIONS SECTION - CORRECT
@@ -282,7 +286,7 @@ class Nexista_Foundry
             foreach($extensions as $extension => $value) {
                 $thisExtension = Nexista_Config::getSection($extension,false,'/extensions/');
                 if($thisExtension['placement'] == "predisplay") {
-                    $code[] = '$init->loadPrepend("'.$thisExtension['source'].'");';
+                    $code[] = '$init->loadPrepend("'.$thisExtension['source'].'");  /* predisplay extension */';
                 }
             }
 			$code[] = '$init->display();';

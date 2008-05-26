@@ -22,7 +22,7 @@ function nexista_devBuffer($init)
     header( 'Cache-Control: no-cache, must-revalidate, post-check=3600, pre-check=3600');
     header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
     $development_console = true;
-    $excludes = Nexista_Config::get('./plugins/dev_buffer/excludes');
+    $excludes = Nexista_Config::get('./extensions/dev_buffer/excludes');
     if(strpos($excludes,',')) {
         $x_array = explode(',',$excludes);
     } else {
@@ -109,7 +109,7 @@ Nexista_Flow::add("pre_body_content",$pre_body_content,false);
 function nexista_view_flow() {
 	$debugXsl = new XsltProcessor();
 	$xsl = new DomDocument;
-	$xsl->load(NX_PATH_BASE."plugins/dev_buffer/flow.xsl");
+	$xsl->load(NX_PATH_BASE."extensions/dev_buffer/flow.xsl");
 	$debugXsl->importStyleSheet($xsl);
     if(isset($_GET['ignore'])) {
         $debugXsl->setParameter('','ignore',$_GET['ignore']);
