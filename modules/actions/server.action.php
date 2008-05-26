@@ -11,7 +11,7 @@
  * @subpackage  Actions
  * @author      Albert Lash
  */
- 
+
 /**
  * This action strips unwanted characters from a string.
  *
@@ -21,9 +21,9 @@
 
 class Nexista_serverAction extends Nexista_Action
 {
-    
+
     /* NOTE: This action is deprecated. Use the _server flow nodeset instead */
-    /* It can be activated by including S in the flow vars in config.xml */
+    /* It can be activated by including "V" in the flow vars in config.xml */
     /**
      * Function parameter array
      *
