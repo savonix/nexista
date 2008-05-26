@@ -38,11 +38,11 @@
  *
  * <b>_get</b> - Initialized with a copy of $_GET data. All incoming GET data 
  * will be found there (ex: nx_get/nid would represent the current requested gate 
- * - $_GET['nid']). 
+ * - $_GET['nid']).
  * <b>_post </b>- Initialized with a copy of $_POST data. All incoming POST data 
  * will be found there (ex: nx_post/submit could be used to see if a form has been 
  * submitted - $_POST['submit']). This data is user writeable so actions and other 
- * modifiers can be used. 
+ * modifiers can be used.
  * <b>_files</b> - Initialized with a copy of $_FILES data.
  * <b>_globals</b> - Initialized with a copy of $GLOBALS data.
  * <b>_session </b>- Initialized with a copy of $_SESSION data.

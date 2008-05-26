@@ -2,7 +2,8 @@
 /*
  * -File        foundry.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2004, Nexista
+ * -Copyright   Nexista
+ * -Author      Albert Lash
  * -Author      joshua savage
  */
 
@@ -10,7 +11,7 @@
  * @package     Nexista
  * @author      Joshua Savage
  */
- 
+
 /**
  * Load required files
  */
@@ -38,35 +39,35 @@ function Nexista_builderError($e)
  * This class is reponsible for building a site/application
  * based on desired sitemap and configuration settings.
  *
- * The build process creates a compiled php file from the sitemap 
- * definition as well as the necessary file to handle the logic of 
+ * The build process creates a compiled php file from the sitemap
+ * definition as well as the necessary file to handle the logic of
  * presenting these files based on request.
  *
  * A typical build would output:
  * - A loader file such as index.php which is used as the 'entrance' file for the application.
  * - A switchbox file which is responsible for returning the proper data based on request
- * - A number of 'gate' php files, one for each section or 'page' of the sitema which  
- * are responsible for handling the per request logic and will load the 
- * necessary module files such as query definitions, php scripts, xsl stylesheets, 
+ * - A number of 'gate' php files, one for each section or 'page' of the sitema which
+ * are responsible for handling the per request logic and will load the
+ * necessary module files such as query definitions, php scripts, xsl stylesheets,
  * - A configuration file based on our preferences.
- * 
+ *
  * To build an application, you will need a script to call the Foundry process.
  * Here is some sample code:
  * <code>
  * <?php
  * //load the application builder class
  * require_once('/home/lotus/nexista/kernel/foundry.php');
- * 
+ *
  * //instanciate and initialize it with our desired registry file
  * $foundry = Foundry::singleton();
  *
- * //load the master config, the user override config and process for 'live' mode 
+ * //load the master config, the user override config and process for 'live' mode
  * $foundry->configure('./master.xml','./user.xml', 'live');
- * 
+ *
  * //build loader (i.e. index.php)
  * $foundry->buildLoader();
- * //compile the application 
- * $foundry->buildGates();  
+ * //compile the application
+ * $foundry->buildGates(); 
  * $foundry->buildSitemap();
  * ?></code>
  *
@@ -101,7 +102,7 @@ class Nexista_Foundry
 
     private $builderTags = array();
 
-    
+
     /**
      * Holds the gate info used to compile the cached sitemap file
      *
@@ -109,7 +110,7 @@ class Nexista_Foundry
      */
 
     private $sitemapData;
-    
+
     /**
      * Print debug info when building
      *
@@ -117,13 +118,13 @@ class Nexista_Foundry
      */
 
     public $debug = false;
-    
-    
+
+
     /**
      * Read and writes the application config data
      *
      * This method loads the config data that holds the applciation
-     * parameters such as paths, location of sitemap, 
+     * parameters such as paths, location of sitemap,
      * session preferences, db connections, etc...
      * Some of this data will be written directly in the gate files
      * during the compile process. It takes the config xml and ouputs
@@ -147,13 +148,13 @@ class Nexista_Foundry
 
         //init some paths we may need for build
         $path = Nexista_Config::getSection('path');
-        if(!defined('NX_PATH_APPS')) { 
+        if(!defined('NX_PATH_APPS')) {
             define("NX_PATH_APPS", $path['applications']);
         }
         //init debug
         $configs = Nexista_Config::getSection('runtime');
 
-        if(isset($configs['debug']) && ($configs['debug'] == 'on'))
+        if($configs['debug'])
         {
             $GLOBALS['debugTrack'] = true;
         }
@@ -163,7 +164,7 @@ class Nexista_Foundry
     /**
      * Returns the path to the sitemap
      * Useful for checking the mod time for required rebuilds
-     * 
+     *
      * @return string   path to sitemap
      */
 
@@ -172,20 +173,20 @@ class Nexista_Foundry
          return Nexista_Config::get('./build/sitemap');
 
      }
-    
-    
+
+
     /**
      * Returns the path to the compile directory
-     * 
+     *
      * @return string   path to sitemap
      */
-     
-     public function getCompilePath() { 
+
+     public function getCompilePath() {
 
          return Nexista_Config::get('./path/compile');
 
      }
-    
+
     /**
      * Builds the loader file (i.e. index.php)
      *
@@ -199,16 +200,12 @@ class Nexista_Foundry
     public function buildLoader()
     {
 
-
         $code[] = '<?php';
         $code[] = '/*';
-        $code[] = ' * Domain Name:   '.$_SERVER['SERVER_NAME'];
-        $code[] = ' * Build Time:    '.date("D M j G:i:s T Y");
-		$code[] = ' * Copyright:     ';
+        $code[] = ' * Domain: '.$_SERVER['SERVER_NAME'];
+        $code[] = ' * Built: '.date("D M j G:i:s T Y");
         $code[] = ' */';
 
-		// The modes actually isn't necessary, because I build a site for
-        // each server name that makes a request.
         //$key = $_ENV['NEXISTA_MODE'];
         $modes = Nexista_Config::getSection('modes');
 		foreach($modes as $key => $value) {
@@ -226,7 +223,6 @@ class Nexista_Foundry
 			$code[] = 'define("NX_PATH_ACTIONS", "'.$path['base'].'modules/actions/");';
 			$code[] = 'define("NX_PATH_VALIDATORS", "'.$path['base'].'modules/validators/");';
 
-
 			$code[] = 'define("NX_PATH_COMPILE", "'.$path['compile'].'");';
 			$code[] = 'define("NX_PATH_CACHE", "'.$path['cache'].'");';
             if(isset($path['logs'])) {
@@ -242,7 +238,7 @@ class Nexista_Foundry
             }
 			$code[] = 'require_once(NX_PATH_CORE."init.php");';
 			$code[] = 'Nexista_Config::setMode("'.$key.'");';
-			$code[] = 'define("NX_ID", "'.Nexista_Config::get('./build/query').'");';  
+			$code[] = 'define("NX_ID", "'.Nexista_Config::get('./build/query').'");';
 
 			$code[] = '$init = new Nexista_Init();';
 
@@ -465,7 +461,7 @@ class Nexista_Foundry
 
         //build top of file (reqs, etc)
         $code[] = "<?php";
-        $code[] = '//Build Time: '.date("D M j G:i:s T Y"); 
+        $code[] = '//Built: '.date("D M j G:i:s T Y");
         /* This first line of sitemap.php has been changed on Sat May 24, 2008 
         to support Flow ImportHandling, and thus url rewriting */
         //$code[] = '$_ID_ = !empty($_GET["'.Nexista_Config::get('./build/query').'"]) ? $_GET["'.Nexista_Config::get('./build/query').'"] : "'.Nexista_Config::get('./build/default').'";';
@@ -493,7 +489,7 @@ class Nexista_Foundry
                 // Client cache's do not need check for auth.
                 if($info['client_cache'] !== -1){
                     $this_gate .= ",'client_cache'=>'".$info['client_cache']."'";
-                } 
+                }
                 $this_gate .= "),";
                 $code[] = $this_gate;
             }
@@ -507,7 +503,7 @@ class Nexista_Foundry
             $code[] = '$gateMissing = array(';
             foreach($elements as $name => $info)
             {
-                if($name==$missing) { 
+                if($name==$missing) {
                 $this_gate = "'uri'=>'".$info['uri']."'";
                 // Server cache's need to include auth if there is a role specified.
                 if($info['cache'] !== -1 && $info['role'] !== -1){
@@ -585,9 +581,9 @@ class Nexista_Foundry
 
     }
 
-    
+
     /**
-     * Callback file to build an individual gate file 
+     * Callback file to build an individual gate file
      *
      * @param   object      reference to current tag being processed
      * @param   string      reference to current code content for gate
@@ -616,8 +612,12 @@ class Nexista_Foundry
 
                 //add debug code?
                 $non_debug_modules = array('if','true','false','case','switch');
-                if(isset($GLOBALS['debugTrack']) && $GLOBALS['debugTrack'] === true && !in_array($module,$non_debug_modules))
+                if(
+                    $GLOBALS['debugTrack'] &&
+                    !in_array($module,$non_debug_modules))
+                {
                     $code .= $this->addGateDebugStart($module);
+                }
 
                 //get start of code
                 $text = $obj->getCodeStart();
@@ -639,7 +639,7 @@ class Nexista_Foundry
                 $obj->reset();
 
                 //add debug code?
-                if(isset($GLOBALS['debugTrack']) && $GLOBALS['debugTrack'] === true && !in_array($module,$non_debug_modules))
+                if($GLOBALS['debugTrack'] && !in_array($module,$non_debug_modules))
                     $code .= $this->addGateDebugStop($module);
 
             }

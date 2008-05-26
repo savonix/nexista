@@ -92,41 +92,37 @@ class Nexista_Debug
     static public function register($type, $function)
     {
 
-        if(isset($GLOBALS['debugTrack']) && $GLOBALS['debugTrack'] == 'on')
+        switch($type)
         {
-            switch($type)
-            {
+            case 'in':
 
-                case 'in':
+                $pos = 0;
+                if(isset($GLOBALS['debugTrackModule']))
+                {
+                    $pos = @count($GLOBALS['debugTrackModule']);
+                }
 
-                    $pos = 0;
-                    if(isset($GLOBALS['debugTrackModule']))
-                    {
-                        $pos = @count($GLOBALS['debugTrackModule']);
-                    }
+                $GLOBALS['debugTrackModule'][$pos]['name'] = $function;
+                $GLOBALS['debugTrackModule'][$pos]['startTime'] = microtime();
 
-                    $GLOBALS['debugTrackModule'][$pos]['name'] = $function;
-                    $GLOBALS['debugTrackModule'][$pos]['startTime'] = microtime();
+                $indent = ($pos) * 6 ;
+                Nexista_Debug::message(str_pad('> ', $indent,'-', STR_PAD_LEFT). '<b>'.$function .'</b>');
 
-                    $indent = ($pos) * 6 ;
-                    Nexista_Debug::message(str_pad('> ', $indent,'-', STR_PAD_LEFT). '<b>'.$function .'</b>');
+                break;
 
-                    break;
-
-                case 'out':
-                    $pos = @count($GLOBALS['debugTrackModule']) - 1;
-                    $indent = $pos * 6 ;
+            case 'out':
+                $pos = @count($GLOBALS['debugTrackModule']) - 1;
+                $indent = $pos * 6 ;
 
 
-                    $GLOBALS['debugTrackModule'][$pos]['elapsedTime'] = Nexista_Debug::profile($GLOBALS['debugTrackModule'][$pos]['startTime']);
-                    Nexista_Debug::message(str_pad('< ', $indent, "-", STR_PAD_LEFT). '<b>'.$function . ' @ </b>' . $GLOBALS['debugTrackModule'][$pos]['elapsedTime'].' seconds');
+                $GLOBALS['debugTrackModule'][$pos]['elapsedTime'] = Nexista_Debug::profile($GLOBALS['debugTrackModule'][$pos]['startTime']);
+                Nexista_Debug::message(str_pad('< ', $indent, "-", STR_PAD_LEFT). '<b>'.$function . ' @ </b>' . $GLOBALS['debugTrackModule'][$pos]['elapsedTime'].' seconds');
 
-                    unset($GLOBALS['debugTrackModule'][$pos]);
-                    break;
-
-            }
+                unset($GLOBALS['debugTrackModule'][$pos]);
+                break;
 
         }
+
         // This is for debugging the debug class. Probably don't want to ever use this now. 
         //Nexista_Debug::dump($GLOBALS['debugTrackModule']);
 
@@ -147,7 +143,7 @@ class Nexista_Debug
     {
         if(isset($GLOBALS['debugTrack']) && $GLOBALS['debugTrack'] === true)
         {
-            echo '<br><font color="purple">' . $message.'</font>';
+            echo '<br><span style="color: purple;" class="debug">' . $message.'</span>';
         }
     }
 

@@ -385,7 +385,7 @@ class Nexista_Init
     private function setDebug()
     {
         $configs = $this->config->getSection('runtime');
-        if(isset($configs['debug']) && ((bool)$configs['debug']===true))
+        if(isset($configs['debug']) && ((bool)$configs['debug']===true || $configs['debug']===true))
         {
             $GLOBALS['debugTrack'] = true;
         }
