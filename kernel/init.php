@@ -80,8 +80,8 @@ class Nexista_Init
      */
 
     public $timer = false;
-    
-    
+
+
     /**
      * Information array about currently processed gate
      *
