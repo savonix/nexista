@@ -109,7 +109,7 @@ class Nexista_Debug
                     $GLOBALS['debugTrackModule'][$pos]['startTime'] = microtime();
 
                     $indent = ($pos) * 6 ;
-                    Debug::message(str_pad('> ', $indent,'-', STR_PAD_LEFT). '<b>'.$function .'</b>');
+                    Nexista_Debug::message(str_pad('> ', $indent,'-', STR_PAD_LEFT). '<b>'.$function .'</b>');
 
                     break;
 
@@ -118,8 +118,8 @@ class Nexista_Debug
                     $indent = $pos * 6 ;
 
 
-                    $GLOBALS['debugTrackModule'][$pos]['elapsedTime'] = Debug::profile($GLOBALS['debugTrackModule'][$pos]['startTime']);
-                    Debug::message(str_pad('< ', $indent, "-", STR_PAD_LEFT). '<b>'.$function . ' @ </b>' . $GLOBALS['debugTrackModule'][$pos]['elapsedTime'].' seconds');
+                    $GLOBALS['debugTrackModule'][$pos]['elapsedTime'] = Nexista_Debug::profile($GLOBALS['debugTrackModule'][$pos]['startTime']);
+                    Nexista_Debug::message(str_pad('< ', $indent, "-", STR_PAD_LEFT). '<b>'.$function . ' @ </b>' . $GLOBALS['debugTrackModule'][$pos]['elapsedTime'].' seconds');
 
                     unset($GLOBALS['debugTrackModule'][$pos]);
                     break;
