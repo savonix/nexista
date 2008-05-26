@@ -9,6 +9,8 @@ Author: Albert Lash
 License: LGPL
 */
 
+echo "Foundry plugins are deprecated. Please fix your config file";
+
 /* TODO - Get this from the database. */
 $google_code = Nexista_Config::get("./plugins/google_analytics_code/code");
 if(!$priority = Nexista_Config::get("./plugins/google_analytics_code/priority")) {

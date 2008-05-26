@@ -33,6 +33,7 @@ function nexista_cache($init)
 
 	ob_start();
     ob_start();
+    echo "Foundry plugins are deprecated. Please fix your config file";
 	$my_request_uri = $_SERVER['REQUEST_URI'];
     // Server cache
 	$expiryTime = $init->getInfo('cacheExpiryTime');

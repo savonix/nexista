@@ -9,6 +9,8 @@ Author: Albert Lash
 License: LGPL
 */
 
+echo "Foundry plugins are deprecated. Please fix your config file";
+
 /* TODO - Get this from the database. */
 $adsense_account = Nexista_Config::get("./plugins/google_adsense_account/code");
 if(!$priority = Nexista_Config::get("./plugins/google_adsense_account/priority")) {

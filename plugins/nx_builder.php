@@ -15,6 +15,8 @@ Copyright: Savonix Corporation
 Author: Albert Lash
 License: LGPL
 */
+echo "Foundry plugins are deprecated. Please fix your config file";
+
 if(isset($nexista_path)) {
     define('INCLUDE_PATH', $nexista_path);
 } else {

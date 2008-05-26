@@ -18,7 +18,7 @@ function nexista_devBuffer($init)
 
 	ob_start();
     ob_start();
-
+    echo "Foundry plugins are deprecated. Please fix your config file";
     header( 'Cache-Control: no-cache, must-revalidate, post-check=3600, pre-check=3600');
     header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
     $development_console = true;

@@ -13,7 +13,7 @@ License: LGPL
 
 function nexista_authLogin($auth)
 {
-
+    echo "Foundry plugins are deprecated. Please fix your config file";
     if(empty($_SESSION['authReferer']))
     {
         $_SESSION['authReferer'] = $_SERVER['REQUEST_URI'];

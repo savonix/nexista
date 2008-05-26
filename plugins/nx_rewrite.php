@@ -25,7 +25,7 @@ Nexista_Flow::registerImportHandler('nx_rewrite');
 
 function nx_rewrite($superglobals)
 {
-    
+    echo "Foundry plugins are deprecated. Please fix your config file";
     // RuleID
     // RuleOrder
     // RewriteCond
