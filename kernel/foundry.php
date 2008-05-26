@@ -245,10 +245,14 @@ class Nexista_Foundry
 			$code[] = 'define("NX_ID", "'.Nexista_Config::get('./build/query').'");';  
 
 			$code[] = '$init = new Nexista_Init();';
+            
+            // build/prepend is deprecated - use extensions instead
 			$prepend = Nexista_Config::get('./build/prepend');
 			if(!is_null($prepend) AND file_exists($prepend)) 
 				$code[] = '$init->loadPrepend("'.$prepend.'");';
+            // end deprecation note
 
+            // TODO - THIS NEEDS TO BE CHANGED TO EXTENSIONS - May 2008
 			$plugins = Nexista_Config::getSection('plugins');
             foreach($plugins as $plugin => $value) {
                 $thisPlugin = Nexista_Config::getSection($plugin,false,'/plugins/');
@@ -256,12 +260,29 @@ class Nexista_Foundry
                     $code[] = '$init->loadPrepend("'.$thisPlugin['source'].'");';
                 }
             }
+            // THIS IS THE EXTENSIONS SECTION - CORRECT
+			$extensions = Nexista_Config::getSection('extensions');
+            foreach($extensions as $extension => $value) {
+                $thisExtension = Nexista_Config::getSection($extension,false,'/extensions/');
+                if($thisExtension['placement'] == "prepend") {
+                    $code[] = '$init->loadPrepend("'.$thisExtension['source'].'");';
+                }
+            }
             $code[] = '$init->start();';
+            // TODO - THIS NEEDS TO BE CHANGED TO EXTENSIONS - May 2008
 			$plugins = Nexista_Config::getSection('plugins');
-            foreach($plugins as $plugin => $value) { 
+            foreach($plugins as $plugin => $value) {
                 $thisPlugin = Nexista_Config::getSection($plugin,false,'/plugins/');
                 if($thisPlugin['placement'] == "predisplay") {
                     $code[] = '$init->loadPrepend("'.$thisPlugin['source'].'");';
+                }
+            }
+            // THIS IS THE EXTENSIONS SECTION - CORRECT
+			$extensions = Nexista_Config::getSection('extensions');
+            foreach($extensions as $extension => $value) {
+                $thisExtension = Nexista_Config::getSection($extension,false,'/extensions/');
+                if($thisExtension['placement'] == "predisplay") {
+                    $code[] = '$init->loadPrepend("'.$thisExtension['source'].'");';
                 }
             }
 			$code[] = '$init->display();';
@@ -278,7 +299,6 @@ class Nexista_Foundry
             return file_put_contents($mydir, implode(NX_BUILDER_LINEBREAK,$code));
 		}
 
-    
     }
 
     /**
@@ -313,7 +333,6 @@ class Nexista_Foundry
                     $new = $this->sitemapDocument->importNode($import_gate,1);
                     $this->sitemapDocument->documentElement->appendChild($new);
                 }
-                // TODO - merge prepends?
             }
         }
     }
@@ -346,7 +365,7 @@ class Nexista_Foundry
                 //echo $file;
                 //load class
                 require_once($builderPath.$file);
-    
+
                 //store class
                 $tag = str_replace('.builder.php', '', $file);
                 $class = 'Nexista_'.ucfirst($tag).'Builder';
@@ -358,7 +377,6 @@ class Nexista_Foundry
         //go through each gate
         $x = new DOMXPath($this->sitemapDocument);
 
-        // "gate" should be changed to "match" to be compatible with cocoon / popoon
         $gates = $x->query('//map:gate');
         $count = 0;
 
@@ -386,23 +404,22 @@ class Nexista_Foundry
     {
         if(!$gate->hasAttribute('name'))
         {
-            //TODO better check and error handling here
             Nexista_Error::init('No name for gate', NX_ERROR_FATAL);
         }
 
-        //cache time?
+        //cache time
         $cache = -1;
         if($gate->hasAttribute('cache'))
         {
             $cache = $gate->getAttribute('cache');
         }
-        //client_cache?
+        //client_cache
         $client_cache = -1;
         if($gate->hasAttribute('client_cache'))
         {
             $client_cache = $gate->getAttribute('client_cache');
         }
-        //role time?
+        //role required
         $role = -1;
         if($gate->hasAttribute('role'))
         {
@@ -491,17 +508,17 @@ class Nexista_Foundry
                 // Server cache's need to include auth if there is a role specified.
                 if($info['cache'] !== -1 && $info['role'] !== -1){
                     $this_gate .= ",'cache'=>".$info['cache'].",'role'=>'".$info['role']."'";
-        
+
                 } elseif($info['cache'] !== -1 && $info['role'] === -1){
                     $this_gate .= ",'cache'=>".$info['cache'];
-    
+
                 } elseif($info['role'] !== -1 && $info['cache'] === -1 ){
                     $this_gate .= ",'role'=>'".$info['role']."'";
-                } 
+                }
                 // Client cache's do not need check for auth.
                 if($info['client_cache'] !== -1){
                     $this_gate .= ",'client_cache'=>'".$info['client_cache']."'";
-                } 
+                }
                 $code[] = $this_gate;
                 }
             }
@@ -510,7 +527,6 @@ class Nexista_Foundry
         else
             $code[] = '$gateMissing = null;';
 
-        //slap footer
         $code[] = '?>';
 
         $data = implode(NX_BUILDER_LINEBREAK,$code);
@@ -559,7 +575,6 @@ class Nexista_Foundry
         //add prepend and main code
         $content .= $prependCode.$code;
 
-        //slap footer in
         $content .= $this->addGateFooter($gate);
 
         return $content;
@@ -582,7 +597,7 @@ class Nexista_Foundry
         {
             if(get_class($action) != 'DOMElement')
                 continue;
- 
+
             $module = str_replace('map:', '', $action->nodeName);
 
             if(in_array($module, array_keys($this->builderTags)))
@@ -646,9 +661,9 @@ class Nexista_Foundry
 
         //write gate file
         $compile_path = Nexista_Config::get('./path/compile');
-        // To do: test for folder, if not, try to create, if not, throw error.
         if(!is_dir($compile_path)) {
-            mkdir($compile_path,0777,TRUE);
+            // TODO - Error handling
+            mkdir($compile_path,0775,TRUE);
         }
         $gatefile = fopen($compile_path. 'gate-'.$gatenum.".php","w+");
 
@@ -746,6 +761,6 @@ class Nexista_Foundry
 
         return self::$instance;
     }
-    
+
 } //end class
 ?>
