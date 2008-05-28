@@ -335,7 +335,8 @@ class Nexista_mdb2SqlDatasource
                     $q->appendChild($flow->flowDocument->createElement($key,$myval));
                 }
 				$row++;
-                $xml_string .=  $flow->flowDocument->saveXml($q);
+                $flow->flowDocument->saveXml($q);
+                //$xml_string .=  $flow->flowDocument->saveXml($q);
             }
             return true;
         }

@@ -133,7 +133,7 @@ class Nexista_Flow
      *
      */
 
-    public function init() 
+    public function init()
     {
         //get config data
         $params = Nexista_Config::getSection('flow');
@@ -141,9 +141,13 @@ class Nexista_Flow
         //create a new DOM document and init with root
         $this->flowDocument = new DOMDocument("1.0");
         //$this->flowDocument->preserveWhiteSpace=false;
-        $this->flowDocument->strictErrorChecking=false;
-        $this->flowDocument->formatOutput=false;
-        $this->root = $this->flowDocument->createElement("__ROOT__");
+        $this->flowDocument->strictErrorChecking = false;
+        $this->flowDocument->formatOutput = false;
+        $my_doc_root = $params['my_doc_root'];
+        if(empty($my_doc_root)) {
+            $my_doc_root = "__ROOT__";
+        }
+        $this->root = $this->flowDocument->createElement($my_doc_root);
         $this->root = $this->flowDocument->appendChild($this->root);
 
         for($i = 0; $i < strlen($params['request']); $i ++)
@@ -224,12 +228,12 @@ class Nexista_Flow
     {
         $flow = Nexista_Flow::singleton();
         $x = new DOMXPath($flow->flowDocument);
-       
+
         if(is_null($parent))
             return @$x->query($exp);
         else
             return @$x->query($exp, $parent);
-        
+
     }
     
     /**
@@ -339,28 +343,6 @@ class Nexista_Flow
             return null;
     }
 
-    /**
-     * Writes string to stream
-     *
-     * @param   string      data to write to XmlStream
-     */
-
-    public function writeXmlStream($data)
-    {
-        $this->xmlStream = $data;
-    }
-
-
-    /**
-     * Returns stream data
-     *
-     * @return  string      $Flow->xmlStream data
-     */
-
-    public function getXmlStream()
-    {       
-        return $this->xmlStream;
-    }
 
 
     /**
@@ -368,8 +350,8 @@ class Nexista_Flow
      *
      * @return  object      class Nexista_singleton instance
      */
-     
-    static public function singleton() 
+
+    static public function singleton()
     {
         if (!isset(self::$instance)) {
             $c = __CLASS__;
@@ -446,7 +428,7 @@ class Nexista_Flow
                 if(is_numeric(key($value)))
                 {
                     foreach($value as $n=>$v)
-                    { 
+                    {
                         $flow->add($node, $v,  $root);
                     }
                 }
@@ -475,9 +457,9 @@ class Nexista_Flow
     }
 
     /**
-     * Registers a function to be called on init 
-     * 
-     * This function will be called when Flow inits and imports 
+     * Registers a function to be called on init
+     *
+     * This function will be called when Flow inits and imports
      * things such as the $_GET, $_POST datasets. This permits the developer
      * to perform actions before assignement to flow such as stripping tags, etc...
      * This method will be given an array and needs to return an array.
