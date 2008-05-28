@@ -12,7 +12,7 @@
  * @subpackage  Builders
  * @author      Joshua Savage
  */
- 
+
 /**
  * This class handles the tag by the same name in the sitemap building process
  *

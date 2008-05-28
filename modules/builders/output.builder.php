@@ -34,7 +34,7 @@ class Nexista_OutputBuilder extends Nexista_Builder
     {
         $code[] = null;
         if($this->action->getAttribute('src') === 'eval')
-        {   
+        {
             $code[] = '$flow = Nexista_Flow::singleton();';
             $code[] = '$flow->writeXmlStream($flow->outputXml());';
             $code[] = 'eval($output);';
