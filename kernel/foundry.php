@@ -144,7 +144,6 @@ class Nexista_Foundry
         $config->setMode($mode);
         $config->load();
         $config->writeConfig($config,$config_filename);
-
         //init some paths we may need for build
         $path = Nexista_Config::getSection('path');
         if(!defined('NX_PATH_APPS')) {
@@ -231,10 +230,7 @@ class Nexista_Foundry
 
             // These are application plugins
 			$code[] = 'define("NX_PATH_PLUGINS", "'.$path['plugins'].'");';
-
-            if(!defined('NX_PATH_APPS')) { 
 			$code[] = 'define("NX_PATH_APPS", "'.$path['applications'].'");';
-            }
 			$code[] = 'require_once(NX_PATH_CORE."init.php");';
 			$code[] = 'Nexista_Config::setMode("'.$key.'");';
 			$code[] = 'define("NX_ID", "'.Nexista_Config::get('./build/query').'");';
