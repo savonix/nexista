@@ -227,9 +227,9 @@ class Nexista_Config
     static public function writeConfig(&$config,$config_filename)
     {
         $canonical_filename = Nexista_Config::get('./path/compile').$config_filename;
-        $config_compile_error = 
-        "Can't open $canonical_filename. 
-        Check permissions ( chmod 0777 $canonical_filename ? ) of parent directories, 
+        $config_compile_error =
+        "Can't open $canonical_filename.
+        Check permissions ( chmod 0777 $canonical_filename ? ) of parent directories,
         or simply refresh to try and rebuild it.";
 
         if(is_dir(dirname($canonical_filename))) {
@@ -242,24 +242,24 @@ class Nexista_Config
                     if(!is_dir($compile_path) && is_writable(dirname(dirname($compile_path)))) {
                         mkdir($compile_path,0777,TRUE);
                     } else {
-                        Nexista_Error::Init( $config_compile_error,NX_ERROR_FATAL);  
+                        Nexista_Error::Init( $config_compile_error,NX_ERROR_FATAL);
                     }
                 }
                 fclose ($tmp);
-            } else { 
+            } else {
                 $compile_path = Nexista_Config::get('./path/compile');
                 if(!is_dir($compile_path) && is_writable(dirname(dirname($compile_path)))) {
                     mkdir($compile_path,0777,TRUE);
                 } else {
-                    Nexista_Error::Init( $config_compile_error,NX_ERROR_FATAL); 
+                    Nexista_Error::Init( $config_compile_error,NX_ERROR_FATAL);
                 }
             }
-        } else { 
+        } else {
             $compile_path = Nexista_Config::get('./path/compile');
             if(!is_dir($compile_path) && is_writable(dirname(dirname($compile_path)))) {
                 mkdir($compile_path,0777,TRUE);
             } else {
-                Nexista_Error::Init( $config_compile_error."3",NX_ERROR_FATAL); 
+                Nexista_Error::Init( $config_compile_error."3",NX_ERROR_FATAL);
             }
         }
 }
@@ -357,7 +357,8 @@ class Nexista_Config
         }
         else
         {
-            Nexista_Error::init('The "'.$name.'" section with id '.$id.' does not exist in the configuration', NX_ERROR_NOTICE);
+            Nexista_Error::init('The "'.$name.'" section with id '.$id.' does
+                not exist in the configuration', NX_ERROR_NOTICE);
             return false;
         }
         return $result;
