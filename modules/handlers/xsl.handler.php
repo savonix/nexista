@@ -36,16 +36,11 @@ class Nexista_XslHandler
 
         // The following can be used with the NYT xslt cache.
 
-        $use_xslt_cache = "no";
-        $xslt_cache_dir = PROJECT_ROOT."/cache/".SERVER_NAME."/".APP_NAME."/xsl/";
-        if(!is_dir($xslt_cache_dir)) { 
-            @mkdir($xslt_cache_dir);
+        $use_xslt_cache = "yes";
+        if(!is_file($xslfile)) {
+            Nexista_Error::init('XSL Handler - Error processing XSL file - it is unavailable: '.$xslfile, NX_ERROR_FATAL);
         }
-        $tmpfile = $xslt_cache_dir.basename($xslfile);
-        if(!is_file($tmpfile) || $use_xslt_cache!="yes") {
-            if(!is_file($xslfile)) { 
-                Nexista_Error::init('XSL Handler - Error processing XSL file - it is unavailable: '.$xslfile, NX_ERROR_FATAL);
-            } 
+        if($use_xslt_cache!="yes" || !class_exists('xsltCache')) {
             $xsl = new DomDocument('1.0','UTF-8');
             $xsl->substituteEntities = false;
             $xsl->resolveExternals = false;
@@ -54,13 +49,9 @@ class Nexista_XslHandler
             $xsl->documentURI = $xslfile;
             $xslHandler = new XsltProcessor;
             $xslHandler->importStyleSheet($xsl);
-            if($use_xslt_cache=="yes") { 
-                $xsl->save($tmpfile);
-            }
-        }
-        if($use_xslt_cache=="yes") {
+        } else {
             $xslHandler = new xsltCache;
-            $xslHandler->importStyleSheet($tmpfile);
+            $xslHandler->importStyleSheet($xslfile);
         }
 
         $output = $xslHandler->transformToXML($flow->flowDocument);
