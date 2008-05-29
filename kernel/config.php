@@ -231,35 +231,18 @@ class Nexista_Config
         "Can't open $canonical_filename.
         Check permissions ( chmod 0777 $canonical_filename ? ) of parent directories,
         or simply refresh to try and rebuild it.";
-        if(is_dir(dirname($canonical_filename))) {
-            if($tmp = fopen($canonical_filename, "w+")) {
-                if(flock($tmp, LOCK_EX))
-                {
-                    fwrite($tmp, self::$xml->asXML());
-                    flock($tmp, LOCK_UN);
-                } else {
-                    if(!is_dir($compile_path) && is_writable(dirname(dirname($compile_path)))) {
-                        mkdir($compile_path,0777);
-                    } else {
-                        Nexista_Error::Init( $config_compile_error,NX_ERROR_FATAL);
-                    }
-                }
-                fclose ($tmp);
+        $tdir = dirname($canonical_filename);
+        if( ! is_dir ( $tdir ) ) mkdir( $tdir ,0777,TRUE );
+        
+        if($tmp = fopen($canonical_filename, "w+")) {
+            if(flock($tmp, LOCK_EX))
+            {
+                fwrite($tmp, self::$xml->asXML());
+                flock($tmp, LOCK_UN);
             } else {
-                $compile_path = Nexista_Config::get('./path/compile');
-                if(!is_dir($compile_path) && is_writable(dirname(dirname($compile_path)))) {
-                    mkdir($compile_path,0777);
-                } else {
-                    Nexista_Error::Init( $config_compile_error,NX_ERROR_FATAL);
-                }
+                Nexista_Error::Init( $config_compile_error,NX_ERROR_FATAL);
             }
-        } else {
-            $compile_path = Nexista_Config::get('./path/compile');
-            if(!is_dir($compile_path) && is_writable(dirname(dirname($compile_path)))) {
-                mkdir($compile_path,0777);
-            } else {
-                Nexista_Error::Init( $config_compile_error."3",NX_ERROR_FATAL);
-            }
+            fclose ($tmp);
         }
 }
 

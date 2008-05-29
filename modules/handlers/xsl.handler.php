@@ -36,7 +36,7 @@ class Nexista_XslHandler
 
         // The following can be used with the NYT xslt cache.
 
-        $use_xslt_cache = "yes";
+        $use_xslt_cache = "y";
         if(!is_file($xslfile)) {
             Nexista_Error::init('XSL Handler - Error processing XSL file - it is unavailable: '.$xslfile, NX_ERROR_FATAL);
         }
