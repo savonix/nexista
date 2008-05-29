@@ -37,36 +37,14 @@ $foundry = Nexista_Foundry::singleton();
 
 $config = PROJECT_ROOT.'/config/config.xml';
 $app_config = PROJECT_ROOT.'/apps/'.APP_NAME.'/config/config.xml';
+$merged_config = PROJECT_ROOT."/cache/".SERVER_NAME."/".APP_NAME."/config.xml";
 
-if(!file_exists($config)) { 
-    echo "Uh-oh, we already ran into a problem. I can't find a config file! I'm looking for $config";
-    exit;
-}
+if(file_exists($merged_config)) {
 
-$config_file = file_get_contents($config);
-
-if(!isset($mode)) {
-    $mode="dev";
-}
-if(isset($_ENV['NEXISTA_MODE'])) { 
-    $mode=$_ENV['NEXISTA_MODE'];
-}
-if(!file_exists($app_config)) {
-    $foundry->configure($config,NULL, $mode);
 } else {
-    $foundry->configure($config,$app_config, $mode);
+
 }
 
-
-if(!file_exists($app_config)) {
-    $foundry->configure($config,NULL, $mode);
-} else {
-    $foundry->configure($config,$app_config, $mode);
-}
-
-$foundry->debug = 1;
-
-$my_sitemap = $foundry->getSitemapPath('./build/sitemap');
 
 function nexista_check_freshness() {
     global $config;
@@ -74,17 +52,16 @@ function nexista_check_freshness() {
     global $foundry;
     global $server_init;
     global $my_sitemap;
-    $last_build_time = filemtime($server_init); 
-    if(file_exists($app_config)) { 
-        if($last_build_time < filemtime($app_config)) { 
+    $last_build_time = filemtime($server_init);
+    if(file_exists($app_config)) {
+        if($last_build_time < filemtime($app_config)) {
             $app_config_stat = false;
         } else {
             $app_config_stat = true;
         }
     }
 
-
-    if($last_build_time < filemtime($my_sitemap) || $last_build_time < filemtime($config) || $app_config_stat === false) { 
+    if($last_build_time < filemtime($my_sitemap) || $last_build_time < filemtime($config) || $app_config_stat === false) {
         nexista_build_it_now();
         if($foundry->debug==1) {
             echo "Nexista is rebuilding the loader because either the sitemap or one of the configs has been edited.<br/>";
@@ -109,10 +86,32 @@ echo "Looks like you are installing to $server_init. Cool! <br/><br/>";
 ?>
 
 <?php
+    if(!file_exists($config)) {
+        echo "Uh-oh, we already ran into a problem. I can't find a config file! I'm looking for $config";
+        exit;
+    }
 
-        $foundry->buildLoader();
-        $foundry->buildGates();
-        $foundry->buildSitemap();
+    $config = PROJECT_ROOT.'/config/config.xml';
+    $app_config = PROJECT_ROOT.'/apps/'.APP_NAME.'/config/config.xml';
+    $config_file = file_get_contents($config);
+
+    if(!isset($mode)) {
+        $mode="dev";
+    }
+    if(isset($_ENV['NEXISTA_MODE'])) { 
+        $mode=$_ENV['NEXISTA_MODE'];
+    }
+    if(!file_exists($app_config)) {
+        $foundry->configure($config,NULL, $mode);
+    } else {
+        $foundry->configure($config,$app_config, $mode);
+    }
+    $foundry->debug = 1;
+    $my_sitemap = $foundry->getSitemapPath('./build/sitemap');
+
+    $foundry->buildLoader();
+    $foundry->buildGates();
+    $foundry->buildSitemap();
 ?>
 
 <script type="text/javascript">
