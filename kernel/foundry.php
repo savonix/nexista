@@ -145,7 +145,6 @@ class Nexista_Foundry
         $config->load();
         $config->writeConfig($config,$config_filename);
 
-
         //init some paths we may need for build
         $path = Nexista_Config::getSection('path');
         if(!defined('NX_PATH_APPS')) {
