@@ -54,8 +54,8 @@ class Nexista_XslAction extends Nexista_Action
         $flow = Nexista_Flow::Singleton();
         $file_path = Nexista_Path::parseInlineFlow($this->params['xsl']);
         $xslfile = NX_PATH_APPS.$file_path;
-        if(!is_file($xslfile)) { 
-            Nexista_Error::init('XSL Handler - Error processing XSL file - it is unavailable: '.$xslfile, NX_ERROR_FATAL);
+        if(!is_file($xslfile)) {
+            Nexista_Error::init('XSL Action - file unavailable: '.$xslfile, NX_ERROR_FATAL);
         }
 
         $xsl = new DomDocument('1.0','UTF-8');
@@ -70,7 +70,7 @@ class Nexista_XslAction extends Nexista_Action
         $my_output = $xslHandler->transformToXML($flow->flowDocument);
         if($my_output === false)
         {
-            Nexista_Error::init('XSL Handler - Error processing XSL file: '.$xslfile, NX_ERROR_FATAL);
+            Nexista_Error::init('XSL Action - Error processing XSL file: '.$xslfile, NX_ERROR_FATAL);
             return false;
         }
 
