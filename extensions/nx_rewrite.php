@@ -23,7 +23,7 @@
 
 Nexista_Flow::registerImportHandler('nx_rewrite');
 
-function nx_rewrite($superglobals)
+function nexista_rewrite($superglobals)
 {
 
     // RuleID
