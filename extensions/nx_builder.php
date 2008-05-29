@@ -51,10 +51,11 @@ function nexista_check_freshness() {
     global $app_config;
     global $foundry;
     global $server_init;
-    global $my_sitemap;
+    $my_sitemap = PROJECT_ROOT.'/apps/'.APP_NAME.'/config/sitemap.xml';
     $last_build_time = filemtime($server_init);
     if(file_exists($app_config)) {
-        if($last_build_time < filemtime($app_config)) {
+        if($last_build_time < filemtime($app_config)
+            || $last_build_time < filemtime($my_sitemap)) {
             $app_config_stat = false;
         } else {
             $app_config_stat = true;
