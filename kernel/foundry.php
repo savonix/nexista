@@ -307,6 +307,7 @@ class Nexista_Foundry
         if(isset($_ENV['NEXISTA_MODE'])) { 
             Nexista_Config::setMode($_ENV['NEXISTA_MODE']);
         }
+
         //read sitemap as xml
         $this->sitemapDocument = new DOMDocument("1.0");
         $my_sitemap = Nexista_Config::get('./build/sitemap');
@@ -328,6 +329,25 @@ class Nexista_Foundry
                 foreach($imported_gates as $import_gate) { 
                     $new = $this->sitemapDocument->importNode($import_gate,1);
                     $this->sitemapDocument->documentElement->appendChild($new);
+                }
+            }
+        }
+
+        //process extensions sitemaps
+        $extensions = Nexista_Config::getSection('extensions');
+        foreach($extensions as $extension => $value) {
+            $thisExtension = Nexista_Config::getSection($extension,false,'/extensions/');
+            if( $thisExtension['sitemap'] ) {
+                if( is_file( $thisExtension['sitemap'] ) ) {
+                    $doc = new DOMDocument();
+                    $doc->load( $thisExtension['sitemap'] );
+                    // Only import gates
+                    $y = new DOMXPath($doc);
+                    $imported_gates = $y->query('//map:gate');
+                    foreach($imported_gates as $import_gate) { 
+                        $new = $this->sitemapDocument->importNode($import_gate,1);
+                        $this->sitemapDocument->documentElement->appendChild($new);
+                    }
                 }
             }
         }
