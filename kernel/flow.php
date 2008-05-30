@@ -235,7 +235,7 @@ class Nexista_Flow
             return @$x->query($exp, $parent);
 
     }
-    
+
     /**
      * Returns the value of a flow variable
      *
