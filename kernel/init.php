@@ -95,12 +95,12 @@ class Nexista_Init
      * Constructor - inits config
      *
      */
- 
+
     public function __construct()
-    { 
+    {
 
 		$this->startTimer();
-        $this->loadConfig(); 
+        $this->loadConfig();
         $this->setDebug();
     }
 
@@ -194,13 +194,12 @@ class Nexista_Init
     function initSession()
     {
 
-
 		$params = $this->config->getSection('session');
 		// Also check for cache_limiter - if its public, no session!
-		if($params['active']==0) { 
+		if($params['active']==0) {
 			return false;
-		} else { 
-		   
+		} else {
+
 			if(!empty($params['cookieLifetime']))
 				session_set_cookie_params($params['cookieLifetime']);
 			if(!empty($params['cacheLimiter']))
@@ -239,24 +238,28 @@ class Nexista_Init
         $this->info['uri'] = false;
         if(isset($gatesExact[$_ID_]))
         {
+
             $this->info['uri'] = $gatesExact[$_ID_]['uri'];
+
             if(isset($gatesExact[$_ID_]['cache']))
                 $this->info['cacheExpiryTime'] = $gatesExact[$_ID_]['cache'];
 
             if(isset($gatesExact[$_ID_]['client_cache']))
                 $this->info['clientCacheExpiryTime'] = $gatesExact[$_ID_]['client_cache'];
 
+            if(isset($gatesExact[$_ID_]['content_type']))
+                $this->info['content_type'] = $gatesExact[$_ID_]['content_type'];
+
 			if(isset($gatesExact[$_ID_]['role'])) {
                 $this->info['requireRole'] = $gatesExact[$_ID_]['role'];
-				// I wonder why this wasn't here in the first place?
 				$auth = Nexista_Auth::singleton();
 				$auth->requireRole($this->info['requireRole']);
 			}
             $gateFound=true;
         }
-        elseif(isset($gatesRegex)) 
+        elseif(isset($gatesRegex))
         {
-            foreach($gatesRegex as $regex=>$info) 
+            foreach($gatesRegex as $regex=>$info)
             {
 
 				//$pattern = "/^(.".$pattern.")$/";
