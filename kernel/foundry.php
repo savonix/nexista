@@ -414,6 +414,12 @@ class Nexista_Foundry
         {
             $client_cache = $gate->getAttribute('client_cache');
         }
+        //client_cache
+        $content_type = -1;
+        if($gate->hasAttribute('content_type'))
+        {
+            $content_type = $gate->getAttribute('content_type');
+        }
         //role required
         $role = -1;
         if($gate->hasAttribute('role'))
@@ -436,7 +442,14 @@ class Nexista_Foundry
         if($this->debug) {
             echo "<a href='?nid=".$name."'>".$name."</a>...<br>\n";
 		}
-        @$this->sitemap[$match][$name] = array('uri'=>$filename, 'role'=>$role, 'cache'=>$cache, 'client_cache'=>$client_cache);
+        @$this->sitemap[$match][$name] =
+            array(
+                'uri' => $filename,
+                'role' => $role,
+                'cache' => $cache,
+                'client_cache' => $client_cache,
+                'content_type' => $content_type
+            );
 
     }
 
@@ -485,6 +498,10 @@ class Nexista_Foundry
                 if($info['client_cache'] !== -1){
                     $this_gate .= ",'client_cache'=>'".$info['client_cache']."'";
                 }
+                // Content type
+                if($info['content_type'] !== -1){
+                    $this_gate .= ",'content_type'=>'".$info['content_type']."'";
+                }
                 $this_gate .= "),";
                 $code[] = $this_gate;
             }
@@ -513,6 +530,10 @@ class Nexista_Foundry
                 // Client cache's do not need check for auth.
                 if($info['client_cache'] !== -1){
                     $this_gate .= ",'client_cache'=>'".$info['client_cache']."'";
+                }
+                // Content type
+                if($info['content_type'] !== -1){
+                    $this_gate .= ",'content_type'=>'".$info['content_type']."'";
                 }
                 $code[] = $this_gate;
                 }
