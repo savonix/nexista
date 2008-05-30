@@ -1,6 +1,6 @@
 <?php
 /*
- * -File        rewrite.action.php
+ * -File        nexista_rewrite.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   Nexista
  * -Author      Albert Lash
@@ -21,7 +21,7 @@
  * @subpackage  Actions
  */
 
-Nexista_Flow::registerImportHandler('nx_rewrite');
+Nexista_Flow::registerImportHandler('nexista_rewrite');
 
 function nexista_rewrite($superglobals)
 {
