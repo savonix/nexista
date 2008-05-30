@@ -55,15 +55,13 @@ function nexista_devBuffer($init)
             nexista_view_flow();
         }
 	}
-    if($development_console===true) {
-        $output = str_replace("</body>","",$output);
-        $output = str_replace("</html>","",$output);
-        echo $output;
-        nexista_final_notices($cache_type,"dev");
-        echo "</body></html>";
-    } else {
-        echo $output;
-    }
+
+    $output = str_replace("</body>","",$output);
+    $output = str_replace("</html>","",$output);
+    echo $output;
+    nexista_final_notices($cache_type,"dev");
+    echo "</body></html>";
+
 
 	ob_end_flush();
 	header("Content-Length: ".ob_get_length());
