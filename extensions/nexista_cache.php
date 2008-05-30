@@ -19,9 +19,20 @@ Configuration:
     <active>1</active>
     <timer_comment>1</timer_comment>
     <excludes></excludes>
+    <purge_gates>list-of-gates,logout</purge_gates>
+    <purge_gets>from_date</purge_gets>
 </nexista_cache>
 */
-if(count($_POST) > 0 || $_GET['from_date'] || $_GET['nid']=="logout") {
+
+/* PURGE CACHE */
+if(
+    // POST will always purge the cache
+    count($_POST) > 0 ||
+    // need a foreach loop here
+    $_GET['from_date'] ||
+    // and here
+    $_GET['nid']=="logout"
+    ) {
     $gate_cache_file = NX_PATH_CACHE.'cache_*';
 
     foreach (glob("$gate_cache_file") as $filename) {
