@@ -247,17 +247,18 @@ class Nexista_mdb2SqlDatasource
                 Nexista_Error::init($result->getMessage()." ".$this->queryName,NX_ERROR_FATAL);
             }
             $result = $prep->execute($data);
+            $prep->free();
 
         } else {
             $prep = $this->db->prepare($this->query['sql'], $types);
-            $result = $prep->execute(); 
+            $result = $prep->execute();
+            $prep->free();
         }
 
         if (PEAR::isError($result)) {
             $my_debug_result = ''; //serialize($result);
             Nexista_Error::init($result->getMessage()." in query named ".$this->queryName.$my_debug_result,NX_ERROR_FATAL);
         }
-        $prep->free();
 
         if($this->queryType=="select") { 
             return $result->fetchAll(MDB2_FETCHMODE_ASSOC);
@@ -319,23 +320,20 @@ class Nexista_mdb2SqlDatasource
 
             $cols = array_flip(array_keys($result_set[0]));
 			$row = 0;
-			$number_of_rows=count($result_set);
+			$number_of_rows = count($result_set);
+            $flow = Nexista_Flow::singleton();
             while($row < $number_of_rows)
             {
-                $flow = Nexista_Flow::singleton();
                 $q = $flow->root->appendChild($flow->flowDocument->createElement($this->queryName));
 
                 foreach($cols as $key => $val)
                 {
                     $myval = $result_set[$row][$key];
-                    if($debug===true) {
-                    echo "Stuff: $key, $myval<br/>";
-                    }
                     $myval = htmlspecialchars($myval);
                     $q->appendChild($flow->flowDocument->createElement($key,$myval));
                 }
 				$row++;
-                $flow->flowDocument->saveXml($q);
+                //$flow->flowDocument->saveXml($q);
                 //$xml_string .=  $flow->flowDocument->saveXml($q);
             }
             return true;
