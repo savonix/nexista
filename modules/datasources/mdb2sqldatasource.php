@@ -172,11 +172,8 @@ class Nexista_mdb2SqlDatasource
 
         //see if it is a select
         if(!isset($this->queryType)) {
-            if (eregi("^[[:space:]]*select", $this->query['sql']))
+            if (eregi("^[[:space:]]*[select|show]", $this->query['sql']))
             {
-                $this->queryType = 'select';
-            }
-            elseif (eregi("^[[:space:]]*show", $this->query['sql'])) {
                 $this->queryType = 'select';
             }
         }
@@ -294,7 +291,7 @@ class Nexista_mdb2SqlDatasource
             }
             if ($this->queryType == 'select')
             {
-                  $this->storeResult();
+                $this->storeResult();
             }
         }
 
@@ -333,8 +330,6 @@ class Nexista_mdb2SqlDatasource
                     $q->appendChild($flow->flowDocument->createElement($key,$myval));
                 }
 				$row++;
-                //$flow->flowDocument->saveXml($q);
-                //$xml_string .=  $flow->flowDocument->saveXml($q);
             }
             return true;
         }
