@@ -10,6 +10,16 @@ License: LGPL
 Status: beta
 */
 
+/* 
+Configuration:
+
+<nexista_cache>
+    <placement>prepend</placement>
+    <source>&includepath;extensions/nexista_cache.php</source>
+    <active>1</active>
+    <excludes></excludes>
+</nexista_cache>
+*/
 if(count($_POST) > 0 || $_GET['from_date'] || $_GET['nid']=="logout") {
     $gate_cache_file = NX_PATH_CACHE.'cache_*';
 
@@ -25,9 +35,10 @@ function nexista_cache($init)
     // Should probably have a check against apache and config.xml to
     // see if this will work.
     $init->process();
-
+    $content_type = $init->getInfo('content_type');
+    header("Content-Type: $content_type");
     if(!is_dir(NX_PATH_CACHE)) {
-        mkdir(NX_PATH_CACHE);
+        @mkdir(NX_PATH_CACHE,0777,TRUE);
     }
     require_once 'Cache/Lite.php';
 
@@ -40,11 +51,15 @@ function nexista_cache($init)
     $client_cache = $init->getInfo('clientCacheExpiryTime');
 
 	$clear_gate_file='cache_'.$my_user_id."_".$my_request_uri;
-    $active = Nexista_Config::get("./plugins/nx_cache/active");
+    $active = Nexista_Config::get("./extensions/nexista_cache/active");
     if($expiryTime == '0') {
         $active = 0;
     }
-	$options = array('cacheDir'=> NX_PATH_CACHE,'caching'  => $active,'lifeTime' => $expiryTime);
+	$options = array(
+            'cacheDir'=> NX_PATH_CACHE,
+            'caching'  => $active,
+            'lifeTime' => $expiryTime
+            );
 	$cache = new Cache_Lite($options);
 
 	// Server cache
@@ -80,7 +95,7 @@ function nexista_cache($init)
             }
             header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
             $output = $init->run();
-            $cache->save($output, $my_request_uri, $my_user_id);
+            $cache->save( $output, $my_request_uri, $my_user_id );
         } else {
             // When using client cache and a session cache limiter, you've got to use this cache-control
             // header.
