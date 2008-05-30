@@ -33,100 +33,13 @@ instruction below. This is recommended if you are a beginner.
 
   <xsl:template match="/">
 
-<script type="text/javascript" language="javascript">
-<![CDATA[
-<!--
-function getCookie(name)
-{
-    var dc = document.cookie;
-    var prefix = name + "=";
-    var begin = dc.indexOf("; " + prefix);
-    if (begin == -1)
-    {
-        begin = dc.indexOf(prefix);
-        if (begin != 0) return null;
-    }
-    else
-    {
-        begin += 2;
-    }
-    var end = document.cookie.indexOf(";", begin);
-    if (end == -1)
-    {
-        end = dc.length;
-    }
-    return unescape(dc.substring(begin + prefix.length, end));
-}
-function setCookie(name, value, expires, path, domain, secure)
-{
-    document.cookie= name + "=" + escape(value) +
-        ((expires) ? "; expires=" + expires.toGMTString() : "") +
-        ((path) ? "; path=" + path : "") +
-        ((domain) ? "; domain=" + domain : "") +
-        ((secure) ? "; secure" : "");
-}
-
-var visible = 'block';
-function divExpand(layer, set) {
-    if(!set)
-          visible =  getCookie("visibility-"+layer);
-
-    if(visible == 'block') {
-        document.getElementById(layer).style.display = "block";
-        if(set)
-            setCookie("visibility-"+layer,  visible);
-        visible = 'none';
-    }
-    else {
-        document.getElementById(layer).style.display = "none";
-        if(set)
-            setCookie("visibility-"+layer,  visible);
-        visible = 'block';
-    }
-}
--->
-]]>
-</script><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:output method="html"
     doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"/>
   <xsl:template match="/">
-<style>
-#exception {
-    font-family:sans-serif;
-    font-weight:normal;
-    font-size:x-small;
-    line-height:20px;
-    padding:0px;
-    margin:5px;
-    z-index:20;
-    position:relative;
-    text-align: left;
-}
-#exception h1 {
-    font-size:14px;
-    font-weight:bold;
-    color:white;
-    background-color:#AE3E40;
-    text-indent:5px;
-    margin-bottom:2px;
-}
-#exception .content {
-    background-color:#FFF0F0;
-    border:1px solid #AE3E40;
-    padding:5px;
-    margin:0px;
-}
-#exception .trace {
-    padding-left:20px;
-}
-#exception .name {
-    font-weight:bold;
-    padding-left: 3px;
-    padding-right: 3px;
-    margin-right: 5px;
-}
-</style>
+
+<link rel="stylesheet" type="text/css" href="{$link_prefix}--css--dev"/>
 
 
 <div id="exception">

@@ -1,0 +1,53 @@
+#flowDump {
+    font-family:sans-serif;
+    font-weight:normal;
+    font-size:x-small;
+    line-height:20px;
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+    z-index: 20;
+    text-align: left;
+}
+#flowDump h1 {
+    font-size:14px;
+    font-weight:bold;
+    color:white;
+    background-color:#766789;
+    text-indent:5px;
+    margin-bottom:0px;
+    margin-top: 0;
+}
+#flowDump .content {
+    background-color:#E6EEFF;
+    border:1px solid #766789;
+    padding:5px;
+    margin:0px;
+}
+#flowDump .spacer {
+    margin-left:20px;
+}
+#flowDump .indent {
+    border-bottom:1px solid blue;
+    padding-left:15px;
+    border-left:1px solid blue;
+    position:relative;
+    top:-5px;
+}
+#flowDump .connector {
+    color:red;
+    border-left:1px solid blue;
+}
+#flowDump .name {
+    color: navy;
+   border:1px solid #CCB2ED;
+    background-color: #FFF;
+    padding-left: 3px;
+    padding-right: 3px;
+
+}
+#flowDump .value {
+    color: #040;
+    font-weight: bold;
+    padding:1px 3px 1px 3px;
+}

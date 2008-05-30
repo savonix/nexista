@@ -17,6 +17,7 @@ instruction below. This is recommended if you are a beginner.
 
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:param name="ignore" select="i18n"/>
+<xsl:param name="link_prefix"/>
   <xsl:output method="html"
     encoding="UTF-8"
     indent="yes"
@@ -33,117 +34,10 @@ instruction below. This is recommended if you are a beginner.
 
   <xsl:template match="/">
 
-<script type="text/javascript" language="javascript">
-<![CDATA[
-<!--
-function getCookie(name)
-{
-    var dc = document.cookie;
-    var prefix = name + "=";
-    var begin = dc.indexOf("; " + prefix);
-    if (begin == -1)
-    {
-        begin = dc.indexOf(prefix);
-        if (begin != 0) return null;
-    }
-    else
-    {
-        begin += 2;
-    }
-    var end = document.cookie.indexOf(";", begin);
-    if (end == -1)
-    {
-        end = dc.length;
-    }
-    return unescape(dc.substring(begin + prefix.length, end));
-}
-function setCookie(name, value, expires, path, domain, secure)
-{
-    document.cookie= name + "=" + escape(value) +
-        ((expires) ? "; expires=" + expires.toGMTString() : "") +
-        ((path) ? "; path=" + path : "") +
-        ((domain) ? "; domain=" + domain : "") +
-        ((secure) ? "; secure" : "");
-}
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
-var visible = 'block';
-function divExpand(layer, set) {
-    if(!set)
-          visible =  getCookie("visibility-"+layer);
-
-    if(visible == 'block') {
-        document.getElementById(layer).style.display = "block";
-        if(set)
-            setCookie("visibility-"+layer,  visible);
-        visible = 'none';
-    }
-    else {
-        document.getElementById(layer).style.display = "none";
-        if(set)
-            setCookie("visibility-"+layer,  visible);
-        visible = 'block';
-    }
-}
--->
-]]>
-</script><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-<style>
-#flowDump {
-    font-family:sans-serif;
-    font-weight:normal;
-    font-size:x-small;
-    line-height:20px;
-    padding: 0px;
-    margin: 0px;
-    border: 0px;
-    z-index: 20;
-    text-align: left;
-}
-#flowDump h1 {
-    font-size:14px;
-    font-weight:bold;
-    color:white;
-    background-color:#766789;
-    text-indent:5px;
-    margin-bottom:0px;
-    margin-top: 0;
-}
-#flowDump .content {
-    background-color:#E6EEFF;
-    border:1px solid #766789;
-    padding:5px;
-    margin:0px;
-}
-#flowDump .spacer {
-    margin-left:20px;
-}
-#flowDump .indent {
-    border-bottom:1px solid blue;
-    padding-left:15px;
-    border-left:1px solid blue;
-    position:relative;
-    top:-5px;
-}
-#flowDump .connector {
-    color:red;
-    border-left:1px solid blue;
-}
-#flowDump .name {
-    color: navy;
-   border:1px solid #CCB2ED;
-    background-color: #FFF;
-    padding-left: 3px;
-    padding-right: 3px;
-
-}
-#flowDump .value {
-    color: #040;
-    font-weight: bold;
-    padding:1px 3px 1px 3px;
-}
-
-</style>
-
+<link rel="stylesheet" type="text/css" href="{$link_prefix}--css--dev"/>
+<script type="text/javascript" src="{$link_prefix}--js--dev"></script>
 
 <div id="flowDump">
 <h1 onclick="divExpand('flowDumpContent', true)" title="Click to expand/contract">Flow Dump</h1>

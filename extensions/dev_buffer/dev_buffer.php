@@ -9,6 +9,18 @@ Author: Albert Lash
 License: LGPL
 */
 
+/* TODO:
+    1. Add a hook to nexista_cache for debugging purposes.
+    2. Add custom error handling for more detailed error reports when developing.
+    3. Allow config.xml to add sitemaps to the main one for setting up the gates
+        needed to support dev_buffer.
+*/
+
+
+/*
+This section is always processed. It checks for exlusions to the
+development output buffer.
+*/
 $development_console = true;
 $excludes = Nexista_Config::get('./extensions/dev_buffer/excludes');
 if(strpos($excludes,',')) {
@@ -35,6 +47,8 @@ if(!empty($x_array)) {
 if($development_console===true) {
     Nexista_Init::registerOutputHandler('nexista_devBuffer');
 }
+
+
 function nexista_devBuffer($init)
 {
 	$init->process();
@@ -59,7 +73,7 @@ function nexista_devBuffer($init)
     $output = str_replace("</body>","",$output);
     $output = str_replace("</html>","",$output);
     echo $output;
-    nexista_final_notices($cache_type,"dev");
+    echo nexista_final_notices($cache_type,"dev");
     echo "</body></html>";
 
 
@@ -75,8 +89,10 @@ $my_script = <<<EOL
 	<script type="text/javascript">
 	var began_loading = (new Date()).getTime();
 	function done_loading(server_total) {
-		var total = (((new Date()).getTime() - began_loading)) / 1000;
 		document.getElementById('server_time').firstChild.nodeValue = server_total + ' s';
+	}
+	function done_loading_js() {
+		var total = (((new Date()).getTime() - began_loading)) / 1000;
 		document.getElementById('client_time').firstChild.nodeValue = total + ' s';
 	}
 	</script>
@@ -114,6 +130,7 @@ function nexista_view_flow() {
     } else {
         $debugXsl->setParameter('','ignore','i18n');
 	}
+    $debugXsl->setParameter('','link_prefix',dirname($_SERVER['SCRIPT_NAME']).'/index.php?nid=');
     $flow = Nexista_Flow::singleton();
 	echo $debugXsl->transformToXML($flow->flowDocument);
 }
@@ -123,6 +140,15 @@ function nexista_view_flow() {
 and to stop the client timer.. */
 function nexista_final_notices($cacher=null, $mode) {
 	$server_time = Nexista_Debug::profile();
-	$final_notices =  "<script type='text/javascript'>done_loading($server_time);</script>";
-    echo $final_notices;
+$final_notices =  "
+<script type='text/javascript'>
+    done_loading($server_time);
+    if (typeof jQuery != 'undefined') {
+        $(document).ready(function()
+        {
+            done_loading_js();
+        });
+    }
+</script>\n";
+    return $final_notices;
 }
