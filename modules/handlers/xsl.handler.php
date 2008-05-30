@@ -49,6 +49,9 @@ class Nexista_XslHandler
             $xsl->documentURI = $xslfile;
             $xslHandler = new XsltProcessor;
             $xslHandler->importStyleSheet($xsl);
+            if(3==3) {
+                $xslHandler->setProfiling("/tmp/xslt-profiling.txt");
+            }
         } else {
             $xslHandler = new xsltCache;
             $xslHandler->importStyleSheet($xslfile);
