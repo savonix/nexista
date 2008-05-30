@@ -36,10 +36,12 @@ function nexista_cache($init)
     // see if this will work.
     $init->process();
     $content_type = $init->getInfo('content_type');
-    header("Content-Type: $content_type");
-    if(!is_dir(NX_PATH_CACHE)) {
+    if( ! empty( $content_type ) )
+        header("Content-Type: $content_type");
+
+    if(!is_dir(NX_PATH_CACHE))
         @mkdir(NX_PATH_CACHE,0777,TRUE);
-    }
+        
     require_once 'Cache/Lite.php';
 
 	ob_start();
