@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: Compressing, Caching Output
+Plugin Name: Caching Output
 Plugin URI:
-Description: Uses ob_gzhandler and Cache_Lite to compress and cache output.
+Description: Uses Cache_Lite to compress and cache output.
 Version: 0.1
 Copyright: Savonix Corporation
 Author: Albert Lash
