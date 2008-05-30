@@ -9,9 +9,32 @@ Author: Albert Lash
 License: LGPL
 */
 
+$development_console = true;
+$excludes = Nexista_Config::get('./extensions/dev_buffer/excludes');
+if(strpos($excludes,',')) {
+    $x_array = explode(',',$excludes);
+} else {
+    if(!empty($excludes)) {
+        $x_array[] = $excludes;
+    }
+}
 
-Nexista_Init::registerOutputHandler('nexista_devBuffer');
+if(!empty($x_array)) {
+    if(in_array($_GET['nid'],$x_array)) {
+        unset($development_console);
+    } else {
+        // this could be slow, might want to have a setting to turn on / off
+        foreach($x_array as $value) {
+            if(eregi($value,$_GET['nid'])) {
+                unset($development_console);
+            }
+        }
+    }
+}
 
+if($development_console===true) {
+    Nexista_Init::registerOutputHandler('nexista_devBuffer');
+}
 function nexista_devBuffer($init)
 {
 	$init->process();
@@ -21,31 +44,8 @@ function nexista_devBuffer($init)
 
     header( 'Cache-Control: no-cache, must-revalidate, post-check=3600, pre-check=3600');
     header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
-    $development_console = true;
-    $excludes = Nexista_Config::get('./extensions/dev_buffer/excludes');
-    if(strpos($excludes,',')) {
-        $x_array = explode(',',$excludes);
-    } else {
-        if(!empty($excludes)) {
-            $x_array[] = $excludes;
-        }
-    }
 
-    if(!empty($x_array)) {
-        if(in_array($_GET['nid'],$x_array)) {
-            unset($development_console);
-        } else {
-            // this could be slow, might want to have a setting to turn on / off
-            foreach($x_array as $value) {
-                if(eregi($value,$_GET['nid'])) {
-                    unset($development_console);
-                }
-            }
-        }
-    }
-    if($development_console===true) {
-        nexista_development_console();
-    }
+    nexista_development_console();
 
 	$output = $init->run();
 
