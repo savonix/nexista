@@ -104,10 +104,11 @@ Nexista_Flow::add("in_head",$in_head,false);
 $my_uri = $_SERVER['REQUEST_URI'];
 if(strpos($my_uri,"view_flow=true")) {
     $my_button = '[ <a href="'.str_replace("&view_flow=true","",$my_uri).'">Hide Flow</a> ]';
+    $my_button = '[ <a href="'.str_replace("view_flow=true&","",$my_uri).'">Hide Flow</a> ]';
 } else {
     $my_button = '[ <a href="'.$my_uri.'&view_flow=true">View Flow</a> ]';
 }
-$my_cache_purge = '[ <a href="#" onclick="$.post(\''.$my_uri.'\',function(data){
+$my_cache_purge = '[ <a href="#" onclick="$.post(\''.$my_uri.'\', { purge: \'true\' }, function(data){
   document.getElementById(\'purger\').firstChild.nodeValue = \'Done\';
 });">Purge Cache</a> ]';
 $admin_panel = <<<EOL
@@ -138,6 +139,9 @@ function nexista_view_flow() {
     $debugXsl->setParameter('','link_prefix',dirname($_SERVER['SCRIPT_NAME']).'/index.php?nid=');
     $flow = Nexista_Flow::singleton();
 	echo $debugXsl->transformToXML($flow->flowDocument);
+    // TODO - use ajax to load this output, the exit here will prevent the
+    // page from rendering further, only output the flow dump
+    //exit;
 }
 
 
@@ -156,4 +160,5 @@ $final_notices =  "
     }
 </script>\n";
     return $final_notices;
+    
 }

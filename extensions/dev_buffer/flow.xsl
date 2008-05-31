@@ -33,13 +33,13 @@ instruction below. This is recommended if you are a beginner.
   <xsl:variable name="apos">'</xsl:variable>
 
   <xsl:template match="/">
-
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-
+<html>
+<head>
 <link rel="stylesheet" type="text/css" href="{$link_prefix}--css--dev"/>
 <script type="text/javascript" src="{$link_prefix}--js--dev"></script>
-
-<div id="flowDump">
+</head>
+<body>
+<div id="flowDump" style="display: none;">
 <h1 onclick="divExpand('flowDumpContent', true)" title="Click to expand/contract">Flow Dump</h1>
     <div id="flowDumpContent" class="content">
     <xsl:apply-templates select="." mode="render"/>
@@ -48,8 +48,12 @@ instruction below. This is recommended if you are a beginner.
 <script type="text/javascript" language="javascript">
 <![CDATA[
 window.onload = divExpand('flowDumpContent');
+document.body.style.visibility = "visible";
+document.getElementById('flowDump').style.display = "block";
 ]]>
 </script>
+</body>
+</html>
 </xsl:template>
 
 

@@ -1,3 +1,8 @@
+body {
+    margin: 0;
+    padding: 0;
+    visibility: hidden;
+}
 #flowDump {
     font-family:sans-serif;
     font-weight:normal;
@@ -6,7 +11,7 @@
     padding: 0px;
     margin: 0px;
     border: 0px;
-    z-index: 20;
+    z-index: 200;
     text-align: left;
 }
 #flowDump h1 {
