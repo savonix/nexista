@@ -22,13 +22,17 @@ or write to the Free Software Foundation,Inc., 51 Franklin Street,
 Fifth Floor, Boston, MA 02110-1301  USA
 -->
 <map:sitemap xmlns:map="http://www.nexista.org/sitemap">
-    <map:gate name="--css--dev" cache="300" client_cache="100" content_type="text/css">
+    <map:gate name="--css--dev" cache="300" content_type="text/css">
         <map:action type="header" params="Content-type,text/css"/>
         <map:raw src="../../../nexista/extensions/dev_buffer/flow.css"/>
         <map:raw src="../../../nexista/extensions/dev_buffer/exception.css"/>
     </map:gate>
-    <map:gate name="--js--dev" cache="300" client_cache="100" content_type="text/javascript">
+    <map:gate name="--js--dev" cache="300" content_type="text/javascript">
         <map:action type="header" params="Content-type,text/javascript"/>
         <map:raw src="../../../nexista/extensions/dev_buffer/flow.js"/>
+    </map:gate>
+    <map:gate name="--flowxsl--dev" cache="300" content_type="text/xsl">
+        <map:action type="header" params="Content-type,text/xsl"/>
+        <map:raw src="../../../nexista/extensions/dev_buffer/flow.xsl"/>
     </map:gate>
 </map:sitemap>

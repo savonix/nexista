@@ -35,8 +35,8 @@ instruction below. This is recommended if you are a beginner.
   <xsl:template match="/">
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="{$link_prefix}--css--dev"/>
-<script type="text/javascript" src="{$link_prefix}--js--dev"></script>
+<link rel="stylesheet" type="text/css" href="index.php?nid=--css--dev"/>
+<script type="text/javascript" src="index.php?nid=--js--dev"></script>
 </head>
 <body>
 <div id="flowDump" style="display: none;">

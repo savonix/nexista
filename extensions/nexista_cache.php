@@ -99,7 +99,6 @@ function nexista_cache($init)
             header("HTTP/1.1 304 Not Modified");
             exit;
         } elseif($client_cache > 0 && $client_cache_work < time('UTC')) {
-            //unlink($mynid);
             if($client_cache > 0) {
             $client_cache_work =
                 gmdate('D, d M Y H:i:s', mktime(date('H'), date('i'), date('s')+$client_cache,
@@ -110,7 +109,7 @@ function nexista_cache($init)
             $cache_type = "file cache";
         } else {
             // When using client cache and a session cache limiter, you've got to use this cache-control
-            // header.
+            // header. WHY?
             header("Cache-Control: no-cache, must-revalidate, post-check=3600, pre-check=3600");
             header("Last-Modified: " . $last_modified . " GMT");
         }

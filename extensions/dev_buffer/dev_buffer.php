@@ -102,8 +102,11 @@ $in_head[] = array('string' => $my_script, 'priority' => 10);
 Nexista_Flow::add("in_head",$in_head,false);
 
 $my_uri = $_SERVER['REQUEST_URI'];
-if(strpos($my_uri,"view_flow=true")) {
+// For AJAX-based flow dump, these calls would need to be made into javascript functions
+// I'd like to use sarissa to do the transforms, though an iframe might work too.
+if(strpos($my_uri,"&view_flow=true")) {
     $my_button = '[ <a href="'.str_replace("&view_flow=true","",$my_uri).'">Hide Flow</a> ]';
+} elseif(strpos($my_uri,"view_flow=true&")) {
     $my_button = '[ <a href="'.str_replace("view_flow=true&","",$my_uri).'">Hide Flow</a> ]';
 } else {
     $my_button = '[ <a href="'.$my_uri.'&view_flow=true">View Flow</a> ]';
@@ -139,9 +142,15 @@ function nexista_view_flow() {
     $debugXsl->setParameter('','link_prefix',dirname($_SERVER['SCRIPT_NAME']).'/index.php?nid=');
     $flow = Nexista_Flow::singleton();
 	echo $debugXsl->transformToXML($flow->flowDocument);
-    // TODO - use ajax to load this output, the exit here will prevent the
-    // page from rendering further, only output the flow dump
-    //exit;
+    
+    /*
+    // Used along, this will provide a flow dump by itself.
+    header("Content-type: text/xml");
+    $xout = $flow->flowDocument->saveXML();
+    $xout = str_replace('<?xml version="1.0"?>','<?xml version="1.0"?><?xml-stylesheet type="text/xsl" href="index.php?nid=--flowxsl--dev"?>',$xout);
+    echo $xout;
+    exit;
+    */
 }
 
 
