@@ -107,13 +107,18 @@ if(strpos($my_uri,"view_flow=true")) {
 } else {
     $my_button = '[ <a href="'.$my_uri.'&view_flow=true">View Flow</a> ]';
 }
+$my_cache_purge = '[ <a href="#" onclick="$.post(\''.$my_uri.'\',function(data){
+  document.getElementById(\'purger\').firstChild.nodeValue = \'Done\';
+});">Purge Cache</a> ]';
 $admin_panel = <<<EOL
-<div style="padding-bottom: 10px;">
+<div style="padding-bottom: 10px;  font-family: mono;">
 <table width="100%" cellpadding="2" style="background-color: #e3b6ec;">
 <tr><td style="background-color: #e3b6ec;">
 		$my_button
         Server time:<span id="server_time"> 0.000 s </span>
         Client time:<span id="client_time"> 0.000 s </span>
+    </td>
+    <td style="background-color: #e3b6ec;">$my_cache_purge &#160;<span id="purger" style="color: red;">&#160;&#160;&#160;&#160;</span></td>
 	</tr></table></div>
 EOL;
 $pre_body_content[] = array('string' => $admin_panel, 'priority' => 10);
