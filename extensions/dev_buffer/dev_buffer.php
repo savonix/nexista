@@ -124,12 +124,12 @@ if(strpos($my_uri,"&client_view_flow=true")) {
 }
 
 // This button will rebuild the application, as well as purge the cache
-$rebuild_button = '[ <span style="cursor: pointer;" onclick="$.post(\''.$mylink.'\', { --dev--rebuild: \'true\' }, function(data){
+$rebuild_button = '[ <span style="cursor: pointer;" onclick="$.post(\''.$mylink.'\', { \'x--dev--rebuild\': \'true\' }, function(data){
   document.getElementById(\'builder\').firstChild.nodeValue = \'Done\';
 });">Rebuild</span> ]';
 
 // This button will only purge the cache
-$my_cache_purge = '[ <span style="cursor: pointer;" onclick="$.post(\''.$my_uri.'\', { --dev--purge: \'true\' }, function(data){
+$my_cache_purge = '[ <span style="cursor: pointer;" onclick="$.post(\''.$mylink.'\', { \'x--dev--purge\': \'true\' }, function(data){
   document.getElementById(\'purger\').firstChild.nodeValue = \'Done\';
 });">Purge Cache</span> ]';
 
@@ -163,7 +163,7 @@ $flow_viewport = <<<EOL
 <script type="text/javascript">
 $(document).ready( function(){
     $('#flow_viewport').getTransform(
-        '$mylink?nid=--dev--flow.xsl',
+        '$mylink?nid=x--dev--flow.xsl',
         '$mylink?nid=$mynid&view_flow=true&flowxml=true'
         );
         $('#flow_viewport').css({"visibility":"visible"});

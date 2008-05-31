@@ -22,17 +22,17 @@ or write to the Free Software Foundation,Inc., 51 Franklin Street,
 Fifth Floor, Boston, MA 02110-1301  USA
 -->
 <map:sitemap xmlns:map="http://www.nexista.org/sitemap">
-    <map:gate name="--dev--flow.css" cache="300" content_type="text/css">
+    <map:gate name="x--dev--flow.css" cache="300" content_type="text/css">
         <map:action type="header" params="Content-type,text/css"/>
-        <map:raw src="../../../nexista/extensions/dev_buffer/flow.css"/>
-        <map:raw src="../../../nexista/extensions/dev_buffer/exception.css"/>
+        <map:raw src="../../../nexista/extensions/dev_buffer/s/css/flow.css"/>
+        <map:raw src="../../../nexista/extensions/dev_buffer/s/css/exception.css"/>
     </map:gate>
-    <map:gate name="--dev--flow.js" cache="300" content_type="text/javascript">
+    <map:gate name="x--dev--flow.js" cache="300" content_type="text/javascript">
         <map:action type="header" params="Content-type,text/javascript"/>
-        <map:raw src="../../../nexista/extensions/dev_buffer/flow.js"/>
+        <map:raw src="../../../nexista/extensions/dev_buffer/s/js/flow.js"/>
     </map:gate>
-    <map:gate name="--dev--flow.xsl" cache="300" content_type="text/xml">
+    <map:gate name="x--dev--flow.xsl" cache="300" content_type="text/xml">
         <map:action type="header" params="Content-type,text/xml"/>
-        <map:raw src="../../../nexista/extensions/dev_buffer/flow.xsl"/>
+        <map:raw src="../../../nexista/extensions/dev_buffer/s/xsl/flow.xsl"/>
     </map:gate>
 </map:sitemap>
