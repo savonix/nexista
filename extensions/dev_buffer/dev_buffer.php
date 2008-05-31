@@ -104,6 +104,7 @@ Nexista_Flow::add("in_head",$in_head,false);
 $my_uri = $_SERVER['REQUEST_URI'];
 // For AJAX-based flow dump, these calls would need to be made into javascript functions
 // I'd like to use sarissa to do the transforms, though an iframe might work too.
+/*
 if(strpos($my_uri,"&view_flow=true")) {
     $my_button = '[ <a href="'.str_replace("&view_flow=true","",$my_uri).'">Hide Flow</a> ]';
 } elseif(strpos($my_uri,"view_flow=true&")) {
@@ -111,20 +112,59 @@ if(strpos($my_uri,"&view_flow=true")) {
 } else {
     $my_button = '[ <a href="'.$my_uri.'&view_flow=true">View Flow</a> ]';
 }
-$my_cache_purge = '[ <a href="#" onclick="$.post(\''.$my_uri.'\', { purge: \'true\' }, function(data){
+*/
+if(strpos($my_uri,"&client_view_flow=true")) {
+    $my_button = '[ <a href="'.str_replace("&client_view_flow=true","",$my_uri).'">Hide Flow</a> ]';
+} elseif(strpos($my_uri,"client_view_flow=true&")) {
+    $my_button = '[ <a href="'.str_replace("client_view_flow=true&","",$my_uri).'">Hide Flow</a> ]';
+} else {
+    $my_button = '[ <a href="'.$my_uri.'&client_view_flow=true">View Flow</a> ]';
+}
+
+
+$my_cache_purge = '[ <span style="cursor: pointer;" onclick="$.post(\''.$my_uri.'\', { purge: \'true\' }, function(data){
   document.getElementById(\'purger\').firstChild.nodeValue = \'Done\';
-});">Purge Cache</a> ]';
+});">Purge Cache</span> ]';
+
+
+if($_GET['client_view_flow']=="true") { 
+$flow_button = <<<EOL
+[ <span id="flowDump-button" onclick="divExpand('flowDumpContent', true)" title="Click to expand/contract">
+Toggle Flow</span> ]
+EOL;
+}
 $admin_panel = <<<EOL
-<div style="padding-bottom: 10px;  font-family: mono;">
 <table width="100%" cellpadding="2" style="background-color: #e3b6ec;">
-<tr><td style="background-color: #e3b6ec;">
+<tr><td style="background-color: #e3b6ec;" width="50%">
 		$my_button
         Server time:<span id="server_time"> 0.000 s </span>
         Client time:<span id="client_time"> 0.000 s </span>
     </td>
-    <td style="background-color: #e3b6ec;">$my_cache_purge &#160;<span id="purger" style="color: red;">&#160;&#160;&#160;&#160;</span></td>
-	</tr></table></div>
+    <td width="25%" style="background-color: #e3b6ec;">$my_cache_purge &#160;<span id="purger" style="color: red;">&#160;&#160;&#160;&#160;</span></td>
+	<td width="25%">
+    $flow_button
+    </td></tr></table>
+
 EOL;
+if($_GET['client_view_flow']=="true") {
+$mylink = $_SERVER['SCRIPT_NAME'];
+$mynid = $_GET['nid'];
+$flow_viewport = <<<EOL
+<script type="text/javascript">
+$(document).ready( function(){
+    $('#flow_viewport').getTransform(
+        '$mylink?nid=--flowxsl--dev',
+        '$mylink?nid=$mynid&view_flow=true&flowxml=true'
+        );
+        $('#flow_viewport').css({"visibility":"visible"});
+});
+</script>
+<div id="flow_viewport" style="display: block; visibility: hidden;">
+<br/>
+</div>
+EOL;
+$pre_body_content[] = array('string' => $flow_viewport, 'priority' => 11);
+}
 $pre_body_content[] = array('string' => $admin_panel, 'priority' => 10);
 Nexista_Flow::add("pre_body_content",$pre_body_content,false);
 }

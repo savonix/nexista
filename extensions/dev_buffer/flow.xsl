@@ -33,14 +33,10 @@ instruction below. This is recommended if you are a beginner.
   <xsl:variable name="apos">'</xsl:variable>
 
   <xsl:template match="/">
-<html>
-<head>
+
 <link rel="stylesheet" type="text/css" href="index.php?nid=--css--dev"/>
 <script type="text/javascript" src="index.php?nid=--js--dev"></script>
-</head>
-<body>
 <div id="flowDump" style="display: none;">
-<h1 onclick="divExpand('flowDumpContent', true)" title="Click to expand/contract">Flow Dump</h1>
     <div id="flowDumpContent" class="content">
     <xsl:apply-templates select="." mode="render"/>
     </div>
@@ -52,8 +48,6 @@ document.body.style.visibility = "visible";
 document.getElementById('flowDump').style.display = "block";
 ]]>
 </script>
-</body>
-</html>
 </xsl:template>
 
 
