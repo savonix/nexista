@@ -47,23 +47,42 @@ function nexista_rewrite($superglobals)
     // * E - Env
     // * F - Forbidden
 
-    // Example:
-    $query_string = array(
-        'nid' => 'configurations',
-        'package' => 'postfix',
-        'page' => 'package'
-        );
-
+    // Configuration: 
+    /*
+<net_rewrite>
+    <rewrite_base></rewrite_base>
+    <rewrite_map></rewrite_map>
+    <rewrite>
+        <description>This rule will match if the domain name being accessed
+        is 4.2.2.1, and if so, it will return a 403 (FORBIDDEN RESPONSE).
+        </description>
+        <cond test="REQUEST_URI" pattern="index"/>
+        <cond test="REQUEST_METHOD" pattern="POST"/>
+        <rule pattern="{//path_prefix}(.*)" substitution="{//path_prefix}" flags="L"/>
+    </rewrite>
+    <rewrite>
+        <description>This rule will match if the domain name being accessed
+        is 4.2.2.1, and if so, it will return a 403 (FORBIDDEN RESPONSE).
+        </description>
+        <cond test="HTTP_HOST" pattern="4.2.2.1"/>
+        <rule pattern="." substitution="-" flags="F"/>
+    </rewrite>
+</net_rewrite>
+    */
+    // For each rewrite:
+        // Process Conditions
+        // Process Rules
+        // If matched, continue.
 
     if($superglobals==$_GET) {
+        // gate_key is usually "nid", but since its configurable, not hard coded
         $gate_key = Nexista_Config::get('./build/query');
-        if($superglobals[$gate_key]=="index") { 
-            return $query_string;
-        } else { 
-            return $superglobals;
+        if($superglobals[$gate_key]=="index" || $superglobals[$gate_key]=="") {
+            // need to replace 
+            $superglobals[$gate_key] = "configurations";
+            $superglobals['barf'] = "true";
         }
-    } else {
-        return $superglobals;
     }
+    return $superglobals;
 }
 ?>
