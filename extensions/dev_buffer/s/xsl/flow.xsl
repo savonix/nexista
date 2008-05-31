@@ -16,7 +16,7 @@ instruction below. This is recommended if you are a beginner.
 -->
 
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-<xsl:param name="ignore" select="i18n"/>
+<xsl:param name="ignore">i18n</xsl:param>
 <xsl:param name="link_prefix"/>
   <xsl:output method="html"
     encoding="UTF-8"
@@ -32,7 +32,7 @@ instruction below. This is recommended if you are a beginner.
   <xsl:param name="show_ns"/>
   <xsl:variable name="apos">'</xsl:variable>
 
-  <xsl:template match="/">
+<xsl:template match="/">
 
 <link rel="stylesheet" type="text/css" href="index.php?nid=x--dev--flow.css"/>
 <script type="text/javascript" src="index.php?nid=x--dev--flow.js"></script>

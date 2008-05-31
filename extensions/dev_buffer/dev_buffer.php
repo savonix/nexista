@@ -14,6 +14,7 @@ License: LGPL
     2. Add custom error handling for more detailed error reports when developing.
     3. Allow config.xml to add sitemaps to the main one for setting up the gates
         needed to support dev_buffer.
+    4. Don't use $_GET['nid'], use the flow equivalent
 */
 
 
@@ -102,18 +103,6 @@ $in_head[] = array('string' => $my_script, 'priority' => 10);
 Nexista_Flow::add("in_head",$in_head,false);
 
 $my_uri = $_SERVER['REQUEST_URI'];
-// For AJAX-based flow dump, these calls would need to be made into javascript functions
-// I'd like to use sarissa to do the transforms, though an iframe might work too.
-/*
-// NON-AJAX
-if(strpos($my_uri,"&view_flow=true")) {
-    $my_button = '[ <a href="'.str_replace("&view_flow=true","",$my_uri).'">Hide Flow</a> ]';
-} elseif(strpos($my_uri,"view_flow=true&")) {
-    $my_button = '[ <a href="'.str_replace("view_flow=true&","",$my_uri).'">Hide Flow</a> ]';
-} else {
-    $my_button = '[ <a href="'.$my_uri.'&view_flow=true">View Flow</a> ]';
-}
-*/
 // AJAX
 if(strpos($my_uri,"&client_view_flow=true")) {
     $my_button = '[ <a href="'.str_replace("&client_view_flow=true","",$my_uri).'">Hide Flow</a> ]';
@@ -164,9 +153,18 @@ $flow_viewport = <<<EOL
 $(document).ready( function(){
     $('#flow_viewport').getTransform(
         '$mylink?nid=x--dev--flow.xsl',
-        '$mylink?nid=$mynid&view_flow=true&flowxml=true'
-        );
-        $('#flow_viewport').css({"visibility":"visible"});
+        '$mylink?nid=$mynid&view_flow=true&flowxml=true',
+        {
+            params: {
+                'ignore': 'i18n'
+            },
+            xpath: '/',
+            eval: false,
+            callback: function(){
+                $('#flow_viewport').css({"visibility":"visible"});
+            }
+        }
+    );
 });
 </script>
 <div id="flow_viewport" style="display: block; visibility: hidden;">
@@ -174,37 +172,57 @@ $(document).ready( function(){
 </div>
 EOL;
 
-
-
 $pre_body_content[] = array('string' => $flow_viewport, 'priority' => 11);
+
+$head_includes = <<<EOL
+<script type="text/javascript" src="$mylink?nid=x--dev--sarissa.js"></script>
+<script type="text/javascript" src="$mylink?nid=x--dev--sarissa_ieemu_xpath.js"></script>
+<script type="text/javascript" src="$mylink?nid=x--dev--jquery.n.friends.js"></script>
+
+EOL;
+$head_content[] = array('string' => $head_includes, 'priority' => 10);
+Nexista_Flow::add("in_head",$head_content,false);
+
 }
 $pre_body_content[] = array('string' => $admin_panel, 'priority' => 10);
+
 Nexista_Flow::add("pre_body_content",$pre_body_content,false);
+
 }
 
+
+
 function nexista_view_flow() {
-	$debugXsl = new XsltProcessor();
-	$xsl = new DomDocument;
-	$xsl->load(NX_PATH_BASE."extensions/dev_buffer/flow.xsl");
-	$debugXsl->importStyleSheet($xsl);
-    if(isset($_GET['ignore'])) {
-        $debugXsl->setParameter('','ignore',$_GET['ignore']);
-    } else {
-        $debugXsl->setParameter('','ignore','i18n');
-	}
-    $debugXsl->setParameter('','link_prefix',dirname($_SERVER['SCRIPT_NAME']).'/index.php?nid=');
     $flow = Nexista_Flow::singleton();
 	if($_GET['flowxml']=="true") {
+        // XML output
         header("Content-type: text/xml");
+        if($_GET['full']==true){
+        } else {
+            // TODO - Make this configurable
+            $exclude = $flow->flowDocument->documentElement;
+            $removeme = $exclude->getElementsByTagName('i18n')->item(0);
+            $removeme->parentNode->removeChild($removeme);
+        }
+        //$flow->flowDocument->normalizeDocument();
         $xout = $flow->flowDocument->saveXML();
         echo $xout;
         exit;
     } else {
+        // Transform into HTML form
+        $debugXsl = new XsltProcessor();
+        $xsl = new DomDocument;
+        $xsl->load(NX_PATH_BASE."extensions/dev_buffer/flow.xsl");
+        $debugXsl->importStyleSheet($xsl);
+        if(isset($_GET['ignore'])) {
+            $debugXsl->setParameter('','ignore',$_GET['ignore']);
+        } else {
+            $debugXsl->setParameter('','ignore','i18n');
+        }
+        $debugXsl->setParameter('','link_prefix',dirname($_SERVER['SCRIPT_NAME']).'/index.php?nid=');
         echo $debugXsl->transformToXML($flow->flowDocument);
     }
-    /*
-    // Used along, this will provide a flow dump by itself.
-    */
+
 }
 
 
