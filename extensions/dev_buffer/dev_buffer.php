@@ -141,15 +141,16 @@ function nexista_view_flow() {
 	}
     $debugXsl->setParameter('','link_prefix',dirname($_SERVER['SCRIPT_NAME']).'/index.php?nid=');
     $flow = Nexista_Flow::singleton();
-	echo $debugXsl->transformToXML($flow->flowDocument);
-    
+	if($_GET['flowxml']=="true") {
+        header("Content-type: text/xml");
+        $xout = $flow->flowDocument->saveXML();
+        echo $xout;
+        exit;
+    } else {
+        echo $debugXsl->transformToXML($flow->flowDocument);
+    }
     /*
     // Used along, this will provide a flow dump by itself.
-    header("Content-type: text/xml");
-    $xout = $flow->flowDocument->saveXML();
-    $xout = str_replace('<?xml version="1.0"?>','<?xml version="1.0"?><?xml-stylesheet type="text/xsl" href="index.php?nid=--flowxsl--dev"?>',$xout);
-    echo $xout;
-    exit;
     */
 }
 

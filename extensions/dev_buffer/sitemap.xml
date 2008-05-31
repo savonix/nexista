@@ -31,8 +31,8 @@ Fifth Floor, Boston, MA 02110-1301  USA
         <map:action type="header" params="Content-type,text/javascript"/>
         <map:raw src="../../../nexista/extensions/dev_buffer/flow.js"/>
     </map:gate>
-    <map:gate name="--flowxsl--dev" cache="300" content_type="text/xsl">
-        <map:action type="header" params="Content-type,text/xsl"/>
+    <map:gate name="--flowxsl--dev" cache="300" content_type="text/xml">
+        <map:action type="header" params="Content-type,text/xml"/>
         <map:raw src="../../../nexista/extensions/dev_buffer/flow.xsl"/>
     </map:gate>
 </map:sitemap>
