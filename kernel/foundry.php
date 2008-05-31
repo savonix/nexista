@@ -248,11 +248,13 @@ class Nexista_Foundry
 
             // TODO - THIS NEEDS TO BE CHANGED TO EXTENSIONS - May 2008
 			$plugins = Nexista_Config::getSection('plugins');
-            foreach($plugins as $plugin => $value) {
-                $thisPlugin = Nexista_Config::getSection($plugin,false,'/plugins/');
-                if($thisPlugin['placement'] == "prepend") {
-                    echo "NOTICE: Foundry plugins are deprecated, use extensions instead <br/>";
-                    $code[] = '$init->loadPrepend("'.$thisPlugin['source'].'"); /*deprecated prepend plugin */';
+            if(is_array($plugins)) {
+                foreach($plugins as $plugin => $value) {
+                    $thisPlugin = Nexista_Config::getSection($plugin,false,'/plugins/');
+                    if($thisPlugin['placement'] == "prepend") {
+                        echo "NOTICE: Foundry plugins are deprecated, use extensions instead <br/>";
+                        $code[] = '$init->loadPrepend("'.$thisPlugin['source'].'"); /*deprecated prepend plugin */';
+                    }
                 }
             }
             // THIS IS THE EXTENSIONS SECTION - CORRECT
@@ -266,11 +268,13 @@ class Nexista_Foundry
             $code[] = '$init->start();';
             // TODO - THIS NEEDS TO BE CHANGED TO EXTENSIONS - May 2008
 			$plugins = Nexista_Config::getSection('plugins');
-            foreach($plugins as $plugin => $value) {
-                $thisPlugin = Nexista_Config::getSection($plugin,false,'/plugins/');
-                if($thisPlugin['placement'] == "predisplay") {
-                    echo "NOTICE: Foundry plugins are deprecated, use extensions instead";
-                    $code[] = '$init->loadPrepend("'.$thisPlugin['source'].'");  /* deprecated predisplay plugin */';
+            if(is_array($plugins)) {
+                foreach($plugins as $plugin => $value) {
+                    $thisPlugin = Nexista_Config::getSection($plugin,false,'/plugins/');
+                    if($thisPlugin['placement'] == "predisplay") {
+                        echo "NOTICE: Foundry plugins are deprecated, use extensions instead";
+                        $code[] = '$init->loadPrepend("'.$thisPlugin['source'].'");  /* deprecated predisplay plugin */';
+                    }
                 }
             }
             // THIS IS THE EXTENSIONS SECTION - CORRECT
@@ -304,7 +308,7 @@ class Nexista_Foundry
 
     private function loadSitemap()
     {
-        if(isset($_ENV['NEXISTA_MODE'])) { 
+        if(isset($_ENV['NEXISTA_MODE'])) {
             Nexista_Config::setMode($_ENV['NEXISTA_MODE']);
         }
 
@@ -312,6 +316,30 @@ class Nexista_Foundry
         $this->sitemapDocument = new DOMDocument("1.0");
         $my_sitemap = Nexista_Config::get('./build/sitemap');
         $this->sitemapDocument->load($my_sitemap);
+
+
+
+        //process extensions sitemaps
+        $extensions = Nexista_Config::getSection('extensions');
+        foreach($extensions as $extension => $value) {
+            $thisExtension = Nexista_Config::getSection($extension,false,'/extensions/');
+            if( $ext_sitemap = $thisExtension['sitemap'] ) {
+                if( is_file($ext_sitemap) ) {
+                    $zdoc = new DOMDocument();
+                    $zdoc->load($ext_sitemap);
+                    // Only import gates
+                    $z = new DOMXPath($zdoc);
+                    $zimported_gates = $z->query('//map:gate');
+                    echo "hi - $ext_sitemap <br/>";
+                    foreach($zimported_gates as $zimport_gate) {
+                        $anew = $this->sitemapDocument->importNode($zimport_gate,1);
+                        $this->sitemapDocument->documentElement->appendChild($anew);
+                    }
+                }
+            }
+        }
+        echo "hi - nothing";
+        echo $this->sitemapDocument->saveXML();
 
         //process includes
         $x = new DOMXPath($this->sitemapDocument);
@@ -329,25 +357,6 @@ class Nexista_Foundry
                 foreach($imported_gates as $import_gate) { 
                     $new = $this->sitemapDocument->importNode($import_gate,1);
                     $this->sitemapDocument->documentElement->appendChild($new);
-                }
-            }
-        }
-
-        //process extensions sitemaps
-        $extensions = Nexista_Config::getSection('extensions');
-        foreach($extensions as $extension => $value) {
-            $thisExtension = Nexista_Config::getSection($extension,false,'/extensions/');
-            if( $thisExtension['sitemap'] ) {
-                if( is_file( $thisExtension['sitemap'] ) ) {
-                    $doc = new DOMDocument();
-                    $doc->load( $thisExtension['sitemap'] );
-                    // Only import gates
-                    $y = new DOMXPath($doc);
-                    $imported_gates = $y->query('//map:gate');
-                    foreach($imported_gates as $import_gate) { 
-                        $new = $this->sitemapDocument->importNode($import_gate,1);
-                        $this->sitemapDocument->documentElement->appendChild($new);
-                    }
                 }
             }
         }
@@ -463,7 +472,7 @@ class Nexista_Foundry
         if($this->debug) {
             echo "<a href='?nid=".$name."'>".$name."</a>...<br>\n";
 		}
-        @$this->sitemap[$match][$name] =
+        $this->sitemap[$match][$name] =
             array(
                 'uri' => $filename,
                 'role' => $role,
