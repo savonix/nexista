@@ -84,7 +84,7 @@ function nexista_devBuffer($init)
 
 
 function nexista_development_console()  {
-
+$mylink = $_SERVER['SCRIPT_NAME'];
 $my_script = <<<EOL
 	<script type="text/javascript">
 	var began_loading = (new Date()).getTime();
@@ -105,6 +105,7 @@ $my_uri = $_SERVER['REQUEST_URI'];
 // For AJAX-based flow dump, these calls would need to be made into javascript functions
 // I'd like to use sarissa to do the transforms, though an iframe might work too.
 /*
+// NON-AJAX
 if(strpos($my_uri,"&view_flow=true")) {
     $my_button = '[ <a href="'.str_replace("&view_flow=true","",$my_uri).'">Hide Flow</a> ]';
 } elseif(strpos($my_uri,"view_flow=true&")) {
@@ -113,6 +114,7 @@ if(strpos($my_uri,"&view_flow=true")) {
     $my_button = '[ <a href="'.$my_uri.'&view_flow=true">View Flow</a> ]';
 }
 */
+// AJAX
 if(strpos($my_uri,"&client_view_flow=true")) {
     $my_button = '[ <a href="'.str_replace("&client_view_flow=true","",$my_uri).'">Hide Flow</a> ]';
 } elseif(strpos($my_uri,"client_view_flow=true&")) {
@@ -121,8 +123,13 @@ if(strpos($my_uri,"&client_view_flow=true")) {
     $my_button = '[ <a href="'.$my_uri.'&client_view_flow=true">View Flow</a> ]';
 }
 
+// This button will rebuild the application, as well as purge the cache
+$rebuild_button = '[ <span style="cursor: pointer;" onclick="$.post(\''.$mylink.'\', { --dev--rebuild: \'true\' }, function(data){
+  document.getElementById(\'builder\').firstChild.nodeValue = \'Done\';
+});">Rebuild</span> ]';
 
-$my_cache_purge = '[ <span style="cursor: pointer;" onclick="$.post(\''.$my_uri.'\', { purge: \'true\' }, function(data){
+// This button will only purge the cache
+$my_cache_purge = '[ <span style="cursor: pointer;" onclick="$.post(\''.$my_uri.'\', { --dev--purge: \'true\' }, function(data){
   document.getElementById(\'purger\').firstChild.nodeValue = \'Done\';
 });">Purge Cache</span> ]';
 
@@ -136,7 +143,7 @@ EOL;
 $admin_panel = <<<EOL
 <table width="100%" cellpadding="2" style="background-color: #e3b6ec;">
 <tr><td style="background-color: #e3b6ec;" width="50%">
-		$my_button
+		$my_button $rebuild_button <span id="builder" style="color: red;">&#160;&#160;&#160;&#160;</span>
         Server time:<span id="server_time"> 0.000 s </span>
         Client time:<span id="client_time"> 0.000 s </span>
     </td>
@@ -146,14 +153,17 @@ $admin_panel = <<<EOL
     </td></tr></table>
 
 EOL;
+
+
+
 if($_GET['client_view_flow']=="true") {
-$mylink = $_SERVER['SCRIPT_NAME'];
+
 $mynid = $_GET['nid'];
 $flow_viewport = <<<EOL
 <script type="text/javascript">
 $(document).ready( function(){
     $('#flow_viewport').getTransform(
-        '$mylink?nid=--flowxsl--dev',
+        '$mylink?nid=--dev--flow.xsl',
         '$mylink?nid=$mynid&view_flow=true&flowxml=true'
         );
         $('#flow_viewport').css({"visibility":"visible"});
@@ -163,6 +173,9 @@ $(document).ready( function(){
 <br/>
 </div>
 EOL;
+
+
+
 $pre_body_content[] = array('string' => $flow_viewport, 'priority' => 11);
 }
 $pre_body_content[] = array('string' => $admin_panel, 'priority' => 10);

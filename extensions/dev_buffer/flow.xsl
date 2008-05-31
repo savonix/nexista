@@ -34,8 +34,8 @@ instruction below. This is recommended if you are a beginner.
 
   <xsl:template match="/">
 
-<link rel="stylesheet" type="text/css" href="index.php?nid=--css--dev"/>
-<script type="text/javascript" src="index.php?nid=--js--dev"></script>
+<link rel="stylesheet" type="text/css" href="index.php?nid=--dev--flow.css"/>
+<script type="text/javascript" src="index.php?nid=--dev--flow.js"></script>
 <div id="flowDump" style="display: none;">
     <div id="flowDumpContent" class="content">
     <xsl:apply-templates select="." mode="render"/>
