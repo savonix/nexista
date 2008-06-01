@@ -1,22 +1,31 @@
 <?php
-/*
+/**
  * -File        validator.php
- * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   Nexista
  * -Author      Albert Lash
  * -Author      joshua savage
- */
-
-/**
- * @package     Nexista
- * @author      Albert Lash
- * @author      Joshua Savage
+ *
+ * PHP version 5
+ *
+ * @category  Nexista
+ * @package   Nexista
+ * @author    Albert Lash <albert.lash@gmail.com>
+ * @author    Joshua Savage <js@example.com>
+ * @copyright 0000 Nexista
+ * @license   http://www.gnu.org/copyleft/lesser.html LGPL
+ * @link      http://www.nexista.org/
  */
 
 /**
  * This class is the base class upon which to extend custom validators
  *
- * @package     Nexista
+ * @category  Nexista
+ * @package   Nexista
+ * @author    Albert Lash <albert.lash@gmail.com>
+ * @author    Joshua Savage <js@example.com>
+ * @copyright 0000 Nexista
+ * @license   http://www.gnu.org/copyleft/lesser.html LGPL
+ * @link      http://www.nexista.org/
  */
 
 class Nexista_Validator
@@ -25,7 +34,7 @@ class Nexista_Validator
     /**
      * Data requirement flag
      *
-     * @var     boolean
+     * @var boolean
      */
     protected $required = true;
 
@@ -33,7 +42,7 @@ class Nexista_Validator
     /**
      * Data existence flag
      *
-     * @var     boolean
+     * @var boolean
      */
     protected $empty = false;
 
@@ -41,7 +50,7 @@ class Nexista_Validator
     /**
      * Validator result flag
      *
-     * @var     boolean
+     * @var boolean
      */
     protected $result = false;
 
@@ -49,7 +58,7 @@ class Nexista_Validator
     /**
      * Validation info message
      *
-     * @var     string
+     * @var string
      */
     protected $message = '';
 
@@ -57,7 +66,7 @@ class Nexista_Validator
     /**
      * Function parameter array
      *
-     * @var     array
+     * @var array
      */
     protected $params = array();
 
@@ -65,21 +74,20 @@ class Nexista_Validator
     /**
      * Applies validator and checks requirements
      *
-     * @param   array       class Nexista_parameters
-     * @param   sring       item requirement parameters
-     * @param   boolean     validator success
-     * @return  boolean     function success
+     * @param array   &$params  class Nexista_parameters
+     * @param string  $required item requirement parameters
+     * @param boolean &$result  validator success
+     *
+     * @return boolean function success
      */
     public function process(&$params, $required, &$result)
     {
         $this->setRequired($required);
 
-        if(!$this->applyParams($params))
-        {
+        if (!$this->applyParams($params)) {
             return false;
         }
-        if(!$this->main())
-        {
+        if (!$this->main()) {
             return false;
         }
         $result = $this->result;
@@ -100,10 +108,10 @@ class Nexista_Validator
      * //get data
      *  $data = time();
      * //check if empty value
-     * if(!isset($data))
+     * if (!isset($data))
      *      $this->setEmpty();
      * //validate
-     * if($data = 1)
+     * if ($data = 1)
      *      $this->valid = true;
      * else
      *      $this->valid = false;
@@ -111,7 +119,7 @@ class Nexista_Validator
      * return true;
      * </code>
      *
-     * @return  boolean     success
+     * @return boolean success
      */
 
     protected function main()
@@ -130,7 +138,9 @@ class Nexista_Validator
      * some validators may provide such as where and what kind of error caused
      * the failure of the validation process.
      *
-     * @param   string      message
+     * @param string $message message to set
+     *
+     * @return null
      */
 
     protected function setMessage($message)
@@ -142,44 +152,35 @@ class Nexista_Validator
     /**
      * Checks item requirements
      *
-     * @param   string      item requirements
+     * @param string $required item requirements
+     *
+     * @return null
      */
 
     protected function setRequired($required)
     {
 
-        if($required === 'true')
-        {
+        if ($required === 'true') {
             $this->required = true;
-        }
-        elseif($required === 'false')
-        {
+        } elseif ($required === 'false') {
             $this->required = false;
-        }
-        else
-        {
-            $req = explode(',',$required);
+        } else {
+            $req = explode(',', $required);
 
-            if(sizeof($req) == 2)
-            {
+            if (sizeof($req) == 2) {
                 $var = Nexista_Flow::getByPath($req[0]);
 
-                if(is_array($var))
-                {
+                if (is_array($var)) {
                     $var = $var[0];
                 }
-                if(preg_match($req[1], $var, $match) == true)
-                {
+                if (preg_match($req[1], $var, $match) == true) {
                     $this->required = true;
-                }
-                else
-                {
+                } else {
                     $this->required = false;
                 }
-            }
-            else
-            {
-                Nexista_Error::init("Validator 'required' field is not valid", NX_ERROR_WARNING);
+            } else {
+                Nexista_Error::init("Validator 'required' field is not valid", 
+                    NX_ERROR_WARNING);
                 $this->required = true;
             }
         }
@@ -189,7 +190,7 @@ class Nexista_Validator
     /**
      * Gets validator result
      *
-     * @return  boolean     validator result
+     * @return boolean     validator result
      */
 
     public function isValid()
@@ -201,6 +202,7 @@ class Nexista_Validator
     /**
      * Sets data existence to absent
      *
+     * @return null
      */
 
     public function setEmpty()
@@ -212,7 +214,7 @@ class Nexista_Validator
     /**
      * Gets data existence
      *
-     * @param   boolean     true if present, false if absent
+     * @return boolean true if present, false if absent
      */
 
     public function isEmpty()
@@ -224,7 +226,7 @@ class Nexista_Validator
     /**
      * Gets data requirement flag
      *
-     * @param   boolean     true if required, false if not
+     * @return boolean true if required, false if not
      */
 
     public function isRequired()
@@ -236,13 +238,12 @@ class Nexista_Validator
     /**
      * Gets a message from validator
      *
-     * @return  string      message
-     * @see     setMessage()
+     * @return string message
      */
 
     public function getMessage()
     {
-        if($this->required && $this->empty)
+        if ($this->required && $this->empty)
             return "is required";
         return $this->message;
     }
@@ -255,18 +256,18 @@ class Nexista_Validator
      * for this class Nexista_are supplied and will load them into
      * $this->params array
      *
-     * @param   array       class Nexista_parameters
-     * @return  boolean     success
+     * @param array &$params class parameters
+     *
+     * @return boolean success
      */
 
     protected function applyParams(&$params)
     {
         $cnt = 0;
-        foreach($this->params as $key => $val)
-        {
-            if(empty($params[$cnt]) && $val == 'required')
-            {
-                Nexista_Error::init('Class '. get_class($this).' does not have the required number of parameters', NX_ERROR_FATAL);
+        foreach ($this->params as $key => $val) {
+            if (empty($params[$cnt]) && $val == 'required') {
+                Nexista_Error::init('Class '. get_class($this).' does not have 
+                    the required number of parameters', NX_ERROR_FATAL);
             }
             $this->params[$key] = $params[$cnt];
             $cnt++;
