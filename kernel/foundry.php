@@ -316,6 +316,14 @@ class Nexista_Foundry
         $this->sitemapDocument = new DOMDocument("1.0");
         $my_sitemap = Nexista_Config::get('./build/sitemap');
         $this->sitemapDocument->load($my_sitemap);
+        $gate_items = $this->sitemapDocument->getElementsByTagName('*');
+        foreach($gate_items as $gate_item) {
+            if( $gate_item->hasAttribute("src") ) {
+                $my_src = $gate_item->getAttribute("src");
+                $gate_item->removeAttribute("src");
+                $gate_item->setAttribute("src",dirname($my_sitemap) . "/" . $my_src);
+            }
+        }
 
 
 
@@ -327,10 +335,17 @@ class Nexista_Foundry
                 if( is_file($ext_sitemap) ) {
                     $zdoc = new DOMDocument();
                     $zdoc->load($ext_sitemap);
+                    $gate_items = $zdoc->getElementsByTagName('*');
+                    foreach($gate_items as $gate_item) {
+                        if( $gate_item->hasAttribute("src") ) {
+                            $my_src = $gate_item->getAttribute("src");
+                            $gate_item->removeAttribute("src");
+                            $gate_item->setAttribute("src",dirname($ext_sitemap) . "/" . $my_src);
+                        }
+                    }
                     // Only import gates
                     $z = new DOMXPath($zdoc);
                     $zimported_gates = $z->query('//map:gate');
-                    echo "hi - $ext_sitemap <br/>";
                     foreach($zimported_gates as $zimport_gate) {
                         $anew = $this->sitemapDocument->importNode($zimport_gate,1);
                         $this->sitemapDocument->documentElement->appendChild($anew);
@@ -338,9 +353,8 @@ class Nexista_Foundry
                 }
             }
         }
-        echo "hi - nothing";
-        echo $this->sitemapDocument->saveXML();
-
+        //echo $this->sitemapDocument->saveXML();
+        //exit;
         //process includes
         $x = new DOMXPath($this->sitemapDocument);
         $res = $x->query('//map:include');
