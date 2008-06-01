@@ -45,9 +45,8 @@ class Nexista_QueryBuilder extends Nexista_Builder
 
     public function getCodeStart()
     {
-        $path = new Nexista_PathBuilder();
-        $code[] = '$query =& new Nexista_QueryHandler('.
-        $path->get($this->action->getAttribute('src'), 'string', JOIN_SINGLE_QUOTE).");";
+        $src = $this->action->getAttribute('src');
+        $code[] = '$query =& new Nexista_QueryHandler(\''.$src.'\');';
         $code[] = $this->addErrorHandler('$query->process()', '', 'FATAL');
 
         return implode(NX_BUILDER_LINEBREAK, $code);

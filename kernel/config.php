@@ -155,15 +155,11 @@ class Nexista_Config
     {
 	$includepath=INCLUDE_PATH;
 	$server_name=$_SERVER['SERVER_NAME'];
-	if(defined("SERVER_NAME")) { 
-        $server_name=SERVER_NAME;
-    }
-    $document_root='';
 	$project_root=PROJECT_ROOT;
 	$project_name=PROJECT_NAME;
     $app_name=APP_NAME;
-	
-    
+
+
 	$directives='<!ENTITY includepath "'.$includepath.'">';
 	$directives.='<!ENTITY server_name "'.$server_name.'">';
 	$directives.='<!ENTITY project_root "'.$project_root.'">';
@@ -182,7 +178,6 @@ class Nexista_Config
         }
         else
         {
-			//$nxpath=NX_PATH;
             preg_match('~<config>(.*)</config>~ms', file_get_contents($this->masterConfig), $n);
             self::$xml = simplexml_load_string('<?xml version="1.0"?><!DOCTYPE config ['.$directives.'
 			]><config>'.$n[1].'</config>');
@@ -233,7 +228,7 @@ class Nexista_Config
         or simply refresh to try and rebuild it.";
         $tdir = dirname($canonical_filename);
         if( ! is_dir ( $tdir ) ) mkdir( $tdir ,0777,TRUE );
-        
+
         if($tmp = fopen($canonical_filename, "w+")) {
             if(flock($tmp, LOCK_EX))
             {

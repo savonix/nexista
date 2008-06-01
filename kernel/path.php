@@ -13,20 +13,7 @@
  */
 
 /**
- * This class Nexista_provides functionality to resolve paths with different protocols
- * such as flow, php, get etc... for use in xml files such as actions, validators
- * queries, etc..
- * In many situations, such as <i>src</i> attributes of sitmap tags, query parameters, 
- * etc.... a protocol can be specified along with the desired variable in order 
- * to access data such as Flow, $_REQUEST, URIs, etc.... 
- * Path provides a standardized manner in which to access this data. For example, 
- * a <i>map:xsl</i> tag will have a <i>src</i> attribute defining the location 
- * of the XSL file. The defaut protocol in this case would be <i>string</i> so 
- * that, if no protocol is specfified, the value will be handled as a string. But 
- * other protocols can be used to resolve this value such as <i>flow://some/var</i> 
- * or <i>php:some_php_eval_expression</i> or <i>get://some/get/var</i>, etc.. Not 
- * all situations/tags accept multi-protocols. Please refer to the tag references 
- * for details.
+ * This class provides 
  *
  * -<b>string</b> - Plain string
  *
@@ -52,93 +39,8 @@ class Nexista_Path
      */
     static public function get($path, $defaultProtocol = 'string')
     {
-        /*
-        //TODO - we can probably have multiple URIs in a row. make loop for that.
-        $request = explode('|', $path);
 
-        $result = null;
-        for($i = 0; $i < count($request); $i++)
-        {
-            // May 2008 - this function needs to be reviewed, I don't think it is ever used.
-            $array = explode( '://', $request[$i], 2 );
-
-            if(count($array) > 1)
-            {
-                $protocol = $array[0];
-                $path = $array[1];
-            }
-            else
-            {
-                $protocol = $defaultProtocol;
-                $path = $request[$i];
-            }
-
-            //match protocol
-            switch($protocol)
-            {
-
-                //_GET 
-                case 'get':
-                    $result = Nexista_Path::interpretPath($_GET, $path);
-                    break;
-
-                //_POST 
-                case 'post':
-                    $result = Nexista_Path::interpretPath($_POST, $path);
-                    break;
-
-                //_REQUEST
-                case 'request':
-                    $result = Nexista_Path::interpretPath($_REQUEST, $path);
-                    break;
-                        
-                //_SESSIONS
-                case 'session':
-                    $result = Nexista_Path::interpretPath($_SESSION, $path);
-                    break;
-                    
-                //_FILES
-                case 'files':
-                    $result = Nexista_Path::interpretPath($_FILES, $path);
-                    break;
-                    
-                //GLOBALS
-                case 'globals':
-                    $result = Nexista_Path::interpretPath($GLOBALS, $path);
-                    break;
-
-                //_SERVER
-                case 'server':
-                    $result = Nexista_Path::interpretPath($_SERVER, $path);
-                    break;
-
-                //_COOKIES
-                case 'cookie':
-                    $result = Nexista_Path::interpretPath($_COOKIE, $path);
-                    break;
-
-                //flow
-                case 'flow':
-                    $result = Nexista_Flow::getByPath($path);
-                    break;
-
-                case 'string':
-                default:
-                    $result = Nexista_Path::parseInlineFlow($path);
-                    break;
-            }
-            
-            //if we have a value, break out and return that
-            if(!is_null($result))
-            {
-                return $result;
-            } else {
-				return false;
-			}
-        }
-        */
         $result = Nexista_Path::parseInlineFlow($path);
-        //if we have a value, break out and return that
         if(!is_null($result))
         {
             return $result;
@@ -156,50 +58,14 @@ class Nexista_Path
      * @param       string      path to analyze, returns by ref
      * @return      string      path with resolved inline flow expressions
      */
-    
+
     static public function parseInlineFlow($string)
     { 
         //replace bracketed flow expressions
         $string = preg_replace_callback('~{(.*)}~U',create_function('$matches', 'return Nexista_Flow::getByPath($matches[1]);'),$string);
         return $string;
     }
-    
-    
-    /**
-     * Interprets a slash separated path as an associative array
-     *
-     * This method accepts an array and a slash delimited path (this/is/it),
-     * parses it for inline flow expressions and returns the corresponding
-     * associative array value. (ex: $_GET['this']['is']['it'])
-     *
-     * @param   array       array to iterate through
-     * @param   string      path to interpret
-     * @return  mixed       value of array or null if not found
-     */
-     /*
-    private function interpretPath($data, $request)
-    {
 
-        $request = explode('/', trim($request, '/'));
-
-        for($i = 0; $i < count($request); $i++)
-        {
-            if(isset($data[$request[$i]]))
-            {
-                $data = $data[$request[$i]];
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        if(!empty($data))
-            return $data;
-        return null;
-
-    }
-*/
 
     /**
      * Returns a class Nexista_singleton.

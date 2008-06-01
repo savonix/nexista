@@ -47,22 +47,13 @@ class Nexista_ActionBuilder extends Nexista_Builder
     {
 
         $path = new Nexista_PathBuilder();
-        if($this->action->hasAttribute('src'))
+        if($this->action->hasAttribute('params'))
         {
-            $code[] = $this->addErrorHandler("Nexista_ActionHandler::process(".
-                $path->get($this->action->getAttribute('src'), 'string', JOIN_DOUBLE_QUOTE).", true)");
-
-        }
-        else
-        {
-            if($this->action->hasAttribute('params'))
-            {
-                $code[] = $this->addErrorHandler("Nexista_ActionHandler::processItem('".
-                    $this->action->getAttribute('type')."',".$path->get($this->action->getAttribute('params'), 'string', JOIN_DOUBLE_QUOTE).", true)");
-            } else {
-                $code[] = $this->addErrorHandler("Nexista_ActionHandler::processItem('".
-                    $this->action->getAttribute('type')."', true)");
-            }
+            $code[] = $this->addErrorHandler("Nexista_ActionHandler::processItem('".
+                $this->action->getAttribute('type')."',".$path->get($this->action->getAttribute('params'), 'string', JOIN_DOUBLE_QUOTE).", true)");
+        } else {
+            $code[] = $this->addErrorHandler("Nexista_ActionHandler::processItem('".
+                $this->action->getAttribute('type')."', true)");
         }
         return implode(NX_BUILDER_LINEBREAK, $code);
 

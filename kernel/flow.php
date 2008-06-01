@@ -372,7 +372,7 @@ class Nexista_Flow
     {
         return $this->flowDocument->saveXML($node);
     }
-  
+
     /**
      * Creates and appends one or more children elements
      *

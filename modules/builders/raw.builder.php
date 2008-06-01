@@ -45,10 +45,8 @@ class Nexista_RawBuilder extends Nexista_Builder
 
     public function getCodeStart()
     {
-        $path = new Nexista_PathBuilder();
-        
-        $code[] = $this->addErrorHandler('Nexista_RawHandler::process('.
-            $path->get($this->action->getAttribute('src'), 'string', JOIN_SINGLE_QUOTE).", \$rawdata)", '', 'FATAL');
+        $src = $this->action->getAttribute('src');
+        $code[] = $this->addErrorHandler('Nexista_RawHandler::process('.$src.", \$rawdata)", '', 'FATAL');
         $code[] = '$output .= $rawdata;';
 
         return implode(NX_BUILDER_LINEBREAK, $code);
