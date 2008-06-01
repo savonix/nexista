@@ -2,7 +2,8 @@
 /*
  * -File        path.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   2005, Nexista
+ * -Copyright   Nexista
+ * -Author      Albert Lash
  * -Author      joshua savage
  */
 
@@ -27,25 +28,7 @@
  * all situations/tags accept multi-protocols. Please refer to the tag references 
  * for details.
  *
- *  Currently available protocols are:
- * -<b>get</b> - $_GET variables
- * -<b>post</b> - $_POST variables
- * -<b>globals</b> - $GLOBALS variables
- * -<b>request</b> - $_REQUEST variables
- * -<b>session</b> - $_SESSION variables
- * -<b>files</b> - $_FILES variables
- * -<b>server</b> - $_SERVER variables
- * -<b>cookie</b> - $_COOKIE variables
- * -<b>flow</b> - Flow variables
- * -<b>php</b> - PHP evaluation - Note that a <i>return</i> statement is automatically 
-  appended as well as a final semicolon.
  * -<b>string</b> - Plain string
- * 
- * In the case of XML files such as the sitemap, queries, etc... a path variable 
- * is simply specified as a standard URI such as:
- * <code><!-- sample sitemap tag -->
- * <map:xsl src="flow://my/xsl"/>
- * </code>
  *
  *
  * @package     Nexista
@@ -69,7 +52,7 @@ class Nexista_Path
      */
     static public function get($path, $defaultProtocol = 'string')
     {
-
+        /*
         //TODO - we can probably have multiple URIs in a row. make loop for that.
         $request = explode('|', $path);
 
@@ -144,7 +127,7 @@ class Nexista_Path
                     $result = Nexista_Path::parseInlineFlow($path);
                     break;
             }
-
+            
             //if we have a value, break out and return that
             if(!is_null($result))
             {
@@ -153,7 +136,15 @@ class Nexista_Path
 				return false;
 			}
         }
-        return;
+        */
+        $result = Nexista_Path::parseInlineFlow($path);
+        //if we have a value, break out and return that
+        if(!is_null($result))
+        {
+            return $result;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -185,7 +176,7 @@ class Nexista_Path
      * @param   string      path to interpret
      * @return  mixed       value of array or null if not found
      */
-
+     /*
     private function interpretPath($data, $request)
     {
 
@@ -208,15 +199,15 @@ class Nexista_Path
         return null;
 
     }
-
+*/
 
     /**
      * Returns a class Nexista_singleton.
      *
      * @return  object class Nexista_singleton instance
      */
-     
-    static public function singleton() 
+
+    static public function singleton()
     {
         if (!isset(self::$instance)) {
             $c = __CLASS__;
