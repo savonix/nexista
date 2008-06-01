@@ -53,10 +53,11 @@ Nexista_Init::registerOutputHandler('Nexista_cache');
 
 /**
  * nexista_cache
- * 
+ *
  * Output buffer utilizing PEAR_Cache
  *
- * @param object Init includes stuff
+ * @param object $init includes stuff
+ *
  * @return boolean
  */
 function Nexista_cache($init)
@@ -66,10 +67,10 @@ function Nexista_cache($init)
     $init->process();
     $content_type = $init->getInfo('content_type');
 
-    if( ! empty( $content_type ) )
+    if ( ! empty( $content_type ) )
         header("Content-Type: $content_type");
-    
-    if(!is_dir(NX_PATH_CACHE))
+
+    if (!is_dir(NX_PATH_CACHE))
         @mkdir(NX_PATH_CACHE, 0777, true);
 
     include_once 'Cache/Lite.php';
