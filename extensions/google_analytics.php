@@ -10,8 +10,8 @@ License: LGPL
 */
 
 /* TODO - Get this from the database. */
-$google_code = Nexista_Config::get("./plugins/google_analytics_code/code");
-if(!$priority = Nexista_Config::get("./plugins/google_analytics_code/priority")) {
+$google_code = Nexista_Config::get("./extensions/google_analytics_code/code");
+if(!$priority = Nexista_Config::get("./extensions/google_analytics_code/priority")) {
     $priority = 10;
 }
 

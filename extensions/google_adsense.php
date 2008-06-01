@@ -10,8 +10,8 @@ License: LGPL
 */
 
 /* TODO - Get this from the database. */
-$adsense_account = Nexista_Config::get("./plugins/google_adsense_account/code");
-if(!$priority = Nexista_Config::get("./plugins/google_adsense_account/priority")) {
+$adsense_account = Nexista_Config::get("./extensions/google_adsense_account/code");
+if(!$priority = Nexista_Config::get("./extensions/google_adsense_account/priority")) {
     $priority = 10;
 }
 

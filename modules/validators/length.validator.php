@@ -48,10 +48,10 @@ class Nexista_LengthValidator extends Nexista_Validator
      */
 
     public function main()
-    {   
+    {
         $data = Nexista_Path::get($this->params['var'], 'flow');
         if(!empty($data))
-        {        
+        {
             $this->result = strlen($data) <= (int)($this->params['length']);
             return true;
         }

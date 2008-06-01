@@ -251,5 +251,5 @@ $final_notices =  "
     }
 </script>\n";
     return $final_notices;
-    
+
 }

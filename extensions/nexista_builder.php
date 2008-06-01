@@ -1,6 +1,6 @@
 <?php
 /*
- * -File        nx_builder.php
+ * -File        nexista_builder.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   Savonix Corporation
  * -Author      Albert Lash
@@ -99,7 +99,7 @@ echo "Looks like you are installing to $server_init. Cool! <br/><br/>";
     if(!isset($mode)) {
         $mode="dev";
     }
-    if(isset($_ENV['NEXISTA_MODE'])) { 
+    if(isset($_ENV['NEXISTA_MODE'])) {
         $mode=$_ENV['NEXISTA_MODE'];
     }
     if(!file_exists($app_config)) {
