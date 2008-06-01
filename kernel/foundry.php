@@ -145,14 +145,9 @@ class Nexista_Foundry
         $config->setMode($mode);
         $config->load();
         $config->writeConfig($config,$config_filename);
-        //init some paths we may need for build
-        $path = Nexista_Config::getSection('path');
-        //if(!defined('NX_PATH_APPS')) {
-        //    define("NX_PATH_APPS", $path['applications']);
-        //}
+
         //init debug
         $configs = Nexista_Config::getSection('runtime');
-
         if($configs['debug'])
         {
             $GLOBALS['debugTrack'] = true;
@@ -316,29 +311,6 @@ class Nexista_Foundry
                 }
             }
         }
-
-        //process includes - don't use this, use the configured 
-        //method above.
-        /*
-        $x = new DOMXPath($this->sitemapDocument);
-        $res = $x->query('//map:include');
-
-        if($res->length)
-        {
-            foreach($res as $include)
-            {
-                $doc = new DOMDocument();
-                $doc->load($include->getAttribute('src'));
-                // Only import gates
-                $y = new DOMXPath($doc);
-                $imported_gates = $y->query('//map:gate');
-                foreach($imported_gates as $import_gate) { 
-                    $new = $this->sitemapDocument->importNode($import_gate,1);
-                    $this->sitemapDocument->documentElement->appendChild($new);
-                }
-            }
-        }
-        */
     }
 
 
@@ -360,7 +332,7 @@ class Nexista_Foundry
         {
             //the # is for CVS backups which get in the way, as well as backups
             if(
-                strpos($file, '.builder.php') AND 
+                strpos($file, '.builder.php') AND
                 !strpos($file, '#') AND
                 !strpos($file, '_') AND
                 !strpos($file, '~')
