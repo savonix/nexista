@@ -81,7 +81,7 @@ class Nexista_PathBuilder
      */
     public function get($path, $protocol = 'string', $joinStyle = JOIN_NONE)
     {
-
+        /*
         //TODO - we can probably have multiple URIs in a row. make loop for that.
         $array = preg_split( "~:~", $path );
 
@@ -145,66 +145,9 @@ class Nexista_PathBuilder
                 $code[] = $this->parseInlineFlow($path, $joinStyle);
                 break;
         }
+        */
+        $code[] = $this->parseInlineFlow($path, $joinStyle);
         return implode(NX_BUILDER_LINEBREAK, $code);
-    }
-
-
-    /**
-     * Transforms a slash path into an associative array string
-     *
-     * This method accepts a path such as /this/is/it and will return
-     * an array string (i.e. ['this']['is']['it']) for later evaluation.
-     *
-     * @param   string      string to transform
-     * @param   constant    string joining style for {flow} inline expressions
-     * @return  string      array expression string 
-     */
-
-    public function transformPath($string, $joinStyle=JOIN_NONE)
-    {
-        //inline flow expressions?
-        if(strpos($string, '{') !== false)
-        {
-           //do main replace          
-           $string = "[".preg_replace_callback('~(\{[^{}]*\})|(/)|([^/{}]*)~', array ($this, 'transformPathCallback'),trim($string, '/'))."]";
-
-           //have to deal with strings touching flow vars. need to join properly
-           $search = array("~'Flow~", "~\)'~", '~\)Flow~');
-           $replace = array("'.Flow", ").'", ').Flow');
-
-           $string = preg_replace($search, $replace ,$string);
-
-           return $string;
-        }
-        else
-        {
-            return "['".preg_replace('~/~', "']['",trim($string, '/'))."']";
-        }
-    }
-
-
-    /**
-     * Callback expression for Resolver::transformPath
-     *
-     * @param   array       match array 
-     * @return  string      preg_replace value 
-     */
-    private function transformPathCallback($matches)
-    {
-       //print_r($matches);
-
-        if(!empty($matches[3]))
-        {
-             return "'".$matches[3]."'";
-        }
-        elseif(!empty($matches[2]))
-        {
-            return '][';
-        }
-        elseif(!empty($matches[1]))
-        {
-            return $this->parseInlineFlow($matches[1]);
-        }
     }
 
 
