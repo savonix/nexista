@@ -49,13 +49,15 @@ $(document).ready(function(){
 
 });
 </script>
-	<div id="treecontrol">
+	<div id="treecontrol" style="text-align: left;">
 		<a title="Collapse the entire tree below" href="#"><img src="../images/minus.gif" /> Collapse All</a>
 		<a title="Expand the entire tree below" href="#"><img src="../images/plus.gif" /> Expand All</a>
 		<a title="Toggle the tree below, opening closed branches, closing open branches" href="#">Toggle All</a>
 	</div>
 
+	<div style="text-align: left;">
     <ul id="black" class="treeview-black"><xsl:apply-templates select="." mode="render"/></ul>
+    </div>
 </xsl:template>
 
 
