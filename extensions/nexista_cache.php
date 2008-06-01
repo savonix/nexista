@@ -13,7 +13,7 @@
  * PHP version 5
  *
  * @category Nexista_Extensions
- * @package  Nexista_Builder
+ * @package  Nexista_Cache
  * @author   Albert Lash <albert.lash@gmail.com>
  * @license  http://www.gnu.org LGPL
  * @version  SVN: 123
