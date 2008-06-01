@@ -46,9 +46,8 @@ class Nexista_ScriptBuilder extends Nexista_Builder
 
     public function getCodeStart()
     {
-        $path = new Nexista_PathBuilder();
-        $code[] = $this->addErrorHandler('Nexista_ScriptHandler::process('.
-            $path->get($this->action->getAttribute('src'), 'string', JOIN_SINGLE_QUOTE).')');
+        $src = $this->action->getAttribute('src');
+        $code[] = $this->addErrorHandler('Nexista_ScriptHandler::process(\''.$src.'\');');
         return implode(NX_BUILDER_LINEBREAK, $code);
 
     }
