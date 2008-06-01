@@ -50,15 +50,15 @@ class Nexista_TimeConvertAction extends Nexista_Action
     {
 
 		// Right now this filter only converts from 12 to 24 hour time formats.
-        $hours = Path::get($this->params['hours'], "flow");
-        $minutes = Path::get($this->params['minutes'], "flow");
-        $am_pm = Path::get($this->params['am_pm'], "flow");
+        $hours = Nexista_Path::get($this->params['hours'], "flow");
+        $minutes = Nexista_Path::get($this->params['minutes'], "flow");
+        $am_pm = Nexista_Path::get($this->params['am_pm'], "flow");
 		$when=$this->params['when'];
 
-        if($am_pm=="PM" && $hours!="12") { 
+        if($am_pm=="PM" && $hours!="12") {
 			$hours=$hours + 12;
 		}
-		if($am_pm=="AM" && $hours=="12") { 
+		if($am_pm=="AM" && $hours=="12") {
 			$hours="00";
 		}
 

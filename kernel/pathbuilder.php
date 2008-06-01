@@ -81,72 +81,14 @@ class Nexista_PathBuilder
      */
     public function get($path, $protocol = 'string', $joinStyle = JOIN_NONE)
     {
-        /*
-        //TODO - we can probably have multiple URIs in a row. make loop for that.
-        $array = preg_split( "~:~", $path );
-
-        if(count($array) > 1)
-        {
-            $protocol = $array[0];
-            $path = $array[1];
-        }
-        //match protocol
-        switch($protocol)
-        {
-            //_GET 
-            case 'get':
-                $code[] = '$_GET'.$this->transformPath($path, $joinStyle);
-                break;
-
-            //_POST
-            case 'post':
-                $code[] = '$_POST'.$this->transformPath($path, $joinStyle);
-                break;
-
-            //_REQUEST
-            case 'request':
-                $code[] = '$_REQUEST'.$this->transformPath($path, $joinStyle);
-                break;
-
-            //_SESSIONS
-            case 'session':
-                $code[] = '$_SESSION'.$this->transformPath($path, $joinStyle);
-                break;
-
-            //_FILES
-            case 'files':
-                $code[] = '$_FILES'.$this->transformPath($path, $joinStyle);
-                break;
-
-            //GLOBALS
-            case 'globals':
-                $code[] = '$GLOBALS'.$this->transformPath($path, $joinStyle);
-                break;
-
-            //_SERVER
-            case 'server':
-                $code[] = '$_SERVER'.$this->transformPath($path, $joinStyle);
-                break;
-
-            //_COOKIE
-            case 'cookie':
-                $code[] = '$_COOKIE'.$this->transformPath($path, $joinStyle);
-                break;
-
-            //flow
-            case 'flow':
+        switch($protocol) {
+            case "flow":
                 $code[] = "Nexista_Flow::getByPath('".$path."')";
                 break;
 
-            //probably a plain var or a file,url protocol (file://, http://, etc...)
-            case 'string':
             default:
-
                 $code[] = $this->parseInlineFlow($path, $joinStyle);
-                break;
         }
-        */
-        $code[] = $this->parseInlineFlow($path, $joinStyle);
         return implode(NX_BUILDER_LINEBREAK, $code);
     }
 

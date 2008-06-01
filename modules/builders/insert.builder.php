@@ -41,7 +41,7 @@ class Nexista_InsertBuilder extends Nexista_Builder
         //get all blocks
         $x = new DOMXPath($application->sitemapDocument);
         $blocks = $x->query('//map:block');
-      
+
         //find the one with correct name
         $found = false;
         foreach($blocks as $block)
@@ -55,7 +55,7 @@ class Nexista_InsertBuilder extends Nexista_Builder
                 $new = $application->sitemapDocument->importNode($clone,1);
                 $this->action->parentNode->insertBefore($new,$this->action->nextSibling);
                 $found = true;
-              
+
                 break;
             }
         }
@@ -68,7 +68,7 @@ class Nexista_InsertBuilder extends Nexista_Builder
             //TODO need better exit?
             return null;
         }
-         
+
         return null;
 
     }

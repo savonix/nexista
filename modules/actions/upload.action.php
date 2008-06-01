@@ -3,6 +3,7 @@
  * -File        upload.action.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   Nexista
+ * -Author      Albert Lash
  * -Author      joshua savage
  */
 
@@ -53,7 +54,7 @@ class Nexista_uploadAction extends Nexista_Action
         if(strpos($dest,"websvn")) {
             require('HTTP/WebDAV/Client.php');
         }
-        
+
         if(!empty($_FILES[$this->params['file']]['tmp_name']))
         {
 

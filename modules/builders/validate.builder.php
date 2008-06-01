@@ -47,7 +47,7 @@ class Nexista_ValidateBuilder extends Nexista_Builder
     public function getCodeStart()
     {
         $src = $this->action->getAttribute('src');
-        $code[] = $this->addErrorHandler("Nexista_ValidatorHandler::process(".$src.",\$result)");
+        $code[] = $this->addErrorHandler("Nexista_ValidatorHandler::process('".$src."',\$result)");
         $code[] = 'if($result)';
         return implode(NX_BUILDER_LINEBREAK, $code);
 

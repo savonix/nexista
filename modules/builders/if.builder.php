@@ -34,8 +34,8 @@ class Nexista_IfBuilder extends Nexista_Builder
     public function getCodeStart()
     {
         $path = new Nexista_PathBuilder();
-        
-        $code[] = 'if('.$path->get($this->action->getAttribute('name'), 'flow', JOIN_NONE).')';
+        $name = $this->action->getAttribute('name');
+        $code[] = 'if('.$path->get($name, 'flow', JOIN_NONE).')';
         return implode(NX_BUILDER_LINEBREAK, $code);
 
     }

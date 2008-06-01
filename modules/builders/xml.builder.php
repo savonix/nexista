@@ -49,8 +49,13 @@ class Nexista_XmlBuilder extends Nexista_Builder
     public function getCodeStart()
     {
         $path = new Nexista_PathBuilder();
-
-        $params = "'".$this->action->getAttribute('src')."'";
+        // PathBuilder is currently needed here for translations
+        // Though I'm not thrilled with how i18n is performing in that manner
+        if(strpos($this->action->getAttribute('src'),'http://')!==false) {
+            $params = "'".$this->action->getAttribute('src')."'";
+        } else {
+            $params = $path->get($this->action->getAttribute('src'), 'string', JOIN_SINGLE_QUOTE);
+		}
         if($this->action->hasAttribute('parent')) { 
 			$params .= ",".$this->action->getAttribute('parent');
 		}

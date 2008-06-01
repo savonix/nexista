@@ -26,14 +26,14 @@ class Nexista_DatetimeAction extends Nexista_Action
     /**
      * Function parameter array
      *
-     * @var array   
+     * @var array
      * @access  private
      */
-    
+
     var $params = array(
 		'source_datetime' => '',
-        'source_format' => '', 
-		'target_format' => '', 
+        'source_format' => '',
+		'target_format' => '',
 		'timezone_offset' => ''
         );
 
@@ -44,7 +44,7 @@ class Nexista_DatetimeAction extends Nexista_Action
      * @return  boolean success
      * @access  private
      */
-    
+
     function main()
     {
         $xpath = $this->params['source_datetime'];
@@ -54,7 +54,7 @@ class Nexista_DatetimeAction extends Nexista_Action
         $tz = Nexista_Path::get($this->params['timezone_offset']);
         $tz = $tz * 3600;
         foreach($node as $item) {
-            if($sformat == 'unix_epoch') { 
+            if($sformat == 'unix_epoch') {
                 $item->nodeValue = gmdate($tformat, $item->nodeValue + ($tz));
             } else { 
                 $unix_epoch_str = strtotime($item->nodeValue);

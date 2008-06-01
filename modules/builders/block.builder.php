@@ -15,7 +15,7 @@
 /**
  * This class handles the tag by the same name in the sitemap building process
  *
- * @see         Builder 
+ * @see         Builder
  * @package     Nexista
  * @subpackage  Builders
  */
@@ -23,7 +23,7 @@
 
 class Nexista_BlockBuilder extends Nexista_Builder
 {
-    
+
 }
 
 ?>

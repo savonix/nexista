@@ -33,7 +33,8 @@ class Nexista_SwitchBuilder extends Nexista_Builder
     public function getCodeStart()
     {
         $path = new Nexista_PathBuilder();
-        $code[] = 'switch('.$path->get($this->action->getAttribute('name'), 'flow', JOIN_DOUBLE_QUOTE).') {';
+        $name = $this->action->getAttribute('name');
+        $code[] = 'switch('.$path->get($name, 'flow', JOIN_DOUBLE_QUOTE).') {';
         return implode(NX_BUILDER_LINEBREAK, $code);
 
     }

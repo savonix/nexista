@@ -30,9 +30,9 @@ class Nexista_EmailAction extends Nexista_Action
 
     protected  $params = array(
         'recipient' => '', //required -
-        'sender' => '', //required - 
-        'subject' => '', //optional - 
-        'body' => '', //required - 
+        'sender' => '', //required -
+        'subject' => '', //optional -
+        'body' => '', //required -
         'host' => '',
         'port' => '',
         'authentication' => ''
@@ -76,7 +76,7 @@ class Nexista_EmailAction extends Nexista_Action
                 $disclosed_recipients .= $recipient;
             }
             $disclosed_recipients .= "\n";
-            
+
             $headers = $disclosed_recipients . $subject;
             $smtp->data($headers . "\r\n" . $body);
             $smtp->disconnect();

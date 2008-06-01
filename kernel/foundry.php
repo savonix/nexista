@@ -209,15 +209,14 @@ class Nexista_Foundry
             $code[] = 'if($_ENV["NEXISTA_MODE"]=="'.$key.'") { ';
             $code[] = 'define("NX_PATH_BASE", "'.$path['base'].'");';
             $code[] = 'define("NX_PATH_CORE", "'.$path['base'].'kernel/");';
-            $code[] = 'define("NX_PATH_LIB", "'.$path['base'].'lib/");';
 			$code[] = 'define("NX_PATH_HANDLERS", "'.$path['base'].'modules/handlers/");';
 			$code[] = 'define("NX_PATH_ACTIONS", "'.$path['base'].'modules/actions/");';
 			$code[] = 'define("NX_PATH_VALIDATORS", "'.$path['base'].'modules/validators/");';
 			$code[] = 'define("NX_PATH_COMPILE", "'.$path['compile'].'");';
 			$code[] = 'define("NX_PATH_CACHE", "'.$path['cache'].'");';
 			$code[] = 'define("NX_PATH_TMP", "'.$path['tmp'].'");';
+			$code[] = 'define("NX_PATH_APPS", "'.$path['applications'].'");';
 			$code[] = 'define("NX_PATH_PLUGINS", "'.$path['plugins'].'");';
-			//$code[] = 'define("NX_PATH_APPS", "'.$path['applications'].'");';
 
 			$code[] = 'require_once(NX_PATH_CORE."init.php");';
 			$code[] = 'Nexista_Config::setMode("'.$key.'");';

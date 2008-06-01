@@ -80,14 +80,14 @@ class Nexista_curlAction extends Nexista_Action
         $url .= $query_string;
         if(!strpos($url,"www.")) { 
             $url = $protocol.$mydomain.$url;
-        } else { 
+        } else {
         }
-        // Quick hack to allow overriding above logic with complete, 
+        // Quick hack to allow overriding above logic with complete,
         // off-domain url
-        if(strstr($this->params['url'],'http://')) { 
+        if(strstr($this->params['url'],'http://')) {
             $url = $this->params['url'];
         }
-        if(function_exists(curl_init)) { 
+        if(function_exists(curl_init)) {
             session_write_close();
             $mysession=session_name().'='.session_id();
             $ch = curl_init();
@@ -112,7 +112,7 @@ class Nexista_curlAction extends Nexista_Action
         } else { 
           $xml = "<groups>Curl PHP extension is not available.</groups>";
         }
-        
+
         Nexista_Flow::add($target_node,$xml);
     }
 

@@ -64,6 +64,7 @@ class Nexista_XslAction extends Nexista_Action
         $xslfilecontents .= file_get_contents($xslfile);
         $xsl->loadXML($xslfilecontents);
         $xsl->documentURI = $xslfile;
+
         $xslHandler = new XsltProcessor;
         $xslHandler->importStyleSheet($xsl);
 

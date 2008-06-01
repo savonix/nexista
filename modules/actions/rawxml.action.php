@@ -36,7 +36,6 @@ class Nexista_RawXmlAction extends Nexista_Action
         'var' => ''     //required - flow var
         );
 
-
     /**
      * Applies action
      *
@@ -45,13 +44,13 @@ class Nexista_RawXmlAction extends Nexista_Action
 
     protected  function main()
     {
-      
+
         $var = Nexista_Flow::find($this->params['var']);
         if(is_null($var) or is_array($var))
             return false;
         $res = $var->item(0);
         $xmlString = $res->textContent;
-        
+
          //load xml string
         $doc = new DOMDocument();
         $doc->loadXML($xmlString);
@@ -63,7 +62,6 @@ class Nexista_RawXmlAction extends Nexista_Action
 
         //append back to node as parsed xml now
         $res->appendChild($new);
-
 
         return true;
     }

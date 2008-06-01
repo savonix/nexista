@@ -36,7 +36,6 @@ class Nexista_redirectAction extends Nexista_Action
         'session' => ''     //optional - true to append sessionID on url
         );
 
-
     /**
      * Applies action
      *

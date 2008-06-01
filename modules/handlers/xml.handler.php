@@ -35,10 +35,10 @@ class Nexista_XmlHandler
     public function process($src, $parent = false)
     {
         //load xml file
-        $doc = new DOMDocument("1.0", "UTF-8");
+        $doc = new DOMDocument('1.0','UTF-8');
         $doc->load($src);
         $doc->xinclude();
-
+ 
         $flow = Nexista_Flow::singleton();
 
         //import new doc into flow recursively

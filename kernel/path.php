@@ -37,10 +37,16 @@ class Nexista_Path
      * @param   string      (optional) default protocol if none given
      * @return  string      value of variable
      */
-    static public function get($path, $defaultProtocol = 'string')
+    static public function get($path, $protocol = 'string')
     {
+        switch($protocol) {
+            case 'flow':
+                $result = Nexista_Flow::getByPath($path);
+                break;
 
-        $result = Nexista_Path::parseInlineFlow($path);
+            default:
+                $result = Nexista_Path::parseInlineFlow($path);
+        }
         if(!is_null($result))
         {
             return $result;
@@ -60,7 +66,7 @@ class Nexista_Path
      */
 
     static public function parseInlineFlow($string)
-    { 
+    {
         //replace bracketed flow expressions
         $string = preg_replace_callback('~{(.*)}~U',create_function('$matches', 'return Nexista_Flow::getByPath($matches[1]);'),$string);
         return $string;

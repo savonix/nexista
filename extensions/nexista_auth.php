@@ -19,7 +19,7 @@ function nexista_authLogin($auth)
         $_SESSION['authReferer'] = $_SERVER['REQUEST_URI'];
     }
     $link_prefix = dirname(NX_LINK_PREFIX);
-    $login_page = Nexista_Config::get("//nx_auth/login");
+    $login_page = Nexista_Config::get("//nexista_auth/login");
     header("Location: ".$link_prefix."/".$login_page);
     exit;
 
