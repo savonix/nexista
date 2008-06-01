@@ -125,7 +125,7 @@ $my_cache_purge = '[ <span style="cursor: pointer;" onclick="$.post(\''.$mylink.
 
 if($_GET['client_view_flow']=="true") { 
 $flow_button = <<<EOL
-[ <span id="flowDump-button" onclick="divExpand('flowDumpContent', true)" title="Click to expand/contract">
+[ <span id="flowDump-button" onclick="divExpand('flowDumpContent', true); document.getElementById('flowDump').style.display = 'block';" title="Click to expand/contract">
 Toggle Flow</span> ]
 EOL;
 }
@@ -201,7 +201,7 @@ function nexista_view_flow() {
         header("Content-type: text/xml");
         if($_GET['full']==true){
         } else {
-            $exes = "i18n,get_all_accounts";
+            $exes = "i18n";
             $exar = explode(",",$exes);
             if(is_array($exar)) {
                 $exclude = $flow->flowDocument->documentElement;

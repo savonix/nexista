@@ -44,11 +44,16 @@ instruction below. This is recommended if you are a beginner.
 $(document).ready(function(){
 	
 	$("#black, #gray").treeview({
-		control: "#treecontrol"
+		control: "#treecontrol",
+        collapsed: true
 	});
 
 });
 </script>
+<link rel="stylesheet" type="text/css" href="index.php?nid=x--dev--flow.css"/>
+<script type="text/javascript" src="index.php?nid=x--dev--flow.js"></script>
+<div id="flowDump" style="display: none;">
+    <div id="flowDumpContent" class="content">
 	<div id="treecontrol" style="text-align: left;">
 		<a title="Collapse the entire tree below" href="#"><img src="../images/minus.gif" /> Collapse All</a>
 		<a title="Expand the entire tree below" href="#"><img src="../images/plus.gif" /> Expand All</a>
@@ -58,6 +63,8 @@ $(document).ready(function(){
 	<div style="text-align: left;">
     <ul id="black" class="treeview-black"><xsl:apply-templates select="." mode="render"/></ul>
     </div>
+    </div>
+</div>
 </xsl:template>
 
 

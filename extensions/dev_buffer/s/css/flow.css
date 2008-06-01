@@ -7,6 +7,7 @@
     border: 0px;
     z-index: 200;
     text-align: left;
+    background-color:#FFF;
 }
 #flowDump-button {
     background-color:#e3b6ec;
@@ -16,7 +17,7 @@
     visibility: visible;
 }
 #flowDump .content {
-    background-color:#E6EEFF;
+    background-color:#FFF;
     border-bottom:1px solid #766789;
     padding:5px;
     margin:0px;
@@ -37,7 +38,7 @@
 }
 #flowDump .name {
     color: navy;
-   border:1px solid #CCB2ED;
+    border:1px solid #CCB2ED;
     background-color: #FFF;
     padding-left: 3px;
     padding-right: 3px;

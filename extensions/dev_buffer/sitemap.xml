@@ -37,7 +37,7 @@ Fifth Floor, Boston, MA 02110-1301  USA
 
     <map:gate name="x--dev--flow.xsl" cache="300" content_type="text/xml">
         <map:action type="header" params="Content-type,text/xml"/>
-        <map:raw src="s/xsl/flow.xsl"/>
+        <map:raw src="s/xsl/flow.ul.xsl"/>
     </map:gate>
 
     <map:gate name="x--dev--jquery.js" cache="300" content_type="text/javascript">
