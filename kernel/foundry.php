@@ -147,9 +147,9 @@ class Nexista_Foundry
         $config->writeConfig($config,$config_filename);
         //init some paths we may need for build
         $path = Nexista_Config::getSection('path');
-        if(!defined('NX_PATH_APPS')) {
-            define("NX_PATH_APPS", $path['applications']);
-        }
+        //if(!defined('NX_PATH_APPS')) {
+        //    define("NX_PATH_APPS", $path['applications']);
+        //}
         //init debug
         $configs = Nexista_Config::getSection('runtime');
 
@@ -209,80 +209,46 @@ class Nexista_Foundry
         $modes = Nexista_Config::getSection('modes');
 		foreach($modes as $key => $value) {
         Nexista_Config::setMode($key);
-        $path = Nexista_Config::getSection('path');
-        $code[] = 'if(!isset($_ENV["NEXISTA_MODE"])) { $_ENV["NEXISTA_MODE"]="'.$key.'"; }';
-	    $code[] = 'if($_ENV["NEXISTA_MODE"]=="'.$key.'") { ';
+            $path = Nexista_Config::getSection('path');
+            $code[] = 'if(!isset($_ENV["NEXISTA_MODE"])) { $_ENV["NEXISTA_MODE"]="'.$key.'"; }';
+            $code[] = 'if($_ENV["NEXISTA_MODE"]=="'.$key.'") { ';
             $code[] = 'define("NX_PATH_BASE", "'.$path['base'].'");';
-            if(!defined('NX_PATH_CORE')) {
-			$code[] = 'define("NX_PATH_CORE", "'.$path['base'].'kernel/");';
-            }
-			$code[] = 'define("NX_PATH_LIB", "'.$path['base'].'lib/");';
-
+            $code[] = 'define("NX_PATH_CORE", "'.$path['base'].'kernel/");';
+            $code[] = 'define("NX_PATH_LIB", "'.$path['base'].'lib/");';
 			$code[] = 'define("NX_PATH_HANDLERS", "'.$path['base'].'modules/handlers/");';
 			$code[] = 'define("NX_PATH_ACTIONS", "'.$path['base'].'modules/actions/");';
 			$code[] = 'define("NX_PATH_VALIDATORS", "'.$path['base'].'modules/validators/");';
-
 			$code[] = 'define("NX_PATH_COMPILE", "'.$path['compile'].'");';
 			$code[] = 'define("NX_PATH_CACHE", "'.$path['cache'].'");';
-            if(isset($path['logs'])) {
-			$code[] = 'define("NX_PATH_LOGS", "'.$path['logs'].'");';
-            }
 			$code[] = 'define("NX_PATH_TMP", "'.$path['tmp'].'");';
-
-            // These are application plugins
 			$code[] = 'define("NX_PATH_PLUGINS", "'.$path['plugins'].'");';
-			$code[] = 'define("NX_PATH_APPS", "'.$path['applications'].'");';
+			//$code[] = 'define("NX_PATH_APPS", "'.$path['applications'].'");';
+
 			$code[] = 'require_once(NX_PATH_CORE."init.php");';
 			$code[] = 'Nexista_Config::setMode("'.$key.'");';
 			$code[] = 'define("NX_ID", "'.Nexista_Config::get('./build/query').'");';
 
 			$code[] = '$init = new Nexista_Init();';
 
-            // build/prepend is deprecated - use extensions instead
-			$prepend = Nexista_Config::get('./build/prepend');
-			if(!empty($prepend) AND file_exists($prepend)) {
-                echo "NOTICE: Foundry prepends are deprecated, use extensions instead";
-				$code[] = '$init->loadPrepend("'.$prepend.'"); /* deprecated prepend */';
+			$extensions = Nexista_Config::getSection('extensions');
+            if(is_array($extensions)) {
+                foreach($extensions as $extension => $value) {
+                    $thisExtension = Nexista_Config::getSection($extension,false,'/extensions/');
+                    if($thisExtension['placement'] == "prepend") {
+                        $code[] = '$init->loadPrepend("'.$thisExtension['source'].'"); /* prepend extension */';
+                    }
+                }
             }
-            // end deprecation note
 
-            // TODO - THIS NEEDS TO BE CHANGED TO EXTENSIONS - May 2008
-			$plugins = Nexista_Config::getSection('plugins');
-            if(is_array($plugins)) {
-                foreach($plugins as $plugin => $value) {
-                    $thisPlugin = Nexista_Config::getSection($plugin,false,'/plugins/');
-                    if($thisPlugin['placement'] == "prepend") {
-                        echo "NOTICE: Foundry plugins are deprecated, use extensions instead <br/>";
-                        $code[] = '$init->loadPrepend("'.$thisPlugin['source'].'"); /*deprecated prepend plugin */';
-                    }
-                }
-            }
-            // THIS IS THE EXTENSIONS SECTION - CORRECT
-			$extensions = Nexista_Config::getSection('extensions');
-            foreach($extensions as $extension => $value) {
-                $thisExtension = Nexista_Config::getSection($extension,false,'/extensions/');
-                if($thisExtension['placement'] == "prepend") {
-                    $code[] = '$init->loadPrepend("'.$thisExtension['source'].'"); /* prepend extension */';
-                }
-            }
             $code[] = '$init->start();';
-            // TODO - THIS NEEDS TO BE CHANGED TO EXTENSIONS - May 2008
-			$plugins = Nexista_Config::getSection('plugins');
-            if(is_array($plugins)) {
-                foreach($plugins as $plugin => $value) {
-                    $thisPlugin = Nexista_Config::getSection($plugin,false,'/plugins/');
-                    if($thisPlugin['placement'] == "predisplay") {
-                        echo "NOTICE: Foundry plugins are deprecated, use extensions instead";
-                        $code[] = '$init->loadPrepend("'.$thisPlugin['source'].'");  /* deprecated predisplay plugin */';
-                    }
-                }
-            }
-            // THIS IS THE EXTENSIONS SECTION - CORRECT
+
 			$extensions = Nexista_Config::getSection('extensions');
-            foreach($extensions as $extension => $value) {
-                $thisExtension = Nexista_Config::getSection($extension,false,'/extensions/');
-                if($thisExtension['placement'] == "predisplay") {
-                    $code[] = '$init->loadPrepend("'.$thisExtension['source'].'");  /* predisplay extension */';
+            if(is_array($extensions)) {
+                foreach($extensions as $extension => $value) {
+                    $thisExtension = Nexista_Config::getSection($extension,false,'/extensions/');
+                    if($thisExtension['placement'] == "predisplay") {
+                        $code[] = '$init->loadPrepend("'.$thisExtension['source'].'");  /* predisplay extension */';
+                    }
                 }
             }
 			$code[] = '$init->display();';
@@ -298,7 +264,6 @@ class Nexista_Foundry
 			$mydir = Nexista_Config::get('./build/loader');
             return file_put_contents($mydir, implode(NX_BUILDER_LINEBREAK,$code));
 		}
-
     }
 
     /**
@@ -324,8 +289,6 @@ class Nexista_Foundry
                 $gate_item->setAttribute("src",dirname($my_sitemap) . "/" . $my_src);
             }
         }
-
-
 
         //process extensions sitemaps
         $extensions = Nexista_Config::getSection('extensions');
@@ -353,9 +316,10 @@ class Nexista_Foundry
                 }
             }
         }
-        //echo $this->sitemapDocument->saveXML();
-        //exit;
-        //process includes
+
+        //process includes - don't use this, use the configured 
+        //method above.
+        /*
         $x = new DOMXPath($this->sitemapDocument);
         $res = $x->query('//map:include');
 
@@ -374,6 +338,7 @@ class Nexista_Foundry
                 }
             }
         }
+        */
     }
 
 
@@ -401,7 +366,7 @@ class Nexista_Foundry
                 !strpos($file, '~')
                 )
             {
-                //echo $file;
+
                 //load class
                 require_once($builderPath.$file);
 
@@ -514,9 +479,6 @@ class Nexista_Foundry
         //build top of file (reqs, etc)
         $code[] = "<?php";
         $code[] = '//Built: '.date("D M j G:i:s T Y");
-        /* This first line of sitemap.php has been changed on Sat May 24, 2008 
-        to support Flow ImportHandling, and thus url rewriting */
-        //$code[] = '$_ID_ = !empty($_GET["'.Nexista_Config::get('./build/query').'"]) ? $_GET["'.Nexista_Config::get('./build/query').'"] : "'.Nexista_Config::get('./build/default').'";';
         $code[] = '$_ID_ = Nexista_Path::get("{//_get/'.Nexista_Config::get('./build/query').'}");';
         $default_gate = Nexista_Config::get('./build/default_gate');
         if(!empty($default_gate)) {
