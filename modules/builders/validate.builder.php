@@ -3,6 +3,7 @@
  * -File        validate.builder.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   Nexista
+ * -Author      Albert Lash
  * -Author      joshua savage
  */
 
@@ -45,9 +46,8 @@ class Nexista_ValidateBuilder extends Nexista_Builder
 
     public function getCodeStart()
     {
-        $path = new Nexista_PathBuilder();
-        $code[] = $this->addErrorHandler("Nexista_ValidatorHandler::process(".
-            $path->get($this->action->getAttribute('src'), 'string', JOIN_NONE).",\$result)");
+        $src = $this->action->getAttribute('src');
+        $code[] = $this->addErrorHandler("Nexista_ValidatorHandler::process(".$src.",\$result)");
         $code[] = 'if($result)';
         return implode(NX_BUILDER_LINEBREAK, $code);
 

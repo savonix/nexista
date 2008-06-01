@@ -47,9 +47,9 @@ class Nexista_XslBuilder extends Nexista_Builder
 
     public function getCodeStart()
     {
-        $path = new Nexista_PathBuilder();
+        $src = $this->action->getAttribute('src');
         $code[] = '$xsl =& new Nexista_XslHandler();';
-        $code[] = '$output .= $xsl->process('.$path->get($this->action->getAttribute('src'), 'string', JOIN_SINGLE_QUOTE).');';
+        $code[] = '$output .= $xsl->process(\''.$src.'\');';
 
         return implode(NX_BUILDER_LINEBREAK, $code);
 

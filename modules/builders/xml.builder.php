@@ -50,11 +50,7 @@ class Nexista_XmlBuilder extends Nexista_Builder
     {
         $path = new Nexista_PathBuilder();
 
-        if(strpos($this->action->getAttribute('src'),'http')!==false) {
-            $params = "'".$this->action->getAttribute('src')."'";
-        } else {
-            $params = $path->get($this->action->getAttribute('src'), 'string', JOIN_SINGLE_QUOTE);
-		}
+        $params = "'".$this->action->getAttribute('src')."'";
         if($this->action->hasAttribute('parent')) { 
 			$params .= ",".$this->action->getAttribute('parent');
 		}

@@ -35,8 +35,7 @@ class Nexista_XslHandler
         $flow = Nexista_Flow::Singleton();
 
         // The following can be used with the NYT xslt cache.
-
-        $use_xslt_cache = "yes";
+        $use_xslt_cache = "no";
         if(!is_file($xslfile)) {
             Nexista_Error::init('XSL Handler - Error processing XSL file - it is unavailable: '.$xslfile, NX_ERROR_FATAL);
         }
@@ -49,6 +48,7 @@ class Nexista_XslHandler
             $xsl->documentURI = $xslfile;
             $xslHandler = new XsltProcessor;
             $xslHandler->importStyleSheet($xsl);
+            // profiling to be included in 5.3 and 6.0
             if(4==3 && function_exists('setProfiling')) {
                 $xslHandler->setProfiling("/tmp/xslt-profiling.txt");
             }
