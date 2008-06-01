@@ -49,7 +49,7 @@ class Nexista_XslBuilder extends Nexista_Builder
     {
         $path = new Nexista_PathBuilder();
         $code[] = '$xsl =& new Nexista_XslHandler();';
-        $code[] = '$output .= $xsl->process('.$path->get(NX_PATH_APPS.$this->action->getAttribute('src'), 'string', JOIN_SINGLE_QUOTE).');';
+        $code[] = '$output .= $xsl->process('.$path->get($this->action->getAttribute('src'), 'string', JOIN_SINGLE_QUOTE).');';
 
         return implode(NX_BUILDER_LINEBREAK, $code);
 

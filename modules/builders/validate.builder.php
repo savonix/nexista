@@ -47,7 +47,7 @@ class Nexista_ValidateBuilder extends Nexista_Builder
     {
         $path = new Nexista_PathBuilder();
         $code[] = $this->addErrorHandler("Nexista_ValidatorHandler::process(".
-            $path->get(NX_PATH_APPS.$this->action->getAttribute('src'), 'string', JOIN_NONE).",\$result)");
+            $path->get($this->action->getAttribute('src'), 'string', JOIN_NONE).",\$result)");
         $code[] = 'if($result)';
         return implode(NX_BUILDER_LINEBREAK, $code);
 

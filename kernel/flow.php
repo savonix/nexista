@@ -139,7 +139,7 @@ class Nexista_Flow
         $params = Nexista_Config::getSection('flow');
 
         //create a new DOM document and init with root
-        $this->flowDocument = new DOMDocument("1.0");
+        $this->flowDocument = new DOMDocument("1.0", "UTF-8");
         //$this->flowDocument->preserveWhiteSpace=false;
         $this->flowDocument->strictErrorChecking = false;
         $this->flowDocument->formatOutput = false;

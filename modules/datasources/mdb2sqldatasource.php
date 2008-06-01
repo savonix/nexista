@@ -319,10 +319,10 @@ class Nexista_mdb2SqlDatasource
 			$row = 0;
 			$number_of_rows = count($result_set);
             $flow = Nexista_Flow::singleton();
+            $p = $flow->root->appendChild($flow->flowDocument->createElement($this->queryName));
             while($row < $number_of_rows)
             {
-                $q = $flow->root->appendChild($flow->flowDocument->createElement($this->queryName));
-
+                $q = $p->appendChild($flow->flowDocument->createElement($this->queryName));
                 foreach($cols as $key => $val)
                 {
                     $myval = $result_set[$row][$key];
@@ -335,8 +335,6 @@ class Nexista_mdb2SqlDatasource
         }
         return false;
     }
-
 }
-
 
 ?>

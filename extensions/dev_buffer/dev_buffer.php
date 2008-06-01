@@ -213,9 +213,8 @@ function nexista_view_flow() {
                 }
             }
         }
-        //$flow->flowDocument->normalizeDocument();
+        $flow->flowDocument->normalizeDocument();
         $xout = $flow->flowDocument->saveXML();
-        $xout = str_replace('<_R_>','<?xml-stylesheet type="text/xsl" href="/a/dev/pbooks/index.php?nid=x--dev--flow.xsl"?><_R_>',$xout);
         echo $xout;
         exit;
     } else {
