@@ -22,32 +22,42 @@ or write to the Free Software Foundation,Inc., 51 Franklin Street,
 Fifth Floor, Boston, MA 02110-1301  USA
 -->
 <map:sitemap xmlns:map="http://www.nexista.org/sitemap">
+
+
     <map:gate name="x--dev--flow.css" cache="300" content_type="text/css">
         <map:action type="header" params="Content-type,text/css"/>
         <map:raw src="s/css/flow.css"/>
         <map:raw src="s/css/exception.css"/>
     </map:gate>
+
     <map:gate name="x--dev--flow.js" cache="300" content_type="text/javascript">
         <map:action type="header" params="Content-type,text/javascript"/>
         <map:raw src="s/js/flow.js"/>
     </map:gate>
+
     <map:gate name="x--dev--flow.xsl" cache="300" content_type="text/xml">
         <map:action type="header" params="Content-type,text/xml"/>
-        <map:raw src="s/xsl/flow.xsl"/>
+        <map:raw src="s/xsl/flow.ul.xsl"/>
     </map:gate>
-    <map:gate name="x--dev--jquery.n.friends.js" cache="300" content_type="text/javascript">
+
+    <map:gate name="x--dev--jquery.js" cache="300" content_type="text/javascript">
         <map:action type="header" params="Content-type,text/javascript"/>
         <map:raw src="s/js/jquery/jquery-1.2.5.js"/>
+    </map:gate>
+
+    <map:gate name="x--dev--jquery.xslTransform.js" cache="300" content_type="text/javascript">
+        <map:action type="header" params="Content-type,text/javascript"/>
         <map:raw src="s/js/jquery/plugins/jquery.xslTransform.js"/>
     </map:gate>
+
     <map:gate name="x--dev--sarissa.js" cache="300" content_type="text/javascript">
         <map:action type="header" params="Content-type,text/javascript"/>
         <map:raw src="s/js/sarissa.js"/>
+    </map:gate>
+
+    <map:gate name="x--dev--sarissa_ieemu_xpath.js" cache="300" content_type="text/x-javascript">
+        <map:action type="header" params="Content-type,text/x-javascript"/>
         <map:raw src="s/js/sarissa_ieemu_xpath.js"/>
     </map:gate>
-    <map:gate name="x--dev--sarissa_ieemu_xpath.js" cache="300" content_type="text/javascript">
-        <map:action type="header" params="Content-type,text/javascript"/>
-        <map:raw src="s/js/sarissa.js"/>
-        <map:raw src="s/js/sarissa_ieemu_xpath.js"/>
-    </map:gate>
+
 </map:sitemap>

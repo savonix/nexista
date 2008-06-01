@@ -162,6 +162,7 @@ $(document).ready( function(){
             eval: false,
             callback: function(){
                 $('#flow_viewport').css({"visibility":"visible"});
+                done_loading_js();
             }
         }
     );
@@ -177,7 +178,8 @@ $pre_body_content[] = array('string' => $flow_viewport, 'priority' => 11);
 $head_includes = <<<EOL
 <script type="text/javascript" src="$mylink?nid=x--dev--sarissa.js"></script>
 <script type="text/javascript" src="$mylink?nid=x--dev--sarissa_ieemu_xpath.js"></script>
-<script type="text/javascript" src="$mylink?nid=x--dev--jquery.n.friends.js"></script>
+<script type="text/javascript" src="$mylink?nid=x--dev--jquery.js"></script>
+<script type="text/javascript" src="$mylink?nid=x--dev--jquery.xslTransform.js"></script>
 
 EOL;
 $head_content[] = array('string' => $head_includes, 'priority' => 10);
@@ -199,20 +201,28 @@ function nexista_view_flow() {
         header("Content-type: text/xml");
         if($_GET['full']==true){
         } else {
-            // TODO - Make this configurable
-            $exclude = $flow->flowDocument->documentElement;
-            $removeme = $exclude->getElementsByTagName('i18n')->item(0);
-            $removeme->parentNode->removeChild($removeme);
+            $exes = "i18n,get_all_accounts";
+            $exar = explode(",",$exes);
+            if(is_array($exar)) {
+                $exclude = $flow->flowDocument->documentElement;
+                foreach($exar as $exme) {
+                    // TODO - Make this configurable
+                    while($removeme = $exclude->getElementsByTagName($exme)->item(0)) {
+                        $removeme->parentNode->removeChild($removeme);
+                    }
+                }
+            }
         }
         //$flow->flowDocument->normalizeDocument();
         $xout = $flow->flowDocument->saveXML();
+        $xout = str_replace('<_R_>','<?xml-stylesheet type="text/xsl" href="/a/dev/pbooks/index.php?nid=x--dev--flow.xsl"?><_R_>',$xout);
         echo $xout;
         exit;
     } else {
         // Transform into HTML form
         $debugXsl = new XsltProcessor();
         $xsl = new DomDocument;
-        $xsl->load(NX_PATH_BASE."extensions/dev_buffer/flow.xsl");
+        $xsl->load(NX_PATH_BASE."extensions/dev_buffer/s/xsl/flow.ul.xsl");
         $debugXsl->importStyleSheet($xsl);
         if(isset($_GET['ignore'])) {
             $debugXsl->setParameter('','ignore',$_GET['ignore']);
@@ -221,6 +231,7 @@ function nexista_view_flow() {
         }
         $debugXsl->setParameter('','link_prefix',dirname($_SERVER['SCRIPT_NAME']).'/index.php?nid=');
         echo $debugXsl->transformToXML($flow->flowDocument);
+        exit;
     }
 
 }
