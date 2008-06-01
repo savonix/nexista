@@ -1,16 +1,19 @@
 <?php
-/*
+/**
  * -File        pathbuilder.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   Nexista
- * -Author      joshua savage
+ * -Author      Joshua Savage
  * -Author      Albert Lash
- */
-
-/**
- * @package Nexista
- * @author Joshua Savage
- * @author Albert Lash
+ *
+ * PHP version 5
+ *
+ * @category  Nexista
+ * @package   Nexista
+ * @author    Albert Lash <albert.lash@gmail.com>
+ * @copyright 0000 Nexista
+ * @license   http://www.gnu.org/copyleft/lesser.html LGPL
+ * @link      http://www.nexista.org/
  */
 
 
@@ -43,7 +46,12 @@ define('JOIN_NONE', 3);
  * at runtime.
  * See Nexista_Path class for information on protocols handled.
  *
- * @package     Nexista
+ * @category  Nexista
+ * @package   Nexista
+ * @author    Albert Lash <albert.lash@gmail.com>
+ * @copyright 0000 Nexista
+ * @license   http://www.gnu.org/copyleft/lesser.html LGPL
+ * @link      http://www.nexista.org/
  */
 
 
@@ -74,20 +82,21 @@ class Nexista_PathBuilder
      * This function probably exists as a faster way to access superglobal
      * variables as opposed to traversing the XML document.
      *
-     * @access    public
-     * @param     string path to resolve/render
-     * @param     string optional default protocol if none given
-     * @param     integer joining style constant
+     * @param string  $path      path to resolve/render
+     * @param string  $protocol  optional default protocol if none given
+     * @param integer $joinStyle joining style constant
+     *
+     * @return string code
      */
     public function get($path, $protocol = 'string', $joinStyle = JOIN_NONE)
     {
         switch($protocol) {
-            case "flow":
-                $code[] = "Nexista_Flow::getByPath('".$path."')";
-                break;
-
-            default:
-                $code[] = $this->parseInlineFlow($path, $joinStyle);
+        case "flow":
+            $code[] = "Nexista_Flow::getByPath('".$path."')";
+            break;
+        
+        default:
+            $code[] = $this->parseInlineFlow($path, $joinStyle);
         }
         return implode(NX_BUILDER_LINEBREAK, $code);
     }
@@ -99,16 +108,23 @@ class Nexista_PathBuilder
      * This method will look for curly bracketed values in a string
      * and return a flow expression.
      *
-     * @param   string      path to analyze
-     * @param   constant    string joining style for {flow} inline expressions
-     * @return  string      path with inline flow expressions
+     * @param string $string    path to analyze
+     * @param string $joinStyle joining style for {flow} inline expressions
+     *
+     * @return string path with inline flow expressions
      */
 
     public function parseInlineFlow($string, $joinStyle=JOIN_NONE)
     {
 
         //first quote/join brackets, ending quotes, etc...
-        $string = preg_replace(array('~(?<!^|}){~','~}(?!$|{)~', '~}{~', '~^[^{]~', '~[^}]$~'), array("'.{", "}.'", '}.{', "'$0", "$0'"), $string);
+        $string = preg_replace(array(
+                                '~(?<!^|}){~',
+                                '~}(?!$|{)~',
+                                '~}{~',
+                                '~^[^{]~',
+                                '~[^}]$~'), 
+            array("'.{", "}.'", '}.{', "'$0", "$0'"), $string);
 
         //replace bracketed flow expressions
         $string = preg_replace('~{(.*)}~U',
