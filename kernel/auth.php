@@ -257,7 +257,7 @@ class Nexista_Auth
 
             } elseif (!is_null(self::$_deniedHandler)) {
                 //fallback on login handler if possible
-                call_user_func(self::$loginHandler, $this);
+                call_user_func(self::$_loginHandler, $this);
 
             } else {
                 Nexista_Error::init('No auth timeout handler defined',
@@ -272,9 +272,9 @@ class Nexista_Auth
             if (!is_null(self::$_expiredHandler)) {
                 call_user_func(self::$_expiredHandler, $this);
 
-            } elseif (!is_null(self::$loginHandler)) {
+            } elseif (!is_null(self::$_loginHandler)) {
                 //fallback on login handler if possible
-                call_user_func(self::$loginHandler, $this);
+                call_user_func(self::$_loginHandler, $this);
             } else {
                 Nexista_Error::init('No auth expired handler defined',
                     NX_ERROR_FATAL);
@@ -286,8 +286,8 @@ class Nexista_Auth
         case self::NX_AUTH_STATUS_INACTIVE:
 
             //call login handler, or die if none
-            if (!is_null(self::$loginHandler)) {
-                call_user_func(self::$loginHandler, $this);
+            if (!is_null(self::$_loginHandler)) {
+                call_user_func(self::$_loginHandler, $this);
             } else {
                 Nexista_Error::init('No auth login handler defined',
                     NX_ERROR_FATAL);
@@ -477,7 +477,7 @@ class Nexista_Auth
     static public function registerLoginHandler($handler)
     {
         if (is_callable($handler))
-            self::$loginHandler = $handler;
+            self::$_loginHandler = $handler;
         else
             Nexista_Error::init('Auth Login Handler Error', NX_ERROR_FATAL);
     }
