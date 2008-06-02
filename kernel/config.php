@@ -1,22 +1,30 @@
 <?php
-/*
- * -File        config.php
- * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   Nexista
- * -Author      Albert Lash
- * -Author      joshua savage
- */
-
 /**
- * @package     Nexista
- * @author      Joshua Savage
+ * -File        Config.php
+ * -Copyright   Nexista
+ * -Author      Joshua Savage
+ * -Author      Albert Lash
+ *
+ * PHP version 5
+ *
+ * @category  Nexista
+ * @package   Nexista
+ * @author    Albert Lash <albert.lash@gmail.com>
+ * @copyright 0000 Nexista
+ * @license   http://www.gnu.org/copyleft/lesser.html LGPL
+ * @link      http://www.nexista.org/
  */
 
 /**
  * The configuration system of Nexista is XML based and is designed to allow for 
  * multiple modes (i.e live, development, etc...).
  *
- * @package     Nexista
+ * @category  Nexista
+ * @package   Nexista
+ * @author    Albert Lash <albert.lash@gmail.com>
+ * @copyright 0000 Nexista
+ * @license   http://www.gnu.org/copyleft/lesser.html LGPL
+ * @link      http://www.nexista.org/
  */
 
 
@@ -26,33 +34,33 @@ class Nexista_Config
     /**
      * Hold an instance of the class
      *
-     * @var     object
+     * @var object
      */
 
-    static private $instance;
+    static private $_instance;
 
 
     /**
      * Master config file (i.e. master.xml)
      *
-     * @var     string
+     * @var string
      */
 
-    private $masterConfig;
+    private $_masterConfig;
 
 
     /**
      * Local config file (i.e. local.xml)
      *
-     * @var     string
+     * @var string
      */
 
-    private $localConfig = null;
+    private $_localConfig = null;
 
     /**
      * Config mode/environment
      *
-     * @var     string
+     * @var string
      */
 
     static public $mode = null;
@@ -61,7 +69,7 @@ class Nexista_Config
     /**
      * SimpleXML root object of merged master/local
      *
-     * @var     object
+     * @var object
      */
 
     static public $xml;
@@ -76,17 +84,18 @@ class Nexista_Config
      * Some of this data will be written directly in the gate files
      * during the compile process.
      *
-     * @param   string      path to xml config file
+     * @param string $file path to xml config file
+     *
+     * @return null
      */
 
     public function setMaster($file)
     {
-        if (!file_exists($file)) 
-        {
-            Nexista_Error::init('Cannot find master config file: '.$file, NX_ERROR_FATAL);            
+        if (!file_exists($file)) {
+            Nexista_Error::init('Cannot find master config file: '.$file,
+                NX_ERROR_FATAL);
         }
         $this->masterConfig = $file;
-
     }
 
 
@@ -96,16 +105,18 @@ class Nexista_Config
      * This method accepts a local config file that can be used to:
      * 1. override master config settings
      * 2. create custom settings that can later be accessed in the standard manner
-     * 
-     * @param   string      path to xml config file
+     *
+     * @param string $file path to xml config file
+     *
+     * @return null
      */
      
     public function setLocal($file)
     {
         if ($file) {
-            if (!file_exists($file))
-            {
-                Nexista_Error::init('Cannot find local config file: '.$file, NX_ERROR_FATAL);            
+            if (!file_exists($file)) {
+                Nexista_Error::init('Cannot find local config file: '.$file,
+                    NX_ERROR_FATAL);
             }
             $this->localConfig = $file;
         }
@@ -120,9 +131,10 @@ class Nexista_Config
      * This mode, which is optional but if given it will be used by the config 
      * process to determine which entry to retrieve.
      * 
-     * @param   string      mode
+     * @param string $mode mode
+     *
+     * @return null
      */
-     
     static public function setMode($mode)
     {
 
@@ -133,11 +145,12 @@ class Nexista_Config
     /**
      * Retrieves the current mode
      *
-     * @param   string      mode
+     * @return string mode
      */
  
     static public function getMode()
     {
+
         return  self::$mode;
 
     }
@@ -148,46 +161,48 @@ class Nexista_Config
      *
      * Reads the master and optional local config file into a common
      * simpleXML object
-     * 
+     *
+     * @return null
      */
 
     public function load()
     {
-    $includepath=INCLUDE_PATH;
-    $server_name=$_SERVER['SERVER_NAME'];
-    $project_root=PROJECT_ROOT;
-    $project_name=PROJECT_NAME;
-    $app_name=APP_NAME;
+        $directives  = '<!ENTITY includepath "'.INCLUDE_PATH.'">';
+        $directives .= '<!ENTITY server_name "'.$_SERVER['SERVER_NAME'].'">';
+        $directives .= '<!ENTITY project_root "'.PROJECT_ROOT.'">';
+        $directives .= '<!ENTITY project_name "'.PROJECT_NAME.'">';
+        $directives .= '<!ENTITY app_name "'.APP_NAME.'">';
 
-
-    $directives='<!ENTITY includepath "'.$includepath.'">';
-    $directives.='<!ENTITY server_name "'.$server_name.'">';
-    $directives.='<!ENTITY project_root "'.$project_root.'">';
-    $directives.='<!ENTITY project_name "'.$project_name.'">';
-    $directives.='<!ENTITY app_name "'.$app_name.'">';
         //if a local config is passed we merge the two in a valid xml string
         $localfile = file_get_contents($this->localConfig);
-        if (!empty($localfile))
-        {
-            preg_match('~<config>(.*)</config>~ms',$localfile, $u);
-            preg_match('~<config>(.*)</config>~ms', file_get_contents($this->masterConfig), $g);
-            self::$xml = simplexml_load_string('<?xml version="1.0"?><!DOCTYPE config ['.$directives.'
-            ]><config>'.$u[1].$g[1].'</config>');
+        if (!empty($localfile)) {
+            preg_match('~<config>(.*)</config>~ms', $localfile, $u);
+            preg_match('~<config>(.*)</config>~ms', 
+                file_get_contents($this->masterConfig), $g);
 
+            $xtring  = '<?xml version="1.0"?>';
+            $xtring .= '<!DOCTYPE config [';
+            $xtring .= $directives;
+            $xtring .= ']><config>'.$u[1].$g[1].'</config>';
 
-        }
-        else
-        {
-            preg_match('~<config>(.*)</config>~ms', file_get_contents($this->masterConfig), $n);
-            self::$xml = simplexml_load_string('<?xml version="1.0"?><!DOCTYPE config ['.$directives.'
-            ]><config>'.$n[1].'</config>');
+            self::$xml = simplexml_load_string($xtring);
+        } else {
+            preg_match('~<config>(.*)</config>~ms', 
+                file_get_contents($this->masterConfig), $n);
+
+            $xtring  = '<?xml version="1.0"?>';
+            $xtring .= '<!DOCTYPE config [';
+            $xtring .= $directives;
+            $xtring .= ']><config>'.$n[1].'</config>';
+
+            self::$xml = simplexml_load_string($xtring);
         }
 
     }
     /**
-     *
      * Reads the master
      *
+     * @return null
      */
 
     public function loadMasterConfig()
@@ -198,9 +213,9 @@ class Nexista_Config
     }
 
     /**
-     *
      * Return master config simple xml object
      *
+     * @return null
      */
 
     public function returnMasterConfig()
@@ -214,32 +229,40 @@ class Nexista_Config
     /**
      * Writes a combined config file for runtime
      *
-     * The master config and optional local config are output as a combined xml file
-     * that is used by the runtime system
-     * 
+     * The master config and optional local config are output as a combined xml
+     * file that is used by the runtime system
+     *
+     * @param string &$config         config
+     * @param string $config_filename path to xml config file
+     *
+     * @return null
      */
 
     static public function writeConfig(&$config,$config_filename)
     {
-        $canonical_filename = Nexista_Config::get('./path/compile').$config_filename;
+        $canonical_filename =
+            Nexista_Config::get('./path/compile').$config_filename;
+
         $config_compile_error =
         "Can't open $canonical_filename.
-        Check permissions ( chmod 0777 $canonical_filename ? ) of parent directories,
-        or simply refresh to try and rebuild it.";
+        Check permissions of parent directories,
+        or simply refresh to try and rebuild it.
+        chmod 0777 $canonical_filename ?";
+
         $tdir = dirname($canonical_filename);
-        if ( ! is_dir ( $tdir ) ) mkdir( $tdir ,0777,TRUE );
+
+        if (! is_dir($tdir)) mkdir($tdir, 0777, true);
 
         if ($tmp = fopen($canonical_filename, "w+")) {
-            if (flock($tmp, LOCK_EX))
-            {
+            if (flock($tmp, LOCK_EX)) {
                 fwrite($tmp, self::$xml->asXML());
                 flock($tmp, LOCK_UN);
             } else {
-                Nexista_Error::Init( $config_compile_error,NX_ERROR_FATAL);
+                Nexista_Error::Init($config_compile_error, NX_ERROR_FATAL);
             }
-            fclose ($tmp);
+            fclose($tmp);
         }
-}
+    }
 
 
     /**
@@ -247,12 +270,13 @@ class Nexista_Config
      *
      * Retrieves a value for a config variable. If a mode is set
      * it will attempt to get the value for this variable in the preferred mode.
-     * If nothing is found, it will then attempt to retrieve the default value in the
+     * If nothing is found, it will then attempt to retrieve the default value in
      * local config file and will finally look for the default master value.
      * Note that this method makes use of xpath and adds on the mode criteria
      *
-     * @param   string      variable path
-     * @return  mixed       value or null if not found
+     * @param string $name variable path
+     *
+     * @return mixed value or null if not found
      */
 
     static public function get($name)
@@ -260,20 +284,17 @@ class Nexista_Config
          $result = 0;
 
          //is this a parent node?
-        if (!is_null(self::$mode))
-        {
-            $result = self::$xml->xpath($name."[@mode='".self::$mode."'][not(*/node())]");
+        if (!is_null(self::$mode)) {
+            $result =
+                self::$xml->xpath($name."[@mode='".self::$mode."'][not(*/node())]");
         }
+
         //no mode given or none found with a given mode
-        if (!$result)
-        {
+        if (!$result) {
             $result = self::$xml->xpath($name."[not(@mode)][not(*/node())]");
         }
 
-        if ($result)
-        {
-            //NOTE: simplexml returns objects so we need to convert or it makes a mess
-            //return as string otherwise
+        if ($result) {
             return (string)$result[0];
         }
         else
@@ -286,54 +307,47 @@ class Nexista_Config
      *
      * Retrieves an array of values for a config section. If a mode is set
      * it will attempt to get the value for these variable in the preferred mode.
-     * If nothing is found, it will then attempt to retrieve the default value in the
+     * If nothing is found, it will then attempt to retrieve the default value in
      * local config file and will finally look for the default master value.
      *
-     * @param   string      section path
-     * @param   string      section id when using multiple sections with same name
-     * @return  array       empty if nothing found
+     * @param string $name       section path
+     * @param string $id         section id for multiple sections with same name
+     * @param string $subsection sub
+     *
+     * @return array empty if nothing found
      */
 
     static public function getSection($name, $id = false, $subsection = '')
     {
-        if ($id)
-        {
-            $res = self::$xml->xpath("//config/".$subsection.$name."[@id='".$id."']");
-            $obj=$res[0];
-        }
-        else
-        {
+        if ($id) {
+            $res =
+                self::$xml->xpath("//config/".$subsection.$name."[@id='".$id."']");
+            $obj = $res[0];
+        } else {
             $res = self::$xml->xpath("//config/".$subsection.$name."[not(@id)]");
-             $obj=$res[0];
+            $obj = $res[0];
         }
 
         $result = array();
-        if (is_object($obj))
-        {
-            foreach ($obj->children() as $k=> $v)
-            {
-                if (is_null(self::$mode) AND (!$v['mode'] OR (string)$v['mode'] == $mode ))
-                {
+        if (is_object($obj)) {
+            foreach ($obj->children() as $k=> $v) {
+                if (is_null(self::$mode) AND 
+                    (!$v['mode'] OR (string)$v['mode'] == $mode )) {
+
                     $result[$k] = (string)$v;
-                }
-                //mode requested
-                else
-                {
-                    //if child has mode match we use it
-                    if ((string)$v['mode'] === self::$mode)
-                    {
+
+                } else { //if child has mode match we use it
+
+                    if ((string)$v['mode'] === self::$mode) {
                         $result[$k] = (string)$v;
-                    }
-                    //get default value unless a moded one is already in
-                    elseif (!isset($result[$k]))
-                    {
+
+                    } elseif (!isset($result[$k])) {
+                        //get default value unless a moded one is already in
                         $result[$k] = (string)$v;
                     }
                 }
             }
-        }
-        else
-        {
+        } else {
             Nexista_Error::init('The "'.$name.'" section with id '.$id.' does
                 not exist in the configuration', NX_ERROR_NOTICE);
             return false;
@@ -345,16 +359,16 @@ class Nexista_Config
     /**
      * Returns a class Nexista_singleton.
      *
-     * @return  object      class Nexista_singleton instance
+     * @return object class Nexista_singleton instance
      */
 
     static public function singleton()
     {
-        if (!isset(self::$instance)) {
+        if (!isset(self::$_instance)) {
             $c = __CLASS__;
-            self::$instance = new $c;
+            self::$_instance = new $c;
         }
-        return self::$instance;
+        return self::$_instance;
     }
 }
 
