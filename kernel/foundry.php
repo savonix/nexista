@@ -1,36 +1,47 @@
 <?php
-/*
- * -File        foundry.php
- * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
+/**
+ * -File        Foundry.php
  * -Copyright   Nexista
  * -Author      Albert Lash
  * -Author      joshua savage
+ *
+ * PHP version 5
+ *
+ * @category  Nexista
+ * @package   Nexista
+ * @author    Albert Lash <albert.lash@gmail.com>
+ * @copyright 0000 Nexista
+ * @license   http://www.gnu.org/copyleft/lesser.html LGPL
+ * @link      http://www.nexista.org/
  */
 
 /**
- * @package     Nexista
- * @author      Joshua Savage
- */
-
-/**
- * Load required files
- */
-require_once('error.php');
-require_once('debug.php');
-require_once('config.php');
-require_once('builder.php');
-require_once('pathbuilder.php');
+* Load required runtime files
+*/
+require_once NX_PATH_CORE . "error.php";
+require_once NX_PATH_CORE . "pathbuilder.php";
+require_once NX_PATH_CORE . "debug.php";
+require_once NX_PATH_CORE . "config.php";
+require_once NX_PATH_CORE . "builder.php";
 
 define('NX_BUILDER_LINEBREAK', "\n");
 
 Nexista_Error::addObserver('display', 'Nexista_builderError');
+
+/**
+ * Error...
+ *
+ * @param object $e error object
+ *
+ * @return null
+ */
+
 function Nexista_builderError($e)
 {
-    if(
-        $e->getCode() == NX_ERROR_FATAL ||
+    if ($e->getCode() == NX_ERROR_FATAL ||
         $e->getCode() == NX_ERROR_WARNING
         ) {
-            $e->toText ();
+            $e->toText();
     }
 }
 
@@ -45,11 +56,14 @@ function Nexista_builderError($e)
  * presenting these files based on request.
  *
  * A typical build would output:
- * - A loader file such as index.php which is used as the 'entrance' file for the application.
- * - A switchbox file which is responsible for returning the proper data based on request
- * - A number of 'gate' php files, one for each section or 'page' of the sitema which
+ * - A loader file such as index.php which is used as the 'entrance' file for
+ * the application.
+ * - A switchbox file which is responsible for returning the proper data based
+ * on request
+ * - A number of 'gate' php files, one for each section or 'page' of the sitemap
+ * which
  * are responsible for handling the per request logic and will load the
- * necessary module files such as query definitions, php scripts, xsl stylesheets,
+ * necessary module files such as query definitions, php scripts, xsl stylesheets
  * - A configuration file based on our preferences.
  *
  * To build an application, you will need a script to call the Foundry process.
@@ -72,7 +86,12 @@ function Nexista_builderError($e)
  * $foundry->buildSitemap();
  * ?></code>
  *
- * @package     Nexista
+ * @category  Nexista
+ * @package   Nexista
+ * @author    Albert Lash <albert.lash@gmail.com>
+ * @copyright 0000 Nexista
+ * @license   http://www.gnu.org/copyleft/lesser.html LGPL
+ * @link      http://www.nexista.org/
  */
 class Nexista_Foundry
 {
@@ -80,16 +99,16 @@ class Nexista_Foundry
      /**
       * Hold an instance of the class
       *
-      * @var    object
+      * @var object
       */
 
-    static private $instance;
+    static private $_instance;
 
 
     /**
      * Sitemap root node object
      *
-     * @var      object
+     * @var object
      */
 
      public $sitemapDocument;
@@ -98,24 +117,24 @@ class Nexista_Foundry
     /**
      * Array to keep track of what tags are handled by what builder
      *
-     * @var     array
+     * @var array
      */
 
-    private $builderTags = array();
+    private $_builderTags = array();
 
 
     /**
      * Holds the gate info used to compile the cached sitemap file
      *
-     * @var     array
+     * @var array
      */
 
-    private $sitemapData;
+    private $_sitemapData;
 
     /**
      * Print debug info when building
      *
-     * @var     boolean
+     * @var boolean
      */
 
     public $debug = false;
@@ -131,12 +150,16 @@ class Nexista_Foundry
      * during the compile process. It takes the config xml and ouputs
      * it as combnined xml file for runtime.
      *
-     * @param   string      master config file
-     * @param   string      optional local override configuration file
-     * @param   string      optional environment profile
+     * @param string $master          master config file
+     * @param string $local           optional local override configuration file
+     * @param string $mode            optional mode
+     * @param string $config_filename optional environment profile
+     *
+     * @return null
      */
 
-    public function configure($master, $local = null, $mode = null, $config_filename = 'config.xml')
+    public function configure($master,
+        $local = null, $mode = null, $config_filename = 'config.xml')
     {
 
         $config = Nexista_Config::singleton();
@@ -144,42 +167,43 @@ class Nexista_Foundry
         $config->setLocal($local);
         $config->setMode($mode);
         $config->load();
-        $config->writeConfig($config,$config_filename);
+        $config->writeConfig($config, $config_filename);
 
         //init debug
         $configs = Nexista_Config::getSection('runtime');
-        if($configs['debug'])
-        {
+        if ($configs['debug']) {
             $GLOBALS['debugTrack'] = true;
         }
-	}
+    }
 
 
     /**
      * Returns the path to the sitemap
      * Useful for checking the mod time for required rebuilds
      *
-     * @return string   path to sitemap
+     * @return string path to sitemap
      */
 
-     public function getSitemapPath() {
+    public function getSitemapPath()
+    {
 
-         return Nexista_Config::get('./build/sitemap');
+        return Nexista_Config::get('./build/sitemap');
 
-     }
+    }
 
 
     /**
      * Returns the path to the compile directory
      *
-     * @return string   path to sitemap
+     * @return string path to sitemap
      */
 
-     public function getCompilePath() {
+    public function getCompilePath()
+    {
 
-         return Nexista_Config::get('./path/compile');
+        return Nexista_Config::get('./path/compile');
 
-     }
+    }
 
     /**
      * Builds the loader file (i.e. index.php)
@@ -188,7 +212,7 @@ class Nexista_Foundry
      * This file is used as the 'entrance' file for the site, loading the
      * sitemap and appropriate gate file.
      *
-     * @return  boolean     success of writing loader file
+     * @return boolean success of writing loader file
      */
 
     public function buildLoader()
@@ -202,110 +226,127 @@ class Nexista_Foundry
 
         //$key = $_ENV['NEXISTA_MODE'];
         $modes = Nexista_Config::getSection('modes');
-		foreach($modes as $key => $value) {
-        Nexista_Config::setMode($key);
+        foreach ($modes as $key => $value) {
+            Nexista_Config::setMode($key);
             $path = Nexista_Config::getSection('path');
-            $code[] = 'if(!isset($_ENV["NEXISTA_MODE"])) { $_ENV["NEXISTA_MODE"]="'.$key.'"; }';
-            $code[] = 'if($_ENV["NEXISTA_MODE"]=="'.$key.'") { ';
+            $nxid = Nexista_Config::get('./build/query');
+            $hand = $path['base'] . "modules/handlers/";
+            $acts = $path['base'] . "modules/actions/";
+            $vals = $path['base'] . "modules/validators/";
+            
+            $code[] = 'if (!isset($_ENV["NEXISTA_MODE"])) {';
+            $code[] = '    $_ENV["NEXISTA_MODE"] = "'.$key.'";';
+            $code[] = '}';
+            $code[] = 'if ($_ENV["NEXISTA_MODE"]=="'.$key.'") { ';
             $code[] = 'define("NX_PATH_BASE", "'.$path['base'].'");';
             $code[] = 'define("NX_PATH_CORE", "'.$path['base'].'kernel/");';
-			$code[] = 'define("NX_PATH_HANDLERS", "'.$path['base'].'modules/handlers/");';
-			$code[] = 'define("NX_PATH_ACTIONS", "'.$path['base'].'modules/actions/");';
-			$code[] = 'define("NX_PATH_VALIDATORS", "'.$path['base'].'modules/validators/");';
-			$code[] = 'define("NX_PATH_COMPILE", "'.$path['compile'].'");';
-			$code[] = 'define("NX_PATH_CACHE", "'.$path['cache'].'");';
-			$code[] = 'define("NX_PATH_TMP", "'.$path['tmp'].'");';
-			$code[] = 'define("NX_PATH_APPS", "'.$path['applications'].'");';
-			$code[] = 'define("NX_PATH_PLUGINS", "'.$path['plugins'].'");';
+            $code[] = 'define("NX_PATH_HANDLERS", "'.$hand.'");';
+            $code[] = 'define("NX_PATH_ACTIONS", "'.$acts.'");';
+            $code[] = 'define("NX_PATH_VALIDATORS", "'.$vals.'");';
+            $code[] = 'define("NX_PATH_COMPILE", "'.$path['compile'].'");';
+            $code[] = 'define("NX_PATH_CACHE", "'.$path['cache'].'");';
+            $code[] = 'define("NX_PATH_TMP", "'.$path['tmp'].'");';
+            $code[] = 'define("NX_PATH_APPS", "'.$path['applications'].'");';
+            $code[] = 'define("NX_PATH_PLUGINS", "'.$path['plugins'].'");';
+            $code[] = 'require_once(NX_PATH_CORE."init.php");';
+            $code[] = 'Nexista_Config::setMode("'.$key.'");';
+            $code[] = 'define("NX_ID", "'.$nxid.'");';
 
-			$code[] = 'require_once(NX_PATH_CORE."init.php");';
-			$code[] = 'Nexista_Config::setMode("'.$key.'");';
-			$code[] = 'define("NX_ID", "'.Nexista_Config::get('./build/query').'");';
+            $code[] = '$init = new Nexista_Init();';
 
-			$code[] = '$init = new Nexista_Init();';
-
-			$extensions = Nexista_Config::getSection('extensions');
-            if(is_array($extensions)) {
-                foreach($extensions as $extension => $value) {
-                    $thisExtension = Nexista_Config::getSection($extension,false,'/extensions/');
-                    if($thisExtension['placement'] == "prepend") {
-                        $code[] = '$init->loadPrepend("'.$thisExtension['source'].'"); /* prepend extension */';
+            $extensions = Nexista_Config::getSection('extensions');
+            if (is_array($extensions)) {
+                foreach ($extensions as $extension => $value) {
+                    $thisExtension = Nexista_Config::getSection($extension,
+                        false, '/extensions/');
+                    if ($thisExtension['placement'] == "prepend") {
+                        $code[] =
+                        '$init->loadPrepend("'.$thisExtension['source'].'");';
                     }
                 }
             }
 
             $code[] = '$init->start();';
 
-			$extensions = Nexista_Config::getSection('extensions');
-            if(is_array($extensions)) {
-                foreach($extensions as $extension => $value) {
-                    $thisExtension = Nexista_Config::getSection($extension,false,'/extensions/');
-                    if($thisExtension['placement'] == "predisplay") {
-                        $code[] = '$init->loadPrepend("'.$thisExtension['source'].'");  /* predisplay extension */';
+            $extensions = Nexista_Config::getSection('extensions');
+            if (is_array($extensions)) {
+                foreach ($extensions as $extension => $value) {
+                    $thisExtension = Nexista_Config::getSection($extension,
+                        false, '/extensions/');
+                    if ($thisExtension['placement'] == "predisplay") {
+                        $code[] = 
+                        '$init->loadPrepend("'.$thisExtension['source'].'");';
                     }
                 }
             }
-			$code[] = '$init->display();';
-			$code[] = '$init->stop();';
-			$code[] = '}';
-			$code[] = '';
+            $code[] = '$init->display();';
+            $code[] = '$init->stop();';
+            $code[] = '}';
+            $code[] = '';
 
-		}
+        }
         $code[] = '?>';
 
-		foreach($modes as $key => $value) {
-			Nexista_Config::setMode($key);
-			$mydir = Nexista_Config::get('./build/loader');
-            return file_put_contents($mydir, implode(NX_BUILDER_LINEBREAK,$code));
-		}
+        foreach ($modes as $key => $value) {
+            Nexista_Config::setMode($key);
+            $mydir = Nexista_Config::get('./build/loader');
+            return file_put_contents($mydir,
+                implode(NX_BUILDER_LINEBREAK, $code));
+        }
     }
 
     /**
      * Loads the sitemap
      *
+     * @return null
      */
 
-    private function loadSitemap()
+    private function _loadSitemap()
     {
-        if(isset($_ENV['NEXISTA_MODE'])) {
+        if (isset($_ENV['NEXISTA_MODE'])) {
             Nexista_Config::setMode($_ENV['NEXISTA_MODE']);
         }
 
         //read sitemap as xml
-        $this->sitemapDocument = new DOMDocument("1.0");
+        $this->sitemapDocument = new DOMDocument("1.0", "UTF-8");
+
         $my_sitemap = Nexista_Config::get('./build/sitemap');
+
         $this->sitemapDocument->load($my_sitemap);
         $gate_items = $this->sitemapDocument->getElementsByTagName('*');
-        foreach($gate_items as $gate_item) {
-            if( $gate_item->hasAttribute("src") ) {
-                $my_src = $gate_item->getAttribute("src");
-                $gate_item->removeAttribute("src");
-                $gate_item->setAttribute("src",dirname($my_sitemap) . "/" . $my_src);
+        foreach ($gate_items as $gate_i) {
+            if ( $gate_i->hasAttribute("src") ) {
+                $my_src = $gate_i->getAttribute("src");
+                $gate_i->removeAttribute("src");
+                $gate_i->setAttribute("src", dirname($my_sitemap)."/".$my_src);
             }
         }
 
         //process extensions sitemaps
         $extensions = Nexista_Config::getSection('extensions');
-        foreach($extensions as $extension => $value) {
-            $thisExtension = Nexista_Config::getSection($extension,false,'/extensions/');
-            if( $ext_sitemap = $thisExtension['sitemap'] ) {
-                if( is_file($ext_sitemap) ) {
+        foreach ($extensions as $extension => $value) {
+            $thisExtension = Nexista_Config::getSection($extension,
+                false, '/extensions/');
+            if ( $ext_sitemap = $thisExtension['sitemap'] ) {
+                if ( is_file($ext_sitemap) ) {
                     $zdoc = new DOMDocument();
                     $zdoc->load($ext_sitemap);
                     $gate_items = $zdoc->getElementsByTagName('*');
-                    foreach($gate_items as $gate_item) {
-                        if( $gate_item->hasAttribute("src") ) {
+                    foreach ($gate_items as $gate_item) {
+                        if ( $gate_item->hasAttribute("src") ) {
                             $my_src = $gate_item->getAttribute("src");
                             $gate_item->removeAttribute("src");
-                            $gate_item->setAttribute("src",dirname($ext_sitemap) . "/" . $my_src);
+                            $gate_item->setAttribute("src",
+                                dirname($ext_sitemap) . "/" . $my_src);
                         }
                     }
                     // Only import gates
                     $z = new DOMXPath($zdoc);
+                    
                     $zimported_gates = $z->query('//map:gate');
-                    foreach($zimported_gates as $zimport_gate) {
-                        $anew = $this->sitemapDocument->importNode($zimport_gate,1);
-                        $this->sitemapDocument->documentElement->appendChild($anew);
+                    foreach ($zimported_gates as $zimport) {
+                        $a = $this->sitemapDocument->importNode($zimport, 1);
+                        $this->sitemapDocument->documentElement->appendChild($a);
                     }
                 }
             }
@@ -314,37 +355,37 @@ class Nexista_Foundry
 
 
     /**
-     * Parses the sitemap, calling build process for each gate 
+     * Parses the sitemap, calling build process for each gate
      *
+     * @return null
      */
 
     public function buildGates()
     {
         //load sitemap
-        $this->loadSitemap();
+        $this->_loadSitemap();
 
         //load builder classes
         $builderPath = Nexista_Config::get('./path/base')."modules/builders/";
+
         $files = scandir($builderPath);
         //make instances for each for later gate building
-        foreach($files as $file)
-        {
+        foreach ($files as $file) {
             //the # is for CVS backups which get in the way, as well as backups
-            if(
-                strpos($file, '.builder.php') AND
+            if (strpos($file, '.builder.php') AND
                 !strpos($file, '#') AND
                 !strpos($file, '_') AND
                 !strpos($file, '~')
-                )
-            {
+                ) {
 
                 //load class
-                require_once($builderPath.$file);
+                include_once $builderPath.$file;
 
                 //store class
-                $tag = str_replace('.builder.php', '', $file);
+                $tag   = str_replace('.builder.php', '', $file);
                 $class = 'Nexista_'.ucfirst($tag).'Builder';
-                $obj =& new $class;
+                $obj   =& new $class;
+
                 $this->builderTags[$tag] =& $obj;
             }
         }
@@ -355,13 +396,12 @@ class Nexista_Foundry
         $gates = $x->query('//map:gate');
         $count = 0;
 
-        foreach($gates as $gate)
-        {
+        foreach ($gates as $gate) {
             //build gate
-            $this->writeGate($this->parseGate($gate), $count);
+            $this->_writeGate($this->_parseGate($gate), $count);
 
             //add gate info for sitemap
-            $this->buildConditions($gate, 'gate-'.$count.'.php');
+            $this->_buildConditions($gate, 'gate-'.$count.'.php');
             $count++;
         }
 
@@ -371,57 +411,53 @@ class Nexista_Foundry
     /**
      * Compiles the final sitemap file
      *
-     * @param   string      xml array path to the gate info
-     * @param   string      filename of gate that will be written in the sitemap file
+     * @param string &$gate    xml array path to the gate info
+     * @param string $filename filename of gate for the sitemap file
+     *
+     * @return null
      */
 
-    private function buildConditions(&$gate, $filename)
+    private function _buildConditions(&$gate, $filename)
     {
-        if(!$gate->hasAttribute('name'))
-        {
+        if (!$gate->hasAttribute('name')) {
             Nexista_Error::init('No name for gate', NX_ERROR_FATAL);
         }
 
         //cache time
         $cache = -1;
-        if($gate->hasAttribute('cache'))
-        {
+        if ($gate->hasAttribute('cache')) {
             $cache = $gate->getAttribute('cache');
         }
         //client_cache
         $client_cache = -1;
-        if($gate->hasAttribute('client_cache'))
-        {
+        if ($gate->hasAttribute('client_cache')) {
             $client_cache = $gate->getAttribute('client_cache');
         }
+
         //client_cache
         $content_type = -1;
-        if($gate->hasAttribute('content_type'))
-        {
+        if ($gate->hasAttribute('content_type')) {
             $content_type = $gate->getAttribute('content_type');
         }
+
         //role required
         $role = -1;
-        if($gate->hasAttribute('role'))
-        {
+        if ($gate->hasAttribute('role')) {
             $role = $gate->getAttribute('role');
         }
 
-
-        if(preg_match('~^regex:(.*)$~', $gate->getAttribute('name'), $m))
-        {
+        if (preg_match('~^regex:(.*)$~', $gate->getAttribute('name'), $m)) {
             $match = 'regex';
-            $name =  $m[1];
-        }
-        else
-        {
+            $name  = $m[1];
+        } else {
             $match = 'exact';
-            $name = $gate->getAttribute('name');
+            $name  = $gate->getAttribute('name');
         }
 
-        if($this->debug) {
+        if ($this->debug) {
             echo "<a href='?nid=".$name."'>".$name."</a>...<br>\n";
-		}
+        }
+
         $this->sitemap[$match][$name] =
             array(
                 'uri' => $filename,
@@ -430,7 +466,6 @@ class Nexista_Foundry
                 'client_cache' => $client_cache,
                 'content_type' => $content_type
             );
-
     }
 
 
@@ -442,6 +477,7 @@ class Nexista_Foundry
      * condition map out of it. This file will be used
      * as the sitemap for the site
      *
+     * @return null
      */
 
     public function buildSitemap()
@@ -450,36 +486,45 @@ class Nexista_Foundry
         //build top of file (reqs, etc)
         $code[] = "<?php";
         $code[] = '//Built: '.date("D M j G:i:s T Y");
-        $code[] = '$_ID_ = Nexista_Path::get("{//_get/'.Nexista_Config::get('./build/query').'}");';
-        $default_gate = Nexista_Config::get('./build/default_gate');
-        if(!empty($default_gate)) {
-            $code[] = 'if(empty($_ID_)) { $_ID_ = "'.$default_gate.'"; }';
-        }
-        foreach($this->sitemap as $type => $elements)
-        {
-            $code[] = '$gates'.ucfirst($type).' = array(';
-            foreach($elements as $name => $info)
-            {
-                $this_gate = "'".$name."'=>array('uri'=>'".$info['uri']."'";
-                // Server cache's need to include auth if there is a role specified.
-                if($info['cache'] !== -1 && $info['role'] !== -1){
-                    $this_gate .= ",'cache'=>".$info['cache'].",'role'=>'".$info['role']."'";
+        $my_nid = Nexista_Config::get('./build/query');
+        $code[] = '$_ID_ = Nexista_Path::get("{//_get/'.$my_nid.'}");';
 
-                } elseif($info['cache'] !== -1 && $info['role'] === -1){
+        $default_gate = Nexista_Config::get('./build/default_gate');
+        if (!empty($default_gate)) {
+            $code[] = 'if (empty($_ID_)) { $_ID_ = "'.$default_gate.'"; }';
+        }
+
+        foreach ($this->sitemap as $type => $elements) {
+            $code[] = '$gates'.ucfirst($type).' = array(';
+
+            foreach ($elements as $name => $info) {
+                $this_gate = "'".$name."'=>array('uri'=>'".$info['uri']."'";
+
+                // Server cache's need to include auth if there is a role .
+                if ($info['cache'] !== -1 && $info['role'] !== -1) {
+                    $this_gate .= ",
+                        'cache'=>".$info['cache'].",
+                        'role'=>'".$info['role']."'";
+
+                } elseif ($info['cache'] !== -1 && $info['role'] === -1) {
                     $this_gate .= ",'cache'=>".$info['cache'];
 
-                } elseif($info['role'] !== -1 && $info['cache'] === -1 ){
+                } elseif ($info['role'] !== -1 && $info['cache'] === -1 ) {
                     $this_gate .= ",'role'=>'".$info['role']."'";
                 }
+
                 // Client cache's do not need check for auth.
-                if($info['client_cache'] !== -1){
+                if ($info['client_cache'] !== -1) {
                     $this_gate .= ",'client_cache'=>'".$info['client_cache']."'";
                 }
+
                 // Content type
-                if($info['content_type'] !== -1){
-                    $this_gate .= ",'content_type'=>'".$info['content_type']."'";
+                if ($info['content_type'] !== -1) {
+                    $this_gate .= ",
+                        'content_type'=>'".$info['content_type']."'";
                 }
                 $this_gate .= "),";
+                
                 $code[] = $this_gate;
             }
             $code[] = ');';
@@ -487,32 +532,34 @@ class Nexista_Foundry
 
         //setup 404 handling
         $missing = Nexista_Config::get('./build/missing');
-        if(!empty($missing) && isset($this->sitemap['exact'][$missing]))
-        {
+        if (!empty($missing) && isset($this->sitemap['exact'][$missing])) {
             $code[] = '$gateMissing = array(';
-            foreach($elements as $name => $info)
-            {
-                if($name==$missing) {
-                $this_gate = "'uri'=>'".$info['uri']."'";
-                // Server cache's need to include auth if there is a role specified.
-                if($info['cache'] !== -1 && $info['role'] !== -1){
-                    $this_gate .= ",'cache'=>".$info['cache'].",'role'=>'".$info['role']."'";
+            foreach ($elements as $name => $info) {
+                if ($name==$missing) {
+                    $this_gate = "'uri'=>'".$info['uri']."'";
+                    // Server cache's need to include auth if there is a role
+                    if ($info['cache'] !== -1 && $info['role'] !== -1) {
+                        $this_gate .= ",
+                            'cache'=>".$info['cache'].",
+                            'role'=>'".$info['role']."'";
 
-                } elseif($info['cache'] !== -1 && $info['role'] === -1){
-                    $this_gate .= ",'cache'=>".$info['cache'];
+                    } elseif ($info['cache'] !== -1 && $info['role'] === -1) {
+                        $this_gate .= ",'cache'=>".$info['cache'];
 
-                } elseif($info['role'] !== -1 && $info['cache'] === -1 ){
-                    $this_gate .= ",'role'=>'".$info['role']."'";
-                }
-                // Client cache's do not need check for auth.
-                if($info['client_cache'] !== -1){
-                    $this_gate .= ",'client_cache'=>'".$info['client_cache']."'";
-                }
-                // Content type
-                if($info['content_type'] !== -1){
-                    $this_gate .= ",'content_type'=>'".$info['content_type']."'";
-                }
-                $code[] = $this_gate;
+                    } elseif ($info['role'] !== -1 && $info['cache'] === -1) {
+                        $this_gate .= ",'role'=>'".$info['role']."'";
+                    }
+                    // Client cache's do not need check for auth.
+                    if ($info['client_cache'] !== -1) {
+                        $this_gate .= ",
+                            'client_cache'=>'".$info['client_cache']."'";
+                    }
+                    // Content type
+                    if ($info['content_type'] !== -1) {
+                        $this_gate .= ",
+                            'content_type'=>'".$info['content_type']."'";
+                    }
+                    $code[] = $this_gate;
                 }
             }
             $code[] = ');';
@@ -522,53 +569,51 @@ class Nexista_Foundry
 
         $code[] = '?>';
 
-        $data = implode(NX_BUILDER_LINEBREAK,$code);
+        $data = implode(NX_BUILDER_LINEBREAK, $code);
 
         //save file
         $tmp = fopen(Nexista_Config::get('./path/compile').'sitemap.php', "w+");
-        if(flock($tmp, LOCK_EX))
-        {
+        if (flock($tmp, LOCK_EX)) {
             fwrite($tmp, $data);
             flock($tmp, LOCK_UN);
         }
-        fclose ($tmp);
+        fclose($tmp);
     }
 
 
     /**
      * Build an individual gate file
      *
-     * @param   object      reference to gate object
-     * @return  string      content of gate to write
+     * @param object &$gate reference to gate object
+     *
+     * @return string content of gate to write
      */
      
-    private function parseGate(&$gate)
+    private function _parseGate(&$gate)
     {
-
         //init array for required file
         $required = array();
 
         $code = '';
 
         //foreach action
-        $this->parseGateCallback($gate, $code, $required);
+        $this->_parseGateCallback($gate, $code, $required);
 
         //get prepend tags
         $res = $this->sitemapDocument->getElementsByTagName('prepend');
+        
         $prependCode = '';
-        if($res->length)
-        {
+        if ($res->length) {
             $prependGate = $res->item(0);
-            $this->parseGateCallback($prependGate, $prependCode, $required);
+            $this->_parseGateCallback($prependGate, $prependCode, $required);
         }
 
         //add header and required files
-        $content = $this->addGateHeader($gate, $required);
+        $content = $this->_addGateHeader($gate, $required);
 
         //add prepend and main code
         $content .= $prependCode.$code;
-
-        $content .= $this->addGateFooter($gate);
+        $content .= $this->_addGateFooter($gate);
 
         return $content;
 
@@ -578,23 +623,22 @@ class Nexista_Foundry
     /**
      * Callback file to build an individual gate file
      *
-     * @param   object      reference to current tag being processed
-     * @param   string      reference to current code content for gate
-     * @param   array       reference to required include files for this tag
-     * @return  boolean     success
+     * @param object &$tag      reference to current tag being processed
+     * @param string &$code     reference to current code content for gate
+     * @param array  &$required reference to required include files for this tag
+     *
+     * @return boolean success
      */
 
-    private function &parseGateCallback(&$tag, &$code, &$required)
+    private function &_parseGateCallback(&$tag, &$code, &$required)
     {
-        foreach( $tag->childNodes as $action)
-        {
-            if(get_class($action) != 'DOMElement')
+        foreach ( $tag->childNodes as $action) {
+            if (get_class($action) != 'DOMElement')
                 continue;
 
             $module = str_replace('map:', '', $action->nodeName);
 
-            if(in_array($module, array_keys($this->builderTags)))
-            {
+            if (in_array($module, array_keys($this->builderTags))) {
                 $obj =& $this->builderTags[$module];
 
                 //add required files
@@ -604,41 +648,41 @@ class Nexista_Foundry
                 $obj->action =& $action;
 
                 //add debug code?
-                $non_debug_modules = array('if','true','false','case','switch');
-                if(
-                    $GLOBALS['debugTrack'] &&
-                    !in_array($module,$non_debug_modules))
-                {
-                    $code .= $this->addGateDebugStart($module);
+                $non_debug_modules =
+                    array('if', 'true', 'false', 'case', 'switch');
+                    
+                if ($GLOBALS['debugTrack'] &&
+                    !in_array($module, $non_debug_modules)) {
+                    $code .= $this->_addGateDebugStart($module);
                 }
 
                 //get start of code
                 $text = $obj->getCodeStart();
 
-                if(!empty($text))
+                if (!empty($text))
                     $code .= $text.NX_BUILDER_LINEBREAK;
 
                 //get nested tag code
-                if(!$this->parseGateCallback($action, $code, $required))
+                if (!$this->_parseGateCallback($action, $code, $required))
                     return false;
 
                 //get end code
                 $text = $obj->getCodeEnd();
 
-                if(!empty($text))
+                if (!empty($text))
                     $code .= $text.NX_BUILDER_LINEBREAK;
 
                 //reset builder values such as attributes
                 $obj->reset();
 
                 //add debug code?
-                if($GLOBALS['debugTrack'] && !in_array($module,$non_debug_modules))
-                    $code .= $this->addGateDebugStop($module);
-
-            }
-            else
-            {
-                Nexista_Error::init("No $module builder module found!", NX_ERROR_FATAL);
+                if ($GLOBALS['debugTrack'] &&
+                    !in_array($module, $non_debug_modules)) {
+                    $code .= $this->_addGateDebugStop($module);
+                }
+            } else {
+                Nexista_Error::init("No $module builder module found!", 
+                    NX_ERROR_FATAL);
             }
         }
         return true;
@@ -648,28 +692,26 @@ class Nexista_Foundry
     /**
      * Compiles individual gate files
      *
+     * @param string &$gatedata the cdata content for this gate
+     * @param string &$gatenum  the number (in order) of this gate
      *
-     * @param   string      the cdata content for this gate
-     * @param   string      the number (in order) of this gate
+     * @return null
      */
 
-    private function writeGate(&$gatedata, &$gatenum)
+    private function _writeGate(&$gatedata, &$gatenum)
     {
 
         //write gate file
         $compile_path = Nexista_Config::get('./path/compile');
-        if(!is_dir($compile_path)) {
+        if (!is_dir($compile_path)) {
             // TODO - Error handling
-            mkdir($compile_path,0775,TRUE);
+            mkdir($compile_path, 0775, true);
         }
-        $gatefile = fopen($compile_path. 'gate-'.$gatenum.".php","w+");
-
-        if (flock($gatefile, LOCK_EX))
-        {
+        
+        $gatefile = fopen($compile_path. 'gate-'.$gatenum.".php", "w+");
+        if (flock($gatefile, LOCK_EX)) {
             fwrite($gatefile, $gatedata);
-
             flock($gatefile, LOCK_UN);
-
         }
         fclose($gatefile);
     }
@@ -678,85 +720,93 @@ class Nexista_Foundry
     /**
      * Adds gate debug registration
      *
-     * @return  string      prepend code
+     * @param string $mod prepend code
+     *
+     * @return string
      */
      
-    private function addGateDebugStart($mod)
+    private function _addGateDebugStart($mod)
     {
         $code[] = "Nexista_Debug::register('in','".$mod."');";
-        return implode(NX_BUILDER_LINEBREAK,$code).NX_BUILDER_LINEBREAK;
-
+        return implode(NX_BUILDER_LINEBREAK, $code).NX_BUILDER_LINEBREAK;
     }
 
 
     /**
      * Returns gate prepend code
      *
-     * @return  string      prepend code
+     * @param string $mod prepend code
+     *
+     * @return string
      */
 
-    private function addGateDebugStop($mod)
+    private function _addGateDebugStop($mod)
     {
-
         $code[] = "Nexista_Debug::register('out','".$mod."');";
-        return implode(NX_BUILDER_LINEBREAK,$code).NX_BUILDER_LINEBREAK;
-
+        return implode(NX_BUILDER_LINEBREAK, $code).NX_BUILDER_LINEBREAK;
     }
 
     /**
      * Returns gate prepend code
      *
-     * @return  string      prepend code
+     * @param object &$obj prepend code
+     *
+     * @return string
      */
      
-    private function addGateFooter(&$obj)
+    private function _addGateFooter(&$obj)
     {
         $code[] = '?>';
-        return implode(NX_BUILDER_LINEBREAK,$code);
+        return implode(NX_BUILDER_LINEBREAK, $code);
     }
 
 
     /**
      * Returns gate prepend code
      *
-     * @return  string      prepend code
+     * @param object &$obj prepend code
+     * @param array  $req  array of required resources
+     * 
+     * @return string code
      */
 
-    private function addGateHeader(&$obj, $req = array())
+    private function _addGateHeader(&$obj, $req = array())
     {
         $code[] = '<?php';
         $code[] = '/*';
         $code[] = ' * Gate Name:     '.$obj->getAttribute('name');
+
         $matchType = ($obj->getAttribute('match')== 'regex') ? 'regex':'normal';
+
         $code[] = ' * Match Type:    '.$matchType;
         $code[] = ' * Build Time:    '.date("D M j G:i:s T Y");
         $code[] = ' */';
+
         $req = array_unique($req);
-        foreach($req as $r)
-        {
+        foreach ($req as $r) {
             $code[] = "require_once('".$r."');";
         }
 
         $code[] = '$flow = Nexista_Flow::singleton();';
         $code[] = '$output  = null;';
 
-        return implode(NX_BUILDER_LINEBREAK,$code).NX_BUILDER_LINEBREAK;
+        return implode(NX_BUILDER_LINEBREAK, $code).NX_BUILDER_LINEBREAK;
     }
 
     /**
      * Returns gate prepend code
      *
-     * @return  string      prepend code
+     * @return string prepend code
      */
 
     static public function singleton()
     {
-        if (!isset(self::$instance)) {
+        if (!isset(self::$_instance)) {
             $c = __CLASS__;
-            self::$instance = new $c;
+            self::$_instance = new $c;
         }
 
-        return self::$instance;
+        return self::$_instance;
     }
 
 } //end class
