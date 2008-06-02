@@ -25,32 +25,19 @@ Author: Albert Lash
 License: LGPL
 */
 
-if (!defined('SERVER_NAME')) {
-    define('SERVER_NAME', $server_name);
-}
-if (!file_exists(INCLUDE_PATH.'kernel/foundry.php')) {
-    echo "I can't find the nexista foundry class, and cannot continue. Try this:
-    <br/><br/><a href='http://www.nexista.org'>http://www.nexista.org</a>, 
-    and so you know, I looking here: <br/>";
-    echo INCLUDE_PATH."kernel/foundry.php";;
-    exit;
-} else {
-    require INCLUDE_PATH.'kernel/foundry.php';
-}
-
-$foundry = Nexista_Foundry::singleton();
-
-$config     = PROJECT_ROOT.'/config/config.xml';
-$app_config = PROJECT_ROOT.'/apps/'.APP_NAME.'/config/config.xml';
 
 
-function Nexista_Check_freshness()
+
+function Nexista_Check_freshness($server_init)
 {
-    global $config;
     global $app_config;
     global $foundry;
     global $server_init;
 
+    $config      = PROJECT_ROOT.'/config/config.xml';
+    $app_config  = PROJECT_ROOT.'/apps/'.APP_NAME.'/config/config.xml';
+
+    // Should sitemap be checked? not usually.
     $my_sitemap = PROJECT_ROOT.'/apps/'.APP_NAME.'/sitemap.xml';
 
     $last_build_time = filemtime($server_init);
@@ -64,26 +51,33 @@ function Nexista_Check_freshness()
         }
     }
 
-    if ($last_build_time < filemtime($my_sitemap) || 
-        $last_build_time < filemtime($config) || 
+    if ($last_build_time < filemtime($my_sitemap) ||
+        $last_build_time < filemtime($config) ||
         $app_config_stat === false) {
 
-        nexista_build_it_now();
+        nexista_build_it_now($server_init);
 
-        if ($foundry->debug == 1) {
-            echo "Nexista is rebuilding the loader because either the sitemap 
-            or one of the configs has been edited.<br/>
-            <a href='javascript:history.go(-1)'>OK, all done, go back.</a><br/>
-            Building index file....OK<br/>";
-        }
     }
 }
 
-function Nexista_Build_It_now()
+function Nexista_Build_It_now($server_init)
 {
-    global $config;
-    global $foundry;
-    global $server_init;
+
+    if (!file_exists(NX_PATH_BASE.'kernel/foundry.php')) {
+        echo "I can't find the nexista foundry class, and cannot continue. Try this:
+        <br/><br/><a href='http://www.nexista.org'>http://www.nexista.org</a>, 
+        and so you know, I looking here: <br/>";
+        echo NX_PATH_BASE."kernel/foundry.php";;
+        exit;
+    } else {
+        require NX_PATH_BASE.'kernel/foundry.php';
+    }
+
+    $foundry = Nexista_Foundry::singleton();
+
+    $config     = PROJECT_ROOT.'/config/config.xml';
+    $app_config = PROJECT_ROOT.'/apps/'.APP_NAME.'/config/config.xml';
+
     ob_end_clean();
     header('Cache-Control: no-cache, no-store');
     ?>
@@ -101,8 +95,6 @@ function Nexista_Build_It_now()
         exit;
     }
 
-    $config      = PROJECT_ROOT.'/config/config.xml';
-    $app_config  = PROJECT_ROOT.'/apps/'.APP_NAME.'/config/config.xml';
     $config_file = file_get_contents($config);
 
     if (!isset($mode)) {
@@ -111,6 +103,7 @@ function Nexista_Build_It_now()
     if (isset($_ENV['NEXISTA_MODE'])) {
         $mode = $_ENV['NEXISTA_MODE'];
     }
+
     if (!file_exists($app_config)) {
         $foundry->configure($config, null, $mode);
     } else {
