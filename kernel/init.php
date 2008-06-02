@@ -15,7 +15,6 @@
  * @link      http://www.nexista.org/
  */
 
-
 /**
  * Load required runtime files
  */
@@ -69,7 +68,7 @@ class Nexista_Init
      * @var mixed
      */
 
-    static private $outputHandler;
+    static private $_outputHandler;
 
 
     /**
@@ -78,7 +77,7 @@ class Nexista_Init
      * @var object
      */
 
-    private $config;
+    private $_config;
 
     
     /**
@@ -96,7 +95,7 @@ class Nexista_Init
      * @var array
      */
 
-    private $info = array();
+    private $_info = array();
 
 
     /**
@@ -108,9 +107,9 @@ class Nexista_Init
     public function __construct()
     {
 
-        $this->startTimer();
+        $this->_startTimer();
         $this->loadConfig();
-        $this->setDebug();
+        $this->_setDebug();
     }
 
 
@@ -127,7 +126,7 @@ class Nexista_Init
     {
         Nexista_Debug::register("in", "total");
         $this->initSession();
-        $this->initFlow();
+        $this->_initFlow();
     }
 
 
@@ -191,7 +190,7 @@ class Nexista_Init
      * @return null
      */
 
-    private function initFlow()
+    private function _initFlow()
     { 
         $flow = Nexista_Flow::singleton();
         $flow->init();
@@ -237,7 +236,7 @@ class Nexista_Init
      * @return null
      */
 
-    private function startTimer()
+    private function _startTimer()
     {
         $GLOBALS['debugStartTime'] = microtime();
     }
@@ -281,21 +280,21 @@ class Nexista_Init
             $gateFound = true;
 
         } elseif (isset($gatesRegex)) {
-            foreach ($gatesRegex as $regex=>$info) {
+            foreach ($gatesRegex as $regex=>$_info) {
 
                 if (preg_match("/".$regex."/", $_ID_, $match)) {
 
                     $GLOBALS['regex'] = $match;
 
-                    $this->info['uri'] = $info['uri'];
+                    $this->info['uri'] = $_info['uri'];
 
-                    if (isset($info['cache']))
-                        $this->info['cacheExpiryTime'] = $info['cache'];
-                    if (isset($info['role'])) {
-                        $this->info['requiredRole'] = $info['role'];
+                    if (isset($_info['cache']))
+                        $this->info['cacheExpiryTime'] = $_info['cache'];
+                    if (isset($_info['role'])) {
+                        $this->info['requiredRole'] = $_info['role'];
                         
                         $auth = Nexista_Auth::singleton();
-                        $auth->requireRole($info['role']);
+                        $auth->requireRole($_info['role']);
                     }
                     $gateFound = true;
                     break;
@@ -369,8 +368,8 @@ class Nexista_Init
     public function display()
     {
         //output handler defined?
-        if (!is_null(self::$outputHandler)) {
-            echo call_user_func(self::$outputHandler, $this);
+        if (!is_null(self::$_outputHandler)) {
+            echo call_user_func(self::$_outputHandler, $this);
         } else {
             //process sitemap and locate file
             $this->process();
@@ -406,12 +405,12 @@ class Nexista_Init
      * @return boolean true or false
      */
 
-    private function setDebug()
+    private function _setDebug()
     {
-        $configs = $this->config->getSection('runtime');
-        if (isset($configs['debug']) &&
-                ((bool)$configs['debug']===true ||
-                $configs['debug']===true)) {
+        $_configs = $this->config->getSection('runtime');
+        if (isset($_configs['debug']) &&
+                ((bool)$_configs['debug']===true ||
+                $_configs['debug']===true)) {
 
             $GLOBALS['debugTrack'] = true;
 
@@ -434,7 +433,7 @@ class Nexista_Init
      * defined in is_callable php function.  It should accept 1 arguments:
      * 1. The reference to the init class instance
      *
-     * Note that the Init::$info property contains the current cache value
+     * Note that the Init::$_info property contains the current cache value
      * from the sitemap if set.
      *
      * This function should call:
@@ -449,7 +448,7 @@ class Nexista_Init
     static public function registerOutputHandler($handler)
     {
         if (is_callable($handler))
-            self::$outputHandler = $handler;
+            self::$_outputHandler = $handler;
         else
             NexistaException::init("Init Output Handler is not callable!");
     }
