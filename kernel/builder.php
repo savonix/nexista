@@ -124,7 +124,7 @@ class Nexista_Builder
      * $this->addErrorHandling('someaction()', Ooops', 'NX_ERROR_FATAL');
      *
      * This will result in something like:
-     * <code>if(!someaction()) {
+     * <code>if (!someaction()) {
      *     Nexista_Error::init('Ooops', NX_ERROR_FATAL);
      * }</code>
      *
@@ -138,7 +138,7 @@ class Nexista_Builder
     public function addErrorHandler($content = '', $message = '', $code = 'NX_ERROR_FATAL', $errorHandler = null)
     {
         return $content.';';
-        $code[] = 'if(!'.$content.') {';
+        $code[] = 'if (!'.$content.') {';
         $code[] = "Nexista_Error::init('".$message."','".$code."','".$errorHandler."'));";
         $code[] = '}';
         return implode(NX_BUILDER_LINEBREAK, $code);

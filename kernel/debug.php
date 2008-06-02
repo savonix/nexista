@@ -31,7 +31,7 @@ class Nexista_Debug
     static public function dump($array, $name = '')
     {
         echo '<font color="orange"><br>--- <b>Begin array dump:</b> ' . $name . '---<br></font><pre>';
-        if(!empty($array))
+        if (!empty($array))
         {
             echo '<font color="purple">';
             print_r($array);
@@ -60,7 +60,7 @@ class Nexista_Debug
         {
             $index = $key + 1;
 
-            if(is_array($val) && $this->array_mode)
+            if (is_array($val) && $this->array_mode)
             {
                 echo "Arg #$index: ";
                 $this->array_dump($val);
@@ -97,7 +97,7 @@ class Nexista_Debug
             case 'in':
 
                 $pos = 0;
-                if(isset($GLOBALS['debugTrackModule']))
+                if (isset($GLOBALS['debugTrackModule']))
                 {
                     $pos = @count($GLOBALS['debugTrackModule']);
                 }
@@ -141,7 +141,7 @@ class Nexista_Debug
 
     static public function message($message)
     {
-        if(isset($GLOBALS['debugTrack']) && $GLOBALS['debugTrack'] === true)
+        if (isset($GLOBALS['debugTrack']) && $GLOBALS['debugTrack'] === true)
         {
             echo '<br><span style="color: purple;" class="debug">' . $message.'</span>';
         }
@@ -174,7 +174,7 @@ class Nexista_Debug
         list($usec, $sec) = explode(" ",microtime());
         $end = ((float)$usec + (float)$sec);
 
-        if(!$startTime)
+        if (!$startTime)
         {
             $start = $GLOBALS['debugStartTime'];
         }

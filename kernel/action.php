@@ -1,6 +1,6 @@
 <?php
 /*
- * -File        action.php
+ * -File        Action.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   Nexista
  * -Author      joshua savage
@@ -9,13 +9,13 @@
 
 /**
  * @package Nexista
- * @author Joshua Savage
- * @author Albert Lash
+ * @author  Joshua Savage
+ * @author  Albert Lash
  */
  
 /**
  * This class Nexista_is the base class Nexista_upon which to extend custom actions
- * 
+ *
  * @package     Nexista
  */
 
@@ -80,9 +80,9 @@ class Nexista_Action
         $cnt = 0;
         foreach($this->params as $key => $val)
         {
-            if(empty($params[$cnt]))
+            if (empty($params[$cnt]))
             {
-                if($val == 'required')
+                if ($val == 'required')
                 {
                     Nexista_Error::init('Class '. get_class($this).' does not have the required number of parameters', NX_ERROR_FATAL);
                 }

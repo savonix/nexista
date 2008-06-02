@@ -81,7 +81,7 @@ class Nexista_Config
 
     public function setMaster($file)
     {
-        if(!file_exists($file)) 
+        if (!file_exists($file)) 
         {
             Nexista_Error::init('Cannot find master config file: '.$file, NX_ERROR_FATAL);            
         }
@@ -102,13 +102,13 @@ class Nexista_Config
      
     public function setLocal($file)
     {
-		if($file) {
-			if(!file_exists($file))
-			{
-				Nexista_Error::init('Cannot find local config file: '.$file, NX_ERROR_FATAL);            
-			}
-			$this->localConfig = $file;
-		}
+        if ($file) {
+            if (!file_exists($file))
+            {
+                Nexista_Error::init('Cannot find local config file: '.$file, NX_ERROR_FATAL);            
+            }
+            $this->localConfig = $file;
+        }
     }
 
     /**
@@ -153,26 +153,26 @@ class Nexista_Config
 
     public function load()
     {
-	$includepath=INCLUDE_PATH;
-	$server_name=$_SERVER['SERVER_NAME'];
-	$project_root=PROJECT_ROOT;
-	$project_name=PROJECT_NAME;
+    $includepath=INCLUDE_PATH;
+    $server_name=$_SERVER['SERVER_NAME'];
+    $project_root=PROJECT_ROOT;
+    $project_name=PROJECT_NAME;
     $app_name=APP_NAME;
 
 
-	$directives='<!ENTITY includepath "'.$includepath.'">';
-	$directives.='<!ENTITY server_name "'.$server_name.'">';
-	$directives.='<!ENTITY project_root "'.$project_root.'">';
-	$directives.='<!ENTITY project_name "'.$project_name.'">';
-	$directives.='<!ENTITY app_name "'.$app_name.'">';
+    $directives='<!ENTITY includepath "'.$includepath.'">';
+    $directives.='<!ENTITY server_name "'.$server_name.'">';
+    $directives.='<!ENTITY project_root "'.$project_root.'">';
+    $directives.='<!ENTITY project_name "'.$project_name.'">';
+    $directives.='<!ENTITY app_name "'.$app_name.'">';
         //if a local config is passed we merge the two in a valid xml string
         $localfile = file_get_contents($this->localConfig);
-        if(!empty($localfile))
+        if (!empty($localfile))
         {
             preg_match('~<config>(.*)</config>~ms',$localfile, $u);
             preg_match('~<config>(.*)</config>~ms', file_get_contents($this->masterConfig), $g);
             self::$xml = simplexml_load_string('<?xml version="1.0"?><!DOCTYPE config ['.$directives.'
-			]><config>'.$u[1].$g[1].'</config>');
+            ]><config>'.$u[1].$g[1].'</config>');
 
 
         }
@@ -180,7 +180,7 @@ class Nexista_Config
         {
             preg_match('~<config>(.*)</config>~ms', file_get_contents($this->masterConfig), $n);
             self::$xml = simplexml_load_string('<?xml version="1.0"?><!DOCTYPE config ['.$directives.'
-			]><config>'.$n[1].'</config>');
+            ]><config>'.$n[1].'</config>');
         }
 
     }
@@ -193,7 +193,7 @@ class Nexista_Config
     public function loadMasterConfig()
     {
 
-		self::$xml = simplexml_load_file($this->masterConfig);
+        self::$xml = simplexml_load_file($this->masterConfig);
 
     }
 
@@ -206,7 +206,7 @@ class Nexista_Config
     public function returnMasterConfig()
     {
 
-		$this->xml = simplexml_load_file($this->masterConfig);
+        $this->xml = simplexml_load_file($this->masterConfig);
 
     }
 
@@ -227,10 +227,10 @@ class Nexista_Config
         Check permissions ( chmod 0777 $canonical_filename ? ) of parent directories,
         or simply refresh to try and rebuild it.";
         $tdir = dirname($canonical_filename);
-        if( ! is_dir ( $tdir ) ) mkdir( $tdir ,0777,TRUE );
+        if ( ! is_dir ( $tdir ) ) mkdir( $tdir ,0777,TRUE );
 
-        if($tmp = fopen($canonical_filename, "w+")) {
-            if(flock($tmp, LOCK_EX))
+        if ($tmp = fopen($canonical_filename, "w+")) {
+            if (flock($tmp, LOCK_EX))
             {
                 fwrite($tmp, self::$xml->asXML());
                 flock($tmp, LOCK_UN);
@@ -260,17 +260,17 @@ class Nexista_Config
          $result = 0;
 
          //is this a parent node?
-        if(!is_null(self::$mode))
+        if (!is_null(self::$mode))
         {
             $result = self::$xml->xpath($name."[@mode='".self::$mode."'][not(*/node())]");
         }
         //no mode given or none found with a given mode
-        if(!$result)
+        if (!$result)
         {
             $result = self::$xml->xpath($name."[not(@mode)][not(*/node())]");
         }
 
-        if($result)
+        if ($result)
         {
             //NOTE: simplexml returns objects so we need to convert or it makes a mess
             //return as string otherwise
@@ -296,7 +296,7 @@ class Nexista_Config
 
     static public function getSection($name, $id = false, $subsection = '')
     {
-        if($id)
+        if ($id)
         {
             $res = self::$xml->xpath("//config/".$subsection.$name."[@id='".$id."']");
             $obj=$res[0];
@@ -308,11 +308,11 @@ class Nexista_Config
         }
 
         $result = array();
-        if(is_object($obj))
+        if (is_object($obj))
         {
             foreach ($obj->children() as $k=> $v)
             {
-                if(is_null(self::$mode) AND (!$v['mode'] OR (string)$v['mode'] == $mode ))
+                if (is_null(self::$mode) AND (!$v['mode'] OR (string)$v['mode'] == $mode ))
                 {
                     $result[$k] = (string)$v;
                 }
@@ -320,12 +320,12 @@ class Nexista_Config
                 else
                 {
                     //if child has mode match we use it
-                    if((string)$v['mode'] === self::$mode)
+                    if ((string)$v['mode'] === self::$mode)
                     {
                         $result[$k] = (string)$v;
                     }
                     //get default value unless a moded one is already in
-                    elseif(!isset($result[$k]))
+                    elseif (!isset($result[$k]))
                     {
                         $result[$k] = (string)$v;
                     }

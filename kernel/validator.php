@@ -10,7 +10,6 @@
  * @category  Nexista
  * @package   Nexista
  * @author    Albert Lash <albert.lash@gmail.com>
- * @author    Joshua Savage <js@example.com>
  * @copyright 0000 Nexista
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL
  * @link      http://www.nexista.org/
@@ -22,7 +21,6 @@
  * @category  Nexista
  * @package   Nexista
  * @author    Albert Lash <albert.lash@gmail.com>
- * @author    Joshua Savage <js@example.com>
  * @copyright 0000 Nexista
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL
  * @link      http://www.nexista.org/
