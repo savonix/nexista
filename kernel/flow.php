@@ -451,7 +451,7 @@ class Nexista_Flow
                     $root->appendChild($flow->flowDocument->createElement($node));
 
                     foreach ($value as $n=>$v) {
-                        if ($n=="GLOBALS") {
+                        if ($n=="GLOBALS" || $n=="") {
                             continue;
                         }
                         $flow->add($n, $v, $e);
