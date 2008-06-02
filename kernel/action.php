@@ -1,22 +1,29 @@
 <?php
-/*
- * -File        Action.php
- * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   Nexista
- * -Author      joshua savage
- * -Author      Albert Lash
- */
-
 /**
- * @package Nexista
- * @author  Joshua Savage
- * @author  Albert Lash
+ * -File        Action.php
+ * -Copyright   Nexista
+ * -Author      Joshua Savage
+ * -Author      Albert Lash
+ *
+ * PHP version 5
+ *
+ * @category  Nexista
+ * @package   Nexista
+ * @author    Albert Lash <albert.lash@gmail.com>
+ * @copyright 0000 Nexista
+ * @license   http://www.gnu.org/copyleft/lesser.html LGPL
+ * @link      http://www.nexista.org/
  */
  
 /**
- * This class Nexista_is the base class Nexista_upon which to extend custom actions
+ * This class is the base class Nexista_upon which to extend custom actions
  *
- * @package     Nexista
+ * @category  Nexista
+ * @package   Nexista
+ * @author    Albert Lash <albert.lash@gmail.com>
+ * @copyright 0000 Nexista
+ * @license   http://www.gnu.org/copyleft/lesser.html LGPL
+ * @link      http://www.nexista.org/
  */
 
 class Nexista_Action
@@ -25,7 +32,7 @@ class Nexista_Action
     /**
      * Function parameter array
      *
-     * @var     array
+     * @var array
      */
 
     protected  $params = array();
@@ -34,15 +41,15 @@ class Nexista_Action
     /**
      * Loads parameters and applies action
      *
-     * @param   array       class Nexista_parameters
-     * @return  boolean     success
+     * @param array &$params class parameters
+     *
+     * @return boolean success
      */
 
     public function process(&$params)
     {
 
-        if(!$this->applyParams($params))
-        {
+        if (!$this->applyParams($params)) {
             return false;
         }
 
@@ -65,31 +72,29 @@ class Nexista_Action
 
 
     /**
-     * Loads class Nexista_parameters
+     * Loads class parameters
      *
      * This function will check if the required parameters
      * for this class Nexista_are supplied and will load them into
      * $this->params array
      *
-     * @param   array       class Nexista_parameters
-     * @return  boolean     success
+     * @param array &$params class parameters
+     *
+     * @return boolean success
      */
 
     protected function applyParams(&$params)
     {
         $cnt = 0;
-        foreach($this->params as $key => $val)
-        {
-            if (empty($params[$cnt]))
-            {
-                if ($val == 'required')
-                {
-                    Nexista_Error::init('Class '. get_class($this).' does not have the required number of parameters', NX_ERROR_FATAL);
+        foreach ($this->params as $key => $val) {
+            if (empty($params[$cnt])) {
+                if ($val == 'required') {
+                    Nexista_Error::init('Class '. get_class($this).'
+                        does not have the required number of parameters',
+                            NX_ERROR_FATAL);
                 }
                 $this->params[$key] = false;
-            }
-            else
-            {
+            } else {
                 $this->params[$key] = $params[$cnt];
             }
             $cnt++;
