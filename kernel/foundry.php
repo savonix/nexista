@@ -233,13 +233,11 @@ class Nexista_Foundry
             $hand = $path['base'] . "modules/handlers/";
             $acts = $path['base'] . "modules/actions/";
             $vals = $path['base'] . "modules/validators/";
-            
+
             $code[] = 'if (!isset($_ENV["NEXISTA_MODE"])) {';
             $code[] = '    $_ENV["NEXISTA_MODE"] = "'.$key.'";';
             $code[] = '}';
             $code[] = 'if ($_ENV["NEXISTA_MODE"]=="'.$key.'") { ';
-            $code[] = 'define("NX_PATH_BASE", "'.$path['base'].'");';
-            $code[] = 'define("NX_PATH_CORE", "'.$path['base'].'kernel/");';
             $code[] = 'define("NX_PATH_HANDLERS", "'.$hand.'");';
             $code[] = 'define("NX_PATH_ACTIONS", "'.$acts.'");';
             $code[] = 'define("NX_PATH_VALIDATORS", "'.$vals.'");';

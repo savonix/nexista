@@ -167,7 +167,7 @@ class Nexista_Config
 
     public function load()
     {
-        $directives  = '<!ENTITY includepath "'.INCLUDE_PATH.'">';
+        $directives  = '<!ENTITY includepath "'.NX_PATH_BASE.'">';
         $directives .= '<!ENTITY server_name "'.$_SERVER['SERVER_NAME'].'">';
         $directives .= '<!ENTITY project_root "'.PROJECT_ROOT.'">';
         $directives .= '<!ENTITY project_name "'.PROJECT_NAME.'">';
