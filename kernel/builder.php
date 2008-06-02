@@ -1,20 +1,22 @@
 <?php
-/*
- * -File        builder.php
- * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
+/**
+ * -File        Builder.php
  * -Copyright   Nexista
+ * -Author      Joshua Savage
  * -Author      Albert Lash
- * -Author      joshua savage
+ *
+ * PHP version 5
+ *
+ * @category  Nexista
+ * @package   Nexista
+ * @author    Albert Lash <albert.lash@gmail.com>
+ * @copyright 0000 Nexista
+ * @license   http://www.gnu.org/copyleft/lesser.html LGPL
+ * @link      http://www.nexista.org/
  */
 
 /**
- * @package Nexista
- * @author Albert Lash
- * @author Joshua Savage
- */
-
-/**
- * This class Nexista_provides abstract functionality to build the cached php gate files
+ * This class provides abstract functionality to build the cached php gate files
  * for each action based on the sitemap.
  *
  * It should be extended for each possible tags in the sitemap. In your class
@@ -27,7 +29,12 @@
  * You should also add any required files into the $required array
  * by extending it and setting new values in your class.
  *
- * @package     Nexista
+ * @category  Nexista
+ * @package   Nexista
+ * @author    Albert Lash <albert.lash@gmail.com>
+ * @copyright 0000 Nexista
+ * @license   http://www.gnu.org/copyleft/lesser.html LGPL
+ * @link      http://www.nexista.org/
  */
 
 
@@ -37,7 +44,7 @@ class Nexista_Builder
     /**
      * Holds the tag attributes from sitemap
      *
-     * @var     array
+     * @var array
      */
 
     public $params = array();
@@ -46,7 +53,7 @@ class Nexista_Builder
     /**
      * Reference to current DOMElement action tag object in current gate
      *
-     * @var     DOMElement
+     * @var DOMElement
      */
 
     public $action;
@@ -55,7 +62,7 @@ class Nexista_Builder
     /**
      * Determines if we allow regex in some attributes based on gate match
      *
-     * @var     string
+     * @var string
      */
 
     public $matchType;
@@ -64,7 +71,7 @@ class Nexista_Builder
     /**
      * Returns array of required files to insert in require_once fields
      *
-     * This method should be extended to return an array of all files necessary 
+     * This method should be extended to return an array of all files necessary
      * for this tag to run.
      * Each file will be called in a require_once field on top of gate code.
      *
@@ -74,7 +81,7 @@ class Nexista_Builder
      * return $req;
      * </code>
      *
-     * @return    array         required files
+     * @return array required files
      */
 
     public function getRequired()
@@ -89,7 +96,7 @@ class Nexista_Builder
      * the entire snippet in case of a self closing tag (query,xsl)
      * or the start code for nesting tags (if,validate)
      *
-     * @return    string        tag code to insert in gate
+     * @return string tag code to insert in gate
      */
 
     public function getCodeStart()
@@ -105,7 +112,7 @@ class Nexista_Builder
      * such as if,validate. If the tag is self closing, this method does
      * not need to be extended.
      *
-     * @return    string        tag code to insert in gate
+     * @return string tag code to insert in gate
      */
 
     public function getCodeEnd()
@@ -128,18 +135,22 @@ class Nexista_Builder
      *     Nexista_Error::init('Ooops', NX_ERROR_FATAL);
      * }</code>
      *
-     * @param   string      function to insert in error handler
-     * @param   string      message for error handler - optional
-     * @param   string      valid error code IN QUOTES! (i.e. NX_ERROR_FATAL)
-     * @param   mixed       valid php callback to deal with exception
-     * @return  string      error ready code
+     * @param string $content      function to insert in error handler
+     * @param string $message      message for error handler - optional
+     * @param string $code         valid error code IN QUOTES ie NX_ERROR_FATAL
+     * @param mixed  $errorHandler valid php callback to deal with exception
+     *
+     * @return string error ready code
      */
 
-    public function addErrorHandler($content = '', $message = '', $code = 'NX_ERROR_FATAL', $errorHandler = null)
+    public function addErrorHandler($content = '', $message = '',
+        $code = 'NX_ERROR_FATAL', $errorHandler = null)
     {
         return $content.';';
         $code[] = 'if (!'.$content.') {';
-        $code[] = "Nexista_Error::init('".$message."','".$code."','".$errorHandler."'));";
+        $code[] = "Nexista_Error::init('".$message."',
+            '".$code."',
+            '".$errorHandler."');";
         $code[] = '}';
         return implode(NX_BUILDER_LINEBREAK, $code);
 
@@ -149,12 +160,13 @@ class Nexista_Builder
     /**
      * Resets class Nexista_attributes between tags
      *
+     * @return null
      */
 
     public function reset()
     {
         $this->params = array();
-        $this->state = null;
+        $this->state  = null;
         $this->action = null;
 
     }
