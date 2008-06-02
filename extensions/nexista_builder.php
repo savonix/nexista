@@ -24,11 +24,6 @@ Copyright: Savonix Corporation
 Author: Albert Lash
 License: LGPL
 */
-if (isset($nexista_path)) {
-    define('INCLUDE_PATH', $nexista_path);
-} else {
-    define('INCLUDE_PATH', "/usr/share/php/");
-}
 
 if (!defined('SERVER_NAME')) {
     define('SERVER_NAME', $server_name);
