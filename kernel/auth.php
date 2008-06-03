@@ -161,14 +161,14 @@ class Nexista_Auth
             @session_start();
 
             //user already identified?
-            if (isset($_SESSION[$this->sessionName])) {
-                $this->sessionData =& $_SESSION[$this->sessionName];
+            if (isset($_SESSION[$this->_sessionName])) {
+                $this->sessionData =& $_SESSION[$this->_sessionName];
 
             } else { //newbie - setup a new session
 
-                $_SESSION[$this->sessionName] = array();
+                $_SESSION[$this->_sessionName] = array();
 
-                $this->sessionData =& $_SESSION[$this->sessionName];
+                $this->sessionData =& $_SESSION[$this->_sessionName];
 
                 $this->sessionData['status'] = self::NX_AUTH_STATUS_INACTIVE;
             }
@@ -342,7 +342,7 @@ class Nexista_Auth
 
     public function setSessionName($name)
     {
-        $this->sessionName = $name;
+        $this->_sessionName = $name;
     }
 
 
@@ -413,7 +413,7 @@ class Nexista_Auth
 
     public function removeUser()
     {
-        unset($_SESSION[$this->sessionName]);
+        unset($_SESSION[$this->_sessionName]);
 
         $this->sessionData = array();
     }
