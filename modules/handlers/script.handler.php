@@ -29,11 +29,10 @@ class Nexista_ScriptHandler
      * @param   string      php filename
      */
 
-    public function process($src) 
+    public function process($src)
     {
         // include our code from the file
         include($src);
-
         return true;
     }
 

@@ -13,7 +13,7 @@
  */
 
 /**
- * This class adds a raw files (plain text, html, whatever) 
+ * This class adds a raw files (plain text, html, whatever)
  * to the display stream
  *
  * @package     Nexista
@@ -35,8 +35,7 @@ class Nexista_RawHandler
     public function process($src, &$result)
     {
 
-        if(!$result = file_get_contents($src))
-        {
+        if (!$result = file_get_contents($src)) {
             return false;
         }
 

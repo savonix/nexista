@@ -42,14 +42,12 @@ class Nexista_XmlHandler
         $flow = Nexista_Flow::singleton();
 
         //import new doc into flow recursively
-        $new = $flow->flowDocument->importNode($doc->documentElement,1);
+        $new = $flow->flowDocument->importNode($doc->documentElement, 1);
 
         //append to parent if called for
-        if($parent)
-        {
+        if ($parent) {
             $res = Nexista_Flow::find($parent);
-            if($res->length > 0)
-            {
+            if ($res->length > 0) {
                 $parent = $res->item(0);
                 $parent->appendChild($new);
             }

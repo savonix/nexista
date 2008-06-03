@@ -127,7 +127,7 @@ class Nexista_mdb2SqlDatasource
 
     public function setConnection()
     {
-        if($this->params['type']=="sqlite") {
+        if ($this->params['type']=="sqlite") {
 		$dsn = array(
             "phptype"=>$this->params['type'],
             "database"=>$this->params['database']);
@@ -142,6 +142,8 @@ class Nexista_mdb2SqlDatasource
 
         require_once("MDB2.php");
 		$this->db =& MDB2::factory($dsn);
+        $this->db->setOption('emulate_prepared',true);
+
 
 		if (PEAR::isError($this->db)) {
             $error = $this->db->getMessage();
@@ -171,7 +173,7 @@ class Nexista_mdb2SqlDatasource
     {
 
         //see if it is a select
-        if(!isset($this->queryType)) {
+        if (!isset($this->queryType)) {
             if (eregi("^[[:space:]]*[select|show]", $this->query['sql']))
             {
                 $this->queryType = 'select';
@@ -180,36 +182,23 @@ class Nexista_mdb2SqlDatasource
 
         $count = 1;
 
-        if (isset($this->query['params']))
-        {
-            foreach($this->query['params'] as $val)
-            {
+        if (isset($this->query['params'])) {
+            foreach($this->query['params'] as $val) {
                 $found = true;
                 $path = new Nexista_Flow();
-                if(!empty($val['name']))
-                {
+                if (!empty($val['name'])) {
                     $value = $path->getByPath($val['name']);
-                    if(is_null($value) && ($val['type'] == 'integer'))
-                    {
+                    if (is_null($value) && ($val['type'] == 'integer')) {
                          $found = false;
                     }
-                }
-                elseif(!empty($val['array']))
-                {
+                } elseif (!empty($val['array'])) {
                     $array = $path->getByPath($val['array']);
-                    if(!is_array($array))
+                    if (!is_array($array))
                         $array = array($array);
                     $value = $array[$loop];
-                }
-                /*
-                // Unfortunately plain XPath 1.0 cannot access the node-name
-                // itself, this will do so for an array, where you'd likely
-                // want that information 
-                */
-                elseif(!empty($val['node-name-array']))
-                {
+                } elseif (!empty($val['node-name-array'])) {
                     $array = $path->getByPath($val['node-name-array'],'ASSOC');
-                    if(!is_array($array))
+                    if (!is_array($array))
                         $array = array($array);
                     $key = array_keys($array[$loop]);
                     $value = $key[0];
@@ -217,31 +206,30 @@ class Nexista_mdb2SqlDatasource
                     $found = false;
                 }
 
-                if(((!$found) || ($value === 'NaN') || ($value === '') || ($value == '')) && $value!=='0')
-                {
+                if (((!$found) ||
+                    ($value === 'NaN') ||
+                    ($value === '') ||
+                    ($value == '')) &&
+                    $value !== '0') {
+
                     $value = $val['default'];
                 }
 
-                if($value === 'NULL')
-                {
-
-                }
-                else
-                {
+                if ($value !== 'NULL') {
                     $type = $val['type'];
                 }
 
-                if($value || $value==0)
-                {
+                if ($value || $value == 0) {
 					$types[] = $type;
-					$data[] = $value;
+					$data[]  = $value;
                 }
                 $count++;
             }
 
 			$prep = $this->db->prepare($this->query['sql'], $types);
             if (PEAR::isError($prep)) {
-                Nexista_Error::init($result->getMessage()." ".$this->queryName,NX_ERROR_FATAL);
+                Nexista_Error::init($result->getMessage()."
+                    ".$this->queryName, NX_ERROR_FATAL);
             }
             $result = $prep->execute($data);
             $prep->free();
@@ -257,7 +245,7 @@ class Nexista_mdb2SqlDatasource
             Nexista_Error::init($result->getMessage()." in query named ".$this->queryName.$my_debug_result,NX_ERROR_FATAL);
         }
 
-        if($this->queryType=="select") { 
+        if ($this->queryType=="select") {
             return $result->fetchAll(MDB2_FETCHMODE_ASSOC);
         } else {
             return true;
@@ -285,12 +273,10 @@ class Nexista_mdb2SqlDatasource
 
         for($loop = 0; $loop < $queryloop; $loop ++)
         {
-            if(!$this->result_set=$this->prepareQuery($sql, $loop))
-            {
+            if (!$this->result_set=$this->prepareQuery($sql, $loop)) {
                 return false;
             }
-            if ($this->queryType == 'select')
-            {
+            if ($this->queryType == 'select') {
                 $this->storeResult();
             }
         }
@@ -311,8 +297,7 @@ class Nexista_mdb2SqlDatasource
 
 		$debug = false;
 
-        if($this->result_set)
-        {
+        if ($this->result_set) {
             $result_set = $this->result_set;
 
             $cols = array_flip(array_keys($result_set[0]));
@@ -320,11 +305,9 @@ class Nexista_mdb2SqlDatasource
 			$number_of_rows = count($result_set);
             $flow = Nexista_Flow::singleton();
             $p = $flow->root->appendChild($flow->flowDocument->createElement($this->queryName));
-            while($row < $number_of_rows)
-            {
+            while ($row < $number_of_rows) {
                 $q = $p->appendChild($flow->flowDocument->createElement($this->queryName));
-                foreach($cols as $key => $val)
-                {
+                foreach ($cols as $key => $val) {
                     $myval = $result_set[$row][$key];
                     $myval = htmlspecialchars($myval);
                     $q->appendChild($flow->flowDocument->createElement($key,$myval));

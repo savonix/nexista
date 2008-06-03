@@ -52,7 +52,7 @@ class Nexista_ValidatorHandler
 
         //get the validator name as specified in xml file. this is used to name array in flow
         $validator_name = (string)$xml['name'];
-        if(empty($validator_name))
+        if (empty($validator_name))
             $validator_name = 'validator';
 
 
@@ -65,8 +65,7 @@ class Nexista_ValidatorHandler
             $result_name = (string)$param['name'];
 
             //process validators for this item
-            foreach($param->children() as $val)
-            {
+            foreach ($param->children() as $val) {
 
                 $result = true;
 
@@ -74,7 +73,7 @@ class Nexista_ValidatorHandler
                 $type = (string)$val['type'];
 
                 $required = (string)$val['required'];
-                if(empty($required))
+                if (empty($required))
                     $required = 'false';
 
                 //and its parameters
@@ -87,27 +86,23 @@ class Nexista_ValidatorHandler
                 $class = 'Nexista_'.trim(ucfirst($type)) . "Validator";
                 $validator =& new $class();
 
-                if(!$validator->process($args, $required, $result))
-                {
+                if (!$validator->process($args, $required, $result)) {
                     return false;
                 }
 
                 //get any message from the validator
-                if($validator->isEmpty() && $validator->isRequired())
-                {
+                if ($validator->isEmpty() && $validator->isRequired()) {
                     $text = $validator->getMessage();
-                }
-                else
-                {
+                } else {
                     $text = (string)$val['text'];
                     //if no custom message we use default
-                    if(empty($text))
+                    if (empty($text))
                         $text = $validator->getMessage();
                 }
 
-                if(!$result)
-                {
-                    $validatorData->itemFail($result_name, trim(strtolower($type)), $text);
+                if (!$result) {
+                    $validatorData->itemFail($result_name,
+                        trim(strtolower($type)), $text);
                 }
 
                 unset($validator);
@@ -115,25 +110,23 @@ class Nexista_ValidatorHandler
 
             $result_text = (string)$param['text'];
 
-            if(!empty($result_text) && isset($validatorData->validatorData[$result_name]))
-            {
+            if (!empty($result_text) &&
+                isset($validatorData->validatorData[$result_name])) {
                 $validatorData->itemMessage($result_name, $result_text);
             }
         }
 
-        if((string)$xml['debug'] === 'true')
-        {
-            Nexista_Debug::dump($validatorData->validatorData, $validator_name .' (validation data) ');
+        if ((string)$xml['debug'] === 'true') {
+            Nexista_Debug::dump($validatorData->validatorData,
+                $validator_name .' (validation data) ');
         }
 
         $result = $validatorData->getResult(); //1 = valid data
 
 
-        if(!$result)
-        {
+        if (!$result) {
             //assign validator data to Flow
             Nexista_Flow::add($validator_name,$validatorData->validatorData);
-
         }
 
         //clean up

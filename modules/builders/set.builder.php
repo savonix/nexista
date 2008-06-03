@@ -49,7 +49,8 @@ class Nexista_SetBuilder extends Nexista_Builder
         $path = new Nexista_PathBuilder();
         $code[] = $this->addErrorHandler("Nexista_ParameterHandler::process('".
 			$this->action->getAttribute('name')."',".
-			$path->get($this->action->getAttribute('value'), 'string', JOIN_SINGLE_QUOTE).")");
+			$path->get($this->action->getAttribute('value'),
+                'string', JOIN_SINGLE_QUOTE).")");
         return implode(NX_BUILDER_LINEBREAK, $code);
 
     }

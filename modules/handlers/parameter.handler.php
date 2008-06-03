@@ -36,15 +36,12 @@ class Nexista_ParameterHandler
     {
 
         $res = Nexista_Flow::find($name);
-        
+
         //if var exists, set the new value
-        if($res->length === 1)
-        {
+        if ($res->length === 1) {
             $res->item(0)->nodeValue = $value;
-        }
-        //create new var/value
-        elseif($res->length === 0)
-        {
+        } elseif ($res->length === 0) {
+            //create new var/value
             Nexista_Flow::add($name, $value);
         }
         //more than one match exists

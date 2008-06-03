@@ -184,7 +184,7 @@ class Nexista_ldapDatasource
 
     public function storeResult()
     {
-    
+
         foreach ($this->result_set as $dn => $entry) {
             $flow = Nexista_Flow::singleton();
             $q = $flow->root->appendChild($flow->flowDocument->createElement($this->queryName));

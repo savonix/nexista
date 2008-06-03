@@ -1,9 +1,18 @@
 <?php
-/*
+/**
  * -File        query.handler.php
- * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   Nexista
+ * -Author      Albert Lash
  * -Author      joshua savage
+ *
+ * PHP version 5
+ *
+ * @category  Nexista
+ * @package   Nexista
+ * @author    Albert Lash <albert.lash@gmail.com>
+ * @copyright 0000 Nexista
+ * @license   http://www.gnu.org/copyleft/lesser.html LGPL
+ * @link      http://www.nexista.org/
  */
 
 /**
@@ -123,10 +132,10 @@ class Nexista_QueryHandler
 
         //get the datasource type (sql,ldap)
         $this->getDatasource($this->query['connection'], $params);
-        
+
         //instantiate the datasource handler
         $this->loadModule($params);
-        
+
         //get the datasource type (sql,ldap)
         $this->getDatasource($this->query['connection'], $params);
 
@@ -155,7 +164,7 @@ class Nexista_QueryHandler
 
         //load the datasource module file based on type
         $datasource_file = NX_PATH_BASE."modules/datasources/" . $this->datasourceHandler . "datasource.php";
-        if(is_file($datasource_file)) {
+        if (is_file($datasource_file)) {
             require_once($datasource_file);
         } else {
         }
@@ -181,7 +190,7 @@ class Nexista_QueryHandler
         $myPrefix = Nexista_Config::get('./datasource[@id="'.$server_name.'"]/prefix');
         $mydtd = Nexista_Config::get('./datasource[@id="'.$server_name.'"]/dtd');
         // this can customize the table prefix based on vhosts in config
-        if(!empty($myPrefix)) {
+        if (!empty($myPrefix)) {
             $xmlString = "<!DOCTYPE query [".file_get_contents(dirname($this->definition)."/".$mydtd);
             $xmlString .= '<!ENTITY prefix "'.$myPrefix.'">]>';
             $xmlString .= file_get_contents($this->definition);
@@ -192,30 +201,30 @@ class Nexista_QueryHandler
             $xml = simplexml_load_file($this->definition,null,LIBXML_DTDLOAD);
         }
         $this->queryName = (string)$xml['name'];
-        if(!empty($xml['name'])) {
+        if (!empty($xml['name'])) {
             $this->queryType = (string)$xml['type'];
         }
         $defaultval = (string)$xml['default'];
         $loopvar = (string)$xml['loop'];
-        if(!empty($loopvar))
+        if (!empty($loopvar))
         {
-            if(is_numeric($loopvar))
+            if (is_numeric($loopvar))
             {
                 $this->queryLoop = $loopvar;
             }
             else
             {
                 $array = Nexista_Path::get($loopvar,"flow");
-                if(is_array($array)) 
+                if (is_array($array)) 
                 {
                      $this->queryLoop = sizeof($array);
                 }
-                elseif(empty($array) && $array !== '0' && empty($defaultval))
+                elseif (empty($array) && $array !== '0' && empty($defaultval))
                 {
                     // No values at all
                     $this->queryLoop = 0;
                 }
-                elseif(empty($array) && $array !== '0' && $defaultval==='true')
+                elseif (empty($array) && $array !== '0' && $defaultval==='true')
                 {
                     // Use default value
                     $array = array($defaultval);
@@ -231,31 +240,25 @@ class Nexista_QueryHandler
 
 
         //get array of query info (query itself, args, etc)
-        if(!$this->query['sql'] = (string)$xml->sql)
-        {
+        if (!$this->query['sql'] = (string)$xml->sql) {
             // no sql node, maybe an ldap search?
-            if(!$this->query['searchbase'] = (string)$xml->searchbase)
-            {
+            if (!$this->query['searchbase'] = (string)$xml->searchbase) {
                 Nexista_Error::init('No query specified in '.$this->definition, NX_ERROR_FATAL);
-            }
-            else
-            {
-                $this->query['filter'] = (string)$xml->filter;
+
+            } else {
+                $this->query['filter']  = (string)$xml->filter;
                 $this->query['options'] = (string)$xml->options;
             }
         }
-        if(!$this->query['connection'] = (string)$xml->connection)
-        {
+        if (!$this->query['connection'] = (string)$xml->connection) {
             Nexista_Error::init('No database connection specified!', NX_ERROR_FATAL);
         }
 
         //make a nice array from in and out values
         $key = 0;
-        if(isset($xml->params->param))
-        {
-            foreach($xml->params->param as $val)
-            {
-				
+        if (isset($xml->params->param)) {
+            foreach ($xml->params->param as $val) {
+
                 $name = (string)$val['name'];
                 $this->query['params'][$key]['name'] = !empty($name) ?  $name : false;
 

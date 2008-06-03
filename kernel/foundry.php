@@ -647,8 +647,8 @@ class Nexista_Foundry
 
                 //add debug code?
                 $non_debug_modules =
-                    array('if', 'true', 'false', 'case', 'switch');
-                    
+                    array('true', 'false', 'case', 'default');
+
                 if ($GLOBALS['debugTrack'] &&
                     !in_array($module, $non_debug_modules)) {
                     $code .= $this->_addGateDebugStart($module);

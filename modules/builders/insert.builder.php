@@ -48,12 +48,14 @@ class Nexista_InsertBuilder extends Nexista_Builder
         {
             $name = $block->getAttribute('name');
 
-            if($name == $blockName)
-            {
-                /*insert block section in here. Easiest is to insert with map:block tag and remove the name attribute to prevent parsing of this tag for later inserts*/
+            if($name == $blockName) {
+                /*insert block section in here. Easiest is to insert with 
+                map:block tag and remove the name attribute to prevent parsing 
+                of this tag for later inserts*/
                 $clone = $block->cloneNode(1);
                 $new = $application->sitemapDocument->importNode($clone,1);
-                $this->action->parentNode->insertBefore($new,$this->action->nextSibling);
+                $this->action->parentNode->insertBefore($new,
+                    $this->action->nextSibling);
                 $found = true;
 
                 break;
@@ -61,11 +63,10 @@ class Nexista_InsertBuilder extends Nexista_Builder
         }
 
         //nothing found - let's send a warning and return gracefully
-        if(!$found)
-        {
-            Nexista_Error::init('A matching map:block of name: '.$blockName.' was not found in sitemap', NX_ERROR_FATAL);
+        if(!$found) {
+            Nexista_Error::init('A matching map:block of name: 
+                '.$blockName.' was not found in sitemap', NX_ERROR_FATAL);
 
-            //TODO need better exit?
             return null;
         }
 

@@ -41,8 +41,7 @@ class Nexista_PluginHandler
         $xml = simplexml_load_file($src);
 
         //parse through each node and process
-        foreach ($xml->children() as $action)
-        {
+        foreach ($xml->children() as $action) {
         self::processItem((string)$action['type'], (string)$action['params']);
         }
 
@@ -69,22 +68,19 @@ class Nexista_PluginHandler
         require_once(NX_PATH_PLUGINS . trim(strtolower($type)) . ".plugin.php");
 
         //get the action parameters
-        $params = explode(',',$params);
+        $params = explode(',', $params);
 
         //build the class name to load
         $classname = 'Nexista_' . trim(ucfirst($type)) . "Action";
 
         $action = new $classname();
 
-        if(!$action->process($params))
-        {
+        if (!$action->process($params)) {
             return false;
         }
 
         return true;
     }
-
-
 
 }
 

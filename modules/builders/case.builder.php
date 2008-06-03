@@ -33,7 +33,8 @@ class Nexista_CaseBuilder extends Nexista_Builder
     public function getCodeStart()
     {
         $path = new Nexista_PathBuilder();
-        $code[] = 'case '.$path->get($this->action->getAttribute('value'), 'string', JOIN_DOUBLE_QUOTE).':';
+        $code[] = 'case '.$path->get($this->action->getAttribute('value'),
+            'string', JOIN_DOUBLE_QUOTE).':';
         return implode(NX_BUILDER_LINEBREAK, $code);
     }
 
