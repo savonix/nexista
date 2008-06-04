@@ -187,55 +187,52 @@ class Nexista_QueryHandler
         // Here we use see whether to use the default table names or if 
         // a entity set has been specified.
         $server_name = $_SERVER['SERVER_NAME'];
-        $myPrefix = Nexista_Config::get('./datasource[@id="'.$server_name.'"]/prefix');
+
+        $myPrefix =
+            Nexista_Config::get('./datasource[@id="'.$server_name.'"]/prefix');
+
         $mydtd = Nexista_Config::get('./datasource[@id="'.$server_name.'"]/dtd');
+
         // this can customize the table prefix based on vhosts in config
         if (!empty($myPrefix)) {
-            $xmlString = "<!DOCTYPE query [".file_get_contents(dirname($this->definition)."/".$mydtd);
+            $xmlString =
+                "<!DOCTYPE query [".file_get_contents(dirname($this->definition)."/".$mydtd);
             $xmlString .= '<!ENTITY prefix "'.$myPrefix.'">]>';
             $xmlString .= file_get_contents($this->definition);
             $rmme = '/(\<\!DOCTYPE query SYSTEM "'.$mydtd.'"\>)/';
-            $xmlString = preg_replace($rmme,'',$xmlString);
-            $xml = simplexml_load_string($xmlString,null,LIBXML_DTDLOAD);
-        } else { 
-            $xml = simplexml_load_file($this->definition,null,LIBXML_DTDLOAD);
+            $xmlString = preg_replace($rmme, '', $xmlString);
+            $xml = simplexml_load_string($xmlString, null,
+                LIBXML_COMPACT | LIBXML_DTDLOAD);
+        } else {
+            $xml = simplexml_load_file($this->definition, null,
+                LIBXML_COMPACT | LIBXML_DTDLOAD);
         }
         $this->queryName = (string)$xml['name'];
         if (!empty($xml['name'])) {
             $this->queryType = (string)$xml['type'];
         }
         $defaultval = (string)$xml['default'];
-        $loopvar = (string)$xml['loop'];
-        if (!empty($loopvar))
-        {
-            if (is_numeric($loopvar))
-            {
+        $loopvar    = (string)$xml['loop'];
+        if (!empty($loopvar)) {
+            if (is_numeric($loopvar)) {
                 $this->queryLoop = $loopvar;
-            }
-            else
-            {
+            } else {
                 $array = Nexista_Path::get($loopvar,"flow");
-                if (is_array($array)) 
-                {
+                if (is_array($array)) {
                      $this->queryLoop = sizeof($array);
-                }
-                elseif (empty($array) && $array !== '0' && empty($defaultval))
-                {
+                } elseif (empty($array) && $array !== '0' &&
+                    empty($defaultval)) {
                     // No values at all
                     $this->queryLoop = 0;
-                }
-                elseif (empty($array) && $array !== '0' && $defaultval==='true')
-                {
+                } elseif (empty($array) && $array !== '0' &&
+                    $defaultval==='true') {
                     // Use default value
                     $array = array($defaultval);
-                }
-                else
-                { 
+                } else {
                     //single value. loop once and make into array
                     $array = array($array);
                 }
             }
-
         }
 
 
@@ -243,8 +240,8 @@ class Nexista_QueryHandler
         if (!$this->query['sql'] = (string)$xml->sql) {
             // no sql node, maybe an ldap search?
             if (!$this->query['searchbase'] = (string)$xml->searchbase) {
-                Nexista_Error::init('No query specified in '.$this->definition, NX_ERROR_FATAL);
-
+                Nexista_Error::init('No query specified in '.$this->definition,
+                    NX_ERROR_FATAL);
             } else {
                 $this->query['filter']  = (string)$xml->filter;
                 $this->query['options'] = (string)$xml->options;
@@ -260,16 +257,17 @@ class Nexista_QueryHandler
             foreach ($xml->params->param as $val) {
 
                 $name = (string)$val['name'];
-                $this->query['params'][$key]['name'] = !empty($name) ?  $name : false;
+                $this->query['params'][$key]['name'] = !empty($name) ? $name : false;
 
                 $array = (string)$val['array'];
-                $this->query['params'][$key]['array'] = !empty($array) ?  $array : false;
+                $this->query['params'][$key]['array'] = !empty($array) ? $array : false;
 
                 $array = (string)$val['node-name-array'];
-                $this->query['params'][$key]['node-name-array'] = !empty($array) ?  $array : false;
+                $this->query['params'][$key]['node-name-array'] = !empty($array) ? $array : false;
 
                 $default = (string)$val['default'];
-                $this->query['params'][$key]['default'] = (!empty($default) OR $default === '0')?  $default : false;
+                $this->query['params'][$key]['default'] =
+                    (!empty($default) OR $default === '0')?  $default : false;
 
                 $type = (string)$val['type'];
                 $this->query['params'][$key]['type'] = !empty($type) ?  $type : false;
@@ -292,7 +290,7 @@ class Nexista_QueryHandler
     private function getDatasource($name, &$datasource)
     {
 
-        $datasource = Nexista_Config::getSection('datasource',$name);
+        $datasource = Nexista_Config::getSection('datasource', $name);
 
         // Caution: this will output the password as well.
         //Nexista_Debug::dump($datasource);
@@ -322,7 +320,8 @@ class Nexista_QueryHandler
                 $this->datasourceHandler = 'ldap'; //ldap
                 break;
             default:
-                Nexista_Error::init($type.' datasource type is not supported', NX_ERROR_WARNING);
+                Nexista_Error::init($type.' datasource type is not supported',
+                    NX_ERROR_WARNING);
                 return false;
                 break;
         }
