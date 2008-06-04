@@ -1,19 +1,20 @@
 <?php
-/*
+/**
  * -File        mdb2sqldatasource.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   Nexista
  * -Author 	    Albert Lash
  *
+ * PHP version 5
+ *
+ * @category  Nexista
+ * @package   Nexista
+ * @author    Albert Lash <albert.lash@gmail.com>
+ * @copyright 0000 Nexista
+ * @license   http://www.gnu.org/copyleft/lesser.html LGPL
+ * @link      http://www.nexista.org/
  */
 
-
-/**
- * @package     Nexista
- * @subpackage  Datasources
- * @author      Albert Lash
- */
- 
 /**
  * This class provides functionality to access
  * sql databases through the MDB2 abstraction
@@ -128,16 +129,16 @@ class Nexista_mdb2SqlDatasource
     public function setConnection()
     {
         if ($this->params['type']=="sqlite") {
-		$dsn = array(
-            "phptype"=>$this->params['type'],
-            "database"=>$this->params['database']);
+            $dsn = array(
+                "phptype"  => $this->params['type'],
+                "database" => $this->params['database']);
         } else {
-		$dsn = array(
-            "hostspec"=>$this->params['hostname'],
-            "phptype"=>$this->params['type'],
-            "username"=>$this->params['username'],
-            "password"=>$this->params['password'],
-            "database"=>$this->params['database']);
+            $dsn = array(
+                "hostspec" => $this->params['hostname'],
+                "phptype"  => $this->params['type'],
+                "username" => $this->params['username'],
+                "password" => $this->params['password'],
+                "database" => $this->params['database']);
         }
 
         require_once("MDB2.php");
@@ -174,8 +175,7 @@ class Nexista_mdb2SqlDatasource
 
         //see if it is a select
         if (!isset($this->queryType)) {
-            if (eregi("^[[:space:]]*[select|show]", $this->query['sql']))
-            {
+            if (eregi("^[[:space:]]*[select|show]", $this->query['sql'])) {
                 $this->queryType = 'select';
             }
         }
@@ -183,7 +183,7 @@ class Nexista_mdb2SqlDatasource
         $count = 1;
 
         if (isset($this->query['params'])) {
-            foreach($this->query['params'] as $val) {
+            foreach ($this->query['params'] as $val) {
                 $found = true;
                 $path = new Nexista_Flow();
                 if (!empty($val['name'])) {
