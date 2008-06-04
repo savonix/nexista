@@ -45,7 +45,7 @@ define('NX_ERROR_NOTICE', 4);
  * <code>
  * if (!connectToDB())
  * {
- *     Error::init('A DB connection could not be made',
+ *     Nexista_Error::init('A DB connection could not be made',
  *      NX_ERROR_DB_CONNECT, 'errorHandler');
  * }
  *
@@ -57,7 +57,7 @@ define('NX_ERROR_NOTICE', 4);
  *             ...use alternate DB connection or retry
  *             break;
  *         default:
- *             trow($e);
+ *             throw($e);
  *             break;
  *     }
  *}</code>
