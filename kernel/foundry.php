@@ -524,7 +524,7 @@ class Nexista_Foundry
                         'content_type'=>'".$info['content_type']."'";
                 }
                 $this_gate .= "),";
-                
+
                 $code[] = $this_gate;
             }
             $code[] = ');';
@@ -588,7 +588,7 @@ class Nexista_Foundry
      *
      * @return string content of gate to write
      */
-     
+
     private function _parseGate(&$gate)
     {
         //init array for required file
@@ -681,7 +681,7 @@ class Nexista_Foundry
                     $code .= $this->_addGateDebugStop($module);
                 }
             } else {
-                Nexista_Error::init("No $module builder module found!", 
+                Nexista_Error::init("No $module builder module found!",
                     NX_ERROR_FATAL);
             }
         }
@@ -724,7 +724,7 @@ class Nexista_Foundry
      *
      * @return string
      */
-     
+
     private function _addGateDebugStart($mod)
     {
         $code[] = "Nexista_Debug::register('in','".$mod."');";
@@ -753,7 +753,7 @@ class Nexista_Foundry
      *
      * @return string
      */
-     
+
     private function _addGateFooter(&$obj)
     {
         $code[] = '?>';
