@@ -71,7 +71,7 @@ define('NX_ERROR_NOTICE', 4);
  * function observerDisplay($e)
  * {
  *     //display the error
- *     $e-&gt;toHtml();
+ *     $e-&gt;toText();
  *
  *     //do additional stuff such as log error, email webmaster, etc
  * }</code>
