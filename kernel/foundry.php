@@ -322,29 +322,31 @@ class Nexista_Foundry
 
         //process extensions sitemaps
         $extensions = Nexista_Config::getSection('extensions');
-        foreach ($extensions as $extension => $value) {
-            $thisExtension = Nexista_Config::getSection($extension,
-                false, '/extensions/');
-            if ( $ext_sitemap = $thisExtension['sitemap'] ) {
-                if ( is_file($ext_sitemap) ) {
-                    $zdoc = new DOMDocument();
-                    $zdoc->load($ext_sitemap);
-                    $gate_items = $zdoc->getElementsByTagName('*');
-                    foreach ($gate_items as $gate_item) {
-                        if ( $gate_item->hasAttribute("src") ) {
-                            $my_src = $gate_item->getAttribute("src");
-                            $gate_item->removeAttribute("src");
-                            $gate_item->setAttribute("src",
-                                dirname($ext_sitemap) . "/" . $my_src);
+        if (is_array($extensions)) {
+            foreach ($extensions as $extension => $value) {
+                $thisExtension = Nexista_Config::getSection($extension,
+                    false, '/extensions/');
+                if ( $ext_sitemap = $thisExtension['sitemap'] ) {
+                    if ( is_file($ext_sitemap) ) {
+                        $zdoc = new DOMDocument();
+                        $zdoc->load($ext_sitemap);
+                        $gate_items = $zdoc->getElementsByTagName('*');
+                        foreach ($gate_items as $gate_item) {
+                            if ( $gate_item->hasAttribute("src") ) {
+                                $my_src = $gate_item->getAttribute("src");
+                                $gate_item->removeAttribute("src");
+                                $gate_item->setAttribute("src",
+                                    dirname($ext_sitemap) . "/" . $my_src);
+                            }
                         }
-                    }
-                    // Only import gates
-                    $z = new DOMXPath($zdoc);
-                    
-                    $zimported_gates = $z->query('//map:gate');
-                    foreach ($zimported_gates as $zimport) {
-                        $a = $this->sitemapDocument->importNode($zimport, 1);
-                        $this->sitemapDocument->documentElement->appendChild($a);
+                        // Only import gates
+                        $z = new DOMXPath($zdoc);
+                        
+                        $zimported_gates = $z->query('//map:gate');
+                        foreach ($zimported_gates as $zimport) {
+                            $a = $this->sitemapDocument->importNode($zimport, 1);
+                            $this->sitemapDocument->documentElement->appendChild($a);
+                        }
                     }
                 }
             }
