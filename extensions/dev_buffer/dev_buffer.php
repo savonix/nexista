@@ -49,6 +49,39 @@ if($development_console===true) {
     Nexista_Init::registerOutputHandler('nexista_devBuffer');
 }
 
+Nexista_Error::addObserver('display', 'Nexista_builderError');
+
+/**
+ * Error...
+ *
+ * @param object $e error object
+ *
+ * @return null
+ */
+
+function Nexista_builderError($e)
+{
+    if ($e->getCode() == NX_ERROR_FATAL ||
+        $e->getCode() == NX_ERROR_WARNING
+        ) {
+
+        $exceptionXsl = new XsltProcessor();
+        $xsl = new DomDocument;
+        $my_xsl_file = NX_PATH_BASE.'extensions/dev_buffer/s/xsl/exception.xsl';
+        if (file_exists($my_xsl_file)) {
+            $xsl->load($my_xsl_file);
+            $exceptionXsl->importStyleSheet($xsl);
+            $xml = new DomDocument;
+            $xml->loadXML($e->outputXml());
+            $exceptionXsl->setParameter('',
+                'link_prefix', dirname($_SERVER['SCRIPT_NAME']).'/index.php?nid=');
+            $result =  $exceptionXsl->transformToXML($xml);
+            echo $result;
+        }
+    }
+}
+
+
 
 function nexista_devBuffer($init)
 {
