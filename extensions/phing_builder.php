@@ -2,7 +2,7 @@
 /*
  * -File        phing_builder.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   Savonix Corporation
+ * -Copyright   Nexista
  * -Author      Albert Lash
  */
 
@@ -11,7 +11,7 @@ Extension Name:
 Extension URI:
 Description:
 Version:
-Copyright: Savonix Corporation
+Copyright: Nexista
 Author: Albert Lash
 License: LGPL
 */

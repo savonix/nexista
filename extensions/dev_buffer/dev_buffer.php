@@ -4,7 +4,7 @@ Plugin Name: Development Output Buffer
 Plugin URI:
 Description:
 Version: 0.1
-Copyright: Savonix Corporation
+Copyright: Nexista
 Author: Albert Lash
 License: LGPL
 */
