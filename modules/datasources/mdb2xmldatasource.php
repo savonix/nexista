@@ -1,6 +1,6 @@
 <?php
 /**
- * -File        mdb2sqldatasource.php
+ * -File        mdb2xmldatasource.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   Nexista
  * -Author 	    Albert Lash
@@ -24,7 +24,7 @@
  * @subpackage  Datasources
  */
 
-class Nexista_mdb2SqlDatasource
+class Nexista_mdb2XmlDatasource
 {
 
     /**
@@ -114,7 +114,7 @@ class Nexista_mdb2SqlDatasource
 
 
 
-    public function Nexista_Mdb2SqlDatasource(&$params)
+    public function Nexista_Mdb2XmlDatasource(&$params)
     {
             $this->params =& $params;
     }
@@ -128,18 +128,9 @@ class Nexista_mdb2SqlDatasource
 
     public function setConnection()
     {
-        if ($this->params['type']=="sqlite") {
             $dsn = array(
-                "phptype"  => $this->params['type'],
+                "phptype"  => "sqlite",
                 "database" => $this->params['database']);
-        } else {
-            $dsn = array(
-                "hostspec" => $this->params['hostname'],
-                "phptype"  => $this->params['type'],
-                "username" => $this->params['username'],
-                "password" => $this->params['password'],
-                "database" => $this->params['database']);
-        }
 
         require_once("MDB2.php");
 		$this->db =& MDB2::factory($dsn);
@@ -303,18 +294,18 @@ class Nexista_mdb2SqlDatasource
             $cols = array_flip(array_keys($result_set[0]));
 			$row = 0;
 			$number_of_rows = count($result_set);
-            $flow = Nexista_Flow::singleton();
-            $p = $flow->root->appendChild($flow->flowDocument->createElement($this->queryName));
+            $noflow = new DOMDocument("1.0", "UTF-8");
+            $p = $noflow->appendChild($noflow->createElement($this->queryName));
             while ($row < $number_of_rows) {
-                $q = $p->appendChild($flow->flowDocument->createElement($this->queryName));
+                $q = $p->appendChild($noflow->createElement($this->queryName));
                 foreach ($cols as $key => $val) {
                     $myval = $result_set[$row][$key];
                     $myval = htmlspecialchars($myval);
-                    $q->appendChild($flow->flowDocument->createElement($key,$myval));
+                    $q->appendChild($noflow->createElement($key,$myval));
                 }
 				$row++;
             }
-            return true;
+            echo $noflow->saveXML();
         }
         return false;
     }
