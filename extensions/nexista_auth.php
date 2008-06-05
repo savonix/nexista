@@ -1,10 +1,10 @@
 <?php
 /*
-Plugin Name: Nexista Authn Handler Plugin
-Plugin URI:
+Extension Name: Nexista Authn Handler Plugin
+Extension URI:
 Description: Uses Nexista Authn
 Version: 0.1
-Copyright: Savonix Corporation
+Copyright: Nexista
 Author: Albert Lash
 License: LGPL
 */

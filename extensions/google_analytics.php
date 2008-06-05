@@ -1,7 +1,7 @@
 <?php
 /*
-Plugin Name:
-Plugin URI:
+Extension Name:
+Extension URI:
 Description:
 Version:
 Copyright: Savonix Corporation

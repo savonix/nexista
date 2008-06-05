@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Plugin Name: Caching Output
- * Plugin URI:
+ * Extension Name: Caching Output
+ * Extension URI:
  * Description: Uses Cache_Lite to compress and cache output.
  * Version: 0.1
- * Copyright: Savonix Corporation
+ * Copyright: Nexista
  * Author: Albert Lash
  * License: LGPL
  * Status: beta
