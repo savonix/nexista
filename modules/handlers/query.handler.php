@@ -16,12 +16,6 @@
  */
 
 /**
- * @package     Nexista
- * @subpackage  Handlers
- * @author      Joshua Savage
- */
-
-/**
  * This class is the query handler.
  * It uses an xml query and retrieves from or sends data to
  * a datasource (sql,ldap,etc)

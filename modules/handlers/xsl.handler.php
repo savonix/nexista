@@ -16,12 +16,6 @@
  */
 
 /**
- * @package     Nexista
- * @subpackage  Handlers
- * @author      Joshua Savage
- */
-
-/**
  * This class is reponsible for applying an xsl stylesheet to xml
  *
  * @package     Nexista
