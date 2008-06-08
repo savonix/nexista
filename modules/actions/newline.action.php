@@ -1,18 +1,19 @@
 <?php
-/*
- * -File        newline.action.php
- * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   Nexista
- * -Author      Albert Lash
- * -Author      joshua savage
- */
-
 /**
- * @package     Nexista
- * @subpackage  Actions
- * @author  Joshua Savage
+ * -File        Newline.Action.php
+ * -Copyright   Nexista
+ * -Author      Joshua Savage
+ * -Author      Albert Lash
+ *
+ * PHP version 5
+ *
+ * @category  Nexista
+ * @package   Nexista
+ * @author    Albert Lash <albert.lash@gmail.com>
+ * @copyright 0000 Nexista
+ * @license   http://www.gnu.org/copyleft/lesser.html LGPL
+ * @link      http://www.nexista.org/
  */
- 
 /**
  * This action applies nl2br() to the data
  *

@@ -1,16 +1,20 @@
 <?php
-/*
- * -File        like.action.php
- * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   Nexista
- * -Author      joshua savage
- */
-
 /**
- * @package     Nexista
- * @subpackage  Actions
- * @author      Joshua Savage
+ * -File        Like.Action.php
+ * -Copyright   Nexista
+ * -Author      Joshua Savage
+ * -Author      Albert Lash
+ *
+ * PHP version 5
+ *
+ * @category  Nexista
+ * @package   Nexista
+ * @author    Albert Lash <albert.lash@gmail.com>
+ * @copyright 0000 Nexista
+ * @license   http://www.gnu.org/copyleft/lesser.html LGPL
+ * @link      http://www.nexista.org/
  */
+ 
  
 /**
  * This action adds %'s to data for using a LIKE SQL query

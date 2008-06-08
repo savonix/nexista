@@ -1,18 +1,20 @@
 <?php
-/*
- * -File        upload.action.php
- * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
+/**
+ * -File        Upload.Action.php
  * -Copyright   Nexista
+ * -Author      Joshua Savage
  * -Author      Albert Lash
- * -Author      joshua savage
+ *
+ * PHP version 5
+ *
+ * @category  Nexista
+ * @package   Nexista
+ * @author    Albert Lash <albert.lash@gmail.com>
+ * @copyright 0000 Nexista
+ * @license   http://www.gnu.org/copyleft/lesser.html LGPL
+ * @link      http://www.nexista.org/
  */
 
-/**
- * @package     Nexista
- * @subpackage  Actions
- * @author      Joshua Savage
- */
- 
 /**
  * This action moves an uploaded file from /tmp to
  * the desired location (default is Nexista tmp - NX_PATH_TMP)

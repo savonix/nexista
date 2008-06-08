@@ -1,18 +1,20 @@
 <?php
-/*
- * -File        xsl.action.php
- * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
+/**
+ * -File        Xsl.Action.php
  * -Copyright   Nexista
+ * -Author      Joshua Savage
  * -Author      Albert Lash
- * -Author      joshua savage
+ *
+ * PHP version 5
+ *
+ * @category  Nexista
+ * @package   Nexista
+ * @author    Albert Lash <albert.lash@gmail.com>
+ * @copyright 0000 Nexista
+ * @license   http://www.gnu.org/copyleft/lesser.html LGPL
+ * @link      http://www.nexista.org/
  */
 
-/**
- * @package     Nexista
- * @subpackage  Actions
- * @author      Joshua Savage
- */
- 
 /**
  * This action applies an xsl stylesheet to an xml string.
  *
