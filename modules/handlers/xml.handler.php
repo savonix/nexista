@@ -1,18 +1,20 @@
 <?php
-/*
- * -File        xml.handler.php
- * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
+/**
+ * -File        Xml.Handler.php
  * -Copyright   Nexista
- * -Author      joshua savage
- * -Author		Albert Lash
+ * -Author      Joshua Savage
+ * -Author      Albert Lash
+ *
+ * PHP version 5
+ *
+ * @category  Nexista
+ * @package   Nexista
+ * @author    Albert Lash <albert.lash@gmail.com>
+ * @copyright 0000 Nexista
+ * @license   http://www.gnu.org/copyleft/lesser.html LGPL
+ * @link      http://www.nexista.org/
  */
 
-/**
- * @package     Nexista
- * @subpackage  Handlers
- * @author      Joshua Savage
- */
- 
 /**
  * This class is the xml handler. It will take an xml file
  * and insert the data into Flow for access from scripts and xsl

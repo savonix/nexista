@@ -1,9 +1,9 @@
 <?php
 /**
- * -File        xsl.handler.php
+ * -File        Xsl.Handler.php
  * -Copyright   Nexista
- * -Author      Albert Lash
  * -Author      Joshua Savage
+ * -Author      Albert Lash
  *
  * PHP version 5
  *
@@ -14,7 +14,6 @@
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL
  * @link      http://www.nexista.org/
  */
-
 
 /**
  * @package     Nexista

@@ -1,18 +1,20 @@
 <?php
-/*
- * -File        validatorhandlerdata.php
- * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
+/**
+ * -File        ValidatorHandlerData.php
  * -Copyright   Nexista
- * -Author      joshua savage
- * -Based on    XMLWriterClass by Manuel Lemos
+ * -Author      Joshua Savage
+ * -Author      Albert Lash
+ *
+ * PHP version 5
+ *
+ * @category  Nexista
+ * @package   Nexista
+ * @author    Albert Lash <albert.lash@gmail.com>
+ * @copyright 0000 Nexista
+ * @license   http://www.gnu.org/copyleft/lesser.html LGPL
+ * @link      http://www.nexista.org/
  */
 
-/**
- * @package     Nexista
- * @subpackage  Handlers
- * @author      Joshua Savage
- */
- 
 /**
  * This class holds data from a validation procedure
  * ran from ValidationHandler class. It is accessed from Flow

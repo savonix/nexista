@@ -1,9 +1,9 @@
 <?php
 /**
- * -File        query.handler.php
+ * -File        Query.Handler.php
  * -Copyright   Nexista
+ * -Author      Joshua Savage
  * -Author      Albert Lash
- * -Author      joshua savage
  *
  * PHP version 5
  *
