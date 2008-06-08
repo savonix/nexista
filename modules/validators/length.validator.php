@@ -1,17 +1,20 @@
 <?php
-/*
- * -File        length.validator.php
- * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
+/**
+ * -File        Length.Validator.php
  * -Copyright   Nexista
- * -Author      joshua savage
+ * -Author      Joshua Savage
+ * -Author      Albert Lash
+ *
+ * PHP version 5
+ *
+ * @category  Nexista
+ * @package   Nexista
+ * @author    Albert Lash <albert.lash@gmail.com>
+ * @copyright 0000 Nexista
+ * @license   http://www.gnu.org/copyleft/lesser.html LGPL
+ * @link      http://www.nexista.org/
  */
 
-/**
- * @package     Nexista
- * @subpackage  Validators
- * @author      Joshua Savage
- */
- 
 /**
  * This validator is used to check that a string is under a certain length.
  *

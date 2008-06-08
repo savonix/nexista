@@ -1,18 +1,20 @@
 <?php
-/*
- * -File        custom.validator.php
- * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   Nexista2002-2007, Nexista
- * -Author      joshua savage
- * -Author      albert lash
+/**
+ * -File        Custom.Validator.php
+ * -Copyright   Nexista
+ * -Author      Joshua Savage
+ * -Author      Albert Lash
+ *
+ * PHP version 5
+ *
+ * @category  Nexista
+ * @package   Nexista
+ * @author    Albert Lash <albert.lash@gmail.com>
+ * @copyright 0000 Nexista
+ * @license   http://www.gnu.org/copyleft/lesser.html LGPL
+ * @link      http://www.nexista.org/
  */
 
-/**
- * @package     Nexista
- * @subpackage  Validators
- * @author      Joshua Savage 
- */
- 
 /**
  * This validator calls a user defined function to validate the data.
  * This function/method should be callable by 'call_user_func'. 
