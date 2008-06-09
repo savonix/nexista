@@ -318,6 +318,39 @@ class Nexista_mdb2SqlDatasource
         }
         return false;
     }
+
+    /**
+     * Outputs XML result set
+     *
+     * @return string xml document
+     */
+
+    public function outputResultXml()
+    {
+
+		$debug = false;
+
+        if ($this->result_set) {
+            $result_set = $this->result_set;
+
+            $cols = array_flip(array_keys($result_set[0]));
+			$row = 0;
+			$number_of_rows = count($result_set);
+            $noflow = new DOMDocument("1.0", "UTF-8");
+            $p = $noflow->appendChild($noflow->createElement($this->queryName));
+            while ($row < $number_of_rows) {
+                $q = $p->appendChild($noflow->createElement($this->queryName));
+                foreach ($cols as $key => $val) {
+                    $myval = $result_set[$row][$key];
+                    $myval = htmlspecialchars($myval);
+                    $q->appendChild($noflow->createElement($key,$myval));
+                }
+				$row++;
+            }
+            echo $noflow->saveXML();
+        }
+        return false;
+    }
 }
 
 ?>
