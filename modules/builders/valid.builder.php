@@ -1,19 +1,20 @@
 <?php
-/*
- * -File        valid.builder.php
- * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   Nexista
- * -Author      Albert Lash
- * -Author      joshua savage
- */
-
-
 /**
- * @package     Nexista
- * @subpackage  Builders
- * @author      Joshua Savage
+ * -File        Valid.Builder.php
+ * -Copyright   Nexista
+ * -Author      Joshua Savage
+ * -Author      Albert Lash
+ *
+ * PHP version 5
+ *
+ * @category  Nexista
+ * @package   Nexista
+ * @author    Albert Lash <albert.lash@gmail.com>
+ * @copyright 0000 Nexista
+ * @license   http://www.gnu.org/copyleft/lesser.html LGPL
+ * @link      http://www.nexista.org/
  */
- 
+
 /**
  * This class handles the tag by the same name in the sitemap building process
  *

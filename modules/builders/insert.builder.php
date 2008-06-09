@@ -1,18 +1,20 @@
 <?php
-/*
- * -File        insert.builder.php
- * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
+/**
+ * -File        Insert.Builder.php
  * -Copyright   Nexista
- * -Author      joshua savage
- * -Author      albert lash
+ * -Author      Joshua Savage
+ * -Author      Albert Lash
+ *
+ * PHP version 5
+ *
+ * @category  Nexista
+ * @package   Nexista
+ * @author    Albert Lash <albert.lash@gmail.com>
+ * @copyright 0000 Nexista
+ * @license   http://www.gnu.org/copyleft/lesser.html LGPL
+ * @link      http://www.nexista.org/
  */
 
-/**
- * @package     Nexista
- * @subpackage  Builders
- * @author      Joshua Savage 
- */
- 
 /**
  * This class handles the tag by the same name in the sitemap building process
  *
@@ -49,8 +51,8 @@ class Nexista_InsertBuilder extends Nexista_Builder
             $name = $block->getAttribute('name');
 
             if($name == $blockName) {
-                /*insert block section in here. Easiest is to insert with 
-                map:block tag and remove the name attribute to prevent parsing 
+                /*insert block section in here. Easiest is to insert with
+                map:block tag and remove the name attribute to prevent parsing
                 of this tag for later inserts*/
                 $clone = $block->cloneNode(1);
                 $new = $application->sitemapDocument->importNode($clone,1);
@@ -64,8 +66,8 @@ class Nexista_InsertBuilder extends Nexista_Builder
 
         //nothing found - let's send a warning and return gracefully
         if(!$found) {
-            Nexista_Error::init('A matching map:block of name: 
-                '.$blockName.' was not found in sitemap', NX_ERROR_FATAL);
+            Nexista_Error::init('A matching map:block of name:
+                '.$blockName.' was not found in sitemap', NX_ERROR_WARNING);
 
             return null;
         }
