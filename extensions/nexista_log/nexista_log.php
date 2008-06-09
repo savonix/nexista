@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Development Output Buffer
+Plugin Name: Nexista Log
 Plugin URI:
 Description:
 Version: 0.1
@@ -10,7 +10,7 @@ License: LGPL
 */
 
 
-/* START LOG */
+/* PEAR LOG */
 
 require_once 'Log.php';
 
