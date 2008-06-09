@@ -286,7 +286,7 @@ class Nexista_QueryHandler
 
         $datasource = Nexista_Config::getSection('datasource', $name);
 
-        // Caution: this will output the password as well.
+        //Caution: this will output the password as well.
         //Nexista_Debug::dump($datasource);
 
         //Developer note: This is where you set what Datasource handler you would
@@ -296,13 +296,6 @@ class Nexista_QueryHandler
             case 'mysql':
             case 'mysqli':
             case 'sqlite':
-            case 'ibase':
-            case 'ifx':
-            case 'mssql':
-            case 'msql':
-            case 'mysql':
-            case 'odbc':
-            case 'oci':
             case 'pgsql':
                 $this->datasourceHandler = 'mdb2sql'; //metabase
                 break;
