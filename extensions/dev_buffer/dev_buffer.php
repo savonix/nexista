@@ -18,6 +18,7 @@ License: LGPL
 */
 
 
+/* START EXCLUSIONS CHECK */
 /*
 This section is always processed. It checks for exlusions to the
 development output buffer.
@@ -44,6 +45,10 @@ if(!empty($x_array)) {
         }
     }
 }
+
+/* END EXCLUSIONS */
+
+
 
 if($development_console===true) {
     Nexista_Init::registerOutputHandler('nexista_devBuffer');
