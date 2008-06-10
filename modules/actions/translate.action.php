@@ -49,7 +49,7 @@ class Nexista_translateAction extends Nexista_Action
     protected  function main()
     {
 
-        $var = Nexista_Path::get($this->params['var']);
+        $var = Nexista_Flow::find($this->params['var']);
         if(is_null($var) or is_array($var))
             return false;
         switch(strtoupper($this->params['transtbl']))
@@ -80,7 +80,7 @@ class Nexista_translateAction extends Nexista_Action
         }
 
         //write new data to Flow
-        $var->textContent = strtr($var->textContent, $trans_tbl);
+        $var->item(0)->nodeValue = strtr($var->item(0)->nodeValue, $trans_tbl);
         return true;
     }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.6.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.7.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
  <name>nexista</name>
- <uri>http://pear.nexista.org/</uri>
+ <channel>pear.nexista.org</channel>
  <summary>Nexista PHP XML XSL Toolkit</summary>
  <description>Nexista is an Open Source PHP5/XML/XSLT development toolkit based on the Fusebox concept and designed to build large XML/ XSL based web applications.</description>
  <lead>
@@ -10,10 +10,10 @@
   <email>albert.lash@savonix.com</email>
   <active>yes</active>
  </lead>
- <date>2008-04-15</date>
- <time>17:50:08</time>
+ <date>2008-06-09</date>
+ <time>22:19:25</time>
  <version>
-  <release>0.2.2</release>
+  <release>0.2.3</release>
   <api>0.2.0</api>
  </version>
  <stability>
@@ -24,97 +24,110 @@
  <notes>none</notes>
  <contents>
   <dir baseinstalldir="Nexista" name="/">
-   <file baseinstalldir="Nexista" md5sum="65f8bb8a738e8941cd46f9dc4273c109" name="kernel/action.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="72e2c81044ac245eb586e1145e7e3aec" name="kernel/auth.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="f1fab687d3436790b75c026a077737f0" name="kernel/builder.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="caae50e1920e846fd99eea2a8eef3d80" name="kernel/config.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="44ba16ceec6bdfce48afd233fdf79b52" name="kernel/debug.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="c5fec1df5aed4386703d3acc12547161" name="kernel/error.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="b1cef259b6d9d06b447fdcf7e510d91a" name="kernel/flow.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="4d6071e2f6e1f0e3eedfe1cababb3b60" name="kernel/foundry.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="9de843799722cac6efb58045fc5156d0" name="kernel/init.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="27501920b216b17cc76ccbebba46c578" name="kernel/path.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="9d2ae5a103465f40c1f88799aa7b8885" name="kernel/pathbuilder.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="feddd12e8da9ff680ca4f4bcaa45712e" name="kernel/validator.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="fa1c05992655d11fde1262400b86b79d" name="kernel/datasources/ldapdatasource.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="a7df9abdbad30da025e10e9617a4d77c" name="kernel/datasources/mdb2sqldatasource.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="71d9962ff08572633eea4691bd1aef64" name="kernel/datasources/pdosqldatasource.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="286b7f9d74d10d9ebf31a5e64559cd59" name="kernel/xsl/exception.xsl" role="php" />
-   <file baseinstalldir="Nexista" md5sum="e4fc14a1f435cb2d6a27bb6873f75a49" name="modules/actions/add1.action.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="cf245f53e8404a12bde2551d77afef98" name="modules/actions/compress.action.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="b0bd53d734074778cb42aefb43db3844" name="modules/actions/concat.action.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="67d250bccc2c58eeab3ba9ef666eb1de" name="modules/actions/content.action.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="0a7a12b9a47911f75671237226e60ffc" name="modules/actions/curl.action.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="394382cb1f45178bcbeabc39309f049c" name="modules/actions/dateconnect.action.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="2c8069b4200009ab74250bd36d38484b" name="modules/actions/datetime.action.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="242fb6d21444f54e57e632cd4f5537ea" name="modules/actions/decompress.action.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="94382d09b8282566538655048187b943" name="modules/actions/email.action.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="0d06bc2f61a330c49bafe5471c9b2377" name="modules/actions/escape.action.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="06b4358b8319a18b66792736603f5aab" name="modules/actions/gate.action.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="a8dfb4b5e4f9bf681481f05029e9358a" name="modules/actions/header.action.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="ab337c93e69e18631b937dbc15556bc7" name="modules/actions/key.action.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="8f7d2ba52c4a931e61e462a90f28eaa6" name="modules/actions/like.action.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="6640c7883858896c3860e0ae39ca1f1f" name="modules/actions/log.action.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="2b132b6665adb0ef6151fc81c7740fc2" name="modules/actions/newline.action.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="31c6fe82b1b932b967e07e0a64a4cadb" name="modules/actions/rawxml.action.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="5ba53d288865ce52827dcd65bb829b4f" name="modules/actions/redirect.action.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="c8076235b24224043996ef51db7d66a4" name="modules/actions/strip.action.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="fe4fa4116cbaae55a06f095b77ffc65d" name="modules/actions/timeconvert.action.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="43223172edb9b9e433d88e13f141b3ac" name="modules/actions/translate.action.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="4dbc48524810d5b5e4fb4adbc877383d" name="modules/actions/upload.action.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="1cf80fc870eadc21b7572bd350585f1e" name="modules/actions/xsl.action.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="6ceaa02d3c17ea1326f1cc6a6ab5e9e4" name="modules/builders/action.builder.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="c5c1f34951aafb73ead298f4732ac63e" name="modules/builders/block.builder.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="98f62afbef30b5e66be1539852cd9456" name="modules/builders/case.builder.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="7094ea73ec0071639177f13a6e659dc4" name="modules/builders/debug.builder.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="fd10a84f55de04a17c82a15906f6cfd4" name="modules/builders/default.builder.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="32a2933fa4307d324604937d0b22d463" name="modules/builders/false.builder.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="6e51cfcf0a07345594e8725132b2761b" name="modules/builders/if.builder.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="eb5f19e965a2011f00929959e6fac6fd" name="modules/builders/insert.builder.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="654a8f6a303fed5973bde68737145aa6" name="modules/builders/invalid.builder.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="d60c3984fd28f97784514bedfc4a1f7a" name="modules/builders/output.builder.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="cd53fe832072f8e4e7279096eb04b131" name="modules/builders/plugin.builder.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="b40fa42c5daf9b4d457fa315deda25df" name="modules/builders/query.builder.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="105c3faa68cf88a11a1467fefdb2a8ca" name="modules/builders/raw.builder.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="4ea61f5acce27d1940d9ba4f38cc8bcb" name="modules/builders/script.builder.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="dc0f57e440d8e2317edb853b6f31e484" name="modules/builders/set.builder.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="dd65c9785fb7cb0915bbf958ef991367" name="modules/builders/switch.builder.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="305811fa57d0813b82f484e585013d28" name="modules/builders/true.builder.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="5f5d3c99a69e70f70e9e32a0d178b431" name="modules/builders/valid.builder.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="12f0571173e52fba436e38bbef374b4e" name="modules/builders/validate.builder.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="fd35ee594efba9de0e4ee0e35d6d0176" name="modules/builders/xml.builder.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="484ceff265c9a1c8b60ebc31a3bdd5fb" name="modules/builders/xsl.builder.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="2d08966c18d174ff1a6fca7e0db6919e" name="modules/handlers/action.handler.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="120b67619b082db9845f084d92e34341" name="modules/handlers/parameter.handler.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="62794e01779395a492e48d3eb1024471" name="modules/handlers/plugin.handler.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="704fad67c3ef0386dc44cc1422b6e520" name="modules/handlers/query.handler.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="09c695a83ba7e28a1144d66d4a27697f" name="modules/handlers/raw.handler.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="4fa2ecbd501aa14c91bcfaff5de1a118" name="modules/handlers/script.handler.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="15dd1a8b48fa455032c8b8efd3abda62" name="modules/handlers/validator.handler.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="aa02b47b1063d2a19ba8df79cbbb2718" name="modules/handlers/validatorhandlerdata.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="7beb51528d5e64df3c50b6ffba17aa19" name="modules/handlers/xml.handler.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="a4b3c49eeba46129ff85973cbeaf6a92" name="modules/handlers/xsl.handler.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="dcb108f5e1a471feb189e853d95b51e3" name="modules/validators/alpha.validator.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="451b6cb8766410aac646980c1a43fd0d" name="modules/validators/alphanum.validator.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="fd6addd968f743e5e9778d291b7ed7eb" name="modules/validators/custom.validator.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="cdfb51fd74e405191f8f3c1a59a1aa14" name="modules/validators/dummy.validator.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="b142cbb6812243aaae046f0caf3895c1" name="modules/validators/email.validator.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="004b00b55896d973abd7424da7354b98" name="modules/validators/gd.validator.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="247ab96bddbcff7c28eb4f7bcfb05faf" name="modules/validators/length.validator.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="8cac166ba7aaa587f1debfd1d679f4da" name="modules/validators/match.validator.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="0e5cb17242ac03cba647ff66fe849886" name="modules/validators/numeric.validator.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="39caad5223bcd6b36bf6e3b7a42cc6e5" name="modules/validators/phone.validator.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="e5a6e4efbc973d02ba89b373331d0f65" name="modules/validators/regex.validator.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="8beb0fc01d89135e0a08a1178051b814" name="modules/validators/required.validator.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="8b676a435148b89852ce7c078d18cd62" name="modules/validators/value.validator.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="3d339be7359354008d549093d91db125" name="modules/validators/xml.validator.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="c890c6a457e77c82cf38f0cd040519dc" name="plugins/builder.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="05845d082a1d16d57a1ae2b8c20f57b5" name="plugins/google_analytics.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="ce128cf013b0b101a37e669b16245ef0" name="plugins/nx_auth.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="230c974d23c6401f83e48402807ee9d9" name="plugins/nx_builder.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="855aec8f59f1609d06c65aadebf60069" name="plugins/nx_cache.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="73627083aea755045f3045fbfa8b704d" name="plugins/dev_buffer/dev_buffer.php" role="php" />
-   <file baseinstalldir="Nexista" md5sum="ce062c60b0c7febd8da6c393a6cec95f" name="plugins/dev_buffer/flow.xsl" role="php" />
+   <file baseinstalldir="Nexista" md5sum="1c58d5ee34f0cc4428b07ed4d53c5cff" name="extensions/google_adsense.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="12ff51e6c912737fced61a4ddde01f7e" name="extensions/google_analytics.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="45be2395233a693594f805d2642c4d71" name="extensions/nexista_auth.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="eaa961923b4f6bd385d0eadad5eb0af0" name="extensions/nexista_builder.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="2e9439b1ac5e42ba717996d0daa9beba" name="extensions/nexista_cache.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="1206c9befa7333dde8b6d028470a0c9c" name="extensions/nexista_rewrite.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="3f206557497fa22e25fc479caee8425e" name="extensions/phing_builder.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="54fee17443ca4b5dfddbebf47723b26f" name="extensions/dev_buffer/dev_buffer.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="5519b37aa53a9a3ee495d1b8843b1e13" name="extensions/dev_buffer/sitemap.xml" role="data" />
+   <file baseinstalldir="Nexista" md5sum="e3f600430bec0761b4dc5dc5b5e8dc44" name="extensions/dev_buffer/s/css/exception.css" role="data" />
+   <file baseinstalldir="Nexista" md5sum="edde1fb32c05f3b750c7396261f9af1d" name="extensions/dev_buffer/s/css/flow.css" role="data" />
+   <file baseinstalldir="Nexista" md5sum="44038ac4262cd6cb423cce02b023aa13" name="extensions/dev_buffer/s/js/flow.js" role="data" />
+   <file baseinstalldir="Nexista" md5sum="20df1524fd099fc17bef66afed52c69f" name="extensions/dev_buffer/s/js/sarissa.js" role="data" />
+   <file baseinstalldir="Nexista" md5sum="2d725d5fc65a51df3ca8b1c019f8346c" name="extensions/dev_buffer/s/js/sarissa_ieemu_xpath.js" role="data" />
+   <file baseinstalldir="Nexista" md5sum="09d52ba3af943f643ab215ef1748991e" name="extensions/dev_buffer/s/js/jquery/jquery-1.2.5.js" role="data" />
+   <file baseinstalldir="Nexista" md5sum="8a23d73b323bbb8c39c872092a266684" name="extensions/dev_buffer/s/js/jquery/plugins/jquery.xslTransform.js" role="data" />
+   <file baseinstalldir="Nexista" md5sum="f0a461fe4fdf06d597a15ff73264a38d" name="extensions/dev_buffer/s/xsl/exception.xsl" role="data" />
+   <file baseinstalldir="Nexista" md5sum="87e8716003692e83babc40b52bab1b8b" name="extensions/dev_buffer/s/xsl/flow.ul.xsl" role="data" />
+   <file baseinstalldir="Nexista" md5sum="c0b392ccffc91dd97e13d3fb3358def2" name="extensions/dev_buffer/s/xsl/flow.xsl" role="data" />
+   <file baseinstalldir="Nexista" md5sum="d7010d4ab2b365712511857555c75eaf" name="extensions/dev_buffer/s/xsl/flow.xsl_bk" role="data" />
+   <file baseinstalldir="Nexista" md5sum="45be2395233a693594f805d2642c4d71" name="extensions/nexista_auth/nexista_auth.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="c21f795a4ae7a09410d3959675c1de08" name="extensions/nexista_installer/nexista_installer.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="6bad76b0dd57d5d915d279b306db2a9b" name="extensions/nexista_installer/sitemap.xml" role="data" />
+   <file baseinstalldir="Nexista" md5sum="10409ef85d3b67f8aa52abec2d334d7a" name="extensions/nexista_log/nexista_log.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="e950fb9d2c1190c59ee6361489e03e7e" name="kernel/action.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="5011b7005928864de6561ff2f2dd2c1d" name="kernel/auth.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="db1366cede5c8a129e76502af68f7087" name="kernel/builder.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="0b6d5351c77a8c2af6748b095fef7c9e" name="kernel/config.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="0f84682ecbce2a4d925f5145cd56fea8" name="kernel/debug.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="9afb9d7ac11f03853829c050fb34a371" name="kernel/error.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="f46235ce18cc7a3c5667b65270d80501" name="kernel/flow.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="f4114598bafd89b24c15bc7ac0843dce" name="kernel/foundry.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="f9644069dcd079197ae9d9c10cc90e79" name="kernel/init.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="b58daa22e18c2d2f6cefcda51b021aa0" name="kernel/path.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="83833fc973c2dc41a90a5640f6204ce5" name="kernel/pathbuilder.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="d599e1d49e5b23a08fcce4114f008b08" name="kernel/validator.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="7ea4a599155065d1befe215f4e807645" name="modules/actions/access.action.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="b08e9d98ade77a88ce2453b6d87d01fa" name="modules/actions/compress.action.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="ea01e7d20183a0a3772726e9eafa5b05" name="modules/actions/concat.action.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="d3a14afba82e1dffd1ec00ae4ca43d1e" name="modules/actions/curl.action.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="f2093e89d2e01f7bdf297e1cd5483b1d" name="modules/actions/dateconnect.action.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="d11e6ef69ba760da220d816943aa5fdc" name="modules/actions/datetime.action.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="fba8fccb8b96caa7b8e21946c2db2dff" name="modules/actions/decompress.action.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="2c19e783a8832112977e90d23893fa21" name="modules/actions/email.action.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="252108587d1aaf03ad252762e44c8275" name="modules/actions/escape.action.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="59c4cf3253999a7c55e85e2d568e017e" name="modules/actions/gate.action.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="ad31c9a047bbcaf67974c32c9096fc2d" name="modules/actions/header.action.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="90bd55ee36a318aba98fd61278b4ff22" name="modules/actions/like.action.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="8ac6e8886c500d2f61c76668af9a00a6" name="modules/actions/log.action.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="44c7dbb99d98bc1ed8054958e2c7fe08" name="modules/actions/newline.action.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="a7c3e2de65a53b69249bbdca68f6b707" name="modules/actions/rawxml.action.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="63ebcea7aad81e312318c01231f19c69" name="modules/actions/redirect.action.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="2c7c82ea18820d707cdba8865ac235c4" name="modules/actions/sed.action.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="0e20561d333b4e6f3d1a2de62af27454" name="modules/actions/server.action.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="013fba824db83f3f768b4a31f88172dc" name="modules/actions/strip.action.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="30d75535cb931df38f22cd644fed005e" name="modules/actions/timeconvert.action.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="67dcf7476c0c70a7243c982d86bdaa73" name="modules/actions/translate.action.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="12fee921fd3d170ea5d4fd33c901db40" name="modules/actions/upload.action.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="ebd972741a5e53841ed57d67e5bb6dd6" name="modules/actions/xsl.action.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="4520f1c073beba113dba0c3463ba2192" name="modules/builders/action.builder.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="fa958f103bfd2be7ca6e8ba36f154979" name="modules/builders/block.builder.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="9daf764198f709fb2d87008d49967714" name="modules/builders/case.builder.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="9d2c6a56479a351306b41be6b2e7400f" name="modules/builders/default.builder.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="32cad1dfac14c77c9d71ef2acaf3c4da" name="modules/builders/false.builder.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="c07f4558633674cd01383db97078c5a3" name="modules/builders/if.builder.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="291a047ac8cd21bb6dbc1ed87c8ab27c" name="modules/builders/insert.builder.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="46327f0aa4a46269fdfb061adfbd2339" name="modules/builders/invalid.builder.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="9d83f462d6b87a0f8af889e3c57877eb" name="modules/builders/plugin.builder.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="cfd3a27d5b1310bea9b49434071f0b53" name="modules/builders/query.builder.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="de24679214de6a95ebb8d0059c921e52" name="modules/builders/raw.builder.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="0400272893037c8942c44b6a08d2cae2" name="modules/builders/script.builder.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="4914c83ab685d99a61331eebc6630f51" name="modules/builders/set.builder.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="f4fd3c9c46b8a51fa5fb917367d5d36b" name="modules/builders/switch.builder.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="c412bfbaa6f3155edbf83b4a0321740b" name="modules/builders/true.builder.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="bd3a0f9a222053ccb8336e32a45e92c1" name="modules/builders/valid.builder.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="2b08f1c3b0c65de81d70bec52fe99e57" name="modules/builders/validate.builder.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="e30118a69a49319a481ebd5183708a76" name="modules/builders/xml.builder.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="8860fb4bf271d73f12614170b3dc5cfa" name="modules/builders/xsl.builder.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="735809713206ce8ec3cc133064887f63" name="modules/datasources/ldapdatasource.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="6ffd664bf16f794f34601fbab08e9970" name="modules/datasources/mdb2sqldatasource.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="37eb0d86b25ab6966286ac07a07e6c0a" name="modules/handlers/action.handler.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="3aa2448fa5ea40eb917850a84f5d1675" name="modules/handlers/parameter.handler.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="6ad22e291fd57d3b173608757ed75a51" name="modules/handlers/plugin.handler.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="9bc0c6e4adc0c6dbe2da98ef26b12953" name="modules/handlers/query.handler.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="05f4f3db1029549072acaa9968ff48ee" name="modules/handlers/raw.handler.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="94790e4d37cb0b9b026c9fb6f297176d" name="modules/handlers/script.handler.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="69d680b9fe3bfcacbcb4e1ae75c07fd8" name="modules/handlers/validator.handler.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="f372db4f2c5c6180259bf971ab07f214" name="modules/handlers/validatorhandlerdata.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="2c661dc05d5c9cadebee441b4c671d97" name="modules/handlers/xml.handler.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="40fecea3d2808e612055425eaed6be56" name="modules/handlers/xsl.handler.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="01d87844ac2acb45eb82bc92213f3f50" name="modules/validators/alpha.validator.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="1db21500128ab7c25580ed2f1faecfde" name="modules/validators/alphanum.validator.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="d5e65b6f25eb2a382d4324dbad20cb5b" name="modules/validators/custom.validator.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="e456d27f0cd8fbfcd87755a6accbc747" name="modules/validators/dummy.validator.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="c15595be6b1b3ad27702ed787630c0e4" name="modules/validators/email.validator.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="0dbbfa3adbd7635f9bbba4df3d80684e" name="modules/validators/gd.validator.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="ee2db855d27412d642669e0905f5e8fe" name="modules/validators/length.validator.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="66f29616e425d82899e8a70b45710a86" name="modules/validators/match.validator.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="1b874a833985ba9806c8b45b1c616fa7" name="modules/validators/numeric.validator.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="c78a5ba98c1204c6c1a1dfbaa63a1264" name="modules/validators/phone.validator.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="649beebeb89eae5cca83c0864126acb8" name="modules/validators/regex.validator.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="b0085bc172d172b33a2e3c6a3591d92a" name="modules/validators/required.validator.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="07c833a95ffede343b71e2f83279d830" name="modules/validators/value.validator.php" role="php" />
+   <file baseinstalldir="Nexista" md5sum="fcea298e2203c1f55c989d82f262badd" name="modules/validators/xml.validator.php" role="php" />
    <file baseinstalldir="Nexista" md5sum="db3c420dfd95bc8b69819fa34a1af235" name="LICENSE" role="data" />
    <file baseinstalldir="Nexista" md5sum="970363e4b2d235338cd60a6880ab42e4" name="README" role="data" />
   </dir>
@@ -153,7 +166,20 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2008-04-15</date>
+   <date>2008-06-09</date>
+   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+   <notes>none</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.3</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2008-06-09</date>
    <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
    <notes>none</notes>
   </release>

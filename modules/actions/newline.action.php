@@ -49,7 +49,7 @@ class Nexista_newlineAction extends Nexista_Action
             return false;
 
         //write new data to Flow
-        $var->item(0)->nodeValue = nl2br($var->item(0)->nodeValue);
+        $var->item(0)->nodeValue = nl2br(htmlspecialchars($var->item(0)->nodeValue));
         return true;
     }
 
