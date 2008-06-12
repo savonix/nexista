@@ -9,6 +9,13 @@ Author: Albert Lash
 License: LGPL
 */
 
+/*
+<google_analytics_code>
+    <placement>predisplay</placement>
+    <source>&includepath;extensions/google_analytics.php</source>
+    <code></code>
+</google_analytics_code>
+*/
 /* TODO - Get this from the database. */
 $google_code = Nexista_Config::get("./extensions/google_analytics_code/code");
 if(!$priority = Nexista_Config::get("./extensions/google_analytics_code/priority")) {

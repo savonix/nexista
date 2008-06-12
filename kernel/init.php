@@ -19,6 +19,7 @@
  * Load required runtime files
  */
 require_once NX_PATH_CORE . "config.php";
+require_once NX_PATH_CORE . "session.php";
 require_once NX_PATH_CORE . "error.php";
 require_once NX_PATH_CORE . "path.php";
 require_once NX_PATH_CORE . "flow.php";
@@ -210,24 +211,8 @@ class Nexista_Init
 
     function initSession()
     {
-        $params = $this->config->getSection('session');
-        // Also check for cache_limiter - if its public, no session!
-        if ($params['active']==0) {
-            return false;
-        } else {
-
-            if (!empty($params['cookieLifetime']))
-                session_set_cookie_params($params['cookieLifetime']);
-            if (!empty($params['cacheLimiter']))
-                session_cache_limiter($params['cacheLimiter']);
-            if (!empty($params['cacheExpires']))
-                session_cache_expire($params['cacheExpires']);
-
-            @session_start();
-            define('NX_SESSION_ID', session_name().'='.session_id());
-
-            return true;
-        }
+        $this->session = Nexista_Session::singleton();
+        $this->session->start();
     }
 
 
@@ -454,7 +439,7 @@ class Nexista_Init
         if (is_callable($handler))
             self::$_outputHandler = $handler;
         else
-            NexistaException::init("Init Output Handler is not callable!");
+            Nexista_Error::init("Init Output Handler is not callable!");
     }
 
 

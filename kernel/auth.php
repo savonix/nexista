@@ -158,7 +158,8 @@ class Nexista_Auth
         if ($sessions==0) {
             return;
         } else {
-            @session_start();
+            $this->session = Nexista_Session::singleton();
+            $this->session->start();
 
             //user already identified?
             if (isset($_SESSION[$this->_sessionName])) {
@@ -231,7 +232,7 @@ class Nexista_Auth
 
         //user logged in - check roles
         case self::NX_AUTH_STATUS_ACTIVE:
-
+            // change to in_array?
             for ($i = 0; $i < count($this->sessionData['roles']); $i++) {
                 if ($this->sessionData['roles'][$i] == $role) {
                     return true;
@@ -301,7 +302,7 @@ class Nexista_Auth
     /**
      * Registers a user with valid roles
      *
-     * This methid is used by the login handle to register (login)
+     * This method is used by the login handle to register (login)
      * the user with an array of allowed roles. These roles are called either in
      * the sitemap tag as:
      * <code>&lt;map:gate name=&quot;some&quot; role=&quot;edit&quot;&gt;</code>
