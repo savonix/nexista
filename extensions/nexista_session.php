@@ -24,20 +24,22 @@
 /*
 Configuration:
 
-<nexista_cache>
+<nexista_session>
     <placement>prepend</placement>
-    <source>&includepath;extensions/nexista_cache.php</source>
-    <active>1</active>
-    <timer_comment>1</timer_comment>
-    <excludes></excludes>
-    <purge_gates>list-of-gates,logout</purge_gates>
-    <purge_gets>from_date</purge_gets>
-</nexista_cache>
+    <source>&includepath;extensions/nexista_session.php</source>
+</nexista_session>
 */
 
-include('HTTP/Session2.php');
-Nexista_Session::registerSessionStartHandler(array('HTTP_Session2','start'));
-
+if(1==2) {
+    ini_set('session.save_handler','user');
+    include('HTTP/Session2.php');
+    Nexista_Session::registerSessionStartHandler(array('HTTP_Session2','start'));
+} elseif (class_exists('Memcache')) {
+    ini_set('session.save_handler','memcache');
+    ini_set('session.save_path', 'tcp://192.168.3.3:11211?persistent=1&weight=2,tcp://memcached1.private.savonix.com:11211?persistent=1&weight=2&timeout=2&retry_interval=4,tcp://memcached2.private.savonix.com:11211?persistent=1&weight=2&timeout=2&retry_interval=4');
+} else {
+    ini_set('session.save_handler','files');
+}
 
 /* Get this from config
 HTTP_Session2::setContainer('MDB2',
