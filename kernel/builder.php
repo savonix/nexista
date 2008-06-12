@@ -158,7 +158,7 @@ class Nexista_Builder
 
 
     /**
-     * Resets class Nexista_attributes between tags
+     * Resets class attributes between tags
      *
      * @return null
      */

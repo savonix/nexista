@@ -248,10 +248,10 @@ class Nexista_Validator
 
 
     /**
-     * Load class Nexista_parameters
+     * Load class parameters
      *
      * This function will check if the required parameters
-     * for this class Nexista_are supplied and will load them into
+     * for this class are supplied and will load them into
      * $this->params array
      *
      * @param array &$params class parameters

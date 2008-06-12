@@ -17,7 +17,7 @@
 
 
 /**
- * This class Nexista_handles I/O between sitemap nodes (files) and will output 
+ * This class handles I/O between sitemap nodes (files) and will output 
  * an xml tree at the end if requested by the XSLT handler.
  *
  * One of the core features of Nexista is the Flow concept. Flow represents the 
@@ -30,7 +30,7 @@
  * to understand is how to call Flow variables and what data can be accessed in 
  * this manner.
  *
- * The flow class Nexista_is an extension of the {@link "PHP5 DOM API"
+ * The flow class is an extension of the {@link "PHP5 DOM API"
  * href="http://www.php.net/manual/en/ref.dom.php}
  * and thus provides all the standard XML functionality as well as a few additional 
  * methods.

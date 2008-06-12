@@ -301,7 +301,7 @@ class Nexista_Error extends Exception
     }
 
     /**
-     * Returns class Nexista_where exception occured
+     * Returns class where exception occured
      *
      * @return string error class
      */

@@ -16,7 +16,7 @@
  */
  
 /**
- * This class is the base class Nexista_upon which to extend custom actions
+ * This class is the base class upon which to extend custom actions
  *
  * @category  Nexista
  * @package   Nexista
@@ -75,7 +75,7 @@ class Nexista_Action
      * Loads class parameters
      *
      * This function will check if the required parameters
-     * for this class Nexista_are supplied and will load them into
+     * for this class are supplied and will load them into
      * $this->params array
      *
      * @param array &$params class parameters

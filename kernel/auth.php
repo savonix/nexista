@@ -390,9 +390,9 @@ class Nexista_Auth
     }
 
     /**
-     * Returns a class Nexista_singleton.
+     * Returns a class singleton.
      *
-     * @return object class Nexista_singleton instance
+     * @return object class singleton instance
      */
 
     static public function singleton()

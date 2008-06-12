@@ -16,7 +16,7 @@
  */
 
 /**
- * This class Nexista_provides some debugging functions
+ * This class provides some debugging functions
  *
  * @category  Nexista
  * @package   Nexista
