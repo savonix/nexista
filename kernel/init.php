@@ -125,7 +125,9 @@ class Nexista_Init
     public function start()
     {
         Nexista_Debug::register("in", "total");
-        $this->initSession();
+        // Can this and the function be removed? 
+        // Besides auth, why would you want a session?
+        // $this->initSession();
         $this->_initFlow();
     }
 
@@ -208,7 +210,6 @@ class Nexista_Init
 
     function initSession()
     {
-
         $params = $this->config->getSection('session');
         // Also check for cache_limiter - if its public, no session!
         if ($params['active']==0) {
