@@ -32,8 +32,9 @@ class Nexista_ConcatAction extends Nexista_Action
      */
 
     protected  $params = array(
-        'var1' => '', //required
-        'var2' => '' //required
+        'var1' => '', //required - first part of concatenation
+        'var2' => '', //required - second part of concatenation
+        'var3' => '', //required - existing xpath node or new node name
         );
 
     /**
@@ -45,12 +46,18 @@ class Nexista_ConcatAction extends Nexista_Action
     protected  function main()
     {
 
-		$res1 = Nexista_Flow::find($this->params['var1']);
-		$res2 = Nexista_Flow::find($this->params['var2']);
-        if($res1->length === 1)
-        {
-            $res1->item(0)->nodeValue = $res1->item(0)->nodeValue.$res2->item(0)->nodeValue;
+		$res1 = Nexista_Path::parseInlineFlow($this->params['var1']);
+		$res2 = Nexista_Path::parseInlineFlow($this->params['var2']);
+		$res3 = Nexista_Flow::find($this->params['var3']);
+        
+        if ($res3->length === 1) {
+            // there is a node, replace it
+            $res3->item(0)->nodeValue = $res1 . $res2;
             return true;
+        } else {
+            // create a new node
+            $new_node = $this->params['var3'];
+            Nexista_Flow::add($new_node, $res1 . $res2);
         }
 
         return false;
