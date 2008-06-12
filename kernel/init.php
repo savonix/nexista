@@ -126,9 +126,6 @@ class Nexista_Init
     public function start()
     {
         Nexista_Debug::register("in", "total");
-        // Can this and the function be removed? 
-        // Besides auth, why would you want a session?
-        // $this->initSession();
         $this->_initFlow();
     }
 
@@ -279,12 +276,16 @@ class Nexista_Init
 
                     if (isset($_info['cache']))
                         $this->info['cacheExpiryTime'] = $_info['cache'];
+
                     if (isset($_info['role'])) {
                         $this->info['requiredRole'] = $_info['role'];
-                        
                         $auth = Nexista_Auth::singleton();
                         $auth->requireRole($_info['role']);
                     }
+
+                    if (!isset($_info['nosession']))
+                        $this->initSession();
+
                     $gateFound = true;
                     break;
                 }

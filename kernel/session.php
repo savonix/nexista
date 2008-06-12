@@ -37,32 +37,61 @@ class Nexista_Session
 
     static private $_instance;
 
-    /** 
+
+    /**
+     * Session Start handler
+     *
+     * @var mixed
+     */
+
+    static private $_sessionStartHandler;
+
+
+    /**
      * Start session
      */
-     function start()
-     {
-        // Also check for cache_limiter - if its public, no session!
+    function start()
+    {
+
         $params = Nexista_Config::getSection('session');
 
         $useragent = strtolower ($_SERVER['HTTP_USER_AGENT']);
 
-        $excluded_agent = strpos ($useragent, 'google');
+        $excluded_agents = 'googlebot';
+        if(!is_array($excluded_agents))
+            $excluded_agents = (array)$excluded_agents;
+
+        $nosess = false;
+
+        foreach($excluded_agents as $xagent) {
+            if (strpos($useragent,$xagent)) {
+                $nosess = true;
+            }
+        }
 
         if ($params['active']==0 || $excluded_agent) {
+
             return false;
+
         } else {
 
-            if (!empty($params['cookieLifetime']))
-                session_set_cookie_params($params['cookieLifetime']);
-            if (!empty($params['cacheLimiter']))
-                session_cache_limiter($params['cacheLimiter']);
-            if (!empty($params['cacheExpires']))
-                session_cache_expire($params['cacheExpires']);
+            if (!is_null(self::$_sessionStartHandler)) {
 
-            @session_start();
-            define('NX_SESSION_ID', session_name().'='.session_id());
+                call_user_func(self::$_sessionStartHandler);
 
+            } else {
+
+                if (!empty($params['cookieLifetime']))
+                    session_set_cookie_params($params['cookieLifetime']);
+                if (!empty($params['cacheLimiter']))
+                    session_cache_limiter($params['cacheLimiter']);
+                if (!empty($params['cacheExpires']))
+                    session_cache_expire($params['cacheExpires']);
+
+                if (session_id() == "") session_start();
+                define('NX_SESSION_ID', session_name().'='.session_id());
+
+            }
             return true;
         }
      }
@@ -75,23 +104,14 @@ class Nexista_Session
      * @return null
      */
 
-    static public function registerSessionHandler($sessionHandler)
+    static public function registerSessionStartHandler($handler)
     {
-        
-        if (!is_null(self::$_outputHandler)) {
-            echo call_user_func(self::$_outputHandler, $this);
-        } else {
-        ini_set('session.save_handler', 'user');
 
-        session_set_save_handler(
-            array($handler, 'open'),
-            array($handler, 'close'),
-            array($handler, 'read'),
-            array($handler, 'write'),
-            array($handler, 'destroy'),
-            array($handler, 'gc')
-        );
-        }
+        if (is_callable($handler))
+            self::$_sessionStartHandler = $handler;
+        else
+            Nexista_Error::init("Session Start Handler is not callable!");
+
     }
 
 

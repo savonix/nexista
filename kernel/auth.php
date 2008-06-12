@@ -154,25 +154,21 @@ class Nexista_Auth
 
     public function __construct()
     {
-        $sessions = Nexista_Config::get('session/active');
-        if ($sessions==0) {
-            return;
-        } else {
-            $this->session = Nexista_Session::singleton();
-            $this->session->start();
 
-            //user already identified?
-            if (isset($_SESSION[$this->_sessionName])) {
-                $this->sessionData =& $_SESSION[$this->_sessionName];
+        $this->session = Nexista_Session::singleton();
+        $this->session->start();
 
-            } else { //newbie - setup a new session
+        //user already identified?
+        if (isset($_SESSION[$this->_sessionName])) {
+            $this->sessionData =& $_SESSION[$this->_sessionName];
 
-                $_SESSION[$this->_sessionName] = array();
+        } else { //newbie - setup a new session
 
-                $this->sessionData =& $_SESSION[$this->_sessionName];
+            $_SESSION[$this->_sessionName] = array();
 
-                $this->sessionData['status'] = self::NX_AUTH_STATUS_INACTIVE;
-            }
+            $this->sessionData =& $_SESSION[$this->_sessionName];
+
+            $this->sessionData['status'] = self::NX_AUTH_STATUS_INACTIVE;
         }
     }
 
