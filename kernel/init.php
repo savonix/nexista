@@ -261,6 +261,9 @@ class Nexista_Init
 
             $this->info['uri'] = $gatesExact[$_ID_]['uri'];
 
+            if (!isset($gatesExact[$_ID_]['nosession']))
+                $this->initSession();
+
             if (isset($gatesExact[$_ID_]['cache']))
                 $this->info['cacheExpiryTime'] = $gatesExact[$_ID_]['cache'];
 
