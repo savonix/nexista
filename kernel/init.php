@@ -246,16 +246,18 @@ class Nexista_Init
             if (!isset($gatesExact[$_ID_]['nosession']))
                 $this->initSession();
 
-            if (isset($gatesExact[$_ID_]['cache']))
-                $this->info['cacheExpiryTime'] = $gatesExact[$_ID_]['cache'];
-
-            if (isset($gatesExact[$_ID_]['client_cache'])) {
-                $this->info['clientCacheExpiryTime'] = 
-                    $gatesExact[$_ID_]['client_cache'];
+            if (isset($gatesExact[$_ID_]['cache_control'])) {
+                $cache_control = $gatesExact[$_ID_]['cache_control'];
+                header("Cache-Control: ".$cache_control);
             }
 
-            if (isset($gatesExact[$_ID_]['content_type']))
+            if (isset($gatesExact[$_ID_]['content_type'])) {
+                header("Content-Type: ".$gatesExact[$_ID_]['content_type']);
                 $this->info['content_type'] = $gatesExact[$_ID_]['content_type'];
+            }
+
+            if (isset($gatesExact[$_ID_]['cache']))
+                $this->info['cacheExpiryTime'] = $gatesExact[$_ID_]['cache'];
 
             if (isset($gatesExact[$_ID_]['role'])) {
                 $this->info['requireRole'] = $gatesExact[$_ID_]['role'];
@@ -274,6 +276,17 @@ class Nexista_Init
 
                     $this->info['uri'] = $_info['uri'];
 
+                    if (!isset($_info['nosession']))
+                        $this->initSession();
+
+                    if (isset($_info['cache_control'])) {
+                        $cache_control = $_info['cache_control'];
+                        header("Cache-Control: ".$cache_control);
+                    }
+
+                    if (isset($_info['content_type']))
+                        header("Content-Type: ".$_info['content_type']);
+
                     if (isset($_info['cache']))
                         $this->info['cacheExpiryTime'] = $_info['cache'];
 
@@ -282,9 +295,6 @@ class Nexista_Init
                         $auth = Nexista_Auth::singleton();
                         $auth->requireRole($_info['role']);
                     }
-
-                    if (!isset($_info['nosession']))
-                        $this->initSession();
 
                     $gateFound = true;
                     break;
@@ -295,12 +305,24 @@ class Nexista_Init
 
         if (isset($gateMissing) && !isset($gateFound)) {
             $this->info['uri'] = $gateMissing['uri'];
+
+            if (!isset($gateMissing['nosession']))
+                $this->initSession();
+
+            if (isset($gateMissing['cache_control'])) {
+                $cache_control = $gateMissing['cache_control'];
+                header("Cache-Control: ".$cache_control);
+            }
+
+            if (isset($gateMissing['content_type']))
+                header("Content-Type: ".$gateMissing['content_type']);
+
             if (isset($gateMissing['cache']))
                 $this->info['cacheExpiryTime'] = $gateMissing['cache'];
 
             if (isset($gateMissing['role'])) {
                 $this->info['requireRole'] = $gateMissing['role'];
-                
+
                 $auth = Nexista_Auth::singleton();
                 $auth->requireRole($this->info['requireRole']);
             }

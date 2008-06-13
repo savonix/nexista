@@ -46,7 +46,9 @@ class Nexista_HeaderAction extends Nexista_Action
     protected  function main()
     {
         $header = $this->params['header'];
-        $value = $this->params['value'];
+        $value = Nexista_Path::parseInlineFlow($this->params['value']);
+        // Can't use literal commas in the params section
+        $value = str_replace(';',',',$value);
 		header($header.": ".$value);
     }
 } //end class

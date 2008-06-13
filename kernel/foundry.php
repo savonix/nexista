@@ -428,13 +428,14 @@ class Nexista_Foundry
         if ($gate->hasAttribute('cache')) {
             $cache = $gate->getAttribute('cache');
         }
-        //client_cache
-        $client_cache = -1;
-        if ($gate->hasAttribute('client_cache')) {
-            $client_cache = $gate->getAttribute('client_cache');
+
+        //cache_control
+        $cache_control = -1;
+        if ($gate->hasAttribute('cache_control')) {
+            $cache_control = $gate->getAttribute('cache_control');
         }
 
-        //client_cache
+        //content_type
         $content_type = -1;
         if ($gate->hasAttribute('content_type')) {
             $content_type = $gate->getAttribute('content_type');
@@ -463,7 +464,7 @@ class Nexista_Foundry
                 'uri' => $filename,
                 'role' => $role,
                 'cache' => $cache,
-                'client_cache' => $client_cache,
+                'cache_control' => $cache_control,
                 'content_type' => $content_type
             );
     }
@@ -513,9 +514,10 @@ class Nexista_Foundry
                     $this_gate .= ",'role'=>'".$info['role']."'";
                 }
 
-                // Client cache's do not need check for auth.
-                if ($info['client_cache'] !== -1) {
-                    $this_gate .= ",'client_cache'=>'".$info['client_cache']."'";
+                /* Headers */
+                // Cache-Control
+                if ($info['cache_control'] !== -1) {
+                    $this_gate .= ",'cache_control'=>'".$info['cache_control']."'";
                 }
 
                 // Content type
@@ -549,10 +551,11 @@ class Nexista_Foundry
                     } elseif ($info['role'] !== -1 && $info['cache'] === -1) {
                         $this_gate .= ",'role'=>'".$info['role']."'";
                     }
-                    // Client cache's do not need check for auth.
-                    if ($info['client_cache'] !== -1) {
+                    /* Headers */
+                    // Cache-Control header
+                    if ($info['cache_control'] !== -1) {
                         $this_gate .= ",
-                            'client_cache'=>'".$info['client_cache']."'";
+                            'cache_control'=>'".$info['cache_control']."'";
                     }
                     // Content type
                     if ($info['content_type'] !== -1) {
