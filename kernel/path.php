@@ -83,20 +83,6 @@ class Nexista_Path
     }
 
 
-    /**
-     * Returns a class singleton.
-     *
-     * @return object class singleton instance
-     */
-
-    static public function singleton()
-    {
-        if (!isset(self::$_instance)) {
-            $c = __CLASS__;
-            self::$_instance = new $c;
-        }
-        return self::$_instance;
-    }
 }
 
 ?>
