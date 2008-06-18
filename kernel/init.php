@@ -191,7 +191,7 @@ class Nexista_Init
      */
 
     private function _initFlow()
-    { 
+    {
         $flow = Nexista_Flow::singleton();
         $flow->init();
     }
