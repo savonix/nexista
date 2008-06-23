@@ -34,6 +34,7 @@ class Nexista_TrueBuilder extends Nexista_Builder
 
     public function getCodeStart()
     {
+        $code[] = 'if ( $if_test )';
         $code[] = '{';
 
         return implode(NX_BUILDER_LINEBREAK, $code);

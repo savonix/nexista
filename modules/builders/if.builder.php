@@ -36,11 +36,25 @@ class Nexista_IfBuilder extends Nexista_Builder
     {
         $path = new Nexista_PathBuilder();
         $name = $this->action->getAttribute('name');
-        $code[] = 'if ('.$path->get($name, 'flow', JOIN_NONE).')';
+        //$code[] = 'if ('.$path->get($name, 'flow', JOIN_NONE).')';
+        $code[] = '$if_test = '.$path->get($name, 'flow', JOIN_NONE).';';
         return implode(NX_BUILDER_LINEBREAK, $code);
 
     }
+    /**
+     * Returns end code for this tag.
+     *
+     * @return   string Final code to insert in gate
+     * @see      Nexista_Builder::getCode()
+     */
 
+    public function getCodeEnd()
+    {
+
+        $code[] = '$if_test = false;';
+        return implode(NX_BUILDER_LINEBREAK, $code);
+
+    }
 }
 
 ?>

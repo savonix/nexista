@@ -684,8 +684,8 @@ class Nexista_Foundry
                     $code .= $this->_addGateDebugStop($module);
                 }
             } else {
-                Nexista_Error::init("No $module builder module found!",
-                    NX_ERROR_FATAL);
+                //Nexista_Error::init("No $module builder module found!",
+                //    NX_ERROR_WARNING);
             }
         }
         return true;
