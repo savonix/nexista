@@ -50,7 +50,7 @@
  * @link      http://www.nexista.org/
  */
 
-class Nexista_Auth
+class Nexista_Auth extends Nexista_Singleton
 {
 
     /**
