@@ -303,7 +303,7 @@ class Nexista_mdb2SqlDatasource
             $cols = array_flip(array_keys($result_set[0]));
 			$row = 0;
 			$number_of_rows = count($result_set);
-            $flow = Nexista_Flow::singleton();
+            $flow = Nexista_Flow::singleton('Nexista_Flow');
             $p = $flow->root->appendChild($flow->flowDocument->createElement($this->queryName));
             while ($row < $number_of_rows) {
                 $q = $p->appendChild($flow->flowDocument->createElement($this->queryName));

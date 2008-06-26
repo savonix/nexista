@@ -74,17 +74,9 @@
  * @link      http://www.nexista.org/
  */
 
-class Nexista_Flow
+class Nexista_Flow extends Nexista_Singleton
 {
 
-
-    /**
-     * Hold an instance of the class
-     *
-     * @var object
-     */
-
-    static private $_instance;
 
 
     /**
@@ -150,7 +142,7 @@ class Nexista_Flow
         $params = Nexista_Config::getSection('flow');
 
         //create a new DOM document and init with root
-        $this->flowDocument = new DOMDocument("1.0", "UTF-8");
+        $this->flowDocument = new DOMDocument('1.0', 'UTF-8');
 
         $this->flowDocument->preserveWhiteSpace  = false;
         $this->flowDocument->strictErrorChecking = false;
@@ -158,7 +150,7 @@ class Nexista_Flow
 
         $my_doc_root = $params['my_doc_root'];
         if (empty($my_doc_root)) {
-            $my_doc_root = "__ROOT__";
+            $my_doc_root = '__ROOT__';
         }
 
         $this->root = $this->flowDocument->createElement($my_doc_root);
@@ -252,7 +244,7 @@ class Nexista_Flow
 
     static public function find($exp, $parent = null)
     {
-        $flow = Nexista_Flow::singleton();
+        $flow = Nexista_Flow::singleton('Nexista_Flow');
         $x    = new DOMXPath($flow->flowDocument);
 
         if (is_null($parent))
@@ -281,7 +273,7 @@ class Nexista_Flow
         if ($node->childNodes->length == 1  AND
             get_class($node->childNodes->item(0)) == 'DOMText' AND
             !is_null($node->nodeValue)) {
-            if ($array_type == "ASSOC") {
+            if ($array_type == 'ASSOC') {
                 $nodeName  = $node->nodeName;
                 $nodeValue = $node->nodeValue;
 
@@ -317,7 +309,7 @@ class Nexista_Flow
 
     static public function delete($node)
     {
-        $flow    = Nexista_Flow::singleton();
+        $flow    = Nexista_Flow::singleton('Nexista_Flow');
         $listall = $flow->flowDocument->getElementsByTagname($node);
         $count   = $listall->length;
 
@@ -344,7 +336,7 @@ class Nexista_Flow
     static public function getByPath($path,$array_type = null)
     {
 
-        $flow = Nexista_Flow::singleton();
+        $flow = Nexista_Flow::singleton('Nexista_Flow');
         $res  = Nexista_Flow::find($path);
         if ($res->length > 1) {
             $array = array();
@@ -364,22 +356,6 @@ class Nexista_Flow
     }
 
 
-
-    /**
-     * Returns a class singleton.
-     *
-     * @return object class singleton instance
-     */
-
-    static public function singleton()
-    {
-        if (!isset(self::$_instance)) {
-            $c = __CLASS__;
-            self::$_instance = new $c;
-        }
-
-        return self::$_instance;
-    }
 
 
      /**
@@ -425,7 +401,7 @@ class Nexista_Flow
 
     static public function add($node, $value = null, $root = false)
     {
-        $flow = Nexista_Flow::singleton();
+        $flow = Nexista_Flow::singleton('Nexista_Flow');
 
         //where do we place this?
         if (!$root)
@@ -451,7 +427,7 @@ class Nexista_Flow
                     $root->appendChild($flow->flowDocument->createElement($node));
 
                     foreach ($value as $n=>$v) {
-                        if ($n=="GLOBALS" || $n=="") {
+                        if ($n=='GLOBALS' || $n=='') {
                             continue;
                         }
                         $flow->add($n, $v, $e);
@@ -484,8 +460,11 @@ class Nexista_Flow
         if (is_callable($handler))
             self::$_importHandler = $handler;
         else
-            Nexista_Error::init("Flow Import Handler is not callable!");
+            Nexista_Error::init('Flow Import Handler is not callable!');
     }
+
+
+
 
 }
 

@@ -73,7 +73,7 @@ function Nexista_Build_It_now($server_init)
         require NX_PATH_BASE.'kernel/foundry.php';
     }
 
-    $foundry = Nexista_Foundry::singleton();
+    $foundry = Nexista_Foundry::singleton('Nexista_Foundry');
 
     $config     = PROJECT_ROOT.'/config/config.xml';
     $app_config = PROJECT_ROOT.'/apps/'.APP_NAME.'/config/config.xml';

@@ -155,7 +155,7 @@ class Nexista_Auth
     public function __construct()
     {
 
-        $this->session = Nexista_Session::singleton();
+        $this->session = Nexista_Session::singleton('Nexista_Session');
         $this->session->start();
 
         //user already identified?
@@ -205,7 +205,7 @@ class Nexista_Auth
      * These roles are called using the sitemap tag as:
      * <code><map:gate name="somegate" role="editArticle"></code>
      * or in a PHP script as:
-     * <code>$auth = Auth::singleton();
+     * <code>$auth = Nexista_Auth::singleton('Nexista_Auth');
      * if (auth-&gt;requireRole('someRole'))
      * {
      *      ...do my stuff
@@ -303,7 +303,7 @@ class Nexista_Auth
      * the sitemap tag as:
      * <code>&lt;map:gate name=&quot;some&quot; role=&quot;edit&quot;&gt;</code>
      * or in a PHP script as:
-     * <code>$auth = Auth::singleton();
+     * <code>$auth = Nexista_Auth::singleton('Nexista_Auth');
      * if (auth-&gt;requireRole('someRole'))
      * {
      *     ...do my stuff
@@ -385,21 +385,6 @@ class Nexista_Auth
         $this->sessionData[$name] = $value;
     }
 
-    /**
-     * Returns a class singleton.
-     *
-     * @return object class singleton instance
-     */
-
-    static public function singleton()
-    {
-        if (!isset(self::$_instance)) {
-            $c = __CLASS__;
-            self::$_instance = new $c;
-        }
-
-        return self::$_instance;
-    }
 
 
     /**

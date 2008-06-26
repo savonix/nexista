@@ -187,7 +187,7 @@ class Nexista_ldapDatasource
     {
 
         foreach ($this->result_set as $dn => $entry) {
-            $flow = Nexista_Flow::singleton();
+            $flow = Nexista_Flow::singleton('Nexista_Flow');
             $q = $flow->root->appendChild($flow->flowDocument->createElement($this->queryName));
             $cn = $entry->getValue('cn', 'single');
             $key = 'ipHostNumber';

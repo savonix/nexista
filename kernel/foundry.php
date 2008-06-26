@@ -18,11 +18,12 @@
 /**
 * Load required runtime files
 */
-require_once NX_PATH_CORE . "error.php";
-require_once NX_PATH_CORE . "pathbuilder.php";
-require_once NX_PATH_CORE . "debug.php";
-require_once NX_PATH_CORE . "config.php";
-require_once NX_PATH_CORE . "builder.php";
+require_once NX_PATH_CORE . 'error.php';
+require_once NX_PATH_CORE . 'pathbuilder.php';
+require_once NX_PATH_CORE . 'debug.php';
+require_once NX_PATH_CORE . 'config.php';
+require_once NX_PATH_CORE . 'builder.php';
+require_once NX_PATH_CORE . 'singleton.php';
 
 define('NX_BUILDER_LINEBREAK', "\n");
 
@@ -74,7 +75,7 @@ function Nexista_builderError($e)
  * require_once('/home/lotus/nexista/kernel/foundry.php');
  *
  * //instanciate and initialize it with our desired registry file
- * $foundry = Foundry::singleton();
+ * $foundry = Nexista_Foundry::singleton('Nexista_Foundry');
  *
  * //load the master config, the user override config and process for 'live' mode
  * $foundry->configure('./master.xml','./user.xml', 'live');
@@ -93,16 +94,8 @@ function Nexista_builderError($e)
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL
  * @link      http://www.nexista.org/
  */
-class Nexista_Foundry
+class Nexista_Foundry extends Nexista_Singleton
 {
-
-     /**
-      * Hold an instance of the class
-      *
-      * @var object
-      */
-
-    static private $_instance;
 
 
     /**
@@ -162,7 +155,7 @@ class Nexista_Foundry
         $local = null, $mode = null, $config_filename = 'config.xml')
     {
 
-        $config = Nexista_Config::singleton();
+        $config = Nexista_Config::singleton('Nexista_Config');
         $config->setMaster($master);
         $config->setLocal($local);
         $config->setMode($mode);
@@ -790,27 +783,12 @@ class Nexista_Foundry
             $code[] = "require_once('".$r."');";
         }
 
-        $code[] = '$flow = Nexista_Flow::singleton();';
+        $code[] = '$flow = Nexista_Flow::singleton("Nexista_Flow");';
         $code[] = '$output  = null;';
 
         return implode(NX_BUILDER_LINEBREAK, $code).NX_BUILDER_LINEBREAK;
     }
 
-    /**
-     * Returns gate prepend code
-     *
-     * @return string prepend code
-     */
-
-    static public function singleton()
-    {
-        if (!isset(self::$_instance)) {
-            $c = __CLASS__;
-            self::$_instance = new $c;
-        }
-
-        return self::$_instance;
-    }
 
 } //end class
 ?>

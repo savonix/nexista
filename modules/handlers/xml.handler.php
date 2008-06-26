@@ -41,7 +41,7 @@ class Nexista_XmlHandler
         $doc->load($src);
         $doc->xinclude();
 
-        $flow = Nexista_Flow::singleton();
+        $flow = Nexista_Flow::singleton('Nexista_Flow');
 
         //import new doc into flow recursively
         $new = $flow->flowDocument->importNode($doc->documentElement, 1);

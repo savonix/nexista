@@ -34,7 +34,7 @@ class Nexista_XslHandler
     public function process($xslfile)
     {
 
-        $flow = Nexista_Flow::Singleton();
+        $flow = Nexista_Flow::Singleton('Nexista_Flow');
 
         // The following can be used with the NYT xslt cache.
 

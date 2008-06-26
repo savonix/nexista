@@ -233,7 +233,7 @@ Nexista_Flow::add("pre_body_content",$pre_body_content,false);
 
 
 function nexista_view_flow() {
-    $flow = Nexista_Flow::singleton();
+    $flow = Nexista_Flow::singleton('Nexista_Flow');
 	if($_GET['flowxml']=="true") {
         // XML output
         header("Content-type: text/xml");

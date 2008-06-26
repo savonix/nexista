@@ -32,12 +32,6 @@ class Nexista_Path
 {
 
     /**
-     * Hold an instance of the class
-     */
-
-    static private $_instance;
-
-    /**
      * Returns a string based on given protocol://path 
      *
      * @param string $path     path to resolve/render

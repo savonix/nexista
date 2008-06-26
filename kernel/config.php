@@ -28,17 +28,10 @@
  */
 
 
-class Nexista_Config
+require_once NX_PATH_CORE . 'singleton.php';
+
+class Nexista_Config extends Nexista_Singleton
 {
-
-    /**
-     * Hold an instance of the class
-     *
-     * @var object
-     */
-
-    static private $_instance;
-
 
     /**
      * Master config file (i.e. master.xml)
@@ -356,20 +349,7 @@ class Nexista_Config
     }
 
 
-    /**
-     * Returns a class singleton.
-     *
-     * @return object class singleton instance
-     */
 
-    static public function singleton()
-    {
-        if (!isset(self::$_instance)) {
-            $c = __CLASS__;
-            self::$_instance = new $c;
-        }
-        return self::$_instance;
-    }
 }
 
 ?>

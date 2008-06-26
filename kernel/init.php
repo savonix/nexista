@@ -25,6 +25,7 @@ require_once NX_PATH_CORE . 'path.php';
 require_once NX_PATH_CORE . 'flow.php';
 require_once NX_PATH_CORE . 'debug.php';
 require_once NX_PATH_CORE . 'auth.php';
+require_once NX_PATH_CORE . 'singleton.php';
 
 
 /**
@@ -138,7 +139,7 @@ class Nexista_Init
 
     public function loadConfig()
     {
-        $this->config = Nexista_Config::singleton();
+        $this->config = Nexista_Config::singleton('Nexista_Config');
         $this->config->setMaster(NX_PATH_COMPILE.'config.xml');
         $this->config->loadMasterConfig();
     }
@@ -192,7 +193,7 @@ class Nexista_Init
 
     private function _initFlow()
     {
-        $flow = Nexista_Flow::singleton();
+        $flow = Nexista_Flow::singleton('Nexista_Flow');
         $flow->init();
     }
 
@@ -208,7 +209,7 @@ class Nexista_Init
 
     function initSession()
     {
-        $this->session = Nexista_Session::singleton();
+        $this->session = Nexista_Session::singleton('Nexista_Session');
         $this->session->start();
     }
 
@@ -262,7 +263,7 @@ class Nexista_Init
             if (isset($gatesExact[$_ID_]['role'])) {
                 $this->info['requireRole'] = $gatesExact[$_ID_]['role'];
 
-                $auth = Nexista_Auth::singleton();
+                $auth = Nexista_Auth::singleton('Nexista_Auth');
                 $auth->requireRole($this->info['requireRole']);
             }
             $gateFound = true;
@@ -292,7 +293,7 @@ class Nexista_Init
 
                     if (isset($_info['role'])) {
                         $this->info['requiredRole'] = $_info['role'];
-                        $auth = Nexista_Auth::singleton();
+                        $auth = Nexista_Auth::singleton('Nexista_Auth');
                         $auth->requireRole($_info['role']);
                     }
 
@@ -323,7 +324,7 @@ class Nexista_Init
             if (isset($gateMissing['role'])) {
                 $this->info['requireRole'] = $gateMissing['role'];
 
-                $auth = Nexista_Auth::singleton();
+                $auth = Nexista_Auth::singleton('Nexista_Auth');
                 $auth->requireRole($this->info['requireRole']);
             }
         }
@@ -466,21 +467,6 @@ class Nexista_Init
     }
 
 
-    /**
-     * Returns a class singleton.
-     *
-     * @return object class singleton instance
-     */
-
-    static public function singleton()
-    {
-        if (!isset(self::$_instance)) {
-            $c = __CLASS__;
-            self::$_instance = new $c;
-        }
-
-        return self::$_instance;
-    }
 
 } //end class
 

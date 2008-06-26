@@ -26,17 +26,8 @@
  * @link      http://www.nexista.org/
  */
 
-class Nexista_Session
+class Nexista_Session extends Nexista_Singleton
 {
-
-    /**
-     * Hold an instance of the class
-     *
-     * @var object
-     */
-
-    static private $_instance;
-
 
     /**
      * Session Start handler
@@ -115,20 +106,7 @@ class Nexista_Session
     }
 
 
-    /**
-     * Returns a class singleton.
-     *
-     * @return object class singleton instance
-     */
 
-    static public function singleton()
-    {
-        if (!isset(self::$_instance)) {
-            $c = __CLASS__;
-            self::$_instance = new $c;
-        }
-        return self::$_instance;
-    }
 }
 
 ?>
