@@ -284,7 +284,7 @@ class Nexista_Config extends Nexista_Singleton
 
         //no mode given or none found with a given mode
         if (!$result) {
-            $result = self::$xml->xpath($name."[not(@mode)][not(*/node())]");
+            $result = self::$xml->xpath($name.'[not(@mode)][not(*/node())]');
         }
 
         if ($result) {
@@ -314,10 +314,10 @@ class Nexista_Config extends Nexista_Singleton
     {
         if ($id) {
             $res =
-                self::$xml->xpath("//config/".$subsection.$name."[@id='".$id."']");
+                self::$xml->xpath('//config/'.$subsection.$name.'[@id="'.$id.'"]');
             $obj = $res[0];
         } else {
-            $res = self::$xml->xpath("//config/".$subsection.$name."[not(@id)]");
+            $res = self::$xml->xpath('//config/'.$subsection.$name.'[not(@id)]');
             $obj = $res[0];
         }
 

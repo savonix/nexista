@@ -10,8 +10,8 @@ License: LGPL
 */
 
 /* TODO - Get this from the database. */
-$adsense_account = Nexista_Config::get("./extensions/google_adsense_account/code");
-if(!$priority = Nexista_Config::get("./extensions/google_adsense_account/priority")) {
+$adsense_account = Nexista_Config::get('./extensions/google_adsense_account/code');
+if(!$priority = Nexista_Config::get('./extensions/google_adsense_account/priority')) {
     $priority = 10;
 }
 
@@ -45,5 +45,5 @@ EOS;
 
 $footer[] = array('string' => $google_adsense_code, 'priority' => $priority);
 
-Nexista_Flow::add("footer",$footer,false);
+Nexista_Flow::add('footer',$footer,false);
 ?>

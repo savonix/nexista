@@ -157,12 +157,12 @@ class Nexista_QueryHandler
     {
 
         //load the datasource module file based on type
-        $datasource_file = NX_PATH_BASE."modules/datasources/" . $this->datasourceHandler . "datasource.php";
+        $datasource_file = NX_PATH_BASE.'modules/datasources/' . $this->datasourceHandler . 'datasource.php';
         if (is_file($datasource_file)) {
             require_once($datasource_file);
         } else {
         }
-        $class = 'Nexista_' . trim(ucfirst($this->datasourceHandler)) . "Datasource";
+        $class = 'Nexista_' . trim(ucfirst($this->datasourceHandler)) . 'Datasource';
         $this->datasource =& new $class($params);
         return true;
 

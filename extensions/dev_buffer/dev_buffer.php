@@ -234,12 +234,12 @@ Nexista_Flow::add("pre_body_content",$pre_body_content,false);
 
 function nexista_view_flow() {
     $flow = Nexista_Flow::singleton('Nexista_Flow');
-	if($_GET['flowxml']=="true") {
+	if($_GET['flowxml']=='true') {
         // XML output
-        header("Content-type: text/xml");
+        header('Content-type: text/xml');
         if($_GET['full']==true){
         } else {
-            $exes = "i18n";
+            $exes = 'i18n';
             $exar = explode(",",$exes);
             if(is_array($exar)) {
                 $exclude = $flow->flowDocument->documentElement;
@@ -259,7 +259,7 @@ function nexista_view_flow() {
         // Transform into HTML form
         $debugXsl = new XsltProcessor();
         $xsl = new DomDocument;
-        $xsl->load(NX_PATH_BASE."extensions/dev_buffer/s/xsl/flow.ul.xsl");
+        $xsl->load(NX_PATH_BASE.'extensions/dev_buffer/s/xsl/flow.ul.xsl');
         $debugXsl->importStyleSheet($xsl);
         if(isset($_GET['ignore'])) {
             $debugXsl->setParameter('','ignore',$_GET['ignore']);

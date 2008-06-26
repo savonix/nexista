@@ -101,7 +101,7 @@ class Nexista_Session extends Nexista_Singleton
         if (is_callable($handler))
             self::$_sessionStartHandler = $handler;
         else
-            Nexista_Error::init("Session Start Handler is not callable!");
+            Nexista_Error::init('Session Start Handler is not callable!');
 
     }
 

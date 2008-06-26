@@ -1,6 +1,6 @@
 <?php
 /**
- * -File        Session.php
+ * -File        singleton.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
  * -Copyright   Nexista
  * -Author      Joshua Savage

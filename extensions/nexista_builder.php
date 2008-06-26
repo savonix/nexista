@@ -64,10 +64,11 @@ function Nexista_Build_It_now($server_init)
 {
 
     if (!file_exists(NX_PATH_BASE.'kernel/foundry.php')) {
-        echo "I can't find the nexista foundry class, and cannot continue. Try this:
-        <br/><br/><a href='http://www.nexista.org'>http://www.nexista.org</a>, 
-        and so you know, I looking here: <br/>";
-        echo NX_PATH_BASE."kernel/foundry.php";;
+        echo 'I am unable to find the nexista foundry class, and cannot continue. 
+        Try this:
+        <br/><br/><a href="http://www.nexista.org">http://www.nexista.org</a>, 
+        and so you know, I looking here: <br/>';
+        echo NX_PATH_BASE.'kernel/foundry.php';
         exit;
     } else {
         require NX_PATH_BASE.'kernel/foundry.php';
@@ -85,20 +86,20 @@ function Nexista_Build_It_now($server_init)
     <html>
     <body style="padding: 150px; font-family: verdana;">
     <?php
-    echo "Looks like you are installing to $server_init. Cool! <br/><br/>";
+    echo 'Looks like you are installing to ',$server_init, ' Cool! <br/><br/>';
     ?>
     
     <?php
     if ( !file_exists($config) ) {
-        echo "Uh-oh, we already ran into a problem. I can't find a config file! 
-        I'm looking for $config";
+        echo 'Uh-oh, we already ran into a problem. Where is the config file? 
+        It is not here: ',$config;
         exit;
     }
 
     $config_file = file_get_contents($config);
 
     if (!isset($mode)) {
-        $mode = "dev";
+        $mode = 'dev';
     }
     if (isset($_ENV['NEXISTA_MODE'])) {
         $mode = $_ENV['NEXISTA_MODE'];

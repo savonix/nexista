@@ -65,16 +65,16 @@ class Nexista_ActionHandler
     {
 
         //load the action module file based on $type
-        require_once(NX_PATH_CORE . "action.php");
+        require_once(NX_PATH_CORE . 'action.php');
 
         //load the action module file based on $type
-        require_once(NX_PATH_ACTIONS . trim(strtolower($type)) . ".action.php");
+        require_once(NX_PATH_ACTIONS . trim(strtolower($type)) . '.action.php');
 
         //get the action parameters
         $params = explode(',', $params);
 
         //build the class name to load
-        $classname = 'Nexista_' . trim(ucfirst($type)) . "Action";
+        $classname = 'Nexista_' . trim(ucfirst($type)) . 'Action';
 
         $action = new $classname();
 

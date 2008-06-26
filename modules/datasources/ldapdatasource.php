@@ -216,7 +216,7 @@ class Nexista_ldapDatasource
             $cols = array_flip(array_keys($result_set[0]));
 			$row = 0;
 			$number_of_rows = count($result_set);
-            $noflow = new DOMDocument("1.0", "UTF-8");
+            $noflow = new DOMDocument('1.0', 'UTF-8');
             $p = $noflow->appendChild($noflow->createElement($this->queryName));
             while ($row < $number_of_rows) {
                 $q = $p->appendChild($noflow->createElement($this->queryName));

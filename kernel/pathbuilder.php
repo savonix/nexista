@@ -91,7 +91,7 @@ class Nexista_PathBuilder
     public function get($path, $protocol = 'string', $joinStyle = JOIN_NONE)
     {
         switch($protocol) {
-        case "flow":
+        case 'flow':
             $code[] = "Nexista_Flow::getByPath('".$path."')";
             break;
         

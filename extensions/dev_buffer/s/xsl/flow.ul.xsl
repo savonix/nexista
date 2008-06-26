@@ -34,11 +34,11 @@ instruction below. This is recommended if you are a beginner.
   <xsl:variable name="apos">'</xsl:variable>
 
 <xsl:template match="/">
-<script src="http://dev-48.savonix.com/a/sand/treeview/lib/jquery.js" type="text/javascript"></script>
-<script src="http://dev-48.savonix.com/a/sand/treeview/lib/jquery.cookie.js" type="text/javascript"></script>
-<script src="http://dev-48.savonix.com/a/sand/treeview/jquery.treeview.js" type="text/javascript"></script>
-<script src="http://dev-48.savonix.com/a/sand/treeview/jquery.treeview.async.js" type="text/javascript"></script>
-<link rel="stylesheet" href="http://dev-48.savonix.com/a/sand/treeview/jquery.treeview.css" />
+<script src="/a/sand/treeview/lib/jquery.js" type="text/javascript"></script>
+<script src="/a/sand/treeview/lib/jquery.cookie.js" type="text/javascript"></script>
+<script src="/a/sand/treeview/jquery.treeview.js" type="text/javascript"></script>
+<script src="/a/sand/treeview/jquery.treeview.async.js" type="text/javascript"></script>
+<link rel="stylesheet" href="/a/sand/treeview/jquery.treeview.css" />
 
 <script type="text/javascript">
 $(document).ready(function(){

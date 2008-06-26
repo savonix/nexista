@@ -66,7 +66,7 @@ class Nexista_Debug
     static public function args(&$args)
     {
 
-        echo "<br><b>Function Arguments:</b><br>";
+        echo '<br><b>Function Arguments:</b><br>';
 
         foreach ($args as $key=>$val) {
             $index = $key + 1;

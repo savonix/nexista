@@ -82,13 +82,6 @@ class Nexista_Auth extends Nexista_Singleton
 
 
     /**
-     * Hold an instance of the class
-     */
-
-    static private $_instance;
-
-
-    /**
      * User defined handler to process on login
      *
      * @var mixed function or object=>method

@@ -54,16 +54,6 @@ require_once NX_PATH_CORE . 'singleton.php';
 class Nexista_Init
 {
 
-
-    /**
-     * Hold an instance of the class
-     *
-     * @var object
-     */
-
-    static private $_instance;
-
-
     /**
      * Output handler
      *

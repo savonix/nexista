@@ -49,7 +49,7 @@ class Nexista_HeaderAction extends Nexista_Action
         $value = Nexista_Path::parseInlineFlow($this->params['value']);
         // Can't use literal commas in the params section
         $value = str_replace(';',',',$value);
-		header($header.": ".$value);
+		header($header.': '.$value);
     }
 } //end class
 

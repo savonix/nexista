@@ -128,20 +128,20 @@ class Nexista_mdb2SqlDatasource
 
     public function setConnection()
     {
-        if ($this->params['type']=="sqlite") {
+        if ($this->params['type']=='sqlite') {
             $dsn = array(
-                "phptype"  => $this->params['type'],
-                "database" => $this->params['database']);
+                'phptype'  => $this->params['type'],
+                'database' => $this->params['database']);
         } else {
             $dsn = array(
-                "hostspec" => $this->params['hostname'],
-                "phptype"  => $this->params['type'],
-                "username" => $this->params['username'],
-                "password" => $this->params['password'],
-                "database" => $this->params['database']);
+                'hostspec' => $this->params['hostname'],
+                'phptype'  => $this->params['type'],
+                'username' => $this->params['username'],
+                'password' => $this->params['password'],
+                'database' => $this->params['database']);
         }
 
-        require_once("MDB2.php");
+        require_once('MDB2.php');
 		$this->db =& MDB2::factory($dsn);
         $this->db->setOption('emulate_prepared',true);
 
@@ -242,10 +242,10 @@ class Nexista_mdb2SqlDatasource
 
         if (PEAR::isError($result)) {
             $my_debug_result = ''; //serialize($result);
-            Nexista_Error::init($result->getMessage()." in query named ".$this->queryName.$my_debug_result,NX_ERROR_FATAL);
+            Nexista_Error::init($result->getMessage().' in query named '.$this->queryName.$my_debug_result,NX_ERROR_FATAL);
         }
 
-        if ($this->queryType=="select") {
+        if ($this->queryType=='select') {
             return $result->fetchAll(MDB2_FETCHMODE_ASSOC);
         } else {
             return true;
@@ -336,7 +336,7 @@ class Nexista_mdb2SqlDatasource
             $cols = array_flip(array_keys($result_set[0]));
 			$row = 0;
 			$number_of_rows = count($result_set);
-            $noflow = new DOMDocument("1.0", "UTF-8");
+            $noflow = new DOMDocument('1.0', 'UTF-8');
             $p = $noflow->appendChild($noflow->createElement($this->queryName));
             while ($row < $number_of_rows) {
                 $q = $p->appendChild($noflow->createElement($this->queryName));
