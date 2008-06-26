@@ -18,13 +18,13 @@
 /**
  * Load required runtime files
  */
-require_once NX_PATH_CORE . "config.php";
-require_once NX_PATH_CORE . "session.php";
-require_once NX_PATH_CORE . "error.php";
-require_once NX_PATH_CORE . "path.php";
-require_once NX_PATH_CORE . "flow.php";
-require_once NX_PATH_CORE . "debug.php";
-require_once NX_PATH_CORE . "auth.php";
+require_once NX_PATH_CORE . 'config.php';
+require_once NX_PATH_CORE . 'session.php';
+require_once NX_PATH_CORE . 'error.php';
+require_once NX_PATH_CORE . 'path.php';
+require_once NX_PATH_CORE . 'flow.php';
+require_once NX_PATH_CORE . 'debug.php';
+require_once NX_PATH_CORE . 'auth.php';
 
 
 /**
@@ -125,7 +125,7 @@ class Nexista_Init
 
     public function start()
     {
-        Nexista_Debug::register("in", "total");
+        Nexista_Debug::register('in', 'total');
         $this->_initFlow();
     }
 
@@ -175,7 +175,7 @@ class Nexista_Init
 
     public function stop()
     {
-        Nexista_Debug::register("out", "total");
+        Nexista_Debug::register('out', 'total');
         exit();
     }
 
@@ -352,7 +352,7 @@ class Nexista_Init
             }
         } else {
             header('HTTP/1.x 404 Not Found');
-            echo "Page not found: $error_file";
+            echo 'Page not found: ', $error_file;
             echo $this->info['uri'];
             echo $_SERVER['SCRIPT_FILENAME'];
             return $output;
@@ -445,11 +445,11 @@ class Nexista_Init
      * defined in is_callable php function.  It should accept 1 arguments:
      * 1. The reference to the init class instance
      *
-     * Note that the Init::$_info property contains the current cache value
+     * Note that the Nexista_Init::$_info property contains the current cache value
      * from the sitemap if set.
      *
      * This function should call:
-     *      $output = Init::run();
+     *      $output = Nexista_Init::run();
      * to get the final output. The function is responsible for displaying it.
      *
      * @param mixed $handler a function or an array of class=>method
@@ -462,7 +462,7 @@ class Nexista_Init
         if (is_callable($handler))
             self::$_outputHandler = $handler;
         else
-            Nexista_Error::init("Init Output Handler is not callable!");
+            Nexista_Error::init('Init Output Handler is not callable!');
     }
 
 
