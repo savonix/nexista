@@ -38,7 +38,7 @@ class Nexista_InsertBuilder extends Nexista_Builder
         $blockName = $this->action->getAttribute('name');
 
         //get instance of Application
-        $application = Nexista_Foundry::singleton();
+        $application = Nexista_Foundry::singleton('Nexista_Foundry');
 
         //get all blocks
         $x = new DOMXPath($application->sitemapDocument);
