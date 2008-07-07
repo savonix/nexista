@@ -191,12 +191,12 @@ class Nexista_QueryHandler
         if (!empty($myPrefix)) {
             $xmlString =
                 "<!DOCTYPE query [".file_get_contents(dirname($this->definition)."/".$mydtd);
-            $xmlString .= '<!ENTITY prefix "'.$myPrefix.'">]>';
+			$rment     = '/(\<\!ENTITY prefix "[a-z0-9A-Z]*"\>)/';
+            $xmlString = preg_replace($rment, '', $xmlString);
+			$xmlString .= '<!ENTITY prefix "'.$myPrefix.'">]>';
             $xmlString .= file_get_contents($this->definition);
             $rmme      = '/(\<\!DOCTYPE query SYSTEM "'.$mydtd.'"\>)/';
             $xmlString = preg_replace($rmme, '', $xmlString);
-            $rment     = '/(\<\!ENTITY prefix "[a-z0-9A-Z]*"\>)/';
-            $xmlString = preg_replace($rment, '', $xmlString);
             $xml       = simplexml_load_string($xmlString, null,
                 LIBXML_COMPACT | LIBXML_DTDLOAD);
         } else {
