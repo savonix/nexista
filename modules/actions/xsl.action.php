@@ -53,7 +53,7 @@ class Nexista_XslAction extends Nexista_Action
     protected function main()
     {
 
-        $flow = Nexista_Flow::Singleton();
+        $flow = Nexista_Flow::Singleton('Flow');
         $file_path = Nexista_Path::parseInlineFlow($this->params['xsl']);
         $xslfile = NX_PATH_APPS.$file_path;
         if(!is_file($xslfile)) {
