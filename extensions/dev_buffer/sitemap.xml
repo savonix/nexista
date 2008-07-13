@@ -35,7 +35,12 @@ Fifth Floor, Boston, MA 02110-1301  USA
         <map:raw src="s/js/flow.js"/>
     </map:gate>
 
-    <map:gate name="x--dev--flow.xsl" cache="300" content_type="text/xml">
+    <map:gate name="x--dev--timex.js" cache="300" content_type="text/javascript">
+        <map:action type="header" params="Content-type,text/javascript"/>
+        <map:raw src="s/js/timer.js"/>
+    </map:gate>
+
+    <map:gate name="x--dev--flows.xsl" cache="300" content_type="text/xml">
         <map:action type="header" params="Content-type,text/xml"/>
         <map:raw src="s/xsl/flow.ul.xsl"/>
     </map:gate>
