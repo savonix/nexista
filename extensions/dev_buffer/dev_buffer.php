@@ -179,7 +179,7 @@ $flow_viewport = <<<EOL
 <script type="text/javascript">
 $(document).ready( function(){
     $('#flow_viewport').getTransform(
-        '$mylink?nid=x--dev--flow.xsl',
+        '$mylink?nid=x--dev--flows.xsl',
         '$mylink?nid=$mynid&view_flow=true&flowxml=true',
         {
             params: {
