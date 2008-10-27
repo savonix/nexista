@@ -54,7 +54,7 @@ class Nexista_EmailAction extends Nexista_Action
         $recipient = Nexista_Path::parseInlineFlow($this->params['recipient']);
         $sender = Nexista_Path::parseInlineFlow($this->params['sender']);
         $subject = "Subject: ".Nexista_Path::parseInlineFlow($this->params['subject'])."\n";
-        $body = Nexista_Path::parseInlineFlow($this->params['body']);
+        $body = Nexista_Flow::getbypath($this->params['body']);
         $host = Nexista_Path::parseInlineFlow($this->params['host']);
 
         if(require 'Net/SMTP.php') {
