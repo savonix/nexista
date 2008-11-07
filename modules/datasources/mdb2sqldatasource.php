@@ -218,6 +218,11 @@ class Nexista_mdb2SqlDatasource
                 if ($value !== 'NULL') {
                     $type = $val['type'];
                 }
+                if ($value == 'NULL') {
+                    $value = NULL;
+                    $type = NULL;
+
+                }
 
                 if ($value || $value == 0) {
 					$types[] = $type;
