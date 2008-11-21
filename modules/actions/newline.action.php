@@ -44,14 +44,14 @@ class Nexista_newlineAction extends Nexista_Action
     protected  function main()
     {
 
-        $var = Nexista_Flow::find($this->params['var']);
-        if(is_null($var) or is_array($var))
-            return false;
-
+        $xpath = $this->params['var'];
+        $node = Nexista_Flow::find($xpath);
+        foreach($node as $item) {
         //write new data to Flow
-        $string = nl2br($var->item(0)->nodeValue);
-        $string = preg_replace("/(<pre>)(.*)(<\/pre>)/mes","'<PRE>'.str_replace('<br />','','$2').'$3'.'</PRE>'",$string);
-        $var->item(0)->nodeValue = htmlspecialchars($string);
+            $string = nl2br($item->nodeValue);
+            $string = preg_replace("/(<pre>)(.*)(<\/pre>)/mes","'<PRE>'.str_replace('<br />','','$2').'$3'.'</PRE>'",$string);
+            $item->nodeValue = htmlspecialchars($string);
+        }
         return true;
     }
 
