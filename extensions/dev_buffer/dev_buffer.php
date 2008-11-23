@@ -205,7 +205,6 @@ $pre_body_content[] = array('string' => $flow_viewport, 'priority' => 11);
 $head_includes = <<<EOL
 <script type="text/javascript" src="$mylink?nid=x--dev--sarissa.js"></script>
 <script type="text/javascript" src="$mylink?nid=x--dev--sarissa_ieemu_xpath.js"></script>
-<script type="text/javascript" src="$mylink?nid=x--dev--jquery.js"></script>
 <script type="text/javascript" src="$mylink?nid=x--dev--jquery.xslTransform.js"></script>
 
 EOL;
