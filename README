@@ -1,6 +1,11 @@
 Nexista is an Open Source PHP/XML/XSL based development framework for building
-robust and scalable web applications. 
+robust and scalable web applications.
 
-As of 2008, it continues to be in active development after more than five years.
+As of 2009, it continues to be in active development after more than five years.
+If you are interested in helping with Nexista development, please make a comment
+about your intentions at the blog or the forums.
+
+It requires php5-xsl, php-xml, PEAR, MDB2 (for database access), and
+MDB2 database drivers.
 
 Current versions can be found at www.nexista.org
