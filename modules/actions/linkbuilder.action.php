@@ -2,7 +2,6 @@
 /**
  * -File        Linkbuilder.Action.php
  * -Copyright   Nexista
- * -Author      Joshua Savage
  * -Author      Albert Lash
  *
  * PHP version 5
@@ -14,7 +13,7 @@
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL
  * @link      http://www.nexista.org/
  */
- 
+
 
 class Nexista_LinkbuilderAction extends Nexista_Action
 {
@@ -26,19 +25,40 @@ class Nexista_LinkbuilderAction extends Nexista_Action
      * @access  private
      */
 
-    var $params = array(
+    protected  $params = array(
+        'ids' => '', //ids to build links for
+        'param_array_xpath' => '' //node containing key value pairs of tokens to replace.
         );
 
-
     /**
-     * Applies filter
+     * Applies action
      *
      * @return  boolean success
-     * @access  private
      */
 
-    function main()
+    protected  function main()
     {
+        $ids_x = $this->params['ids'];
+		$ids = Nexista_Flow::find($ids_x);
+        $params = Nexista_Flow::getbypath($this->params['param_array_xpath']);
+
+        foreach ($ids as $id)
+        {
+                $link = "";
+                foreach ($params as $param)
+                {
+                    //$link .= $param['name']."=";
+                    $myname = $param['name'];
+                    if($myname=="key") {
+                        $link .= $id->nodeValue."/";
+                    } else {
+                        $myval = Nexista_Flow::getbypath($param['value']);
+                        $link .= $myval."/";
+                    }
+                }
+                $id->nodeValue = $link;
+        }
+        return true;
 
     }
 } //end class
