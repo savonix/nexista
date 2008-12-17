@@ -34,7 +34,7 @@ class Nexista_PadAction extends Nexista_Action
     protected  $params = array(
         'var1' => '', //required - string to pad
         'var2' => '', //required - length
-        'var3' => '', //required - string to pad with
+        'var3' => ' ', //required - string to pad with
         'var4' => '', //optional - type of pad
         );
 
@@ -49,13 +49,13 @@ class Nexista_PadAction extends Nexista_Action
 
         $xpath = $this->params['var1'];
         $node = Nexista_Flow::find($xpath);
-        
+
         $length = $this->params['var2'];
 		$pad = Nexista_Path::parseInlineFlow($this->params['var3']);
         $type = $this->params['var4'];
 
         foreach($node as $str) {
-            $str->nodeValue = str_pad($str->nodeValue, $length, $pad);
+            $str->nodeValue = str_pad($str->nodeValue, $length, $pad,STR_PAD_RIGHT);
         }
 
     }
