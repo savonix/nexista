@@ -52,7 +52,7 @@ class Nexista_DatetimeAction extends Nexista_Action
         foreach($node as $item) {
             if($sformat == 'unix_epoch') {
                 $item->nodeValue = gmdate($tformat, $item->nodeValue + ($tz));
-            } else { 
+            } else {
                 $unix_epoch_str = strtotime($item->nodeValue);
                 $item->nodeValue = gmdate($tformat, $unix_epoch_str + ($tz));
             }
