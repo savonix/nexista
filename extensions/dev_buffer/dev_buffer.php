@@ -69,8 +69,12 @@ function Nexista_builderError($e)
     if ($e->getCode() == NX_ERROR_FATAL ||
         $e->getCode() == NX_ERROR_WARNING
         ) {
-
-        $exceptionXsl = new XsltProcessor();
+        $use_xslt_cache = "yes";
+        if ($use_xslt_cache!="yes" || !class_exists('xsltCache')) {
+            $exceptionXsl = new XsltProcessor();
+        } else {
+            $exceptionXsl = new xsltCache;
+        }
         $xsl = new DomDocument;
         $my_xsl_file = NX_PATH_BASE.'extensions/dev_buffer/s/xsl/exception.xsl';
         if (file_exists($my_xsl_file)) {
@@ -245,7 +249,12 @@ function nexista_view_flow() {
         exit;
     } else {
         // Transform into HTML form
-        $debugXsl = new XsltProcessor();
+        $use_xslt_cache="yes";
+        if ($use_xslt_cache!="yes" || !class_exists('xsltCache')) {
+            $debugXsl = new XsltProcessor();
+        } else {
+            $debugXsl = new XsltCache();
+        }
         $xsl = new DomDocument;
         $xsl->load(NX_PATH_BASE.'extensions/dev_buffer/s/xsl/flow.ul.xsl');
         $debugXsl->importStyleSheet($xsl);
