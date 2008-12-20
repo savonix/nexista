@@ -39,7 +39,6 @@ class Nexista_EmailAction extends Nexista_Action
         'host' => '',
         'port' => '',
         'authentication' => ''
-
         );
 
 
@@ -67,14 +66,14 @@ class Nexista_EmailAction extends Nexista_Action
             if(is_array($recipient)) {
                 foreach ($recipient as $to) {
                     if (PEAR::isError($res = $smtp->rcptTo($to))) {
-                        die("Unable to add recipient <$to>: " . $res->getMessage() . "\n");
+                        die("Unable to add recipients $to: " . $res->getMessage() . "\n");
                     }
                     $disclosed_recipients .= $to;
                 }
             } else {
 
                 if (PEAR::isError($res = $smtp->rcptTo($recipient))) {
-                    die("Unable to add recipient <$recipient>: " . $res->getMessage() . "\n");
+                    die("Unable to add single recipient $recipient for $host: " . $res->getMessage() . "\n");
                 }
                 $disclosed_recipients .= $recipient;
             }

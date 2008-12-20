@@ -67,8 +67,14 @@ class Nexista_XslAction extends Nexista_Action
         $xsl->loadXML($xslfilecontents);
         $xsl->documentURI = $xslfile;
 
-        $xslHandler = new XsltProcessor;
-        $xslHandler->importStyleSheet($xsl);
+        $use_xslt_cache = "yes";
+        if ($use_xslt_cache!="yes" || !class_exists('xsltCache')) {
+            $xslHandler = new XsltProcessor;
+            $xslHandler->importStyleSheet($xsl);
+        } else {
+            $xslHandler = new xsltCache;
+            $xslHandler->importStyleSheet($xsl);
+        }
 
         $my_output = $xslHandler->transformToXML($flow->flowDocument);
         if($my_output === false)
