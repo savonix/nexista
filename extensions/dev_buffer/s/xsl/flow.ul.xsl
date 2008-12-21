@@ -52,7 +52,7 @@ $(document).ready(function(){
 </script>
 <link rel="stylesheet" type="text/css" href="index.php?nid=x--dev--flow.css"/>
 <script type="text/javascript" src="index.php?nid=x--dev--flow.js"></script>
-<div id="flowDump" style="display: none;">
+<div id="flowDump">
     <div id="flowDumpContent" class="content">
 	<div id="treecontrol" style="text-align: left;">
 		<a title="Collapse the entire tree below" href="#"><img src="index.php?nid=x--dev--minus.gif" /> Collapse All</a>
