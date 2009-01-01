@@ -49,15 +49,17 @@ class Nexista_ConcatAction extends Nexista_Action
 		$res1 = Nexista_Path::parseInlineFlow($this->params['var1']);
 		$res2 = Nexista_Path::parseInlineFlow($this->params['var2']);
 		$res3 = Nexista_Flow::find($this->params['var3']);
-        
-        if ($res3->length === 1) {
-            // there is a node, replace it
-            $res3->item(0)->nodeValue = $res1 . $res2;
-            return true;
-        } else {
-            // create a new node
-            $new_node = $this->params['var3'];
-            Nexista_Flow::add($new_node, $res1 . $res2);
+
+        if ($res3->item(0)) {
+            if ($res3->length === 1) {
+                // there is a node, replace it
+                $res3->item(0)->nodeValue = $res1 . $res2;
+                return true;
+            } else {
+                // create a new node
+                $new_node = $this->params['var3'];
+                Nexista_Flow::add($new_node, $res1 . $res2);
+            }
         }
 
         return false;
