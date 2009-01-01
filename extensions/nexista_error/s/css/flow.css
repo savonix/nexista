@@ -1,0 +1,50 @@
+#flowDump {
+    font-family:sans-serif;
+    font-size:x-small;
+    line-height:20px;
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+    z-index: 200;
+    text-align: left;
+    background-color:#FFF;
+}
+#flowDump-button {
+    background-color:#e3b6ec;
+    display: inline;
+    cursor: pointer;
+    font-weight:normal;
+    visibility: visible;
+}
+#flowDump .content {
+    background-color:#FFF;
+    border-bottom:1px solid #766789;
+    padding:5px;
+    margin:0px;
+}
+#flowDump .spacer {
+    margin-left:20px;
+}
+#flowDump .indent {
+    border-bottom:1px solid blue;
+    padding-left:15px;
+    border-left:1px solid blue;
+    position:relative;
+    top:-5px;
+}
+#flowDump .connector {
+    color:red;
+    border-left:1px solid blue;
+}
+#flowDump .name {
+    color: navy;
+    border:1px solid #CCB2ED;
+    background-color: #FFF;
+    padding-left: 3px;
+    padding-right: 3px;
+
+}
+#flowDump .value {
+    color: #040;
+    padding:1px 3px 1px 3px;
+}
