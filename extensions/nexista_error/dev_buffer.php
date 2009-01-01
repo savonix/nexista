@@ -13,7 +13,7 @@ License: LGPL
     1. Add a hook to nexista_cache for debugging purposes.
     2. Add custom error handling for more detailed error reports when developing.
     3. Allow config.xml to add sitemaps to the main one for setting up the gates
-        needed to support dev_buffer.
+        needed to support nexista_error.
     4. Don't use $_GET['nid'], use the flow equivalent
 */
 
@@ -23,36 +23,7 @@ License: LGPL
 This section is always processed. It checks for exlusions to the
 development output buffer.
 */
-$development_console = true;
-$excludes = Nexista_Config::get('./extensions/dev_buffer/excludes');
-if(strpos($excludes,',')) {
-    $x_array = explode(',',$excludes);
-} else {
-    if(!empty($excludes)) {
-        $x_array[] = $excludes;
-    }
-}
-
-if(!empty($x_array)) {
-    if(in_array($_GET['nid'],$x_array)) {
-        unset($development_console);
-    } else {
-        // this could be slow, might want to have a setting to turn on / off
-        foreach($x_array as $value) {
-            if(eregi($value,$_GET['nid'])) {
-                unset($development_console);
-            }
-        }
-    }
-}
-
-/* END EXCLUSIONS */
-
-
-
-if($development_console===true) {
-    Nexista_Init::registerOutputHandler('nexista_devBuffer');
-}
+$development_console = 0;
 
 Nexista_Error::addObserver('display', 'Nexista_builderError');
 
@@ -76,7 +47,7 @@ function Nexista_builderError($e)
             $exceptionXsl = new xsltCache;
         }
         $xsl = new DomDocument;
-        $my_xsl_file = NX_PATH_BASE.'extensions/dev_buffer/s/xsl/exception.xsl';
+        $my_xsl_file = NX_PATH_BASE.'extensions/nexista_error/s/xsl/exception.xsl';
         if (file_exists($my_xsl_file)) {
             $xsl->load($my_xsl_file);
             $exceptionXsl->importStyleSheet($xsl);
@@ -256,7 +227,7 @@ function nexista_view_flow() {
             $debugXsl = new XsltCache();
         }
         $xsl = new DomDocument;
-        $xsl->load(NX_PATH_BASE.'extensions/dev_buffer/s/xsl/flow.ul.xsl');
+        $xsl->load(NX_PATH_BASE.'extensions/nexista_error/s/xsl/flow.ul.xsl');
         $debugXsl->importStyleSheet($xsl);
         if(isset($_GET['ignore'])) {
             $debugXsl->setParameter('','ignore',$_GET['ignore']);
