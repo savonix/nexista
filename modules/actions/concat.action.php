@@ -46,19 +46,41 @@ class Nexista_ConcatAction extends Nexista_Action
     protected  function main()
     {
 
-		$res1 = Nexista_Path::parseInlineFlow($this->params['var1']);
-		$res2 = Nexista_Path::parseInlineFlow($this->params['var2']);
-		$res3 = Nexista_Flow::find($this->params['var3']);
+        $xpath1 = $this->params['var1'];
+        $res1   = Nexista_Flow::find($xpath1);
+        $xpath2 = $this->params['var2'];
+        $res2   = Nexista_Flow::find($xpath2);
+        $xpath3 = $this->params['var3'];
+		$res3   = Nexista_Flow::find($xpath3);
+        $i      = 0;
 
         if ($res3->item(0)) {
             if ($res3->length === 1) {
                 // there is a node, replace it
-                $res3->item(0)->nodeValue = $res1 . $res2;
+                foreach($res1 as $str) {
+                    if($res2->length > 1 || $res2->length === 1) {
+                        $res3->item($i)->nodeValue =  $res1->item($i)->nodeValue . $res2->item($i)->nodeValue;
+                    } else {
+                        $res3->item($i)->nodeValue =  $str->nodeValue . Nexista_Path::parseInlineFlow($this->params['var2']);
+                    }
+                    $i++;
+                }
+                return true;
+            } elseif ($res3->length > 1) {
+                foreach($res1 as $str) {
+                    if($res2->length > 1 || $res2->length === 1) {
+                        $res3->item($i)->nodeValue =  $res1->item($i)->nodeValue . $res2->item($i)->nodeValue;
+                    } else {
+                        $res3->item($i)->nodeValue =  $str->nodeValue . Nexista_Path::parseInlineFlow($this->params['var2']);
+                    }
+                    $i++;
+                }
                 return true;
             } else {
                 // create a new node
                 $new_node = $this->params['var3'];
                 Nexista_Flow::add($new_node, $res1 . $res2);
+                return true;
             }
         }
 
