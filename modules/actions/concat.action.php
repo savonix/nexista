@@ -56,17 +56,13 @@ class Nexista_ConcatAction extends Nexista_Action
 
         if ($res3->item(0)) {
             if ($res3->length === 1) {
-                // there is a node, replace it
-                foreach($res1 as $str) {
-                    if($res2->length > 1 || $res2->length === 1) {
-                        $res3->item($i)->nodeValue =  $res1->item($i)->nodeValue . $res2->item($i)->nodeValue;
-                    } else {
-                        $res3->item($i)->nodeValue =  $str->nodeValue . Nexista_Path::parseInlineFlow($this->params['var2']);
-                    }
-                    $i++;
-                }
+                // there is a node, replace it, since its only one, res1 must
+                // only be one as well
+                echo Nexista_Path::parseInlineFlow($this->params['var2']);
+                $res3->item(0)->nodeValue = Nexista_Path::parseInlineFlow($this->params['var1']) . Nexista_Path::parseInlineFlow($this->params['var2']);
                 return true;
             } elseif ($res3->length > 1) {
+                // res3 is an array, so res3 is too
                 foreach($res1 as $str) {
                     if($res2->length > 1 || $res2->length === 1) {
                         $res3->item($i)->nodeValue =  $res1->item($i)->nodeValue . $res2->item($i)->nodeValue;
