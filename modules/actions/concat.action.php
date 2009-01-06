@@ -45,7 +45,8 @@ class Nexista_ConcatAction extends Nexista_Action
 
     protected  function main()
     {
-
+        // if using a single node, use {}'s in sitemap
+        // if referencing a nodeset, don't use {}'s
         $xpath1 = $this->params['var1'];
         $res1   = Nexista_Flow::find($xpath1);
         $xpath2 = $this->params['var2'];
