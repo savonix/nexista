@@ -308,8 +308,11 @@ class Nexista_Foundry extends Nexista_Singleton
         foreach ($gate_items as $gate_i) {
             if ( $gate_i->hasAttribute("src") ) {
                 $my_src = $gate_i->getAttribute("src");
-                $gate_i->removeAttribute("src");
-                $gate_i->setAttribute("src", dirname($my_sitemap)."/".$my_src);
+                // Do not alter absolute or starting with inline flow paths
+                if($my_src[0]!="/" && $my_src[0]!="{") {
+                    $gate_i->removeAttribute("src");
+                    $gate_i->setAttribute("src", dirname($my_sitemap)."/".$my_src);
+                }
             }
         }
 
