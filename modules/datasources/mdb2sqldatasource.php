@@ -145,11 +145,11 @@ class Nexista_mdb2SqlDatasource
 		$this->db =& MDB2::factory($dsn);
         $this->db->setOption('emulate_prepared',true);
 
-
 		if (PEAR::isError($this->db)) {
             $error = $this->db->getMessage();
             Nexista_Error::init("$error ; Translation = Error connecting to database, check your 
-                configuration file, specifically the datasource sections.",NX_ERROR_FATAL);
+                configuration file, specifically the datasource sections. Also check 
+                to make sure you have the right MDB2 drivers, like MDB2_Driver_mysqli.",NX_ERROR_FATAL);
 		}
 
         return true;
