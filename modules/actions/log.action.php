@@ -33,8 +33,10 @@ class Nexista_logAction extends Nexista_Action
      */
 
     protected  $params = array(
-        'code' => '',   //required - 3 letter action code
-        'target' => ''  //optional - target ID/name of action
+        'logging' => '',   //required - is logging on?
+        'lfile' => '',   //required - file to log to
+        'code'    => '',   //required - 3 letter action code
+        'log_msg'  => ''  //optional - log message
         );
 
 
@@ -46,7 +48,18 @@ class Nexista_logAction extends Nexista_Action
 
     protected  function main()
     {
-        // Use PEAR Log
+        $logging = $this->params['logging'];
+        if ($logging === 0 || !$logging) {
+            return true;
+        }
+        $lfile   = $this->params['lfile'];
+        $code    = $this->params['code'];
+        $log_msg = $this->params['log_msg'];
+
+        require_once 'Log.php';
+
+        $file = &Log::factory('file', $lfile, $code);
+        $file->log($log_msg);
         return true;
     }
 

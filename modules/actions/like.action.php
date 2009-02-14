@@ -44,15 +44,15 @@ class Nexista_LikeAction extends Nexista_Action
      */
 
     protected  function main()
-    {   
-        
+    {
+
 		$res = Nexista_Flow::find($this->params['var']);
         if($res->length === 1)
-        {            
+        {
             $res->item(0)->nodeValue = "%" . $res->item(0)->nodeValue . "%";
             return true;
         }
-         
+
         return false;
 
     }
