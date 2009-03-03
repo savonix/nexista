@@ -140,7 +140,7 @@ if(strpos($my_uri,"&client_view_flow=true")) {
 } elseif(strpos($my_uri,"client_view_flow=true&")) {
     $my_button = '[ <a href="'.str_replace("client_view_flow=true&","",$my_uri).'">Hide Flow</a> ]';
 } else {
-    $my_button = '[ <a href="'.$my_uri.'&client_view_flow=true">View Flow</a> ]';
+    $my_button = '[ <a href="'.$my_uri.'&amp;client_view_flow=true">View Flow</a> ]';
 }
 
 // This button will rebuild the application, as well as purge the cache
