@@ -140,7 +140,7 @@ if(strpos($my_uri,"&client_view_flow=true")) {
 } elseif(strpos($my_uri,"client_view_flow=true&")) {
     $my_button = '[ <a href="'.str_replace("client_view_flow=true&","",$my_uri).'">Hide Flow</a> ]';
 } else {
-    $my_button = '[ <a href="'.$my_uri.'&amp;client_view_flow=true">View Flow</a> ]';
+    $my_button = '[ <a href="'.str_replace("&","&amp;",$my_uri).'&amp;client_view_flow=true">View Flow</a> ]';
 }
 
 // This button will rebuild the application, as well as purge the cache
@@ -162,13 +162,13 @@ EOL;
 }
 $admin_panel = <<<EOL
 <table width="100%" cellpadding="2" style="background-color: #e3b6ec;">
-<tr><td style="background-color: #e3b6ec;" width="50%">
+<tr><td style="background-color: #e3b6ec; width: 50%">
 		$my_button $rebuild_button <span id="builder" style="color: red;">&#160;&#160;&#160;&#160;</span>
         Server time:<span id="server_time"> 0.000 s </span>
         Client time:<span id="client_time"> 0.000 s </span>
     </td>
-    <td width="25%" style="background-color: #e3b6ec;">$my_cache_purge &#160;<span id="purger" style="color: red;">&#160;&#160;&#160;&#160;</span></td>
-	<td width="25%">
+    <td style="width:25%; background-color: #e3b6ec;">$my_cache_purge &#160;<span id="purger" style="color: red;">&#160;&#160;&#160;&#160;</span></td>
+	<td style="width:25%">
     $flow_button
     </td></tr></table>
 
@@ -184,7 +184,7 @@ $flow_viewport = <<<EOL
 $(document).ready( function(){
     $('#flow_viewport').getTransform(
         '$mylink?nid=x--dev--flows.xsl',
-        '$mylink?nid=$mynid&view_flow=true&flowxml=true',
+        '$mylink?nid=$mynid&amp;view_flow=true&amp;flowxml=true',
         {
             params: {
                 'ignore': 'i18n'
