@@ -133,14 +133,14 @@ $my_script = '<script type="text/javascript" src="'.$mylink.'?nid=x--dev--timex.
 $in_head[] = array('string' => $my_script, 'priority' => 10);
 Nexista_Flow::add("in_head",$in_head,false);
 
-$my_uri = $_SERVER['REQUEST_URI'];
+$my_uri = str_replace("&","&amp;",$_SERVER['REQUEST_URI']);
 // AJAX
-if(strpos($my_uri,"&client_view_flow=true")) {
-    $my_button = '[ <a href="'.str_replace("&client_view_flow=true","",$my_uri).'">Hide Flow</a> ]';
-} elseif(strpos($my_uri,"client_view_flow=true&")) {
-    $my_button = '[ <a href="'.str_replace("client_view_flow=true&","",$my_uri).'">Hide Flow</a> ]';
+if(strpos($my_uri,"&amp;client_view_flow=true")) {
+    $my_button = '[ <a href="'.str_replace("&amp;client_view_flow=true","",$my_uri).'">Hide Flow</a> ]';
+} elseif(strpos($my_uri,"client_view_flow=true&amp;")) {
+    $my_button = '[ <a href="'.str_replace("client_view_flow=true&amp;","",$my_uri).'">Hide Flow</a> ]';
 } else {
-    $my_button = '[ <a href="'.str_replace("&","&amp;",$my_uri).'&amp;client_view_flow=true">View Flow</a> ]';
+    $my_button = '[ <a href="'.$my_uri.'&amp;client_view_flow=true">View Flow</a> ]';
 }
 
 // This button will rebuild the application, as well as purge the cache
