@@ -115,9 +115,15 @@ function nexista_devBuffer($init)
 
     $output = str_replace("</body>","",$output);
     $output = str_replace("</html>","",$output);
+    $output .= nexista_final_notices($cache_type,"dev");
+    $output .= "</body></html>";
+    $tidy = 0;
+    if ($tidy) {
+        $options = array("output-xhtml" => true, "indent" => true, "clean" => true);
+        $output = tidy_parse_string($output, $options);
+        tidy_clean_repair($output);
+    }
     echo $output;
-    echo nexista_final_notices($cache_type,"dev");
-    echo "</body></html>";
 
 
 	ob_end_flush();
@@ -276,7 +282,7 @@ and to stop the client timer.. */
 function nexista_final_notices($cacher=null, $mode) {
 	$server_time = Nexista_Debug::profile();
 $final_notices =  "
-<script type='text/javascript'>
+<script type=\"text/javascript\">
     done_loading($server_time);
     if (typeof jQuery != 'undefined') {
         $(document).ready(function()

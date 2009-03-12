@@ -18,7 +18,7 @@ instruction below. This is recommended if you are a beginner.
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:param name="ignore" select="i18n"/>
   <xsl:param name="link_prefix"/>
-  <xsl:output method="html"
+  <xsl:output method="xml"
     encoding="UTF-8"
     indent="yes"
     omit-xml-declaration="yes"
@@ -34,9 +34,11 @@ instruction below. This is recommended if you are a beginner.
 
   <xsl:template match="/">
 
-
+<html>
+<head>
 <link rel="stylesheet" type="text/css" href="{$link_prefix}x--dev--flow.css"/>
-
+</head>
+<body>
 
 <div id="exception">
 <h1>Exception Trace</h1>
@@ -54,6 +56,8 @@ instruction below. This is recommended if you are a beginner.
         </div>
     </div>
 </div>
+</body>
+</html>
 </xsl:template>
 
 <xsl:template match="trace" >
