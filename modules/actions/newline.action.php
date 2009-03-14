@@ -49,7 +49,7 @@ class Nexista_newlineAction extends Nexista_Action
         foreach($node as $item) {
         //write new data to Flow
             $string = nl2br($item->nodeValue);
-            $string = preg_replace("/(<pre>)(.*)(<\/pre>)/mes","'<PRE>'.str_replace('<br />','','$2').'$3'.'</PRE>'",$string);
+            $string = preg_replace("/(<pre)(.*)(<\/pre>)/mes","'$1'.str_replace('<br />','','$2').'$3'",$string);
             $item->nodeValue = htmlspecialchars($string);
         }
         return true;
