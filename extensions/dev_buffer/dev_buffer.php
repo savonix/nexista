@@ -134,6 +134,9 @@ function nexista_devBuffer($init)
 
 function nexista_development_console()  {
 $mylink = $_SERVER['SCRIPT_NAME'];
+if ($_GET['nxrw_path']) {
+    $mylink = $_GET['nxrw_path'];
+}
 $my_script = '<script type="text/javascript" src="'.$mylink.'?nid=x--dev--timex.js"></script>';
 
 $in_head[] = array('string' => $my_script, 'priority' => 10);
