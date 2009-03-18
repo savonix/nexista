@@ -158,8 +158,8 @@ function Nexista_cache($init)
             $ims  = strtotime($ims);
             $lm   = filemtime($cac);
             $etag = md5(file_get_contents($cac));
-            $ctag = $_SERVER['HTTP_IF_NONE_MATCH'];
-            if ($lm <= $ims && $etag == $ctag) {
+            //$ctag = $_SERVER['HTTP_IF_NONE_MATCH'];
+            if ($lm <= $ims) {
                 // Hasn't been modified, is it still fresh?
                 $fresh = $lm + $exp - time();
                 if( $fresh > 0 ) {
