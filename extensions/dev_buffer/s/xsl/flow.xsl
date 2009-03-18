@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!--
 XSL to dump Flow
 Dreived from work by Mike J. Brown and Jeni Tennison.
@@ -20,8 +19,6 @@ instruction below. This is recommended if you are a beginner.
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:param name="ignore">i18n</xsl:param>
 	<xsl:param name="link_prefix"/>
-	<xsl:output method="html"
-		indent="yes" encoding="UTF-8" omit-xml-declaration="yes" />
 
 
   <xsl:strip-space elements="*"/>

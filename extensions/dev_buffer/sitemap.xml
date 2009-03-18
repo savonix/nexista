@@ -69,28 +69,5 @@ Fifth Floor, Boston, MA 02110-1301  USA
         <map:action type="header" params="Content-type,text/css"/>
         <map:raw src="s/css/jquery.treeview.css"/>
     </map:gate>
-    <map:gate name="x--dev--plus.gif" cache="300" content_type="image/gif">
-        <map:action type="header" params="Content-type,image/gif"/>
-        <map:raw src="s/img/plus.gif"/>
-    </map:gate>
-    <map:gate name="x--dev--minus.gif" cache="300" content_type="image/gif">
-        <map:action type="header" params="Content-type,image/gif"/>
-        <map:raw src="s/img/minus.gif"/>
-    </map:gate>
-    <map:gate name="x--dev--treeview-default.gif" cache="300" content_type="image/gif">
-        <map:action type="header" params="Content-type,image/gif"/>
-        <map:raw src="s/img/treeview-default.gif"/>
-    </map:gate>
-    <map:gate name="x--dev--treeview-default-line.gif" cache="300" content_type="image/gif">
-        <map:action type="header" params="Content-type,image/gif"/>
-        <map:raw src="s/img/treeview-default-line.gif"/>
-    </map:gate>
-    <map:gate name="x--dev--treeview-black.gif" cache="300" content_type="image/gif">
-        <map:action type="header" params="Content-type,image/gif"/>
-        <map:raw src="s/img/treeview-black.gif"/>
-    </map:gate>
-    <map:gate name="x--dev--treeview-black-line.gif" cache="300" content_type="image/gif">
-        <map:action type="header" params="Content-type,image/gif"/>
-        <map:raw src="s/img/treeview-black-line.gif"/>
-    </map:gate>
+
 </map:sitemap>

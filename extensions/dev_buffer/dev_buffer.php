@@ -111,10 +111,10 @@ function nexista_devBuffer($init)
             //nexista_view_flow();
         }
 	}
-    if($_GET['client_view_flow']=="true") {
+    //if($_GET['client_view_flow']=="true") {
         $mynid = $_GET['nid'];
         $flow_viewport = nexista_view_flow();
-    }
+    //}
     $output = str_replace("</body>","",$output);
     $output = str_replace("</html>","",$output);
     $output .= nexista_final_notices($cache_type,"dev");

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!--
 XSL to dump Flow
 Dreived from work by Mike J. Brown and Jeni Tennison.
@@ -14,17 +13,14 @@ If you want to ignore whitespace-only text nodes, uncomment the xsl:strip-space
 instruction below. This is recommended if you are a beginner.
 
 -->
-
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:param name="ignore">i18n</xsl:param>
 <xsl:param name="link_prefix"/>
-  <xsl:output method="xml"
+<xsl:output method="html"
     encoding="UTF-8"
-    indent="yes"
     omit-xml-declaration="yes"/>
 
 
-  <xsl:strip-space elements="*"/>
 
 
   <xsl:param name="show_ns"/>
@@ -32,12 +28,12 @@ instruction below. This is recommended if you are a beginner.
   <xsl:variable name="apos">'</xsl:variable>
 
 <xsl:template match="/">
-<script src="/a/dev/pbooks/index.php?nid=x--dev--jquery.js" type="text/javascript"></script>
-<script src="index.php?nid=x--dev--jquery.cookie.js" type="text/javascript"></script>
-<script src="index.php?nid=x--dev--jquery.treeview.js" type="text/javascript"></script>
-<script src="index.php?nid=x--dev--jquery.treeview.async.js" type="text/javascript"></script>
+<!-- Note: These &#160; spacers are needed to support both XHTML and HTML output. -->
+<script src="/a/dev/pbooks/index.php?nid=x--dev--jquery.js" type="text/javascript">&#160;</script>
+<script src="index.php?nid=x--dev--jquery.cookie.js" type="text/javascript">&#160;</script>
+<script src="index.php?nid=x--dev--jquery.treeview.js" type="text/javascript">&#160;</script>
+<script src="index.php?nid=x--dev--jquery.treeview.async.js" type="text/javascript">&#160;</script>
 <link rel="stylesheet" href="index.php?nid=x--dev--jquery.treeview.css" />
-
 <script type="text/javascript">
 $(document).ready(function(){
 	
@@ -49,7 +45,7 @@ $(document).ready(function(){
 });
 </script>
 <link rel="stylesheet" type="text/css" href="index.php?nid=x--dev--flow.css"/>
-<script type="text/javascript" src="index.php?nid=x--dev--flow.js"></script>
+<script type="text/javascript" src="index.php?nid=x--dev--flow.js">&#160;</script>
 <div id="flowDump">
     <div id="flowDumpContent" class="content">
 
