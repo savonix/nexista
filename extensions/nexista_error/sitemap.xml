@@ -18,93 +18,14 @@ GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
 along with this program; if not, see http://www.gnu.org/licenses
-or write to the Free Software Foundation,Inc., 51 Franklin Street,
-Fifth Floor, Boston, MA 02110-1301  USA
+or write to the Free Software Foundation, Inc., 51 Franklin Street,
+Fifth Floor, Boston, MA 02110-1301 USA
 -->
 <map:sitemap xmlns:map="http://www.nexista.org/sitemap">
 
     <map:gate name="x--dev--flow.css" cache="300" content_type="text/css">
         <map:action type="header" params="Content-type,text/css"/>
-        <map:raw src="s/css/flow.css"/>
         <map:raw src="s/css/exception.css"/>
     </map:gate>
 
-    <map:gate name="x--dev--flow.js" cache="300" content_type="text/javascript">
-        <map:action type="header" params="Content-type,text/javascript"/>
-        <map:raw src="s/js/flow.js"/>
-    </map:gate>
-
-    <map:gate name="x--dev--timex.js" cache="300" content_type="text/javascript">
-        <map:action type="header" params="Content-type,text/javascript"/>
-        <map:raw src="s/js/timer.js"/>
-    </map:gate>
-
-    <map:gate name="x--dev--flows.xsl" cache="300" content_type="text/xml">
-        <map:action type="header" params="Content-type,text/xml"/>
-        <map:raw src="s/xsl/flow.ul.xsl"/>
-    </map:gate>
-
-		
-    <map:gate name="x--dev--jquery.js" cache="300" content_type="text/javascript">
-        <map:action type="header" params="Content-type,text/javascript"/>
-        <map:raw src="s/js/jquery/jquery.js"/>
-    </map:gate>
-
-    <map:gate name="x--dev--jquery.xslTransform.js" cache="300" content_type="text/javascript">
-        <map:action type="header" params="Content-type,text/javascript"/>
-        <map:raw src="s/js/jquery/plugins/jquery.xslTransform.js"/>
-    </map:gate>
-
-    <map:gate name="x--dev--sarissa.js" cache="300" content_type="text/javascript">
-        <map:action type="header" params="Content-type,text/javascript"/>
-        <map:raw src="s/js/sarissa.js"/>
-    </map:gate>
-
-    <map:gate name="x--dev--sarissa_ieemu_xpath.js" cache="300" content_type="text/x-javascript">
-        <map:action type="header" params="Content-type,text/x-javascript"/>
-        <map:raw src="s/js/sarissa_ieemu_xpath.js"/>
-    </map:gate>
-
-
-		
-    <map:gate name="x--dev--jquery.treeview.js" cache="300" content_type="text/javascript">
-        <map:action type="header" params="Content-type,text/javascript"/>
-        <map:raw src="s/js/jquery/plugins/jquery.treeview.js"/>
-    </map:gate>
-    <map:gate name="x--dev--jquery.cookie.js" cache="300" content_type="text/javascript">
-        <map:action type="header" params="Content-type,text/javascript"/>
-        <map:raw src="s/js/jquery/plugins/jquery.cookie.js"/>
-    </map:gate>
-    <map:gate name="x--dev--jquery.treeview.async.js" cache="300" content_type="text/javascript">
-        <map:action type="header" params="Content-type,text/javascript"/>
-        <map:raw src="s/js/jquery/plugins/jquery.treeview.async.js"/>
-    </map:gate>
-    <map:gate name="x--dev--jquery.treeview.css" cache="300" content_type="text/css">
-        <map:action type="header" params="Content-type,text/css"/>
-        <map:raw src="s/css/jquery.treeview.css"/>
-    </map:gate>
-    <map:gate name="x--dev--plus.gif" cache="300" content_type="image/gif">
-        <map:action type="header" params="Content-type,image/gif"/>
-        <map:raw src="s/img/plus.gif"/>
-    </map:gate>
-    <map:gate name="x--dev--minus.gif" cache="300" content_type="image/gif">
-        <map:action type="header" params="Content-type,image/gif"/>
-        <map:raw src="s/img/minus.gif"/>
-    </map:gate>
-    <map:gate name="x--dev--treeview-default.gif" cache="300" content_type="image/gif">
-        <map:action type="header" params="Content-type,image/gif"/>
-        <map:raw src="s/img/treeview-default.gif"/>
-    </map:gate>
-    <map:gate name="x--dev--treeview-default-line.gif" cache="300" content_type="image/gif">
-        <map:action type="header" params="Content-type,image/gif"/>
-        <map:raw src="s/img/treeview-default-line.gif"/>
-    </map:gate>
-    <map:gate name="x--dev--treeview-black.gif" cache="300" content_type="image/gif">
-        <map:action type="header" params="Content-type,image/gif"/>
-        <map:raw src="s/img/treeview-black.gif"/>
-    </map:gate>
-    <map:gate name="x--dev--treeview-black-line.gif" cache="300" content_type="image/gif">
-        <map:action type="header" params="Content-type,image/gif"/>
-        <map:raw src="s/img/treeview-black-line.gif"/>
-    </map:gate>
 </map:sitemap>
