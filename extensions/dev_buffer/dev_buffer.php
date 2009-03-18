@@ -1,5 +1,5 @@
 <?php
-/*
+/* <!--
 Plugin Name: Development Output Buffer
 Plugin URI:
 Description:
@@ -7,15 +7,14 @@ Version: 0.1
 Copyright: Nexista
 Author: Albert Lash
 License: LGPL
-*/
 
-/* TODO:
+TODO:
     1. Add a hook to nexista_cache for debugging purposes.
     2. Add custom error handling for more detailed error reports when developing.
     3. Allow config.xml to add sitemaps to the main one for setting up the gates
         needed to support dev_buffer.
     4. Don't use $_GET['nid'], use the flow equivalent
-*/
+--> */
 
 
 /* START EXCLUSIONS CHECK */
@@ -170,7 +169,7 @@ Toggle Flow</span> ]
 EOL;
 }
 $admin_panel = <<<EOL
-<table width="100%" cellpadding="2" style="background-color: #e3b6ec;">
+<table width="100%" cellpadding="2" style="background-color: #e3b6ec; position: absolute; opacity: .1;" onmouseover="$(this).css('opacity','1.0');" onmouseout="$(this).css('opacity','0.2');">
 <tr><td style="background-color: #e3b6ec; width: 50%">
 		$my_button $rebuild_button <span id="builder" style="color: red;">&#160;&#160;&#160;&#160;</span>
         Server time:<span id="server_time"> 0.000 s </span>
