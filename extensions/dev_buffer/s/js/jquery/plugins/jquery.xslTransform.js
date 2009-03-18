@@ -316,7 +316,7 @@ jQuery.fn.getTransform = function( xsl, xml, options ){
 			$(this).html( trans.string );
 		}catch(e){
 			$.log( 'getTransform: error placing results of transform into element, falling back to innerHTML: ' + e.toString() );
-			$(this)[0].innerHTML = trans.string;
+			//$(this)[0].innerHTML = trans.string;
 		}
 
 		// there might not be a scripts property

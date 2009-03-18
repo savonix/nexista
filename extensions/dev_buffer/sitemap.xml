@@ -60,8 +60,8 @@ Fifth Floor, Boston, MA 02110-1301  USA
         <map:raw src="s/js/sarissa.js"/>
     </map:gate>
 
-    <map:gate name="x--dev--sarissa_ieemu_xpath.js" cache="300" content_type="text/x-javascript">
-        <map:action type="header" params="Content-type,text/x-javascript"/>
+    <map:gate name="x--dev--sarissa_ieemu_xpath.js" cache="300" content_type="application/javascript">
+        <map:action type="header" params="Content-type,application/javascript"/>
         <map:raw src="s/js/sarissa_ieemu_xpath.js"/>
     </map:gate>
 

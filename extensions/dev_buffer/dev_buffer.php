@@ -98,7 +98,7 @@ function nexista_devBuffer($init)
 	ob_start();
     ob_start();
 
-    header( 'Cache-Control: no-cache, must-revalidate, post-check=3600, pre-check=3600');
+    header( 'Cache-Control: no-cache, must-revalidate');
     header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 
     nexista_development_console();
@@ -108,7 +108,7 @@ function nexista_devBuffer($init)
 
 	if(isset($_GET['view_flow'])){
         if($_GET['view_flow']=="true"){
-            nexista_view_flow();
+            //nexista_view_flow();
         }
 	}
 
@@ -169,7 +169,7 @@ Toggle Flow</span> ]
 EOL;
 }
 $admin_panel = <<<EOL
-<table width="100%" cellpadding="2" style="background-color: #e3b6ec; position: absolute; opacity: .1;" onmouseover="$(this).css('opacity','1.0');" onmouseout="$(this).css('opacity','0.2');">
+<table width="100%" cellpadding="2" style="background-color: #e3b6ec; top: 0; position: absolute; opacity: .1;" onmouseover="$(this).css('opacity','1.0');" onmouseout="$(this).css('opacity','0.2');">
 <tr><td style="background-color: #e3b6ec; width: 50%">
 		$my_button $rebuild_button <span id="builder" style="color: red;">&#160;&#160;&#160;&#160;</span>
         Server time:<span id="server_time"> 0.000 s </span>
@@ -187,41 +187,10 @@ EOL;
 if($_GET['client_view_flow']=="true") {
 
 $mynid = $_GET['nid'];
-$flow_viewport = <<<EOL
-<script type="text/javascript">
-$(document).ready( function(){
-    $('#flow_viewport').getTransform(
-        '$mylink?nid=x--dev--flows.xsl',
-        '$mylink?nid=$mynid&amp;view_flow=true&amp;flowxml=true',
-        {
-            params: {
-                'ignore': 'i18n'
-            },
-            xpath: '/',
-            eval: false,
-            callback: function(){
-                $('#flow_viewport').css({"visibility":"visible"});
-                done_loading_js();
-            }
-        }
-    );
-});
-</script>
-<div id="flow_viewport" style="display: block; visibility: hidden;">
-<br/>
-</div>
-EOL;
+$flow_viewport = nexista_view_flow();
 
 $pre_body_content[] = array('string' => $flow_viewport, 'priority' => 11);
 
-$head_includes = <<<EOL
-<script type="text/javascript" src="$mylink?nid=x--dev--sarissa.js"></script>
-<script type="text/javascript" src="$mylink?nid=x--dev--sarissa_ieemu_xpath.js"></script>
-<script type="text/javascript" src="$mylink?nid=x--dev--jquery.xslTransform.js"></script>
-
-EOL;
-$head_content[] = array('string' => $head_includes, 'priority' => 10);
-Nexista_Flow::add("in_head",$head_content,false);
 
 }
 $pre_body_content[] = array('string' => $admin_panel, 'priority' => 10);
@@ -253,8 +222,8 @@ function nexista_view_flow() {
         }
         $flow->flowDocument->normalizeDocument();
         $xout = $flow->flowDocument->saveXML();
-        echo $xout;
-        exit;
+        //echo $xout;
+        //exit;
     } else {
         // Transform into HTML form
         $use_xslt_cache="yes";
@@ -264,7 +233,7 @@ function nexista_view_flow() {
             $debugXsl = new XsltCache();
         }
         $xsl = new DomDocument;
-        $xsl->load(NX_PATH_BASE.'extensions/dev_buffer/s/xsl/flow.ul.xsl');
+        $xsl->load(NX_PATH_BASE.'extensions/dev_buffer/s/xsl/flow.xsl');
         $debugXsl->importStyleSheet($xsl);
         if(isset($_GET['ignore'])) {
             $debugXsl->setParameter('','ignore',$_GET['ignore']);
@@ -272,8 +241,7 @@ function nexista_view_flow() {
             $debugXsl->setParameter('','ignore','i18n');
         }
         $debugXsl->setParameter('','link_prefix',dirname($_SERVER['SCRIPT_NAME']).'/index.php?nid=');
-        echo $debugXsl->transformToXML($flow->flowDocument);
-        exit;
+        return $debugXsl->transformToXML($flow->flowDocument);
     }
 
 }

@@ -15,15 +15,13 @@ instruction below. This is recommended if you are a beginner.
 
 -->
 
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-<xsl:param name="ignore">i18n</xsl:param>
-<xsl:param name="link_prefix"/>
-  <xsl:output method="html"
-    encoding="UTF-8"
-    indent="yes"
-    omit-xml-declaration="yes"
-    doctype-public="-//W3C//DTD XHTML 4.0 Strict//EN"
-    doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"/>
+<xsl:stylesheet version="1.0"
+	xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	<xsl:param name="ignore">i18n</xsl:param>
+	<xsl:param name="link_prefix"/>
+	<xsl:output method="html"
+		indent="yes" encoding="UTF-8" omit-xml-declaration="yes" />
 
 
   <xsl:strip-space elements="*"/>
@@ -34,20 +32,13 @@ instruction below. This is recommended if you are a beginner.
 
 <xsl:template match="/">
 
-<link rel="stylesheet" type="text/css" href="{$link_prefix}index.php?nid=x--dev--flow.css"/>
-<script type="text/javascript" src="{$link_prefix}index.php?nid=x--dev--flow.js"></script>
-<div id="flowDump" style="display: none;">
+<link rel="stylesheet" type="text/css" href="{$link_prefix}x--dev--flow.css"></link>
+<script type="text/javascript" src="{$link_prefix}x--dev--flow.js"></script>
+<div id="flowDump">
     <div id="flowDumpContent" class="content">
     <xsl:apply-templates select="." mode="render"/>
     </div>
 </div>
-<script type="text/javascript" language="javascript">
-<![CDATA[
-window.onload = divExpand('flowDumpContent');
-document.body.style.visibility = "visible";
-document.getElementById('flowDump').style.display = "block";
-]]>
-</script>
 </xsl:template>
 
 
