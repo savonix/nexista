@@ -18,12 +18,10 @@ instruction below. This is recommended if you are a beginner.
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:param name="ignore">i18n</xsl:param>
 <xsl:param name="link_prefix"/>
-  <xsl:output method="html"
+  <xsl:output method="xml"
     encoding="UTF-8"
     indent="yes"
-    omit-xml-declaration="yes"
-    doctype-public="-//W3C//DTD XHTML 4.0 Strict//EN"
-    doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"/>
+    omit-xml-declaration="yes"/>
 
 
   <xsl:strip-space elements="*"/>
@@ -54,11 +52,7 @@ $(document).ready(function(){
 <script type="text/javascript" src="index.php?nid=x--dev--flow.js"></script>
 <div id="flowDump">
     <div id="flowDumpContent" class="content">
-	<div id="treecontrol" style="text-align: left;">
-		<a title="Collapse the entire tree below" href="#"><img src="index.php?nid=x--dev--minus.gif" /> Collapse All</a>
-		<a title="Expand the entire tree below" href="#"><img src="index.php?nid=x--dev--plus.gif" /> Expand All</a>
-		<a title="Toggle the tree below, opening closed branches, closing open branches" href="#">Toggle All</a>
-	</div>
+
 
 	<div style="text-align: left;">
     <ul id="black" class="treeview-black"><xsl:apply-templates select="." mode="render"/></ul>

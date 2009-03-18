@@ -8,6 +8,13 @@
     z-index: 200;
     text-align: left;
     background-color:#FFF;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    opacity: 0.8;
+    overflow: auto;
+    height: 200px;
 }
 #flowDump-button {
     background-color:#e3b6ec;

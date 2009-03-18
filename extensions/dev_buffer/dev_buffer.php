@@ -111,10 +111,14 @@ function nexista_devBuffer($init)
             //nexista_view_flow();
         }
 	}
-
+    if($_GET['client_view_flow']=="true") {
+        $mynid = $_GET['nid'];
+        $flow_viewport = nexista_view_flow();
+    }
     $output = str_replace("</body>","",$output);
     $output = str_replace("</html>","",$output);
     $output .= nexista_final_notices($cache_type,"dev");
+    $output .= $flow_viewport;
     $output .= "</body></html>";
     $tidy = 0;
     if ($tidy) {
@@ -184,15 +188,7 @@ EOL;
 
 
 
-if($_GET['client_view_flow']=="true") {
 
-$mynid = $_GET['nid'];
-$flow_viewport = nexista_view_flow();
-
-$pre_body_content[] = array('string' => $flow_viewport, 'priority' => 11);
-
-
-}
 $pre_body_content[] = array('string' => $admin_panel, 'priority' => 10);
 
 Nexista_Flow::add("pre_body_content",$pre_body_content,false);
@@ -215,7 +211,7 @@ function nexista_view_flow() {
                 foreach($exar as $exme) {
                     // TODO - Make this configurable
                     while($removeme = $exclude->getElementsByTagName($exme)->item(0)) {
-                        $removeme->parentNode->removeChild($removeme);
+                        //$removeme->parentNode->removeChild($removeme);
                     }
                 }
             }
@@ -233,7 +229,7 @@ function nexista_view_flow() {
             $debugXsl = new XsltCache();
         }
         $xsl = new DomDocument;
-        $xsl->load(NX_PATH_BASE.'extensions/dev_buffer/s/xsl/flow.xsl');
+        $xsl->load(NX_PATH_BASE.'extensions/dev_buffer/s/xsl/flow.ul.xsl');
         $debugXsl->importStyleSheet($xsl);
         if(isset($_GET['ignore'])) {
             $debugXsl->setParameter('','ignore',$_GET['ignore']);

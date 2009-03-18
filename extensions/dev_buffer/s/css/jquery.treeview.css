@@ -10,7 +10,8 @@
 }
 
 .treeview .hitarea {
-	background: url(index.php?nid=x--dev--treeview-default.gif) -64px -25px no-repeat;
+background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAACFAgMAAADZfxWaAAAADFBMVEUAAACAgIAAAAD///+IL37jAAAABHRSTlP///8AQCqp9AAAAAFiS0dEAIgFHUgAAAAJcEhZcwAAAEgAAABIAEbJaz4AAAAJdnBBZwAAAGAAAACFAFvS3l0AAADoSURBVEjHxZTdEYMwDINZMlNyXCdigexgqw8tbX4sWoMJvH5ny1J0TOg/nYE8WQAAYgAokJQIgBCgbpCXNWoVvYr54JEIbpvYeUFjQh9AtiaUaej+VS4gKREACQN5WS/XYD54JILbJugLqjXxaUgHmIYeK4MPbJH3YDupA+oG7+pErKJXMR8jQmRAXUDnoiEVYBpapHFygvsok61Bs2uyXu9PUDTk7Cp6FfMxoAwaA6p/SAWYuB8cMNgm+wVt206ApiGXaDAfA1oS9YKz0ZAf4uI+1z1hJfsCZNcRYDQkXIP5GPgvuRI8ARpYVbKBflV1AAAAAElFTkSuQmCC
+) -64px -25px no-repeat;
 	height: 16px;
 	width: 16px;
 	margin-left: -16px;
@@ -36,29 +37,19 @@
 
 .treeview .hover { color: red; cursor: pointer; }
 
-.treeview li { background: url(index.php?nid=x--dev--treeview-default-line.gif) 0 0 no-repeat; }
+.treeview li { background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAbwAgMAAAAXCTlKAAAADFBMVEUAAAAAAACAgID///93WAP1AAAABHRSTlP///8AQCqp9AAAAAFiS0dEAIgFHUgAAAAJcEhZcwAAAEgAAABIAEbJaz4AAAAJdnBBZwAAABAAAAbwAAY1Ip0AAAA9SURBVGje7dCxDQAwDAJB7z8sI4Ss4JSRrkHX0Py07fS0s1Iyjw8iWuh9VCMiIiIiIiIiIiIiIiIioi+VXNGPoh9CpW9hAAAAAElFTkSuQmCC) 0 0 no-repeat; }
 .treeview li.collapsable, .treeview li.expandable { background-position: 0 -176px; }
 
 .treeview .expandable-hitarea { background-position: -80px -3px; }
 
 .treeview li.last { background-position: 0 -1766px }
-.treeview li.lastCollapsable, .treeview li.lastExpandable { background-image: url(index.php?nid=x--dev--treeview-default.gif); }  
+.treeview li.lastCollapsable, .treeview li.lastExpandable {
+background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAACFAgMAAADZfxWaAAAADFBMVEUAAACAgIAAAAD///+IL37jAAAABHRSTlP///8AQCqp9AAAAAFiS0dEAIgFHUgAAAAJcEhZcwAAAEgAAABIAEbJaz4AAAAJdnBBZwAAAGAAAACFAFvS3l0AAADoSURBVEjHxZTdEYMwDINZMlNyXCdigexgqw8tbX4sWoMJvH5ny1J0TOg/nYE8WQAAYgAokJQIgBCgbpCXNWoVvYr54JEIbpvYeUFjQh9AtiaUaej+VS4gKREACQN5WS/XYD54JILbJugLqjXxaUgHmIYeK4MPbJH3YDupA+oG7+pErKJXMR8jQmRAXUDnoiEVYBpapHFygvsok61Bs2uyXu9PUDTk7Cp6FfMxoAwaA6p/SAWYuB8cMNgm+wVt206ApiGXaDAfA1oS9YKz0ZAf4uI+1z1hJfsCZNcRYDQkXIP5GPgvuRI8ARpYVbKBflV1AAAAAElFTkSuQmCC
+);}  
 .treeview li.lastCollapsable { background-position: 0 -111px }
 .treeview li.lastExpandable { background-position: -32px -67px }
 
 .treeview div.lastCollapsable-hitarea, .treeview div.lastExpandable-hitarea { background-position: 0; }
-
-.treeview-red li { background-image: url(index.php?nid=x--dev--treeview-red-line.gif); }
-.treeview-red .hitarea, .treeview-red li.lastCollapsable, .treeview-red li.lastExpandable { background-image: url(index.php?nid=x--dev--treeview-red.gif); } 
-
-.treeview-black li { background-image: url(index.php?nid=x--dev--treeview-black-line.gif); }
-.treeview-black .hitarea, .treeview-black li.lastCollapsable, .treeview-black li.lastExpandable { background-image: url(index.php?nid=x--dev--treeview-black.gif); }  
-
-.treeview-gray li { background-image: url(index.php?nid=x--dev--treeview-gray-line.gif); }
-.treeview-gray .hitarea, .treeview-gray li.lastCollapsable, .treeview-gray li.lastExpandable { background-image: url(index.php?nid=x--dev--treeview-gray.gif); } 
-
-.treeview-famfamfam li { background-image: url(index.php?nid=x--dev--treeview-famfamfam-line.gif); }
-.treeview-famfamfam .hitarea, .treeview-famfamfam li.lastCollapsable, .treeview-famfamfam li.lastExpandable { background-image: url(index.php?nid=x--dev--treeview-famfamfam.gif); } 
 
 .treeview .placeholder {
 	background: url(index.php?nid=x--dev--ajax-loader.gif) 0 0 no-repeat;
