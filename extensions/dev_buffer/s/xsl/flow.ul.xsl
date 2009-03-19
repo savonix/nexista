@@ -29,31 +29,36 @@ instruction below. This is recommended if you are a beginner.
 
 <xsl:template match="/">
 <!-- Note: These &#160; spacers are needed to support both XHTML and HTML output. -->
-<script src="/a/dev/pbooks/index.php?nid=x--dev--jquery.js" type="text/javascript">&#160;</script>
+<xsl:variable name="jquery_loaded">true</xsl:variable>
+<xsl:if test="not($jquery_loaded)">
+<script src="index.php?nid=x--dev--jquery.js" type="text/javascript">&#160;</script>
+</xsl:if>
 <script src="index.php?nid=x--dev--jquery.cookie.js" type="text/javascript">&#160;</script>
 <script src="index.php?nid=x--dev--jquery.treeview.js" type="text/javascript">&#160;</script>
 <script src="index.php?nid=x--dev--jquery.treeview.async.js" type="text/javascript">&#160;</script>
 <link rel="stylesheet" href="index.php?nid=x--dev--jquery.treeview.css" />
 <script type="text/javascript">
 $(document).ready(function(){
-	
 	$("#black, #gray").treeview({
 		control: "#treecontrol",
         collapsed: true
 	});
+	$("#flowDump").hide();
 
 });
 </script>
 <link rel="stylesheet" type="text/css" href="index.php?nid=x--dev--flow.css"/>
 <script type="text/javascript" src="index.php?nid=x--dev--flow.js">&#160;</script>
-<div id="flowDump">
-    <div id="flowDumpContent" class="content">
-
-
-	<div style="text-align: left;">
-    <ul id="black" class="treeview-black"><xsl:apply-templates select="." mode="render"/></ul>
-    </div>
-    </div>
+<div id="flow_dump_control" style="background-color: #eee; font-size: 10px; width:80px; position:absolute; top:0; right:0; z-index:1000;">
+	<span style="cursor:pointer; padding:4px;" onclick="$('#flowDump').hide();">Hide</span>
+	<span style="cursor:pointer; padding:4px;" onclick="$('#flowDump').show();">Show</span>
+</div>
+<div id="flowDump" style="display: none;">
+	<div id="flowDumpContent" class="content">
+		<div style="text-align: left;">
+			<ul id="black" class="treeview-black"><xsl:apply-templates select="." mode="render"/></ul>
+		</div>
+	</div>
 </div>
 </xsl:template>
 
