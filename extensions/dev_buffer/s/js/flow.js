@@ -1,3 +1,12 @@
+$(document).ready(function(){
+	$("#black, #gray").treeview({
+		control: "#treecontrol",
+        collapsed: true
+	});
+	$("#flowDump").hide();
+
+});
+
 function getCookie(name)
 {
     var dc = document.cookie;

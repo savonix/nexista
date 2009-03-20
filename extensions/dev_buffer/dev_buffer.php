@@ -229,7 +229,7 @@ function nexista_view_flow() {
             $debugXsl = new XsltCache();
         }
         $xsl = new DomDocument;
-        $xsl->load(NX_PATH_BASE.'extensions/dev_buffer/s/xsl/flow.ul.xsl');
+        $xsl->load(NX_PATH_BASE.'extensions/dev_buffer/s/xsl/flow.ul.xml.xsl');
         $debugXsl->importStyleSheet($xsl);
         if(isset($_GET['ignore'])) {
             $debugXsl->setParameter('','ignore',$_GET['ignore']);
