@@ -17,7 +17,7 @@ instruction below. This is recommended if you are a beginner.
 <xsl:param name="ignore">i18n</xsl:param>
 <xsl:param name="link_prefix"/>
 <xsl:include href="flow.ul.xsl"/>
-<xsl:output method="xml"
+<xsl:output method="html"
 	encoding="UTF-8"
 	omit-xml-declaration="yes"/>
   <xsl:param name="show_ns"/>

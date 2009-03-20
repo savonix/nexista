@@ -108,13 +108,21 @@ function nexista_devBuffer($init)
 
 	if(isset($_GET['view_flow'])){
         if($_GET['view_flow']=="true"){
-            //nexista_view_flow();
+            nexista_view_flow();
         }
 	}
-    //if($_GET['client_view_flow']=="true") {
+    //$_SESSION['client_view_flow']
+    if($_GET['client_view_flow']=="true") {
         $mynid = $_GET['nid'];
+        $_SESSION['client_view_flow'] = "true";
+    } elseif ($_GET['client_view_flow']=="false") {
+        $mynid = $_GET['nid'];
+        $_SESSION['client_view_flow'] = "false";
+    }
+    if($_SESSION['client_view_flow']=="true") {
         $flow_viewport = nexista_view_flow();
-    //}
+    }
+
     $output = str_replace("</body>","",$output);
     $output = str_replace("</html>","",$output);
     $output .= nexista_final_notices($cache_type,"dev");
@@ -146,11 +154,11 @@ $in_head[] = array('string' => $my_script, 'priority' => 10);
 Nexista_Flow::add("in_head",$in_head,false);
 
 $my_uri = str_replace("&","&amp;",$_SERVER['REQUEST_URI']);
-// AJAX
-if(strpos($my_uri,"&amp;client_view_flow=true")) {
-    $my_button = '[ <a href="'.str_replace("&amp;client_view_flow=true","",$my_uri).'">Hide Flow</a> ]';
-} elseif(strpos($my_uri,"client_view_flow=true&amp;")) {
-    $my_button = '[ <a href="'.str_replace("client_view_flow=true&amp;","",$my_uri).'">Hide Flow</a> ]';
+
+
+
+if(strpos($my_uri,"&amp;client_view_flow=true") || $_SESSION['client_view_flow']=="true") {
+    $my_button = '[ <a href="'.str_replace("&amp;client_view_flow=true","",$my_uri).'&amp;client_view_flow=false">Hide Flow</a> ]';
 } else {
     $my_button = '[ <a href="'.$my_uri.'&amp;client_view_flow=true">View Flow</a> ]';
 }
@@ -166,22 +174,17 @@ $my_cache_purge = '[ <span style="cursor: pointer;" onclick="$.post(\''.$mylink.
 });">Purge Cache</span> ]';
 
 
-if($_GET['client_view_flow']=="true") { 
-$flow_button = <<<EOL
-[ <span id="flowDump-button" onclick="divExpand('flowDumpContent', true); document.getElementById('flowDump').style.display = 'block';" title="Click to expand/contract">
-Toggle Flow</span> ]
-EOL;
-}
 $admin_panel = <<<EOL
-<table width="100%" cellpadding="2" style="background-color: #e3b6ec; top: 0; position: absolute; opacity: .1;" onmouseover="$(this).css('opacity','1.0');" onmouseout="$(this).css('opacity','0.2');">
-<tr><td style="background-color: #e3b6ec; width: 50%">
+<table width="50%" cellpadding="2" style="background-color: #e3b6ec; right: 0; font-size: 9px; top: 0; z-index: 900; position: absolute; opacity: .1;" onmouseover="$(this).css('opacity','1.0');" onmouseout="$(this).css('opacity','0.2');">
+<tr><td style="background-color: #e3b6ec;">
 		$my_button $rebuild_button <span id="builder" style="color: red;">&#160;&#160;&#160;&#160;</span>
-        Server time:<span id="server_time"> 0.000 s </span>
-        Client time:<span id="client_time"> 0.000 s </span>
+        Server:<span id="server_time"> 0.000 s </span>
+        Client:<span id="client_time"> 0.000 s </span>
     </td>
-    <td style="width:25%; background-color: #e3b6ec;">$my_cache_purge &#160;<span id="purger" style="color: red;">&#160;&#160;&#160;&#160;</span></td>
+    <td style="width:25%; background-color: #e3b6ec;">$my_cache_purge &#160;
+    <span id="purger" style="color: red;"></span>
+    </td>
 	<td style="width:25%">
-    $flow_button
     </td></tr></table>
 
 EOL;
@@ -199,46 +202,27 @@ Nexista_Flow::add("pre_body_content",$pre_body_content,false);
 
 function nexista_view_flow() {
     $flow = Nexista_Flow::singleton('Nexista_Flow');
-	if($_GET['flowxml']=='true') {
-        // XML output
-        header('Content-type: text/xml');
-        if($_GET['full']==true){
-        } else {
-            $exes = 'i18n';
-            $exar = explode(",",$exes);
-            if(is_array($exar)) {
-                $exclude = $flow->flowDocument->documentElement;
-                foreach($exar as $exme) {
-                    // TODO - Make this configurable
-                    while($removeme = $exclude->getElementsByTagName($exme)->item(0)) {
-                        //$removeme->parentNode->removeChild($removeme);
-                    }
-                }
-            }
-        }
-        $flow->flowDocument->normalizeDocument();
-        $xout = $flow->flowDocument->saveXML();
-        //echo $xout;
-        //exit;
+
+    // Transform into HTML form
+    $use_xslt_cache="yes";
+    if ($use_xslt_cache!="yes" || !class_exists('xsltCache')) {
+        $debugXsl = new XsltProcessor();
     } else {
-        // Transform into HTML form
-        $use_xslt_cache="yes";
-        if ($use_xslt_cache!="yes" || !class_exists('xsltCache')) {
-            $debugXsl = new XsltProcessor();
-        } else {
-            $debugXsl = new XsltCache();
-        }
-        $xsl = new DomDocument;
-        $xsl->load(NX_PATH_BASE.'extensions/dev_buffer/s/xsl/flow.ul.xml.xsl');
-        $debugXsl->importStyleSheet($xsl);
-        if(isset($_GET['ignore'])) {
-            $debugXsl->setParameter('','ignore',$_GET['ignore']);
-        } else {
-            $debugXsl->setParameter('','ignore','i18n');
-        }
-        $debugXsl->setParameter('','link_prefix',dirname($_SERVER['SCRIPT_NAME']).'/index.php?nid=');
-        return $debugXsl->transformToXML($flow->flowDocument);
+        $debugXsl = new XsltCache();
     }
+    $xsl = new DomDocument;
+    $xml_output = 1;
+    if($xml_output===1) {
+        $xsl->load(NX_PATH_BASE.'extensions/dev_buffer/s/xsl/flow.ul.xml.xsl');
+    }
+    $debugXsl->importStyleSheet($xsl);
+    if(isset($_GET['ignore'])) {
+        $debugXsl->setParameter('','ignore',$_GET['ignore']);
+    } else {
+        $debugXsl->setParameter('','ignore','i18n');
+    }
+    $debugXsl->setParameter('','link_prefix',dirname($_SERVER['SCRIPT_NAME']).'/index.php?nid=');
+    return $debugXsl->transformToXML($flow->flowDocument);
 
 }
 
