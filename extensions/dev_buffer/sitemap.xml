@@ -24,6 +24,7 @@ Fifth Floor, Boston, MA 02110-1301  USA
 <map:sitemap xmlns:map="http://www.nexista.org/sitemap">
 
     <map:gate name="x--dev--flow.css" cache="300" content_type="text/css">
+        <map:action type="header" params="Cache-Control,max-age=30"/>
         <map:action type="header" params="Content-type,text/css"/>
         <map:raw src="s/css/flow.css"/>
         <map:raw src="s/css/exception.css"/>
@@ -49,18 +50,12 @@ Fifth Floor, Boston, MA 02110-1301  USA
 
 		
     <map:gate name="x--dev--jquery.treeview.js" cache="300" content_type="text/javascript">
+        <map:action type="header" params="Cache-Control,max-age=30"/>
         <map:action type="header" params="Content-type,text/javascript"/>
         <map:raw src="s/js/jquery/plugins/jquery.treeview.js"/>
     </map:gate>
-    <map:gate name="x--dev--jquery.cookie.js" cache="300" content_type="text/javascript">
-        <map:action type="header" params="Content-type,text/javascript"/>
-        <map:raw src="s/js/jquery/plugins/jquery.cookie.js"/>
-    </map:gate>
-    <map:gate name="x--dev--jquery.treeview.async.js" cache="300" content_type="text/javascript">
-        <map:action type="header" params="Content-type,text/javascript"/>
-        <map:raw src="s/js/jquery/plugins/jquery.treeview.async.js"/>
-    </map:gate>
     <map:gate name="x--dev--jquery.treeview.css" cache="300" content_type="text/css">
+        <map:action type="header" params="Cache-Control,max-age=30"/>
         <map:action type="header" params="Content-type,text/css"/>
         <map:raw src="s/css/jquery.treeview.css"/>
     </map:gate>

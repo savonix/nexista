@@ -148,7 +148,13 @@ $mylink = $_SERVER['SCRIPT_NAME'];
 if ($_GET['nxrw_path']) {
     $mylink = $_GET['nxrw_path'];
 }
-$my_script = '<script type="text/javascript" src="'.$mylink.'?nid=x--dev--timex.js"></script>';
+$my_script = '<script type="text/javascript" src="'.$mylink.'?nid=x--dev--timex.js">&#160;</script>';
+if($_SESSION['client_view_flow']=="true") {
+    $my_script .= '<script src="'.$mylink.'?nid=x--dev--jquery.treeview.js" type="text/javascript">&#160;</script>';
+    $my_script .= '<link rel="stylesheet" href="'.$mylink.'?nid=x--dev--jquery.treeview.css" />';
+	$my_script .= '<link rel="stylesheet" type="text/css" href="'.$mylink.'?nid=x--dev--flow.css"/>';
+	$my_script .= '<script type="text/javascript" src="'.$mylink.'?nid=x--dev--flow.js">&#160;</script>';
+}
 
 $in_head[] = array('string' => $my_script, 'priority' => 10);
 Nexista_Flow::add("in_head",$in_head,false);
@@ -175,6 +181,7 @@ $my_cache_purge = '[ <span style="cursor: pointer;" onclick="$.post(\''.$mylink.
 
 
 $admin_panel = <<<EOL
+<script type="text/javascript">var began_loading = (new Date()).getTime();</script>
 <table width="50%" cellpadding="2" style="background-color: #e3b6ec; right: 0; font-size: 9px; top: 0; z-index: 900; position: absolute; opacity: .1;" onmouseover="$(this).css('opacity','1.0');" onmouseout="$(this).css('opacity','0.2');">
 <tr><td style="background-color: #e3b6ec;">
 		$my_button $rebuild_button <span id="builder" style="color: red;">&#160;&#160;&#160;&#160;</span>

@@ -4,6 +4,9 @@
     width: 50%;
     background-color: #eee; font-size: 10px; width:80px; position:absolute; top:0; right:0; z-index:1000;
 }
+#flow_dump_control span {
+    cursor:pointer; padding:4px;
+}
 #flowDump {
     font-family:sans-serif;
     font-size:x-small;

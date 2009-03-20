@@ -23,15 +23,10 @@ instruction below. This is recommended if you are a beginner.
 	<xsl:if test="not($jquery_loaded)">
 	<script src="index.php?nid=x--dev--jquery.js" type="text/javascript">&#160;</script>
 	</xsl:if>
-	<script src="index.php?nid=x--dev--jquery.cookie.js" type="text/javascript">&#160;</script>
-	<script src="index.php?nid=x--dev--jquery.treeview.js" type="text/javascript">&#160;</script>
-	<script src="index.php?nid=x--dev--jquery.treeview.async.js" type="text/javascript">&#160;</script>
-	<link rel="stylesheet" href="index.php?nid=x--dev--jquery.treeview.css" />
-	<link rel="stylesheet" type="text/css" href="index.php?nid=x--dev--flow.css"/>
-	<script type="text/javascript" src="index.php?nid=x--dev--flow.js">&#160;</script>
+	
 	<div id="flow_dump_control">
-		<span style="cursor:pointer; padding:4px;" onclick="$('#flowDump').hide();">Hide</span>
-		<span style="cursor:pointer; padding:4px;" onclick="$('#flowDump').show();">Show</span>
+		<span onclick="$('#flowDump').hide();">Hide</span>
+		<span onclick="$('#flowDump').show();">Show</span>
 	</div>
 	<div id="flowDump" style="display: none;">
 		<div id="flowDumpContent" class="content">

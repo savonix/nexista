@@ -1,4 +1,3 @@
-var began_loading = (new Date()).getTime();
 function done_loading(server_total) {
     document.getElementById('server_time').firstChild.nodeValue = server_total + ' s';
 }
