@@ -400,6 +400,9 @@ class Nexista_Foundry extends Nexista_Singleton
             $this->_buildConditions($gate, 'gate-'.$count.'.php');
             $count++;
         }
+        if ($this->debug) {
+            echo '<script type="text/javascript">var done_building = "true";</script>';
+        }
 
     }
 
