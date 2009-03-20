@@ -121,8 +121,11 @@ function Nexista_Build_It_now($server_init)
     ?>
 
     <script type="text/javascript">
-    setTimeout('top.location.reload()',1000);
+    if(done_building=="true") {
+        setTimeout('top.location.reload()',3000);
+    }
     </script>
     <?php
     ob_flush();
+    exit;
 }
