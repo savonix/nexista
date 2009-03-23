@@ -111,7 +111,7 @@ function nexista_devBuffer($init)
             nexista_view_flow();
         }
 	}
-    //$_SESSION['client_view_flow']
+
     if($_GET['client_view_flow']=="true") {
         $mynid = $_GET['nid'];
         $_SESSION['client_view_flow'] = "true";
@@ -144,6 +144,9 @@ function nexista_devBuffer($init)
 
 
 function nexista_development_console()  {
+
+$flow = Nexista_Flow::singleton('Nexista_Flow');
+
 $mylink = $_SERVER['SCRIPT_NAME'];
 if ($_GET['nxrw_path']) {
     $mylink = $_GET['nxrw_path'];
@@ -156,13 +159,13 @@ if($_SESSION['client_view_flow']=="true") {
 	$my_script .= '<script type="text/javascript" src="'.$mylink.'?nid=x--dev--flow.js">&#160;</script>';
 }
 
-$in_head[] = array('string' => $my_script, 'priority' => 10);
-Nexista_Flow::add("in_head",$in_head,false);
+$f = new DOMDocument('1.0', 'UTF-8');
+$f->loadXML('<head_nodes><priority>200</priority><nodes>'.$my_script.'</nodes></head_nodes>');
+$n = $f->getElementsByTagName('head_nodes')->item(0);
+$g = $flow->flowDocument->importNode($n, true);
+$flow->root->appendChild($g);
 
 $my_uri = str_replace("&","&amp;",$_SERVER['REQUEST_URI']);
-
-
-
 if(strpos($my_uri,"&amp;client_view_flow=true") || $_SESSION['client_view_flow']=="true") {
     $my_button = '[ <a href="'.str_replace("&amp;client_view_flow=true","",$my_uri).'&amp;client_view_flow=false">Hide Flow</a> ]';
 } else {
@@ -199,10 +202,11 @@ EOL;
 
 
 
-$pre_body_content[] = array('string' => $admin_panel, 'priority' => 10);
-
-Nexista_Flow::add("pre_body_content",$pre_body_content,false);
-
+$f = new DOMDocument('1.0', 'UTF-8');
+$f->loadXML('<pre_body_content><priority>10</priority><nodes>'.$admin_panel.'</nodes></pre_body_content>');
+$n = $f->getElementsByTagName('pre_body_content')->item(0);
+$g = $flow->flowDocument->importNode($n, true);
+$flow->root->appendChild($g);
 }
 
 
