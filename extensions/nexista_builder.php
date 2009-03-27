@@ -62,6 +62,7 @@ function Nexista_Check_freshness($server_init)
 
 function Nexista_Build_It_now($server_init)
 {
+    header('Content-type: text/html');
 
     if (!file_exists(NX_PATH_BASE.'kernel/foundry.php')) {
         echo 'I am unable to find the nexista foundry class, and cannot continue. 
@@ -120,11 +121,12 @@ function Nexista_Build_It_now($server_init)
     $foundry->buildSitemap();
     ?>
 
-    <script type="text/javascript">
-    if(done_building=="true") {
-        setTimeout('top.location.reload()',3000);
-    }
-    </script>
+<script type="text/javascript">
+if(done_building=="true") {
+    setTimeout('top.location.reload()',3000);
+}
+</script>
+</body></html>
     <?php
     ob_flush();
     exit;

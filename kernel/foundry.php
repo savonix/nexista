@@ -386,6 +386,8 @@ class Nexista_Foundry extends Nexista_Singleton
             }
         }
 
+
+
         //go through each gate
         $x = new DOMXPath($this->sitemapDocument);
 
@@ -455,7 +457,7 @@ class Nexista_Foundry extends Nexista_Singleton
         }
 
         if ($this->debug) {
-            echo "<a href='?nid=".$name."'>".$name."</a>...<br>\n";
+            echo "<a href='?nid=".$name."'>".$name."</a>...<br/>\n";
         }
 
         $this->sitemap[$match][$name] =
