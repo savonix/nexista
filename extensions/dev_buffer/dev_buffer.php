@@ -125,8 +125,8 @@ function nexista_devBuffer($init)
 
     $output = str_replace("</body>","",$output);
     $output = str_replace("</html>","",$output);
-    $output .= nexista_final_notices($cache_type,"dev");
     $output .= $flow_viewport;
+    $output .= nexista_final_notices($cache_type,"dev");
     $output .= "</body></html>";
     $tidy = 0;
     if ($tidy) {
@@ -152,7 +152,7 @@ if ($_GET['nxrw_path']) {
     $mylink = $_GET['nxrw_path'];
 }
 $my_script = '<script type="text/javascript" src="'.$mylink.'?nid=x--dev--timex.js">&#160;</script>';
-if($_SESSION['client_view_flow']=="true") {
+if($_SESSION['client_view_flow']=="true" || $_GET['client_view_flow']=="true") {
     $my_script .= '<script src="'.$mylink.'?nid=x--dev--jquery.treeview.js" type="text/javascript">&#160;</script>';
     $my_script .= '<link rel="stylesheet" href="'.$mylink.'?nid=x--dev--jquery.treeview.css" />';
 	$my_script .= '<link rel="stylesheet" type="text/css" href="'.$mylink.'?nid=x--dev--flow.css"/>';

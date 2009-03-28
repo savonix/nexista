@@ -31,22 +31,35 @@ instruction below. This is recommended if you are a beginner.
 	<div id="flowDump" style="display: none;">
 		<div id="flowDumpContent" class="content">
 			<div style="text-align: left;">
-				<ul id="black" class="treeview-black"><xsl:apply-templates select="." mode="render"/></ul>
+				<ul id="black" class="treeview-black"><xsl:apply-templates select="node()" mode="render"/></ul>
 			</div>
 		</div>
 	</div>
 	</xsl:template>
 
-	<xsl:template match="*" mode="render">
+	<xsl:template match="node()" mode="render">
+  <xsl:if test="not(name()='') and not(.='')">
+  <ul>
 		<li>
-			<xsl:value-of select="local-name()"/>
-			<xsl:if test="text()">
-					= <xsl:value-of select="text()"/>
+			<span style="color: #ff6666"><xsl:value-of select="name()"/></span>
+      <xsl:apply-templates select="@*" mode="render"/>
+			<xsl:if test="text() and not(.='')">
+				&#187; <span style="color: #333"><xsl:value-of select="."/></span>
 			</xsl:if>
-			<xsl:if test="not(text()) and not(.='')">
-					<ul><xsl:apply-templates mode="render"/></ul>
-			</xsl:if>
+      <xsl:apply-templates select="node()" mode="render"/>
 		</li>
+  </ul>
+  </xsl:if>
 	</xsl:template>
+  <xsl:template match="@*" mode="render">
+			&#160;<span style="color: #ccc">@<xsl:value-of select="name()"/>:</span> 
+        <span style="color: #bbb"><xsl:value-of select="."/></span>
+  </xsl:template>
+
+  <xsl:template match="comment()" mode="render">
+    <xsl:if test="not(.='')">
+        <span style="color: #333"><pre style="font-size: 9px;"><xsl:value-of select="."/></pre></span>
+    </xsl:if>
+  </xsl:template>
 
 </xsl:stylesheet>

@@ -23,6 +23,7 @@ instruction below. This is recommended if you are a beginner.
   <xsl:param name="show_ns"/>
   <xsl:param name="rootme">/_R_/*</xsl:param>
   <xsl:variable name="apos">'</xsl:variable>
+  <xsl:strip-space elements="*"/>
 
 <xsl:template match="/">
 	<xsl:call-template name="viewflow"/>
