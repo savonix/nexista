@@ -60,17 +60,17 @@ class Nexista_curlAction extends Nexista_Action
         $my_params = Nexista_Flow::getByPath($the_params,"ASSOC");
         $target_node = $this->params['target_node'];
        //print_r($my_params);
-        
+
         if(is_array($my_params))  {
             foreach ($my_params as $key => $value) {
                 if(is_array($value))  {
                     foreach ($value as $my_key => $my_value) { 
-                        //Only adds the query piece if its not already there. 
-                        //tried array_unique earlier but it didn't work with 
+                        //Only adds the query piece if its not already there.
+                        //tried array_unique earlier but it didn't work with
                         //array of arrays.
                         $query_piece="&".urlencode($my_key)."[]=".urlencode($my_value);
-                        if(strpos($query_string,$query_piece)===false) { 
-                                $query_string.=$query_piece;
+                        if(strpos($query_string,$query_piece)===false) {
+                            $query_string.=$query_piece;
                         }
                     }
 
@@ -112,8 +112,8 @@ class Nexista_curlAction extends Nexista_Action
             } else {
                curl_close($ch);
             }
-        } else { 
-          $xml = "<groups>Curl PHP extension is not available.</groups>";
+        } else {
+          $xml = "<$target_node>Curl PHP extension is not available.</$target_node>";
         }
 
         Nexista_Flow::add($target_node,$xml);
