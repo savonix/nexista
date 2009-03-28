@@ -48,7 +48,7 @@ class Nexista_curlAction extends Nexista_Action
     protected function main()
     {
 
-        // For now, limit calls to the same domain and protocol. 
+        // For now, limit calls to the same domain and protocol.
         $mydomain = $_SERVER['SERVER_NAME'];
         if(isset($_SERVER['HTTPS'])) {
             $protocol="https://";
@@ -62,7 +62,7 @@ class Nexista_curlAction extends Nexista_Action
        //print_r($my_params);
         
         if(is_array($my_params))  {
-            foreach ($my_params as $key => $value) { 
+            foreach ($my_params as $key => $value) {
                 if(is_array($value))  {
                     foreach ($value as $my_key => $my_value) { 
                         //Only adds the query piece if its not already there. 
