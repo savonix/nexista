@@ -43,6 +43,14 @@ google_ui_features = "rc:0";
 
 EOS;
 
+/*
+$f = new DOMDocument('1.0', 'UTF-8');
+$f->loadXML('<pre_body_content><priority>10</priority><nodes>'.$admin_panel.'</nodes></pre_body_content>');
+$n = $f->getElementsByTagName('pre_body_content')->item(0);
+$g = $flow->flowDocument->importNode($n, true);
+$flow->root->appendChild($g);
+*/
+
 $footer[] = array('string' => $google_adsense_code, 'priority' => $priority);
 
 Nexista_Flow::add('footer',$footer,false);
