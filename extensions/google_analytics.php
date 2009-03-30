@@ -31,6 +31,14 @@ pageTracker._trackPageview();
 </script>
 EOS;
 
+/*
+$f = new DOMDocument('1.0', 'UTF-8');
+$f->loadXML('<post_body_content><priority>11</priority><nodes>'.$google_analytics_code.'</nodes></post_body_content>');
+$n = $f->getElementsByTagName('post_body_content')->item(0);
+$g = $flow->flowDocument->importNode($n, true);
+$flow->root->appendChild($g);
+*/
+
 $footer[] = array('string' => $google_analytics_code, 'priority' => $priority);
 
 Nexista_Flow::add("footer",$footer,false);
