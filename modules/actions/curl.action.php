@@ -125,10 +125,12 @@ class Nexista_curlAction extends Nexista_Action
                    'wrap'           => 0);
 
         // Tidy
-        $tidy = new tidy;
-        $tidy->parseString($xml, $config, 'utf8');
-        $tidy->cleanRepair();
-        $xml = $tidy;
+        if(class_exists('tidy')) {
+            $tidy = new tidy;
+            $tidy->parseString($xml, $config, 'utf8');
+            $tidy->cleanRepair();
+            $xml = $tidy;
+        }
 
         if(1==2) {
             // Should result be added to flow as XML?
