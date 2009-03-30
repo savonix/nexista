@@ -36,7 +36,8 @@ class Nexista_RawXmlAction extends Nexista_Action
      */
 
     protected  $params = array(
-        'var' => ''     //required - flow var
+        'var' => '',     //required - flow var
+        'replace' => '' //optional - remove existing xml string?
         );
 
     /**
@@ -63,9 +64,14 @@ class Nexista_RawXmlAction extends Nexista_Action
         //import new doc into flow recursively
         $new = $flow->flowDocument->importNode($doc->documentElement,1);
 
+        $replace = $this->params['replace'];
+        if($replace == "true") {
+            $res->nodeValue = "";
+        }
         //append back to node as parsed xml now
         $res->appendChild($new);
-
+        //echo $flow->outputXml($flow->root);
+        //exit;
         return true;
     }
 

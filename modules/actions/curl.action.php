@@ -88,7 +88,10 @@ class Nexista_curlAction extends Nexista_Action
         // Quick hack to allow overriding above logic with complete,
         // off-domain url
         if(strstr($this->params['url'],'http://')) {
-            $url = $this->params['url'];
+            $url = Nexista_Path::parseInlineFlow($this->params['url']);
+        }
+        if(strstr($_GET['myurl'],'http://')) {
+            $url = $_GET['myurl'];
         }
         if(function_exists(curl_init)) {
             session_write_close();
@@ -112,11 +115,35 @@ class Nexista_curlAction extends Nexista_Action
             } else {
                curl_close($ch);
             }
+
         } else {
           $xml = "<$target_node>Curl PHP extension is not available.</$target_node>";
         }
+        $config = array(
+                   'indent'         => true,
+                   'output-xml'   => true,
+                   'wrap'           => 0);
 
-        Nexista_Flow::add($target_node,$xml);
+        // Tidy
+        $tidy = new tidy;
+        $tidy->parseString($xml, $config, 'utf8');
+        $tidy->cleanRepair();
+        $xml = $tidy;
+
+        if(1==2) {
+            // Should result be added to flow as XML?
+            $doc = new DOMDocument('1.0', 'UTF-8');
+            $doc->loadXML($xml);
+
+            $flow = Nexista_Flow::singleton('Nexista_Flow');
+            //import new doc into flow recursively
+            $new = $flow->flowDocument->importNode($doc->documentElement,1);
+
+            //append back to node as parsed xml now
+            $flow->root->appendChild($new);
+        } else {
+            Nexista_Flow::add($target_node,$xml);
+        }
     }
 
 } //end class
