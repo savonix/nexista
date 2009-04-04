@@ -2,7 +2,7 @@
 /**
  * -File        mdb2sqldatasource.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   Nexista
+ * -Copyright   Savonix Corporation
  * -Author 	    Albert Lash
  *
  * PHP version 5

@@ -4,7 +4,7 @@ Extension Name: google_adsense_plugin.php
 Extension URI: http://www.nexista.org/
 Description: Ads Google Adsense Code
 Version:
-Copyright: Nexista
+Copyright: Savonix Corporation
 Author: Albert Lash
 License: LGPL
 */

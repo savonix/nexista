@@ -1,7 +1,7 @@
 <?php
 /**
  * -File        Linkbuilder.Action.php
- * -Copyright   Nexista
+ * -Copyright   Savonix Corporation
  * -Author      Albert Lash
  *
  * PHP version 5

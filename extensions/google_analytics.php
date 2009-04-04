@@ -4,7 +4,7 @@ Extension Name:
 Extension URI:
 Description:
 Version:
-Copyright: Nexista
+Copyright: Savonix Corporation
 Author: Albert Lash
 License: LGPL
 */

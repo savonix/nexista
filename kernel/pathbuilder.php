@@ -2,7 +2,7 @@
 /**
  * -File        pathbuilder.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   Nexista
+ * -Copyright   Savonix Corporation
  * -Author      Joshua Savage
  * -Author      Albert Lash
  *

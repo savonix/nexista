@@ -1,7 +1,7 @@
 <?php
 /**
  * -File        Flow.php
- * -Copyright   Nexista
+ * -Copyright   Savonix Corporation
  * -Author      Albert Lash
  * -Author      joshua savage
  *

@@ -5,7 +5,7 @@
  * Extension URI:
  * Description: Uses HTTP_Session2, memcache to manage sessions
  * Version: 0.1
- * Copyright: Nexista
+ * Copyright: Savonix Corporation
  * Author: Albert Lash
  * License: LGPL
  * Status: beta

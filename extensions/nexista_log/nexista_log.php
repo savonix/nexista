@@ -4,7 +4,7 @@ Plugin Name: Nexista Log
 Plugin URI:
 Description:
 Version: 0.1
-Copyright: Nexista
+Copyright: Savonix Corporation
 Author: Albert Lash
 License: LGPL
 */

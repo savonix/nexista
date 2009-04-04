@@ -4,7 +4,7 @@ Extension Name: Nexista Authn Handler Plugin
 Extension URI:
 Description: Uses Nexista Authn
 Version: 0.1
-Copyright: Nexista
+Copyright: Savonix Corporation
 Author: Albert Lash
 License: LGPL
 */

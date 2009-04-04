@@ -2,7 +2,7 @@
 /*
  * -File        nexista_rewrite.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   Nexista
+ * -Copyright   Savonix Corporation
  * -Author      Albert Lash
  */
 

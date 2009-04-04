@@ -1,7 +1,7 @@
 <?php
 /**
  * -File        init.php
- * -Copyright   Nexista
+ * -Copyright   Savonix Corporation
  * -Author      joshua savage
  * -Author      Albert Lash
  *

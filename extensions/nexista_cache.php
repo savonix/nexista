@@ -5,7 +5,7 @@
  * Extension URI:
  * Description: Uses Cache_Lite to compress and cache output.
  * Version: 0.1
- * Copyright: Nexista
+ * Copyright: Savonix Corporation
  * Author: Albert Lash
  * License: LGPL
  * Status: beta

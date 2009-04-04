@@ -2,7 +2,7 @@
 /**
  * -File        nexista_builder.php
  * -License     LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright   Nexista
+ * -Copyright   Savonix Corporation
  * -Author      Albert Lash
  *
  * PHP version 5
@@ -20,7 +20,7 @@ Extension Name:
 Extension URI:
 Description:
 Version:
-Copyright: Nexista
+Copyright: Savonix Corporation
 Author: Albert Lash
 License: LGPL
 */
