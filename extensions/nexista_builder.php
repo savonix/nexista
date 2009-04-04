@@ -25,9 +25,6 @@ Author: Albert Lash
 License: LGPL
 */
 
-
-
-
 function Nexista_Check_freshness($server_init)
 {
     global $app_config;
@@ -83,7 +80,7 @@ function Nexista_Build_It_now($server_init)
     ob_end_clean();
     header('Cache-Control: no-cache, no-store');
     ?>
-    
+
     <html>
     <body style="padding: 150px; font-family: verdana;">
     <?php
@@ -123,7 +120,7 @@ function Nexista_Build_It_now($server_init)
 
 <script type="text/javascript">
 if(done_building=="true") {
-    setTimeout('top.location.reload()',3000);
+    setTimeout('top.location.reload()',1500);
 }
 </script>
 </body></html>
