@@ -11,9 +11,7 @@ License: LGPL
 TODO:
     1. Add a hook to nexista_cache for debugging purposes.
     2. Add custom error handling for more detailed error reports when developing.
-    3. Allow config.xml to add sitemaps to the main one for setting up the gates
-        needed to support dev_buffer.
-    4. Don't use $_GET['nid'], use the flow equivalent
+
 --> */
 
 
