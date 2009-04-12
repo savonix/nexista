@@ -35,7 +35,7 @@ instruction below. This is recommended if you are a beginner.
 
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="{$link_prefix}x--dev--flow.css"/>
+<link rel="stylesheet" type="text/css" href="{$link_prefix}x-dev-flow.css"/>
 </head>
 <body>
 
