@@ -66,8 +66,8 @@ if (!function_exists('nexista_buildererror')) {
         if ($e->getCode() == NX_ERROR_FATAL ||
             $e->getCode() == NX_ERROR_WARNING
             ) {
-            $use_xslt_cache = "yes";
-            if ($use_xslt_cache!="yes" || !class_exists('xsltCache')) {
+            $use_xslt_cache = 'yes';
+            if ($use_xslt_cache!='yes' || !class_exists('xsltCache')) {
                 $exceptionXsl = new XsltProcessor();
             } else {
                 $exceptionXsl = new xsltCache;
@@ -96,8 +96,8 @@ function nexista_devBuffer($init)
 	ob_start();
     ob_start();
 
-    header( 'Cache-Control: no-cache, must-revalidate');
-    header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+    header('Cache-Control: no-cache, must-revalidate');
+    header('Last-Modified: ' . gmdate("D, d M Y H:i:s") . ' GMT');
 
     nexista_development_console();
 
@@ -105,30 +105,30 @@ function nexista_devBuffer($init)
 
 
 	if(isset($_GET['view_flow'])){
-        if($_GET['view_flow']=="true"){
+        if($_GET['view_flow']=='true'){
             nexista_view_flow();
         }
 	}
 
-    if($_GET['client_view_flow']=="true") {
+    if($_GET['client_view_flow']=='true') {
         $mynid = $_GET['nid'];
-        $_SESSION['client_view_flow'] = "true";
-    } elseif ($_GET['client_view_flow']=="false") {
+        $_SESSION['client_view_flow'] = 'true';
+    } elseif ($_GET['client_view_flow']=='false') {
         $mynid = $_GET['nid'];
-        $_SESSION['client_view_flow'] = "false";
+        $_SESSION['client_view_flow'] = 'false';
     }
-    if($_SESSION['client_view_flow']=="true") {
+    if($_SESSION['client_view_flow']=='true') {
         $flow_viewport = nexista_view_flow();
     }
 
-    $output = str_replace("</body>","",$output);
-    $output = str_replace("</html>","",$output);
+    $output = str_replace('</body>','',$output);
+    $output = str_replace('</html>','',$output);
     $output .= $flow_viewport;
-    $output .= nexista_final_notices($cache_type,"dev");
-    $output .= "</body></html>";
+    $output .= nexista_final_notices($cache_type,'dev');
+    $output .= '</body></html>';
     $tidy = 0;
     if ($tidy) {
-        $options = array("output-xhtml" => true, "indent" => true, "clean" => true);
+        $options = array('output-xhtml' => true, 'indent' => true, 'clean' => true);
         $output = tidy_parse_string($output, $options);
         tidy_clean_repair($output);
     }
@@ -136,7 +136,7 @@ function nexista_devBuffer($init)
 
 
 	ob_end_flush();
-	header("Content-Length: ".ob_get_length());
+	header('Content-Length: '.ob_get_length());
 	ob_end_flush();
 }
 
@@ -149,12 +149,12 @@ $mylink = $_SERVER['SCRIPT_NAME'];
 if ($_GET['nxrw_path']) {
     $mylink = $_GET['nxrw_path'];
 }
-$my_script = '<script type="text/javascript" src="'.$mylink.'?nid=x--dev--timex.js">&#160;</script>';
+$my_script = '<script type="text/javascript" src="'.$mylink.'?nid=x-dev-timex.js">&#160;</script>';
 if($_SESSION['client_view_flow']=="true" || $_GET['client_view_flow']=="true") {
-    $my_script .= '<script src="'.$mylink.'?nid=x--dev--jquery.treeview.js" type="text/javascript">&#160;</script>';
-    $my_script .= '<link rel="stylesheet" href="'.$mylink.'?nid=x--dev--jquery.treeview.css" />';
-	$my_script .= '<link rel="stylesheet" type="text/css" href="'.$mylink.'?nid=x--dev--flow.css"/>';
-	$my_script .= '<script type="text/javascript" src="'.$mylink.'?nid=x--dev--flow.js">&#160;</script>';
+    $my_script .= '<script src="'.$mylink.'?nid=x-dev-jquery.treeview.js" type="text/javascript">&#160;</script>';
+    $my_script .= '<link rel="stylesheet" href="'.$mylink.'?nid=x-dev-jquery.treeview.css" />';
+	$my_script .= '<link rel="stylesheet" type="text/css" href="'.$mylink.'?nid=x-dev-flow.css"/>';
+	$my_script .= '<script type="text/javascript" src="'.$mylink.'?nid=x-dev-flow.js">&#160;</script>';
 }
 
 $f = new DOMDocument('1.0', 'UTF-8');
@@ -163,20 +163,20 @@ $n = $f->getElementsByTagName('head_nodes')->item(0);
 $g = $flow->flowDocument->importNode($n, true);
 $flow->root->appendChild($g);
 
-$my_uri = str_replace("&","&amp;",$_SERVER['REQUEST_URI']);
-if(strpos($my_uri,"&amp;client_view_flow=true") || $_SESSION['client_view_flow']=="true") {
-    $my_button = '[ <a href="'.str_replace("&amp;client_view_flow=true","",$my_uri).'&amp;client_view_flow=false">Hide Flow</a> ]';
+$my_uri = str_replace('&','&amp;',$_SERVER['REQUEST_URI']);
+if(strpos($my_uri,'&amp;client_view_flow=true') || $_SESSION['client_view_flow']=='true') {
+    $my_button = '[ <a href="'.str_replace('&amp;client_view_flow=true','',$my_uri).'&amp;client_view_flow=false">Hide Flow</a> ]';
 } else {
     $my_button = '[ <a href="'.$my_uri.'&amp;client_view_flow=true">View Flow</a> ]';
 }
 
 // This button will rebuild the application, as well as purge the cache
-$rebuild_button = '[ <span style="cursor: pointer;" onclick="$.post(\''.$mylink.'\', { \'x--dev--rebuild\': \'true\' }, function(data){
+$rebuild_button = '[ <span style="cursor: pointer;" onclick="$.post(\''.$mylink.'\', { \'x-dev-rebuild\': \'true\' }, function(data){
   document.getElementById(\'builder\').firstChild.nodeValue = \'Done\';
 });">Rebuild</span> ]';
 
 // This button will only purge the cache
-$my_cache_purge = '[ <span style="cursor: pointer;" onclick="$.post(\''.$mylink.'\', { \'x--dev--purge\': \'true\' }, function(data){
+$my_cache_purge = '[ <span style="cursor: pointer;" onclick="$.post(\''.$mylink.'\', { \'x-dev-purge\': \'true\' }, function(data){
   document.getElementById(\'purger\').firstChild.nodeValue = \'Done\';
 });">Purge Cache</span> ]';
 
@@ -213,8 +213,8 @@ function nexista_view_flow() {
     $flow = Nexista_Flow::singleton('Nexista_Flow');
 
     // Transform into HTML form
-    $use_xslt_cache="yes";
-    if ($use_xslt_cache!="yes" || !class_exists('xsltCache')) {
+    $use_xslt_cache='yes';
+    if ($use_xslt_cache!='yes' || !class_exists('xsltCache')) {
         $debugXsl = new XsltProcessor();
     } else {
         $debugXsl = new XsltCache();
@@ -240,7 +240,7 @@ function nexista_view_flow() {
 and to stop the client timer.. */
 function nexista_final_notices($cacher=null, $mode) {
 	$server_time = Nexista_Debug::profile();
-$final_notices =  "
+$final_notices = "
 <script type=\"text/javascript\">
     done_loading($server_time);
     if (typeof jQuery != 'undefined') {
