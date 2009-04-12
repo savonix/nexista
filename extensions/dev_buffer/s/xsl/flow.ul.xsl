@@ -21,7 +21,7 @@ instruction below. This is recommended if you are a beginner.
 	<!-- Note: These &#160; spacers are needed to support both XHTML and HTML output. -->
 	<xsl:variable name="jquery_loaded">true</xsl:variable>
 	<xsl:if test="not($jquery_loaded)">
-	<script src="index.php?nid=x--dev--jquery.js" type="text/javascript">&#160;</script>
+	<script src="index.php?nid=x-dev-jquery.js" type="text/javascript">&#160;</script>
 	</xsl:if>
 	
 	<div id="flow_dump_control">
