@@ -199,8 +199,13 @@ class Nexista_Init
 
     function initSession()
     {
-        $this->session = Nexista_Session::singleton('Nexista_Session');
-        $this->session->start();
+        // Prefix is needed for Mozilla as its the 0 position.
+        $ua = '_' . $_SERVER['HTTP_USER_AGENT'];
+
+        if(strpos($ua,'Mozilla') || strpos($ua,'Opera') || strpos($ua,'Elinks')) {
+            $this->session = Nexista_Session::singleton('Nexista_Session');
+            $this->session->start();
+        }
     }
 
 
