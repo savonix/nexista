@@ -202,7 +202,12 @@ class Nexista_Init
         // Prefix is needed for Mozilla as its the 0 position.
         $ua = '_' . $_SERVER['HTTP_USER_AGENT'];
 
-        if(strpos($ua,'Mozilla') || strpos($ua,'Opera') || strpos($ua,'Elinks')) {
+        if (
+                (strpos($ua,'Mozilla') || strpos($ua,'Opera') || strpos($ua,'Elinks'))
+                &&
+                (!strpos($ua,'Google') && !strpos($ua,'Yahoo') && !strpos($ua,'bot'))
+            )
+        {
             $this->session = Nexista_Session::singleton('Nexista_Session');
             $this->session->start();
         }
