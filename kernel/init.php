@@ -9,8 +9,8 @@
  *
  * @category  Nexista
  * @package   Nexista
- * @author    Albert Lash <albert.lash@gmail.com>
- * @copyright 0000 Nexista
+ * @author    Albert Lash <albert.lash@savonix.com>
+ * @copyright 2009 Savonix Corporation
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL
  * @link      http://www.nexista.org/
  */
@@ -44,8 +44,8 @@ require_once NX_PATH_CORE . 'singleton.php';
  *
  * @category  Nexista
  * @package   Nexista
- * @author    Albert Lash <albert.lash@gmail.com>
- * @copyright 0000 Nexista
+ * @author    Albert Lash <albert.lash@savonix.com>
+ * @copyright 2009 Savonix Corporation
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL
  * @link      http://www.nexista.org/
  */
