@@ -17,11 +17,13 @@ License: LGPL
 </google_analytics_code>
 */
 /* TODO - Get this from the database. */
-$google_code = Nexista_Config::get("./extensions/google_analytics_code/code");
-if(!$priority = Nexista_Config::get("./extensions/google_analytics_code/priority")) {
+$google_code = Nexista_Config::get('./extensions/google_analytics_code/code');
+if(!$priority = Nexista_Config::get('./extensions/google_analytics_code/priority')) {
     $priority = 10;
 }
-$google_code = "UA-574944-50";
+
+//$google_code = 'UA-574944-50';
+
 if ($google_code) {
 $google_analytics_code = <<<EOS
 <script src="http://www.google-analytics.com/ga.js" type="text/javascript"></script>

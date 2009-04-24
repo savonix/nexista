@@ -44,6 +44,7 @@ google_ui_features = "rc:0";
 EOS;
 
 /*
+// This won't work until adsense works with xhtml
 $f = new DOMDocument('1.0', 'UTF-8');
 $f->loadXML('<pre_body_content><priority>10</priority><nodes>'.$admin_panel.'</nodes></pre_body_content>');
 $n = $f->getElementsByTagName('pre_body_content')->item(0);
