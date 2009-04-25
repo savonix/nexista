@@ -24,6 +24,8 @@ Fifth Floor, Boston, MA 02110-1301 USA
 <map:sitemap xmlns:map="http://www.nexista.org/sitemap">
 
     <map:gate name="x-selenium-test" cache="30">
+      <map:xml src="templates/xsl/login.xsl"/>
+      <map:xsl src="templates/tests/test_runner.xsl"/>
     </map:gate>
 
 
