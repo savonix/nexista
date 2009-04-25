@@ -1,5 +1,5 @@
 <!--
-Program: Nexista jQuery Extension
+Program: Nexista Test Extension
 Component: sitemap.xml
 Copyright: Savonix Corporation
 Author: Albert L. Lash, IV
@@ -23,9 +23,7 @@ Fifth Floor, Boston, MA 02110-1301 USA
 -->
 <map:sitemap xmlns:map="http://www.nexista.org/sitemap">
 
-    <map:gate name="x-jquery.js" cache="30" content_type="text/javascript">
-        <map:action type="header" params="Content-type,application/javascript"/>
-        <map:raw src="s/js/jquery/jquery-1.3.2.min.js"/>
+    <map:gate name="x-selenium-test" cache="30">
     </map:gate>
 
 
