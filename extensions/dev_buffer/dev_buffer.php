@@ -30,8 +30,22 @@ if(strpos($excludes,',')) {
     }
 }
 
+$ua = '_' . $_SERVER['HTTP_USER_AGENT'];
+if(stripos($ua,'Google') || stripos($ua,'Yahoo') || stripos($ua,'bot')) {
+    $user_agent = 'bot';
+} elseif(stripos($ua,'MSIE')) {
+    $user_agent = 'gui_browser_msie';
+} elseif(stripos($ua,'Mozilla') || stripos($ua,'Opera') || stripos($ua,'webkit')) {
+    $user_agent = 'gui_browser_moz';
+} elseif (stripos($ua,'Elinks') || stripos($ua,'w3m') || stripos($ua,'Lynx')) {
+    $user_agent = 'text_browser';
+} else {
+    $user_agent = 'bot';
+}
+$ua = $user_agent;
+
 if(!empty($x_array)) {
-    if(in_array($_GET['nid'],$x_array)) {
+    if(in_array($_GET['nid'],$x_array) || $ua=='bot' || $ua=='text_browser' || $ua=='gui_browser_msie') {
         unset($development_console);
     } else {
         // this could be slow, might want to have a setting to turn on / off
