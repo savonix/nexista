@@ -140,9 +140,14 @@ function nexista_devBuffer($init)
     $output .= $flow_viewport;
     $output .= nexista_final_notices($cache_type,'dev');
     $output .= '</body></html>';
-    $tidy = 0;
-    if ($tidy) {
-        $options = array('output-xhtml' => true, 'indent' => true, 'clean' => true);
+    $tidy = false;
+    if ($tidy=='xhtml') {
+        $options = array('output-xhtml' => true, 'indent' => true, 'input-encoding' => 'utf8','output-encoding' => 'utf8', 'clean' => true);
+        $output = tidy_parse_string($output, $options);
+        tidy_clean_repair($output);
+    }
+    if ($tidy=='html') {
+        $options = array('output-html' => true, 'indent' => true, 'input-encoding' => 'utf8','output-encoding' => 'utf8', 'clean' => true);
         $output = tidy_parse_string($output, $options);
         tidy_clean_repair($output);
     }
