@@ -95,9 +95,9 @@ function tidy_output($init)
 
 	$output = $init->run();
 
-    $tidy = 'html';
+    $tidy = 'xhtml';
     if ($tidy=='xhtml') {
-        $options = array('output-xhtml' => true, 'indent' => true, 'input-encoding' => 'utf8','output-encoding' => 'utf8', 'clean' => true);
+        $options = array('output-xhtml' => true, 'indent' => true, 'input-encoding' => 'utf8','output-encoding' => 'utf8');
         $output = tidy_parse_string($output, $options);
         tidy_clean_repair($output);
     }
