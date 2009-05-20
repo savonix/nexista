@@ -11,6 +11,10 @@ License: LGPL
 
 /* TODO - Get this from the database. */
 $adsense_account = Nexista_Config::get('./extensions/google_adsense_account/code');
+$adsense_xpath   = Nexista_Config::get('./extensions/google_adsense_account/xpath');
+if($adsense_xpath) {
+    $adsense_account = Nexista_Flow::get($adsense_xpath);
+}
 if(!$priority = Nexista_Config::get('./extensions/google_adsense_account/priority')) {
     $priority = 10;
 }

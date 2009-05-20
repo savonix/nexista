@@ -9,7 +9,7 @@
  *
  * @category Nexista_Extensions
  * @package  Nexista_Builder
- * @author   Albert Lash <albert.lash@gmail.com>
+ * @author   Albert Lash <albert.lash@savonix.com>
  * @license  http://www.gnu.org LGPL
  * @version  SVN: 123
  * @link     http://www.nexista.org/

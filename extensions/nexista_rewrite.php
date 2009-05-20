@@ -77,10 +77,10 @@ function nexista_rewrite($superglobals)
     if($superglobals==$_GET) {
         // gate_key is usually "nid", but since its configurable, not hard coded
         $gate_key = Nexista_Config::get('./build/query');
-        if($superglobals[$gate_key]=="index" || $superglobals[$gate_key]=="") {
+        if($superglobals[$gate_key]=='index' || $superglobals[$gate_key]=='') {
             // need to replace 
-            $superglobals[$gate_key] = "configurations";
-            $superglobals['barf'] = "true";
+            $superglobals[$gate_key] = 'configurations';
+            $superglobals['barf'] = 'true';
         }
     }
     return $superglobals;
