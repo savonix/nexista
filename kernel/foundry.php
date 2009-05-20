@@ -220,28 +220,29 @@ class Nexista_Foundry extends Nexista_Singleton
         //$key = $_ENV['NEXISTA_MODE'];
         $modes = Nexista_Config::getSection('modes');
         foreach ($modes as $key => $value) {
+            /* Note: single quotes are faster in PHP */
             Nexista_Config::setMode($key);
             $path = Nexista_Config::getSection('path');
             $nxid = Nexista_Config::get('./build/query');
-            $hand = $path['base'] . "modules/handlers/";
-            $acts = $path['base'] . "modules/actions/";
-            $vals = $path['base'] . "modules/validators/";
+            $hand = $path['base'] . 'modules/handlers/';
+            $acts = $path['base'] . 'modules/actions/';
+            $vals = $path['base'] . 'modules/validators/';
 
-            $code[] = 'if (!isset($_ENV["NEXISTA_MODE"])) {';
-            $code[] = '    $_ENV["NEXISTA_MODE"] = "'.$key.'";';
+            $code[] = 'if (!isset($_ENV[\'NEXISTA_MODE\'])) {';
+            $code[] = '    $_ENV[\'NEXISTA_MODE\'] = \''.$key.'\';';
             $code[] = '}';
-            $code[] = 'if ($_ENV["NEXISTA_MODE"]=="'.$key.'") { ';
-            $code[] = 'define("NX_PATH_HANDLERS", "'.$hand.'");';
-            $code[] = 'define("NX_PATH_ACTIONS", "'.$acts.'");';
-            $code[] = 'define("NX_PATH_VALIDATORS", "'.$vals.'");';
-            $code[] = 'define("NX_PATH_COMPILE", "'.$path['compile'].'");';
-            $code[] = 'define("NX_PATH_CACHE", "'.$path['cache'].'");';
-            $code[] = 'define("NX_PATH_TMP", "'.$path['tmp'].'");';
-            $code[] = 'define("NX_PATH_APPS", "'.$path['applications'].'");';
-            $code[] = 'define("NX_PATH_PLUGINS", "'.$path['plugins'].'");';
-            $code[] = 'require_once(NX_PATH_CORE."init.php");';
-            $code[] = 'Nexista_Config::setMode("'.$key.'");';
-            $code[] = 'define("NX_ID", "'.$nxid.'");';
+            $code[] = 'if ($_ENV[\'NEXISTA_MODE\']==\''.$key.'\') { ';
+            $code[] = 'define(\'NX_PATH_HANDLERS\', \''.$hand.'\');';
+            $code[] = 'define(\'NX_PATH_ACTIONS\', \''.$acts.'\');';
+            $code[] = 'define(\'NX_PATH_VALIDATORS\', \''.$vals.'\');';
+            $code[] = 'define(\'NX_PATH_COMPILE\', \''.$path['compile'].'\');';
+            $code[] = 'define(\'NX_PATH_CACHE\', \''.$path['cache'].'\');';
+            $code[] = 'define(\'NX_PATH_TMP\', \''.$path['tmp'].'\');';
+            $code[] = 'define(\'NX_PATH_APPS\', \''.$path['applications'].'\');';
+            $code[] = 'define(\'NX_PATH_PLUGINS\', \''.$path['plugins'].'\');';
+            $code[] = 'require_once(NX_PATH_CORE.\'init.php\');';
+            $code[] = 'Nexista_Config::setMode(\''.$key.'\');';
+            $code[] = 'define(\'NX_ID\', \''.$nxid.'\');';
 
             $code[] = '$init = new Nexista_Init();';
 
@@ -250,9 +251,9 @@ class Nexista_Foundry extends Nexista_Singleton
                 foreach ($extensions as $extension => $value) {
                     $thisExtension = Nexista_Config::getSection($extension,
                         false, '/extensions/');
-                    if ($thisExtension['placement'] == "prepend") {
+                    if ($thisExtension['placement'] == 'prepend') {
                         $code[] =
-                        '$init->loadPrepend("'.$thisExtension['source'].'");';
+                        '$init->loadPrepend(\''.$thisExtension['source'].'\');';
                     }
                 }
             }
@@ -264,9 +265,9 @@ class Nexista_Foundry extends Nexista_Singleton
                 foreach ($extensions as $extension => $value) {
                     $thisExtension = Nexista_Config::getSection($extension,
                         false, '/extensions/');
-                    if ($thisExtension['placement'] == "predisplay") {
+                    if ($thisExtension['placement'] == 'predisplay') {
                         $code[] = 
-                        '$init->loadPrepend("'.$thisExtension['source'].'");';
+                        '$init->loadPrepend(\''.$thisExtension['source'].'\');';
                     }
                 }
             }
