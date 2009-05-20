@@ -34,9 +34,18 @@ if ($analytics_code) {
 $google_analytics_code = <<<EOS
 <script src="http://www.google-analytics.com/ga.js" type="text/javascript"></script>
 <script type="text/javascript">
-var pageTracker = _gat._getTracker("$analytics_code");
-pageTracker._initData();
-pageTracker._trackPageview();
+if (typeof jQuery != 'undefined') {
+    $(document).ready(function()
+    {
+    var pageTracker = _gat._getTracker("$analytics_code");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+    });
+} else {
+    var pageTracker = _gat._getTracker("$analytics_code");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+}
 </script>
 EOS;
 
