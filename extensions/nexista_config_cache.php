@@ -25,6 +25,14 @@ Author: Albert Lash
 License: LGPL
 */
 
+/*
+Example config:
+<config_cache>
+  <placement>predisplay</placement>
+  <priority>9</priority>
+  <source>&includepath;extensions/nexista_config_cache.php</source>
+</config_cache>
+*/
 
 
 $config_cache = NX_PATH_COMPILE.$_SERVER['HTTP_HOST'].'_config_cache.php';
