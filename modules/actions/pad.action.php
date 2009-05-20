@@ -55,7 +55,7 @@ class Nexista_PadAction extends Nexista_Action
         $type = $this->params['var4'];
 
         foreach($node as $str) {
-            $str->nodeValue = str_pad($str->nodeValue, $length, $pad,STR_PAD_RIGHT);
+            $str->nodeValue = htmlspecialchars(str_pad($str->nodeValue, $length, $pad,STR_PAD_RIGHT),ENT_NOQUOTES,'UTF-8',false);
         }
 
     }
