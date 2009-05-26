@@ -16,6 +16,7 @@ License: LGPL
   <!-- xpath trumps code -->
   <xpath>//o_google_analytics_code</xpath>
   <priority>100</priority>
+  <cookie_path>100</cookie_path>
   <source>&includepath;extensions/google_analytics.php</source>
 </google_analytics_code>
 */
