@@ -22,6 +22,7 @@ License: LGPL
 
 $analytics_code  = Nexista_Config::get('./extensions/google_analytics_code/code');
 $analytics_xpath = Nexista_Config::get('./extensions/google_analytics_code/xpath');
+$analytics_cpath = Nexista_Config::get('./extensions/google_analytics_code/cookie_path');
 if($analytics_xpath) {
     $analytics_code = Nexista_Flow::getByPath($analytics_xpath);
 }
@@ -37,14 +38,18 @@ $google_analytics_code = <<<EOS
 if (typeof jQuery != 'undefined') {
     $(document).ready(function()
     {
-    var pageTracker = _gat._getTracker("$analytics_code");
-    pageTracker._initData();
-    pageTracker._trackPageview();
+        try {
+        var pageTracker = _gat._getTracker("$analytics_code");
+        pageTracker._setCookiePath("$analytics_cpath");
+        pageTracker._trackPageview();
+        } catch(err) {}
     });
 } else {
+    try {
     var pageTracker = _gat._getTracker("$analytics_code");
-    pageTracker._initData();
+    pageTracker._setCookiePath("$analytics_cpath");
     pageTracker._trackPageview();
+    } catch(err) {}
 }
 </script>
 EOS;
