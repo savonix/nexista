@@ -73,7 +73,7 @@ class Nexista_Session extends Nexista_Singleton
             } else {
 
                 if (!empty($params['cookieLifetime']))
-                    session_set_cookie_params($params['cookieLifetime'],$params['cookiePath']);
+                    session_set_cookie_params($params['cookieLifetime']);
 
                 if (!empty($params['cookiePath']))
                     session_set_cookie_params($params['cookiePath']);
