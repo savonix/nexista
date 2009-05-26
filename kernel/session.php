@@ -73,13 +73,18 @@ class Nexista_Session extends Nexista_Singleton
             } else {
 
                 if (!empty($params['cookieLifetime']))
-                    session_set_cookie_params($params['cookieLifetime']);
+                    session_set_cookie_params($params['cookieLifetime'],$params['cookiePath']);
+
+                if (!empty($params['cookiePath']))
+                    session_set_cookie_params($params['cookiePath']);
+
                 if (!empty($params['cacheLimiter']))
                     session_cache_limiter($params['cacheLimiter']);
+
                 if (!empty($params['cacheExpires']))
                     session_cache_expire($params['cacheExpires']);
 
-                if (session_id() == "") session_start();
+                if (session_id() == '') session_start();
                 define('NX_SESSION_ID', session_name().'='.session_id());
 
             }
