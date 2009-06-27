@@ -31,7 +31,7 @@ Configuration:
 </nexista_session>
 */
 
-$handler  = Nexista_Config::get('./extensions/nexista_session/handler');
+$handler = Nexista_Config::get('./extensions/nexista_session/handler');
 
 if(1==2) {
     ini_set('session.save_handler','user');

@@ -60,7 +60,7 @@ class Nexista_Session extends Nexista_Singleton
             }
         }
 
-        if ($params['active']==0 || $excluded_agent) {
+        if ($params['active']==0 || $nosess) {
 
             return false;
 
