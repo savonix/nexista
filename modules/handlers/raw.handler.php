@@ -38,7 +38,7 @@ class Nexista_RawHandler
     public function process($src, &$result)
     {
 
-        if (!$result = file_get_contents($src)) {
+        if (!$result = file_get_contents(Nexista_Path::parseInlineFlow($src))) {
             return false;
         }
 

@@ -213,7 +213,7 @@ class Nexista_QueryHandler
             if (is_numeric($loopvar)) {
                 $this->queryLoop = $loopvar;
             } else {
-                $array = Nexista_Path::get($loopvar,"flow");
+                $array = Nexista_Path::get($loopvar,'flow');
                 if (is_array($array)) {
                      $this->queryLoop = sizeof($array);
                 } elseif (empty($array) && $array !== '0' &&
