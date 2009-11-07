@@ -91,6 +91,8 @@ function Nexista_Build_It_now($server_init)
     if ( !file_exists($config) ) {
         echo 'Uh-oh, we already ran into a problem. Where is the config file? 
         It is not here: ',$config;
+        echo '<br/><br/>**To proceed, config/config.xml.dist must be copied to 
+        config/config.xml and configured.**';
         exit;
     }
 
@@ -104,9 +106,19 @@ function Nexista_Build_It_now($server_init)
     }
 
     if (!file_exists($app_config)) {
-        $foundry->configure($config, null, $mode);
+        if(!$foundry->configure($config, null, $mode)) {
+            echo '<br/><br/>**
+            Something is amiss. Please check to make sure the cache
+            directory specified in config.xml is writeable by the webserver.**';
+            exit;
+        }
     } else {
-        $foundry->configure($config, $app_config, $mode);
+        if(!$foundry->configure($config, $app_config, $mode)) {
+            echo '<br/><br/>**
+            Something is amiss. Please check to make sure the cache
+            directory specified in config.xml is writeable by the webserver.**';
+            exit;
+        }
     }
 
     $foundry->debug = 1;

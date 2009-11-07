@@ -157,10 +157,16 @@ class Nexista_Foundry extends Nexista_Singleton
 
         $config = Nexista_Config::singleton('Nexista_Config');
         $config->setMaster($master);
-        $config->setLocal($local);
+        if(is_file($local)) {
+            $config->setLocal($local);
+        }
         $config->setMode($mode);
         $config->load();
-        $config->writeConfig($config, $config_filename);
+        if($config->writeConfig($config, $config_filename)) {
+            return true;
+        } else {
+            return false;
+        }
 
         //init debug
         $configs = Nexista_Config::getSection('runtime');

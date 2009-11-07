@@ -167,7 +167,11 @@ class Nexista_Config extends Nexista_Singleton
         $directives .= '<!ENTITY app_name "'.APP_NAME.'">';
 
         //if a local config is passed we merge the two in a valid xml string
-        $localfile = file_get_contents($this->localConfig);
+        if(is_file($this->localConfig)) {
+            $localfile = file_get_contents($this->localConfig);
+        } else {
+            $localfile = '';
+        }
         if (!empty($localfile)) {
             preg_match('~<config>(.*)</config>~ms', $localfile, $u);
             preg_match('~<config>(.*)</config>~ms', 
@@ -252,9 +256,11 @@ class Nexista_Config extends Nexista_Singleton
                 flock($tmp, LOCK_UN);
             } else {
                 Nexista_Error::Init($config_compile_error, NX_ERROR_FATAL);
+                return false;
             }
             fclose($tmp);
         }
+        return true;
     }
 
 
