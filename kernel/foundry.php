@@ -473,7 +473,7 @@ class Nexista_Foundry extends Nexista_Singleton
             echo "<a href='?nid=".$name."'>".$name."</a>...<br/>\n";
         }
 
-        $this->sitemap[$match][$name] =
+        $this->sitemap[$match][$http_method.':'.$name] =
             array(
                 'uri' => $filename,
                 'role' => $role,
@@ -514,7 +514,7 @@ class Nexista_Foundry extends Nexista_Singleton
             $code[] = '$gates'.ucfirst($type).' = array(';
 
             foreach ($elements as $name => $info) {
-                $this_gate = "'".$info['http_method'].":".$name."'=>array('uri'=>'".$info['uri']."'";
+                $this_gate = "'".$name."'=>array('uri'=>'".$info['uri']."'";
 
 
                 // Server cache's need to include auth if there is a role .
