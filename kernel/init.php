@@ -239,8 +239,37 @@ class Nexista_Init
         include NX_PATH_COMPILE . 'sitemap.php';
 
         $this->info['uri'] = false;
+        $mymethod = strtolower($_SERVER['REQUEST_METHOD']).':';
+        if (isset($gatesExact[$mymethod.$_ID_])) {
 
-        if (isset($gatesExact[$_ID_])) {
+            $this->info['uri'] = $gatesExact[$mymethod.$_ID_]['uri'];
+
+            if (!isset($gatesExact[$mymethod.$_ID_]['nosession']))
+                $this->initSession();
+
+            if (isset($gatesExact[$mymethod.$_ID_]['cache_control'])) {
+                $cache_control = $gatesExact[$mymethod.$_ID_]['cache_control'];
+                header("Cache-Control: ".$cache_control);
+            }
+
+            if (isset($gatesExact[$mymethod.$_ID_]['content_type'])) {
+                header("Content-Type: ".$gatesExact[$mymethod.$_ID_]['content_type']);
+                $this->info['content_type'] = $gatesExact[$mymethod.$_ID_]['content_type'];
+            }
+
+            if (isset($gatesExact[$mymethod.$_ID_]['cache']))
+                $this->info['cacheExpiryTime'] = $gatesExact[$mymethod.$_ID_]['cache'];
+
+            if (isset($gatesExact[$mymethod.$_ID_]['role'])) {
+                $this->info['requireRole'] = $gatesExact[$mymethod.$_ID_]['role'];
+
+                $auth = Nexista_Auth::singleton('Nexista_Auth');
+                $auth->requireRole($this->info['requireRole']);
+            }
+            $gateFound = true;
+
+        /* THIS IS DEPRECATED AND WILL BE REMOVED IN FUTURE VERSIONS */
+        } elseif (isset($gatesExact[$_ID_])) {
 
             $this->info['uri'] = $gatesExact[$_ID_]['uri'];
 
@@ -267,7 +296,7 @@ class Nexista_Init
                 $auth->requireRole($this->info['requireRole']);
             }
             $gateFound = true;
-
+        /* END DEPRECATION NOTE */
         } elseif (isset($gatesRegex)) {
             foreach ($gatesRegex as $regex=>$_info) {
 

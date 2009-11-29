@@ -369,7 +369,7 @@ class Nexista_Foundry extends Nexista_Singleton
         $this->_loadSitemap();
 
         //load builder classes
-        $builderPath = Nexista_Config::get('./path/base')."modules/builders/";
+        $builderPath = Nexista_Config::get('./path/base').'modules/builders/';
 
         $files = scandir($builderPath);
         //make instances for each for later gate building
@@ -431,6 +431,12 @@ class Nexista_Foundry extends Nexista_Singleton
             Nexista_Error::init('No name for gate', NX_ERROR_FATAL);
         }
 
+        //http method
+        $http_method = 'get';
+        if ($gate->hasAttribute('http_method')) {
+            $http_method = $gate->getAttribute('http_method');
+        }
+
         //cache time
         $cache = -1;
         if ($gate->hasAttribute('cache')) {
@@ -471,6 +477,7 @@ class Nexista_Foundry extends Nexista_Singleton
             array(
                 'uri' => $filename,
                 'role' => $role,
+                'http_method' => $http_method,
                 'cache' => $cache,
                 'cache_control' => $cache_control,
                 'content_type' => $content_type
@@ -493,7 +500,7 @@ class Nexista_Foundry extends Nexista_Singleton
     {
 
         //build top of file (reqs, etc)
-        $code[] = "<?php";
+        $code[] = '<?php';
         $code[] = '//Built: '.date("D M j G:i:s T Y");
         $my_nid = Nexista_Config::get('./build/query');
         $code[] = '$_ID_ = Nexista_Path::get("{//_get/'.$my_nid.'}");';
@@ -507,7 +514,8 @@ class Nexista_Foundry extends Nexista_Singleton
             $code[] = '$gates'.ucfirst($type).' = array(';
 
             foreach ($elements as $name => $info) {
-                $this_gate = "'".$name."'=>array('uri'=>'".$info['uri']."'";
+                $this_gate = "'".$info['http_method'].":".$name."'=>array('uri'=>'".$info['uri']."'";
+
 
                 // Server cache's need to include auth if there is a role .
                 if ($info['cache'] !== -1 && $info['role'] !== -1) {
