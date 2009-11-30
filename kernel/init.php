@@ -270,27 +270,26 @@ class Nexista_Init
 
         /* THIS IS DEPRECATED AND WILL BE REMOVED IN FUTURE VERSIONS */
         } elseif (isset($gatesDeprecated[$_ID_])) {
+            $this->info['uri'] = $gatesDeprecated[$_ID_]['uri'];
 
-            $this->info['uri'] = $gatesExact[$_ID_]['uri'];
-
-            if (!isset($gatesExact[$_ID_]['nosession']))
+            if (!isset($gatesDeprecated[$_ID_]['nosession']))
                 $this->initSession();
 
-            if (isset($gatesExact[$_ID_]['cache_control'])) {
-                $cache_control = $gatesExact[$_ID_]['cache_control'];
+            if (isset($gatesDeprecated[$_ID_]['cache_control'])) {
+                $cache_control = $gatesDeprecated[$_ID_]['cache_control'];
                 header("Cache-Control: ".$cache_control);
             }
 
-            if (isset($gatesExact[$_ID_]['content_type'])) {
-                header("Content-Type: ".$gatesExact[$_ID_]['content_type']);
+            if (isset($gatesDeprecated[$_ID_]['content_type'])) {
+                header("Content-Type: ".$gatesDeprecated[$_ID_]['content_type']);
                 $this->info['content_type'] = $gatesExact[$_ID_]['content_type'];
             }
 
-            if (isset($gatesExact[$_ID_]['cache']))
-                $this->info['cacheExpiryTime'] = $gatesExact[$_ID_]['cache'];
+            if (isset($gatesDeprecated[$_ID_]['cache']))
+                $this->info['cacheExpiryTime'] = $gatesDeprecated[$_ID_]['cache'];
 
-            if (isset($gatesExact[$_ID_]['role'])) {
-                $this->info['requireRole'] = $gatesExact[$_ID_]['role'];
+            if (isset($gatesDeprecated[$_ID_]['role'])) {
+                $this->info['requireRole'] = $gatesDeprecated[$_ID_]['role'];
 
                 $auth = Nexista_Auth::singleton('Nexista_Auth');
                 $auth->requireRole($this->info['requireRole']);
