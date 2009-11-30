@@ -482,6 +482,15 @@ class Nexista_Foundry extends Nexista_Singleton
                 'cache_control' => $cache_control,
                 'content_type' => $content_type
             );
+        $this->sitemap['deprecated'][$name] =
+            array(
+                'uri' => $filename,
+                'role' => $role,
+                'http_method' => $http_method,
+                'cache' => $cache,
+                'cache_control' => $cache_control,
+                'content_type' => $content_type
+            );
     }
 
 
@@ -550,35 +559,37 @@ class Nexista_Foundry extends Nexista_Singleton
 
         //setup 404 handling
         $missing = Nexista_Config::get('./build/missing');
-        if (!empty($missing) && isset($this->sitemap['exact'][$missing])) {
+        if (!empty($missing) && (isset($this->sitemap['exact'][$missing]) || isset($this->sitemap['deprecated'][$missing]))) {
             $code[] = '$gateMissing = array(';
-            foreach ($elements as $name => $info) {
-                if ($name==$missing) {
-                    $this_gate = "'uri'=>'".$info['uri']."'";
-                    // Server cache's need to include auth if there is a role
-                    if ($info['cache'] !== -1 && $info['role'] !== -1) {
-                        $this_gate .= ",
-                            'cache'=>".$info['cache'].",
-                            'role'=>'".$info['role']."'";
-
-                    } elseif ($info['cache'] !== -1 && $info['role'] === -1) {
-                        $this_gate .= ",'cache'=>".$info['cache'];
-
-                    } elseif ($info['role'] !== -1 && $info['cache'] === -1) {
-                        $this_gate .= ",'role'=>'".$info['role']."'";
+            foreach ($this->sitemap as $type => $elements) {
+                foreach ($elements as $name => $info) {
+                    if ($name==$missing) {
+                        $this_gate = "'uri'=>'".$info['uri']."'";
+                        // Server cache's need to include auth if there is a role
+                        if ($info['cache'] !== -1 && $info['role'] !== -1) {
+                            $this_gate .= ",
+                                'cache'=>".$info['cache'].",
+                                'role'=>'".$info['role']."'";
+    
+                        } elseif ($info['cache'] !== -1 && $info['role'] === -1) {
+                            $this_gate .= ",'cache'=>".$info['cache'];
+    
+                        } elseif ($info['role'] !== -1 && $info['cache'] === -1) {
+                            $this_gate .= ",'role'=>'".$info['role']."'";
+                        }
+                        /* Headers */
+                        // Cache-Control header
+                        if ($info['cache_control'] !== -1) {
+                            $this_gate .= ",
+                                'cache_control'=>'".$info['cache_control']."'";
+                        }
+                        // Content type
+                        if ($info['content_type'] !== -1) {
+                            $this_gate .= ",
+                                'content_type'=>'".$info['content_type']."'";
+                        }
+                        $code[] = $this_gate;
                     }
-                    /* Headers */
-                    // Cache-Control header
-                    if ($info['cache_control'] !== -1) {
-                        $this_gate .= ",
-                            'cache_control'=>'".$info['cache_control']."'";
-                    }
-                    // Content type
-                    if ($info['content_type'] !== -1) {
-                        $this_gate .= ",
-                            'content_type'=>'".$info['content_type']."'";
-                    }
-                    $code[] = $this_gate;
                 }
             }
             $code[] = ');';

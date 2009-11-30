@@ -269,7 +269,7 @@ class Nexista_Init
             $gateFound = true;
 
         /* THIS IS DEPRECATED AND WILL BE REMOVED IN FUTURE VERSIONS */
-        } elseif (isset($gatesExact[$_ID_])) {
+        } elseif (isset($gatesDeprecated[$_ID_])) {
 
             $this->info['uri'] = $gatesExact[$_ID_]['uri'];
 
