@@ -17,8 +17,7 @@
 
 /**
  * This class is the parameter handler.
- * It allows modification or additon of Flow variables
- * from within the sitemap file
+ * It allows modification or additon of Flow variables from the sitemap file
  *
  * @package     Nexista
  * @subpackage  Handlers
@@ -30,9 +29,9 @@ class Nexista_ParameterHandler
     /**
      * Call this function to activate the processor
      *
-     * @param   string      variable name
-     * @param   string      variable value to assign
-     * @return  boolean     success
+     * @param   string    xpath to XML node, does not currently support nodesets
+     * @param   string    node name to create and assign a value to
+     * @return  boolean   success
      */
 
     public function process($name, $value)
